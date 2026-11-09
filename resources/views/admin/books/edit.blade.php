@@ -1,0 +1,187 @@
+@extends('layouts.admin')
+
+@section('title', 'বই এডিট করুন — ' . $book->title . ' | মুক্তাদার বইঘর অ্যাডমিন')
+@section('page_title', 'বই এডিট: ' . $book->title)
+
+@section('content')
+<div class="admin-card">
+    <div class="card-header">
+        <h2>বইয়ের তথ্য ও সেটিংস পরিবর্তন</h2>
+        <a href="{{ route('admin.books.index') }}" class="btn-sm btn-gray">← তালিকায় ফিরুন</a>
+    </div>
+
+    @if($errors->any())
+        <div class="alert alert-error">
+            <ul style="margin-left: 20px;">
+                @foreach($errors->all() as $error)
+                    <li>{{ $error }}</li>
+                @endforeach
+            </ul>
+        </div>
+    @endif
+
+    <form action="{{ route('admin.books.update', $book->id) }}" method="POST" enctype="multipart/form-data">
+        @csrf
+        @method('PUT')
+
+        <!-- 1. Basic Info -->
+        <div class="grid-2">
+            <div class="form-group">
+                <label class="form-label">বইয়ের নাম (Title) *</label>
+                <input type="text" name="title" value="{{ old('title', $book->title) }}" required class="form-control">
+            </div>
+
+            <div class="form-group">
+                <label class="form-label">URL Slug *</label>
+                <input type="text" name="slug" value="{{ old('slug', $book->slug) }}" required class="form-control">
+            </div>
+        </div>
+
+        <div class="grid-3">
+            <div class="form-group">
+                <label class="form-label">লেখকের নাম *</label>
+                <input type="text" name="author_name" value="{{ old('author_name', $book->author_name) }}" required class="form-control">
+            </div>
+
+            <div class="form-group">
+                <label class="form-label">প্রকাশের সাল</label>
+                <input type="text" name="publication_year" value="{{ old('publication_year', $book->publication_year) }}" class="form-control">
+            </div>
+
+            <div class="form-group">
+                <label class="form-label">মোট পৃষ্ঠা সংখ্যা</label>
+                <input type="number" name="page_count" value="{{ old('page_count', $book->page_count) }}" class="form-control">
+            </div>
+        </div>
+
+        <!-- Categories -->
+        <div class="form-group">
+            <label class="form-label">বইয়ের ক্যাটাগরি *</label>
+            @php $selectedCats = $book->categories->pluck('id')->toArray(); @endphp
+            <div style="display: flex; gap: 14px; flex-wrap: wrap; background: #f8fafc; padding: 12px; border-radius: 8px; border: 1px solid var(--admin-border);">
+                @foreach($categories as $category)
+                    <label style="display: flex; align-items: center; gap: 6px; font-size: 14px; cursor: pointer;">
+                        <input type="checkbox" name="categories[]" value="{{ $category->id }}" {{ in_array($category->id, old('categories', $selectedCats)) ? 'checked' : '' }}>
+                        {{ $category->name }}
+                    </label>
+                @endforeach
+            </div>
+        </div>
+
+        <!-- 2. Pricing & Stock -->
+        <div class="grid-4">
+            <div class="form-group">
+                <label class="form-label">হার্ডকপি মূল্য (টাকা) *</label>
+                <input type="number" step="0.01" name="price_hardcopy" value="{{ old('price_hardcopy', $book->price_hardcopy) }}" required class="form-control">
+            </div>
+
+            <div class="form-group">
+                <label class="form-label">ই-বুক মূল্য (টাকা) *</label>
+                <input type="number" step="0.01" name="price_ebook" value="{{ old('price_ebook', $book->price_ebook) }}" required class="form-control">
+            </div>
+
+            <div class="form-group">
+                <label class="form-label">বিশেষ ছাড় (%)</label>
+                <input type="number" step="0.01" name="discount_percent" value="{{ old('discount_percent', $book->discount_percent) }}" class="form-control">
+            </div>
+
+            <div class="form-group">
+                <label class="form-label">প্রিভিউ পৃষ্ঠা সংখ্যা</label>
+                <input type="number" name="preview_pages" value="{{ old('preview_pages', $book->preview_pages) }}" min="1" max="50" class="form-control">
+            </div>
+        </div>
+
+        <div class="grid-2">
+            <div class="form-group">
+                <label class="form-label">স্টক পরিমাণ</label>
+                <input type="number" name="stock_quantity" value="{{ old('stock_quantity', $book->stock_quantity) }}" class="form-control">
+            </div>
+
+            <div class="form-group">
+                <label class="form-label">স্টক স্ট্যাটাস *</label>
+                <select name="stock_status" class="form-control">
+                    <option value="in_stock" {{ old('stock_status', $book->stock_status) === 'in_stock' ? 'selected' : '' }}>ইন স্টক (In Stock)</option>
+                    <option value="low_stock" {{ old('stock_status', $book->stock_status) === 'low_stock' ? 'selected' : '' }}>স্বল্প স্টক (Low Stock)</option>
+                    <option value="out_of_stock" {{ old('stock_status', $book->stock_status) === 'out_of_stock' ? 'selected' : '' }}>স্টক শেষ (Out of Stock)</option>
+                </select>
+            </div>
+        </div>
+
+        <!-- 3. Summary & Story -->
+        <div class="form-group">
+            <label class="form-label">বইয়ের সারসংক্ষেপ (Summary) *</label>
+            <textarea name="summary" rows="4" class="form-control">{{ old('summary', $book->summary) }}</textarea>
+        </div>
+
+        <div class="form-group">
+            <label class="form-label">বইটি লেখার পেছনের গল্প (Story Behind Writing)</label>
+            <textarea name="story_behind" rows="3" class="form-control">{{ old('story_behind', $book->story_behind) }}</textarea>
+        </div>
+
+        <div class="form-group">
+            <label class="form-label">লেখকের বিশেষ বার্তা / Pen Picture</label>
+            <textarea name="pen_picture" rows="2" class="form-control">{{ old('pen_picture', $book->pen_picture) }}</textarea>
+        </div>
+
+        <!-- 4. Files -->
+        <div class="grid-2">
+            <div class="form-group">
+                <label class="form-label">প্রচ্ছদ ছবি পরিবর্তন করুন (যদি চান)</label>
+                <input type="file" name="cover_image" accept="image/*" class="form-control">
+                @if($book->cover_image)
+                    <div style="margin-top: 8px;">
+                        <small style="color: var(--admin-muted);">বর্তমান প্রচ্ছদ:</small><br>
+                        <img src="{{ $book->cover_url }}" alt="{{ $book->title }}" style="height: 60px; border-radius: 4px;">
+                    </div>
+                @endif
+            </div>
+
+            <div class="form-group">
+                <label class="form-label">ই-বুক PDF ফাইল পরিবর্তন করুন (যদি চান)</label>
+                <input type="file" name="ebook_file" accept=".pdf" class="form-control">
+            </div>
+        </div>
+
+        <!-- 5. Flags -->
+        <div style="background: #f8fafc; border: 1px solid var(--admin-border); border-radius: 8px; padding: 16px; margin-bottom: 20px;">
+            <div style="display: flex; gap: 24px; flex-wrap: wrap;">
+                <label style="display: flex; align-items: center; gap: 6px; font-weight: 700; cursor: pointer;">
+                    <input type="checkbox" name="is_featured" value="1" {{ old('is_featured', $book->is_featured) ? 'checked' : '' }}> ⭐ Featured Books
+                </label>
+                <label style="display: flex; align-items: center; gap: 6px; font-weight: 700; cursor: pointer;">
+                    <input type="checkbox" name="is_popular" value="1" {{ old('is_popular', $book->is_popular) ? 'checked' : '' }}> 🔥 বেস্টসেলার / Popular
+                </label>
+                <label style="display: flex; align-items: center; gap: 6px; font-weight: 700; cursor: pointer;">
+                    <input type="checkbox" name="is_upcoming" value="1" {{ old('is_upcoming', $book->is_upcoming) ? 'checked' : '' }}> ⏳ Upcoming Books (আসন্ন বই)
+                </label>
+            </div>
+
+            <div style="margin-top: 12px; max-width: 350px;">
+                <label class="form-label" style="font-size: 13px;">আসন্ন বইয়ের সম্ভাব্য প্রকাশের তারিখ</label>
+                <input type="text" name="expected_date" value="{{ old('expected_date', $book->expected_date) }}" class="form-control">
+            </div>
+        </div>
+
+        <!-- 6. SEO -->
+        <h3 style="font-size: 16px; margin: 25px 0 12px; color: var(--admin-dark);">🔍 সার্চ ইঞ্জিন অপটিমাইজেশন (SEO Settings)</h3>
+        <div class="grid-3">
+            <div class="form-group">
+                <label class="form-label">SEO Meta Title</label>
+                <input type="text" name="meta_title" value="{{ old('meta_title', $book->meta_title) }}" class="form-control">
+            </div>
+            <div class="form-group">
+                <label class="form-label">SEO Keywords</label>
+                <input type="text" name="meta_keywords" value="{{ old('meta_keywords', $book->meta_keywords) }}" class="form-control">
+            </div>
+            <div class="form-group">
+                <label class="form-label">SEO Meta Description</label>
+                <input type="text" name="meta_description" value="{{ old('meta_description', $book->meta_description) }}" class="form-control">
+            </div>
+        </div>
+
+        <button type="submit" class="btn-sm btn-blue" style="padding: 12px 24px; font-size: 15px;">
+            ✓ পরিবর্তনসমূহ আপডেট করুন
+        </button>
+    </form>
+</div>
+@endsection

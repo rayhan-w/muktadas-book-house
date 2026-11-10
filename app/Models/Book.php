@@ -120,8 +120,8 @@ class Book extends Model
 
     public function getCoverUrlAttribute(): string
     {
-        if ($this->cover_image && file_exists(public_path($this->cover_image))) {
-            return asset($this->cover_image);
+        if (!empty($this->cover_image)) {
+            return asset(ltrim($this->cover_image, '/'));
         }
         return asset('covers/alor-poth.png');
     }

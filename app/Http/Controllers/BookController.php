@@ -14,15 +14,28 @@ class BookController extends Controller
 {
     public function index(Request $request)
     {
-        $query = Book::with('categories')->approved();
+        $query = Book::with(['categories', 'approvedReviews'])->approved();
 
-        if ($request->filled('q')) {
-            $term = $request->q;
-            $query->where(function ($q) use ($term) {
-                $q->where('title', 'like', "%{$term}%")
-                  ->orWhere('author_name', 'like', "%{$term}%")
-                  ->orWhere('publisher_name', 'like', "%{$term}%")
-                  ->orWhere('summary', 'like', "%{$term}%");
+        $searchTerm = trim($request->input('search') ?: $request->input('q', ''));
+        if ($searchTerm !== '') {
+            $terms = [$searchTerm];
+            // Bengali inflection handling (e.g. আলোর -> আলো)
+            if (mb_substr($searchTerm, -1) === 'র') {
+                $trimmed = mb_substr($searchTerm, 0, -1);
+                if (mb_substr($trimmed, -1) === 'ে') {
+                    $trimmed = mb_substr($trimmed, 0, -1);
+                }
+                if (mb_strlen($trimmed) >= 2) {
+                    $terms[] = $trimmed;
+                }
+            }
+
+            $query->where(function ($q) use ($terms) {
+                foreach ($terms as $t) {
+                    $q->orWhere('title', 'like', "%{$t}%")
+                      ->orWhere('author_name', 'like', "%{$t}%")
+                      ->orWhere('publisher_name', 'like', "%{$t}%");
+                }
             });
         }
 
@@ -36,13 +49,20 @@ class BookController extends Controller
         if ($request->filled('sort')) {
             switch ($request->sort) {
                 case 'price_low':
-                    $query->orderBy('price_hardcopy', 'asc');
+                    $query->orderByRaw('(price_hardcopy * (1.0 - (discount_percent / 100.0))) ASC');
                     break;
                 case 'price_high':
-                    $query->orderBy('price_hardcopy', 'desc');
+                    $query->orderByRaw('(price_hardcopy * (1.0 - (discount_percent / 100.0))) DESC');
+                    break;
+                case 'name_asc':
+                case 'name':
+                    $query->orderBy('title', 'asc');
                     break;
                 case 'popular':
                     $query->orderBy('is_popular', 'desc')->latest();
+                    break;
+                case 'featured':
+                    $query->orderBy('is_featured', 'desc')->latest();
                     break;
                 default:
                     $query->latest();
@@ -51,11 +71,17 @@ class BookController extends Controller
             $query->latest();
         }
 
-        $books = $query->paginate(12)->withQueryString();
-        $categories = Category::where('is_active', true)->orderBy('sort_order')->get();
+        $books = $query->paginate(16)->withQueryString();
+        $categories = Category::where('is_active', true)
+            ->withCount(['books' => function ($q) {
+                $q->where('is_published', true);
+            }])
+            ->orderBy('sort_order')
+            ->get();
+        $totalBooksCount = Book::approved()->count();
         $selectedCategory = $request->category ? Category::where('slug', $request->category)->first() : null;
 
-        return view('books.index', compact('books', 'categories', 'selectedCategory'));
+        return view('books.index', compact('books', 'categories', 'selectedCategory', 'totalBooksCount', 'searchTerm'));
     }
 
     public function show($slug)

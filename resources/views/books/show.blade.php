@@ -339,8 +339,10 @@
     <!-- Hero Reference matching PlayMathEarn -->
     <div class="book-hero-reference">
         <div class="reference-cover">
-            <img src="{{ $book->cover_url }}" alt="{{ $book->title }} বইয়ের প্রচ্ছদ">
-            @if($book->discount_percent > 0)
+            <img src="{{ $book->cover_url }}" alt="{{ $book->title }} বইয়ের প্রচ্ছদ" onerror="this.onerror=null; this.parentElement.innerHTML='<div style=\'width:100%;height:100%;display:flex;align-items:center;justify-content:center;background:#092d45;color:#fff;font-weight:bold;padding:20px;text-align:center;\'>{{ addslashes($book->title) }}</div>';">
+            @if($book->is_upcoming)
+                <span class="reference-discount" style="background:#0284c7;">আসন্ন বই</span>
+            @elseif($book->discount_percent > 0)
                 <span class="reference-discount">-{{ round($book->discount_percent) }}% ছাড়</span>
             @endif
         </div>
@@ -356,8 +358,8 @@
             </div>
 
             <div class="reference-rating">
-                <span>★★★★★</span>
-                <span>৪.৮ (১২৪টি পাঠকদের রিভিউ)</span>
+                <span style="color:#f59e0b;">★★★★★</span>
+                <span>{{ number_format($book->averageRating(), 1) }} ({{ $book->approvedReviews()->count() }}টি পাঠকদের রিভিউ)</span>
             </div>
 
             <div class="reference-prices">
@@ -378,25 +380,36 @@
             </div>
 
             <div class="reference-actions">
-                @if($book->price_ebook > 0)
-                    <a href="{{ route('checkout', ['type' => 'ebook', 'bookSlug' => $book->slug]) }}" class="ebook-action">
-                        📱 ই-বুক কিনুন (৳{{ number_format($book->ebookEffectivePrice()) }})
-                    </a>
-                @endif
+                @if($book->is_upcoming)
+                    <div style="background:#e0f2fe; border:1px solid #7dd3fc; border-radius:10px; padding:15px; color:#0369a1; text-align:center; font-weight:700; width:100%; margin-bottom:10px; font-size:15px;">
+                        ⏳ বইটি বর্তমানে প্রকাশের অপেক্ষায় রয়েছে (আসন্ন বই)। প্রকাশিত হওয়া মাত্রই সংগ্রহের জন্য উন্মুক্ত করা হবে।
+                    </div>
+                    @if($book->preview_pages > 0)
+                        <a href="{{ route('books.preview', $book->slug) }}" class="preview-action" style="flex:1; text-align:center; width:100%;">
+                            📖 {{ $book->preview_pages }} পৃষ্ঠার ফ্রি প্রিভিউ পড়ুন
+                        </a>
+                    @endif
+                @else
+                    @if($book->price_ebook > 0)
+                        <a href="{{ route('checkout', ['type' => 'ebook', 'bookSlug' => $book->slug]) }}" class="ebook-action">
+                            📱 ই-বুক কিনুন (৳{{ number_format($book->ebookEffectivePrice()) }})
+                        </a>
+                    @endif
 
-                <form action="{{ route('cart.add') }}" method="POST" style="flex:1; margin:0;">
-                    @csrf
-                    <input type="hidden" name="book_id" value="{{ $book->id }}">
-                    <input type="hidden" name="format" value="hardcopy">
-                    <button type="submit" class="hardcopy-action" style="width:100%;">
-                        🛒 হার্ডকপি কার্টে যোগ করুন
-                    </button>
-                </form>
+                    <form action="{{ route('cart.add') }}" method="POST" style="flex:1; margin:0;">
+                        @csrf
+                        <input type="hidden" name="book_id" value="{{ $book->id }}">
+                        <input type="hidden" name="format" value="hardcopy">
+                        <button type="submit" class="hardcopy-action" style="width:100%;">
+                            🛒 হার্ডকপি কার্টে যোগ করুন
+                        </button>
+                    </form>
 
-                @if($book->preview_pages > 0)
-                    <a href="{{ route('books.preview', $book->slug) }}" class="preview-action">
-                        📖 {{ $book->preview_pages }} পৃষ্ঠার ফ্রি প্রিভিউ পড়ুন
-                    </a>
+                    @if($book->preview_pages > 0)
+                        <a href="{{ route('books.preview', $book->slug) }}" class="preview-action">
+                            📖 {{ $book->preview_pages }} পৃষ্ঠার ফ্রি প্রিভিউ পড়ুন
+                        </a>
+                    @endif
                 @endif
             </div>
         </div>
@@ -437,7 +450,11 @@
                     </div>
                     <div class="meta-spec-item">
                         <b>স্টক স্ট্যাটাস</b>
-                        <span style="color:#16a34a;">{{ $book->stock_status === 'in_stock' ? 'মজুদ আছে' : 'সীমিত স্টক' }}</span>
+                        @if($book->is_upcoming)
+                            <span style="color:#0284c7; font-weight:700;">আসন্ন (শীঘ্রই প্রকাশিত হবে)</span>
+                        @else
+                            <span style="color:#16a34a; font-weight:700;">{{ $book->stock_status === 'in_stock' ? 'মজুদ আছে' : 'সীমিত স্টক' }}</span>
+                        @endif
                     </div>
                     <div class="meta-spec-item">
                         <b>ক্যাটাগরি</b>

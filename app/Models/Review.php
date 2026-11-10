@@ -20,6 +20,42 @@ class Review extends Model
         'status',
     ];
 
+    public function getCommentAttribute($value)
+    {
+        if (empty($value)) return '';
+        if (str_contains($value, 'Óª')) {
+            $healed = @iconv('UTF-8', 'CP850//IGNORE', $value);
+            if ($healed && mb_check_encoding($healed, 'UTF-8')) {
+                return $healed;
+            }
+        }
+        if (str_contains($value, 'à¦') || str_contains($value, 'à§')) {
+            $healed = @utf8_decode($value);
+            if ($healed && mb_check_encoding($healed, 'UTF-8')) {
+                return $healed;
+            }
+        }
+        return $value;
+    }
+
+    public function getCustomerNameAttribute($value)
+    {
+        if (empty($value)) return 'পাঠক';
+        if (str_contains($value, 'Óª')) {
+            $healed = @iconv('UTF-8', 'CP850//IGNORE', $value);
+            if ($healed && mb_check_encoding($healed, 'UTF-8')) {
+                return $healed;
+            }
+        }
+        if (str_contains($value, 'à¦') || str_contains($value, 'à§')) {
+            $healed = @utf8_decode($value);
+            if ($healed && mb_check_encoding($healed, 'UTF-8')) {
+                return $healed;
+            }
+        }
+        return $value;
+    }
+
     public function book()
     {
         return $this->belongsTo(Book::class);

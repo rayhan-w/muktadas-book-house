@@ -1,7 +1,10 @@
 ---
 deployment:
   tasks:
-    - export DEPLOYPATH=${HOME:-/home/$USER}/public_html/
-    - /bin/cp -R * $DEPLOYPATH
+    - export DEPLOYPATH=/home/muktadar/public_html/
+    - if [ ! -d "$DEPLOYPATH" ]; then export DEPLOYPATH=${HOME}/public_html/; fi
+    - /bin/mkdir -p $DEPLOYPATH
+    - /bin/cp -Rf * $DEPLOYPATH
     - /bin/cp -f .htaccess $DEPLOYPATH 2>/dev/null || true
     - /bin/cp -f .env $DEPLOYPATH 2>/dev/null || true
+    - /bin/cp -f index.php $DEPLOYPATH 2>/dev/null || true

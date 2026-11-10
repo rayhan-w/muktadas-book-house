@@ -118,6 +118,34 @@ class Book extends Model
         return (float) $this->price_ebook;
     }
 
+    public function getTitleAttribute($value)
+    {
+        if (empty($value)) return '';
+        if (str_contains($value, 'Óª')) {
+            $healed = @iconv('UTF-8', 'CP850//IGNORE', $value);
+            if ($healed && mb_check_encoding($healed, 'UTF-8')) return $healed;
+        }
+        if (str_contains($value, 'à¦') || str_contains($value, 'à§')) {
+            $healed = @utf8_decode($value);
+            if ($healed && mb_check_encoding($healed, 'UTF-8')) return $healed;
+        }
+        return $value;
+    }
+
+    public function getAuthorNameAttribute($value)
+    {
+        if (empty($value)) return 'মুহম্মদ মুক্তাদির চৌধুরী';
+        if (str_contains($value, 'Óª')) {
+            $healed = @iconv('UTF-8', 'CP850//IGNORE', $value);
+            if ($healed && mb_check_encoding($healed, 'UTF-8')) return $healed;
+        }
+        if (str_contains($value, 'à¦') || str_contains($value, 'à§')) {
+            $healed = @utf8_decode($value);
+            if ($healed && mb_check_encoding($healed, 'UTF-8')) return $healed;
+        }
+        return $value;
+    }
+
     public function getCoverUrlAttribute(): string
     {
         if (!empty($this->cover_image)) {

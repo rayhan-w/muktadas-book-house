@@ -14,10 +14,24 @@ class HomeController extends Controller
 {
     public function index()
     {
-        $featuredBooks = Book::with('categories')->approved()->where('is_featured', true)->latest()->take(8)->get();
-        $latestBooks = Book::with('categories')->approved()->where('is_latest', true)->latest()->take(8)->get();
-        $popularBooks = Book::with('categories')->approved()->where('is_popular', true)->latest()->take(8)->get();
-        $upcomingBooks = Book::with('categories')->approved()->where('is_upcoming', true)->latest()->take(4)->get();
+        $allBooks = Book::with('categories')->approved()->latest()->get();
+        
+        $featuredBooks = Book::with('categories')->approved()->where('is_featured', true)->latest()->take(12)->get();
+        if ($featuredBooks->isEmpty()) {
+            $featuredBooks = $allBooks;
+        }
+
+        $latestBooks = Book::with('categories')->approved()->where('is_latest', true)->latest()->take(12)->get();
+        if ($latestBooks->isEmpty()) {
+            $latestBooks = $allBooks;
+        }
+
+        $popularBooks = Book::with('categories')->approved()->where('is_popular', true)->latest()->take(12)->get();
+        if ($popularBooks->isEmpty()) {
+            $popularBooks = $allBooks;
+        }
+
+        $upcomingBooks = Book::with('categories')->approved()->where('is_upcoming', true)->latest()->take(8)->get();
         $categories = Category::where('is_active', true)->orderBy('sort_order')->get();
         $reviews = Review::where('status', 'approved')->with('book')->latest()->take(6)->get();
 
@@ -30,7 +44,7 @@ class HomeController extends Controller
             'author_photo' => SiteSetting::get('author_photo', 'author-portrait.jpg'),
         ];
 
-        return view('home', compact('featuredBooks', 'latestBooks', 'popularBooks', 'upcomingBooks', 'categories', 'reviews', 'settings'));
+        return view('home', compact('allBooks', 'featuredBooks', 'latestBooks', 'popularBooks', 'upcomingBooks', 'categories', 'reviews', 'settings'));
     }
 
     public function author()

@@ -838,6 +838,144 @@
             </section>
         @endif
 
+        <!-- Latest New Arrivals Section -->
+        @if($latestBooks->isNotEmpty())
+            <section class="real-section" id="latest">
+                <div class="real-section-header">
+                    <h2>✨ নতুন প্রকাশিত বইসমূহ</h2>
+                    <a href="{{ route('books.index') }}">সবগুলো দেখুন →</a>
+                </div>
+
+                <div class="real-books-grid">
+                    @foreach($latestBooks as $book)
+                        <article class="real-book-card">
+                            <a href="{{ route('books.show', $book->slug) }}" class="real-book-link">
+                                <div class="real-cover">
+                                    <img src="{{ $book->cover_url }}" alt="{{ $book->title }} বইয়ের প্রচ্ছদ" loading="lazy">
+                                    @if($book->is_upcoming)
+                                        <span class="discount-badge" style="background:#0284c7;">আসন্ন</span>
+                                    @elseif($book->discount_percent > 0)
+                                        <span class="discount-badge">-{{ round($book->discount_percent) }}%</span>
+                                    @endif
+                                    @if($book->publisher_name)
+                                        <span class="publisher-tag">{{ $book->publisher_name }}</span>
+                                    @endif
+                                </div>
+                                <h3>{{ $book->title }}</h3>
+                                <p class="cat-label">{{ $book->categories->first()?->name ?? 'বই' }}</p>
+                                <div class="real-price">
+                                    <strong>৳ {{ number_format($book->hardcopyEffectivePrice()) }}</strong>
+                                    @if($book->discount_percent > 0)
+                                        <del>৳ {{ number_format($book->price_hardcopy) }}</del>
+                                    @endif
+                                </div>
+                            </a>
+                            <div class="real-card-bottom">
+                                <div class="product-types">
+                                    @if($book->is_upcoming)
+                                        <a href="{{ route('books.show', $book->slug) }}" class="btn-hardcopy" style="text-align:center; text-decoration:none; background:#0284c7; width:100%;">বিস্তারিত দেখুন</a>
+                                    @else
+                                        <a href="{{ route('checkout', ['type' => 'ebook', 'bookSlug' => $book->slug]) }}" class="btn-ebook">ই-বুক</a>
+                                        <form action="{{ route('cart.add') }}" method="POST" style="margin:0;">
+                                            @csrf
+                                            <input type="hidden" name="book_id" value="{{ $book->id }}">
+                                            <input type="hidden" name="format" value="hardcopy">
+                                            <button type="submit" class="btn-hardcopy">হার্ডকপি</button>
+                                        </form>
+                                    @endif
+                                </div>
+                            </div>
+                        </article>
+                    @endforeach
+                </div>
+            </section>
+        @endif
+
+        <!-- All Books Showcase Section (100% of All Published Books Visible on Homepage) -->
+        @if(isset($allBooks) && $allBooks->isNotEmpty())
+            <section class="real-section" id="all-books-showcase">
+                <div class="real-section-header">
+                    <h2>📚 আমাদের ক্যাটালগের সকল বই</h2>
+                    <a href="{{ route('books.index') }}">সম্পূর্ণ ক্যাটালগ দেখুন →</a>
+                </div>
+
+                <div class="real-books-grid">
+                    @foreach($allBooks as $book)
+                        <article class="real-book-card">
+                            <a href="{{ route('books.show', $book->slug) }}" class="real-book-link">
+                                <div class="real-cover">
+                                    <img src="{{ $book->cover_url }}" alt="{{ $book->title }} বইয়ের প্রচ্ছদ" loading="lazy">
+                                    @if($book->is_upcoming)
+                                        <span class="discount-badge" style="background:#0284c7;">আসন্ন</span>
+                                    @elseif($book->discount_percent > 0)
+                                        <span class="discount-badge">-{{ round($book->discount_percent) }}%</span>
+                                    @endif
+                                    @if($book->publisher_name)
+                                        <span class="publisher-tag">{{ $book->publisher_name }}</span>
+                                    @endif
+                                </div>
+                                <h3>{{ $book->title }}</h3>
+                                <p class="cat-label">{{ $book->categories->first()?->name ?? 'বই' }}</p>
+                                <div class="real-price">
+                                    <strong>৳ {{ number_format($book->hardcopyEffectivePrice()) }}</strong>
+                                    @if($book->discount_percent > 0)
+                                        <del>৳ {{ number_format($book->price_hardcopy) }}</del>
+                                    @endif
+                                </div>
+                            </a>
+                            <div class="real-card-bottom">
+                                <div class="product-types">
+                                    @if($book->is_upcoming)
+                                        <a href="{{ route('books.show', $book->slug) }}" class="btn-hardcopy" style="text-align:center; text-decoration:none; background:#0284c7; width:100%;">বিস্তারিত দেখুন</a>
+                                    @else
+                                        <a href="{{ route('checkout', ['type' => 'ebook', 'bookSlug' => $book->slug]) }}" class="btn-ebook">ই-বুক</a>
+                                        <form action="{{ route('cart.add') }}" method="POST" style="margin:0;">
+                                            @csrf
+                                            <input type="hidden" name="book_id" value="{{ $book->id }}">
+                                            <input type="hidden" name="format" value="hardcopy">
+                                            <button type="submit" class="btn-hardcopy">হার্ডকপি</button>
+                                        </form>
+                                    @endif
+                                </div>
+                            </div>
+                        </article>
+                    @endforeach
+                </div>
+            </section>
+        @endif
+
+        <!-- Upcoming Books Section -->
+        @if($upcomingBooks->isNotEmpty())
+            <section class="real-section" id="upcoming">
+                <div class="real-section-header">
+                    <h2>⏳ শীঘ্রই আসছে (আসন্ন বইসমূহ)</h2>
+                </div>
+
+                <div class="real-books-grid">
+                    @foreach($upcomingBooks as $book)
+                        <article class="real-book-card">
+                            <a href="{{ route('books.show', $book->slug) }}" class="real-book-link">
+                                <div class="real-cover">
+                                    <img src="{{ $book->cover_url }}" alt="{{ $book->title }} বইয়ের প্রচ্ছদ" loading="lazy">
+                                    <span class="discount-badge" style="background:#0284c7;">আসন্ন</span>
+                                </div>
+                                <h3>{{ $book->title }}</h3>
+                                <p class="cat-label">{{ $book->categories->first()?->name ?? 'বই' }}</p>
+                                <div class="real-price">
+                                    <strong>৳ {{ number_format($book->hardcopyEffectivePrice()) }}</strong>
+                                </div>
+                            </a>
+                            <div class="real-card-bottom">
+                                <div class="product-types">
+                                    <a href="{{ route('books.show', $book->slug) }}" class="btn-hardcopy" style="text-align:center; text-decoration:none; background:#0284c7; width:100%;">বিস্তারিত দেখুন</a>
+                                </div>
+                            </div>
+                        </article>
+                    @endforeach
+                </div>
+            </section>
+        @endif
+
         <!-- Membership Banner -->
         <section id="membership" class="real-membership">
             <div>

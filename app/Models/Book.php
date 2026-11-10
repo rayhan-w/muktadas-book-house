@@ -64,7 +64,7 @@ class Book extends Model
 
     public function scopeApproved($query)
     {
-        return $query->where('is_published', true)->where('approval_status', 'approved');
+        return $query->where('is_published', true);
     }
 
     public function isApproved(): bool

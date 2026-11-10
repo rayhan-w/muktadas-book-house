@@ -210,53 +210,31 @@
         white-space: nowrap;
     }
 
-    /* Books Marquee */
-    .books-marquee-track {
-        display: flex !important;
-        gap: 16px !important;
-        width: max-content !important;
-        animation: books-scroll 30s linear infinite !important;
-        will-change: transform;
+    /* Books Responsive Grid (Clean, Stationary & Fast) */
+    .real-books-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fill, minmax(185px, 1fr));
+        gap: 18px;
+        margin-bottom: 35px;
     }
 
-    .books-marquee-track:hover {
-        animation-play-state: paused !important;
-    }
-
-    .books-marquee-track.track-slow {
-        animation-duration: 36s !important;
-    }
-
-    @keyframes books-scroll {
-        0% {
-            transform: translateX(0);
-        }
-        100% {
-            transform: translateX(-50%);
-        }
-    }
-
-    /* Book Cards inside Marquee */
+    /* Book Cards */
     .real-book-card {
-        flex: 0 0 185px !important;
-        width: 185px !important;
-        min-width: 185px !important;
-        max-width: 185px !important;
-        background: #fffdf8 !important;
-        border: 1px solid var(--line) !important;
-        border-radius: 12px !important;
-        padding: 10px !important;
-        display: flex !important;
-        flex-direction: column !important;
-        box-shadow: 0 4px 14px rgba(9, 45, 69, 0.05) !important;
-        transition: transform 0.2s ease, box-shadow 0.2s ease, border-color 0.2s ease !important;
+        background: #fffdf8;
+        border: 1px solid var(--line);
+        border-radius: 12px;
+        padding: 10px;
+        display: flex;
+        flex-direction: column;
+        box-shadow: 0 4px 14px rgba(9, 45, 69, 0.05);
+        transition: transform 0.2s ease, box-shadow 0.2s ease, border-color 0.2s ease;
         position: relative;
     }
 
     .real-book-card:hover {
-        transform: translateY(-4px) !important;
-        box-shadow: 0 10px 25px rgba(9, 45, 69, 0.12) !important;
-        border-color: var(--gold) !important;
+        transform: translateY(-4px);
+        box-shadow: 0 10px 25px rgba(9, 45, 69, 0.12);
+        border-color: var(--gold);
     }
 
     .real-book-link {
@@ -695,6 +673,11 @@
             text-align: center;
         }
 
+        .real-books-grid {
+            grid-template-columns: repeat(2, 1fr) !important;
+            gap: 12px !important;
+        }
+
         .real-features-grid {
             grid-template-columns: repeat(2, 1fr);
         }
@@ -761,7 +744,7 @@
             </div>
         </section>
 
-        <!-- Featured Books Sliding Animation Section (Matching PlayMathEarn infinite ticker) -->
+        <!-- Featured Books Section (Clean Responsive Grid) -->
         @if($featuredBooks->isNotEmpty())
             <section class="real-section" id="featured">
                 <div class="real-section-header">
@@ -769,85 +752,46 @@
                     <a href="{{ route('books.index', ['filter' => 'featured']) }}">সবগুলো দেখুন →</a>
                 </div>
 
-                <div class="real-marquee-wrapper">
-                    <div class="books-marquee-track">
-                        {{-- Loop 1: Original Set --}}
-                        @foreach($featuredBooks as $book)
-                            <article class="real-book-card">
-                                <a href="{{ route('books.show', $book->slug) }}" class="real-book-link">
-                                    <div class="real-cover">
-                                        <img src="{{ $book->cover_url }}" alt="{{ $book->title }} বইয়ের প্রচ্ছদ" loading="lazy">
-                                        @if($book->discount_percent > 0)
-                                            <span class="discount-badge">-{{ round($book->discount_percent) }}%</span>
-                                        @endif
-                                        @if($book->publisher_name)
-                                            <span class="publisher-tag">{{ $book->publisher_name }}</span>
-                                        @endif
-                                    </div>
-                                    <h3>{{ $book->title }}</h3>
-                                    <p class="cat-label">{{ $book->categories->first()?->name ?? 'বই' }}</p>
-                                    <div class="real-price">
-                                        <strong>৳ {{ number_format($book->hardcopyEffectivePrice()) }}</strong>
-                                        @if($book->discount_percent > 0)
-                                            <del>৳ {{ number_format($book->price_hardcopy) }}</del>
-                                        @endif
-                                    </div>
-                                </a>
-                                <div class="real-card-bottom">
-                                    <div class="product-types">
-                                        <a href="{{ route('checkout', ['type' => 'ebook', 'bookSlug' => $book->slug]) }}" class="btn-ebook">ই-বুক</a>
-                                        <form action="{{ route('cart.add') }}" method="POST" style="margin:0;">
-                                            @csrf
-                                            <input type="hidden" name="book_id" value="{{ $book->id }}">
-                                            <input type="hidden" name="format" value="hardcopy">
-                                            <button type="submit" class="btn-hardcopy">হার্ডকপি</button>
-                                        </form>
-                                    </div>
+                <div class="real-books-grid">
+                    @foreach($featuredBooks as $book)
+                        <article class="real-book-card">
+                            <a href="{{ route('books.show', $book->slug) }}" class="real-book-link">
+                                <div class="real-cover">
+                                    <img src="{{ $book->cover_url }}" alt="{{ $book->title }} বইয়ের প্রচ্ছদ" loading="lazy">
+                                    @if($book->discount_percent > 0)
+                                        <span class="discount-badge">-{{ round($book->discount_percent) }}%</span>
+                                    @endif
+                                    @if($book->publisher_name)
+                                        <span class="publisher-tag">{{ $book->publisher_name }}</span>
+                                    @endif
                                 </div>
-                            </article>
-                        @endforeach
-
-                        {{-- Loop 2: Duplicate Set for Seamless Continuous Sliding --}}
-                        @foreach($featuredBooks as $book)
-                            <article class="real-book-card" aria-hidden="true">
-                                <a href="{{ route('books.show', $book->slug) }}" class="real-book-link">
-                                    <div class="real-cover">
-                                        <img src="{{ $book->cover_url }}" alt="{{ $book->title }} বইয়ের প্রচ্ছদ" loading="lazy">
-                                        @if($book->discount_percent > 0)
-                                            <span class="discount-badge">-{{ round($book->discount_percent) }}%</span>
-                                        @endif
-                                        @if($book->publisher_name)
-                                            <span class="publisher-tag">{{ $book->publisher_name }}</span>
-                                        @endif
-                                    </div>
-                                    <h3>{{ $book->title }}</h3>
-                                    <p class="cat-label">{{ $book->categories->first()?->name ?? 'বই' }}</p>
-                                    <div class="real-price">
-                                        <strong>৳ {{ number_format($book->hardcopyEffectivePrice()) }}</strong>
-                                        @if($book->discount_percent > 0)
-                                            <del>৳ {{ number_format($book->price_hardcopy) }}</del>
-                                        @endif
-                                    </div>
-                                </a>
-                                <div class="real-card-bottom">
-                                    <div class="product-types">
-                                        <a href="{{ route('checkout', ['type' => 'ebook', 'bookSlug' => $book->slug]) }}" class="btn-ebook">ই-বুক</a>
-                                        <form action="{{ route('cart.add') }}" method="POST" style="margin:0;">
-                                            @csrf
-                                            <input type="hidden" name="book_id" value="{{ $book->id }}">
-                                            <input type="hidden" name="format" value="hardcopy">
-                                            <button type="submit" class="btn-hardcopy">হার্ডকপি</button>
-                                        </form>
-                                    </div>
+                                <h3>{{ $book->title }}</h3>
+                                <p class="cat-label">{{ $book->categories->first()?->name ?? 'বই' }}</p>
+                                <div class="real-price">
+                                    <strong>৳ {{ number_format($book->hardcopyEffectivePrice()) }}</strong>
+                                    @if($book->discount_percent > 0)
+                                        <del>৳ {{ number_format($book->price_hardcopy) }}</del>
+                                    @endif
                                 </div>
-                            </article>
-                        @endforeach
-                    </div>
+                            </a>
+                            <div class="real-card-bottom">
+                                <div class="product-types">
+                                    <a href="{{ route('checkout', ['type' => 'ebook', 'bookSlug' => $book->slug]) }}" class="btn-ebook">ই-বুক</a>
+                                    <form action="{{ route('cart.add') }}" method="POST" style="margin:0;">
+                                        @csrf
+                                        <input type="hidden" name="book_id" value="{{ $book->id }}">
+                                        <input type="hidden" name="format" value="hardcopy">
+                                        <button type="submit" class="btn-hardcopy">হার্ডকপি</button>
+                                    </form>
+                                </div>
+                            </div>
+                        </article>
+                    @endforeach
                 </div>
             </section>
         @endif
 
-        <!-- Popular Books Sliding Animation Section -->
+        <!-- Popular Books Section (Clean Responsive Grid) -->
         @if($popularBooks->isNotEmpty())
             <section class="real-section" id="popular">
                 <div class="real-section-header">
@@ -855,80 +799,41 @@
                     <a href="{{ route('books.index', ['sort' => 'popular']) }}">সবগুলো দেখুন →</a>
                 </div>
 
-                <div class="real-marquee-wrapper">
-                    <div class="books-marquee-track track-slow">
-                        {{-- Loop 1: Original Set --}}
-                        @foreach($popularBooks as $book)
-                            <article class="real-book-card">
-                                <a href="{{ route('books.show', $book->slug) }}" class="real-book-link">
-                                    <div class="real-cover">
-                                        <img src="{{ $book->cover_url }}" alt="{{ $book->title }} বইয়ের প্রচ্ছদ" loading="lazy">
-                                        @if($book->discount_percent > 0)
-                                            <span class="discount-badge">-{{ round($book->discount_percent) }}%</span>
-                                        @endif
-                                        @if($book->publisher_name)
-                                            <span class="publisher-tag">{{ $book->publisher_name }}</span>
-                                        @endif
-                                    </div>
-                                    <h3>{{ $book->title }}</h3>
-                                    <p class="cat-label">{{ $book->categories->first()?->name ?? 'বই' }}</p>
-                                    <div class="real-price">
-                                        <strong>৳ {{ number_format($book->hardcopyEffectivePrice()) }}</strong>
-                                        @if($book->discount_percent > 0)
-                                            <del>৳ {{ number_format($book->price_hardcopy) }}</del>
-                                        @endif
-                                    </div>
-                                </a>
-                                <div class="real-card-bottom">
-                                    <div class="product-types">
-                                        <a href="{{ route('checkout', ['type' => 'ebook', 'bookSlug' => $book->slug]) }}" class="btn-ebook">ই-বুক</a>
-                                        <form action="{{ route('cart.add') }}" method="POST" style="margin:0;">
-                                            @csrf
-                                            <input type="hidden" name="book_id" value="{{ $book->id }}">
-                                            <input type="hidden" name="format" value="hardcopy">
-                                            <button type="submit" class="btn-hardcopy">হার্ডকপি</button>
-                                        </form>
-                                    </div>
+                <div class="real-books-grid">
+                    @foreach($popularBooks as $book)
+                        <article class="real-book-card">
+                            <a href="{{ route('books.show', $book->slug) }}" class="real-book-link">
+                                <div class="real-cover">
+                                    <img src="{{ $book->cover_url }}" alt="{{ $book->title }} বইয়ের প্রচ্ছদ" loading="lazy">
+                                    @if($book->discount_percent > 0)
+                                        <span class="discount-badge">-{{ round($book->discount_percent) }}%</span>
+                                    @endif
+                                    @if($book->publisher_name)
+                                        <span class="publisher-tag">{{ $book->publisher_name }}</span>
+                                    @endif
                                 </div>
-                            </article>
-                        @endforeach
-
-                        {{-- Loop 2: Duplicate Set for Seamless Continuous Sliding --}}
-                        @foreach($popularBooks as $book)
-                            <article class="real-book-card" aria-hidden="true">
-                                <a href="{{ route('books.show', $book->slug) }}" class="real-book-link">
-                                    <div class="real-cover">
-                                        <img src="{{ $book->cover_url }}" alt="{{ $book->title }} বইয়ের প্রচ্ছদ" loading="lazy">
-                                        @if($book->discount_percent > 0)
-                                            <span class="discount-badge">-{{ round($book->discount_percent) }}%</span>
-                                        @endif
-                                        @if($book->publisher_name)
-                                            <span class="publisher-tag">{{ $book->publisher_name }}</span>
-                                        @endif
-                                    </div>
-                                    <h3>{{ $book->title }}</h3>
-                                    <p class="cat-label">{{ $book->categories->first()?->name ?? 'বই' }}</p>
-                                    <div class="real-price">
-                                        <strong>৳ {{ number_format($book->hardcopyEffectivePrice()) }}</strong>
-                                        @if($book->discount_percent > 0)
-                                            <del>৳ {{ number_format($book->price_hardcopy) }}</del>
-                                        @endif
-                                    </div>
-                                </a>
-                                <div class="real-card-bottom">
-                                    <div class="product-types">
-                                        <a href="{{ route('checkout', ['type' => 'ebook', 'bookSlug' => $book->slug]) }}" class="btn-ebook">ই-বুক</a>
-                                        <form action="{{ route('cart.add') }}" method="POST" style="margin:0;">
-                                            @csrf
-                                            <input type="hidden" name="book_id" value="{{ $book->id }}">
-                                            <input type="hidden" name="format" value="hardcopy">
-                                            <button type="submit" class="btn-hardcopy">হার্ডকপি</button>
-                                        </form>
-                                    </div>
+                                <h3>{{ $book->title }}</h3>
+                                <p class="cat-label">{{ $book->categories->first()?->name ?? 'বই' }}</p>
+                                <div class="real-price">
+                                    <strong>৳ {{ number_format($book->hardcopyEffectivePrice()) }}</strong>
+                                    @if($book->discount_percent > 0)
+                                        <del>৳ {{ number_format($book->price_hardcopy) }}</del>
+                                    @endif
                                 </div>
-                            </article>
-                        @endforeach
-                    </div>
+                            </a>
+                            <div class="real-card-bottom">
+                                <div class="product-types">
+                                    <a href="{{ route('checkout', ['type' => 'ebook', 'bookSlug' => $book->slug]) }}" class="btn-ebook">ই-বুক</a>
+                                    <form action="{{ route('cart.add') }}" method="POST" style="margin:0;">
+                                        @csrf
+                                        <input type="hidden" name="book_id" value="{{ $book->id }}">
+                                        <input type="hidden" name="format" value="hardcopy">
+                                        <button type="submit" class="btn-hardcopy">হার্ডকপি</button>
+                                    </form>
+                                </div>
+                            </div>
+                        </article>
+                    @endforeach
                 </div>
             </section>
         @endif

@@ -448,21 +448,7 @@
 @endsection
 
 @section('content')
-<div class="catalog-shell">
-
-    <div class="catalog-header-box">
-        <h1>
-            <i class="bi bi-book-half text-danger"></i>
-            @if(isset($selectedCategory) && $selectedCategory)
-                {{ $selectedCategory->name }} ক্যাটাগরির বইসমূহ
-            @elseif(!empty($searchTerm))
-                “{{ $searchTerm }}”-এর অনুসন্ধান ফলাফল
-            @else
-                সকল প্রকাশিত বইয়ের সম্ভার
-            @endif
-        </h1>
-        <p>মোট {{ $books->total() }}টি বই পাওয়া গেছে। আপনার পছন্দের বইটি নির্বাচন করুন।</p>
-    </div>
+<div class="catalog-shell" style="padding-top: 15px;">
 
     <!-- Toolbar: Categories and Sorting -->
     <div class="category-toolbar">

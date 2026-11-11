@@ -31,7 +31,7 @@
 
     <!-- Header matching SahojPath -->
     <header class="real-header">
-        <div class="real-head-top">
+        <div class="real-head-top {{ request()->routeIs('checkout*') ? 'checkout-header-mode' : '' }}">
             <!-- Brand -->
             <a href="{{ route('home') }}" class="real-brand">
                 <img src="{{ asset('muktadar-logo.jpg') }}" alt="মুক্তাদার বইঘর">
@@ -41,74 +41,85 @@
                 </span>
             </a>
 
-            <!-- Search Form -->
-            <form action="{{ route('books.index') }}" method="GET" class="real-search-form">
-                <input type="search" name="search" class="real-search" placeholder="বইয়ের নাম, লেখক বা বিষয় খুঁজুন..." value="{{ request('search') }}" aria-label="বই খুঁজুন">
-                <button type="submit" aria-label="সার্চ">
-                    <i class="bi bi-search"></i>
-                </button>
-            </form>
+            @if(!request()->routeIs('checkout*'))
+                <!-- Search Form -->
+                <form action="{{ route('books.index') }}" method="GET" class="real-search-form">
+                    <input type="search" name="search" class="real-search" placeholder="বইয়ের নাম, লেখক বা বিষয় খুঁজুন..." value="{{ request('search') }}" aria-label="বই খুঁজুন">
+                    <button type="submit" aria-label="সার্চ">
+                        <i class="bi bi-search"></i>
+                    </button>
+                </form>
 
-            <!-- Right Nav / User Actions -->
-            <nav class="real-head-nav">
-                <!-- Publisher Section -->
-                @auth
-                    @if(auth()->user()->isApprovedPublisher())
-                        <a href="{{ route('publisher.dashboard') }}" class="nav-pill pill-publisher" title="প্রকাশক ড্যাশবোর্ড">
-                            <i class="fa-solid fa-store"></i> ড্যাশবোর্ড
-                        </a>
-                    @elseif(auth()->user()->isPublisher())
-                        <a href="{{ route('publisher.dashboard') }}" class="nav-pill pill-publisher" title="প্রকাশক পেন্ডিং">
-                            <i class="fa-regular fa-clock"></i> প্রকাশক
-                        </a>
+                <!-- Right Nav / User Actions -->
+                <nav class="real-head-nav">
+                    <!-- Publisher Section -->
+                    @auth
+                        @if(auth()->user()->isApprovedPublisher())
+                            <a href="{{ route('publisher.dashboard') }}" class="nav-pill pill-publisher" title="প্রকাশক ড্যাশবোর্ড">
+                                <i class="fa-solid fa-store"></i> ড্যাশবোর্ড
+                            </a>
+                        @elseif(auth()->user()->isPublisher())
+                            <a href="{{ route('publisher.dashboard') }}" class="nav-pill pill-publisher" title="প্রকাশক পেন্ডিং">
+                                <i class="fa-regular fa-clock"></i> প্রকাশক
+                            </a>
+                        @else
+                            <a href="{{ route('publisher.register') }}" class="nav-pill pill-publisher" title="প্রকাশক হিসেবে যোগ দিন">
+                                <i class="fa-solid fa-store"></i> প্রকাশক
+                            </a>
+                        @endif
                     @else
                         <a href="{{ route('publisher.register') }}" class="nav-pill pill-publisher" title="প্রকাশক হিসেবে যোগ দিন">
                             <i class="fa-solid fa-store"></i> প্রকাশক
                         </a>
-                    @endif
-                @else
-                    <a href="{{ route('publisher.register') }}" class="nav-pill pill-publisher" title="প্রকাশক হিসেবে যোগ দিন">
-                        <i class="fa-solid fa-store"></i> প্রকাশক
-                    </a>
-                @endauth
+                    @endauth
 
-                <!-- Auth / Profile (লগইন ও রেজিস্ট্রেশন একসাথে) -->
-                @guest
-                    <div class="nav-pill-auth">
-                        <a href="{{ route('login') }}" class="auth-link" title="লগইন করুন">
-                            <i class="bi bi-box-arrow-in-right"></i> লগইন
+                    <!-- Auth / Profile (লগইন ও রেজিস্ট্রেশন একসাথে) -->
+                    @guest
+                        <div class="nav-pill-auth">
+                            <a href="{{ route('login') }}" class="auth-link" title="লগইন করুন">
+                                <i class="bi bi-box-arrow-in-right"></i> লগইন
+                            </a>
+                            <span class="auth-sep">/</span>
+                            <a href="{{ route('register') }}" class="auth-link" title="নতুন একাউন্ট খুলুন">
+                                রেজিস্টার
+                            </a>
+                        </div>
+                    @else
+                        @if(auth()->user()->isAdmin())
+                            <a href="{{ route('admin.dashboard') }}" class="nav-pill" style="background:#ccfbf1; color:#0f766e; border-color:#99f6e4;">
+                                <i class="bi bi-gear-fill"></i> অ্যাডমিন
+                            </a>
+                        @endif
+                        <a href="{{ route('reader.dashboard') }}" class="nav-pill">
+                            <i class="bi bi-person-circle"></i> প্রোফাইল
                         </a>
-                        <span class="auth-sep">/</span>
-                        <a href="{{ route('register') }}" class="auth-link" title="নতুন একাউন্ট খুলুন">
-                            রেজিস্টার
-                        </a>
-                    </div>
-                @else
-                    @if(auth()->user()->isAdmin())
-                        <a href="{{ route('admin.dashboard') }}" class="nav-pill" style="background:#ccfbf1; color:#0f766e; border-color:#99f6e4;">
-                            <i class="bi bi-gear-fill"></i> অ্যাডমিন
-                        </a>
-                    @endif
-                    <a href="{{ route('reader.dashboard') }}" class="nav-pill">
-                        <i class="bi bi-person-circle"></i> প্রোফাইল
-                    </a>
-                    <form action="{{ route('logout') }}" method="POST" style="display:inline;">
-                        @csrf
-                        <button type="submit" class="nav-pill" style="cursor:pointer; background:transparent; border:none;" title="লগআউট">
-                            <i class="bi bi-box-arrow-right"></i>
-                        </button>
-                    </form>
-                @endguest
+                        <form action="{{ route('logout') }}" method="POST" style="display:inline;">
+                            @csrf
+                            <button type="submit" class="nav-pill" style="cursor:pointer; background:transparent; border:none;" title="লগআউট">
+                                <i class="bi bi-box-arrow-right"></i>
+                            </button>
+                        </form>
+                    @endguest
 
-                <!-- Shopping Cart (মোবাইলে সবসময় উপরে ডানে থাকবে) -->
-                <a href="{{ route('cart.index') }}" class="nav-pill pill-cart" title="শপিং কার্ট">
-                    <i class="bi bi-bag-heart-fill"></i>
-                    <span class="cart-badge">{{ session('cart') ? count(session('cart')) : 0 }}</span>
-                </a>
-            </nav>
+                    <!-- Shopping Cart (মোবাইলে সবসময় উপরে ডানে থাকবে) -->
+                    <a href="{{ route('cart.index') }}" class="nav-pill pill-cart" title="শピング কার্ট">
+                        <i class="bi bi-bag-heart-fill"></i>
+                        <span class="cart-badge">{{ session('cart') ? count(session('cart')) : 0 }}</span>
+                    </a>
+                </nav>
+            @else
+                <!-- Checkout Header Actions (শুধু চেকআউটে থাকবে) -->
+                <div class="checkout-head-actions">
+                    <span class="checkout-secure-pill"><i class="bi bi-shield-check"></i> ১০০% নিরাপদ চেকআউট</span>
+                    <a href="{{ route('cart.index') }}" class="checkout-back-btn">
+                        <i class="bi bi-arrow-left"></i> কার্টে ফিরে যান
+                    </a>
+                </div>
+            @endif
         </div>
 
-        <!-- Navigation Bar -->
+        @if(!request()->routeIs('checkout*'))
+        <!-- Navigation Bar (১২. উপরে মেম্বারশিপ, লেখক পরিচিতি, যোগাযোগ, ক্যাটাগরি বাদ - এগুলো ফুটারে আছে) -->
         <nav class="real-nav">
             <a href="{{ route('home') }}" class="{{ request()->routeIs('home') ? 'active' : '' }}">
                 <i class="bi bi-house-door"></i> হোম
@@ -116,25 +127,14 @@
             <a href="{{ route('books.index') }}" class="{{ request()->routeIs('books.*') && !request('category') ? 'active' : '' }}">
                 <i class="bi bi-book"></i> সকল বই
             </a>
-            <a href="{{ route('home') }}#categories">
-                <i class="bi bi-grid"></i> ক্যাটাগরি
-            </a>
             <a href="{{ route('home') }}#popular">
                 <i class="bi bi-fire text-danger"></i> বেস্টসেলার
-            </a>
-            <a href="{{ route('memberships.index') }}" class="{{ request()->routeIs('memberships.*') ? 'active' : '' }}">
-                <i class="bi bi-award"></i> মেম্বারশিপ
-            </a>
-            <a href="{{ route('author') }}" class="{{ request()->routeIs('author') ? 'active' : '' }}">
-                <i class="bi bi-feather"></i> লেখক পরিচিতি
-            </a>
-            <a href="{{ route('contact') }}" class="{{ request()->routeIs('contact') ? 'active' : '' }}">
-                <i class="bi bi-chat-dots"></i> যোগাযোগ
             </a>
             <a href="{{ route('publisher.register') }}" class="mobile-publisher-link" title="মোবাইল ভিউতে প্রকাশক লিঙ্ক">
                 <i class="fa-solid fa-store"></i> প্রকাশক নিবন্ধন
             </a>
         </nav>
+        @endif
     </header>
 
     <!-- Main Content Container -->
@@ -157,6 +157,7 @@
         @yield('content')
     </main>
 
+    @if(!request()->routeIs('checkout*'))
     <!-- Footer matching SahojPath -->
     <footer class="site-footer" id="contact">
         <div class="footer-inner">
@@ -209,6 +210,12 @@
             </div>
         </div>
     </footer>
+    @else
+    <!-- Minimal Checkout Footer -->
+    <footer class="checkout-minimal-footer">
+        <div><i class="bi bi-shield-lock-fill text-success me-1"></i> স্বত্ব © ২০২৪-{{ date('Y') }} মুক্তাদার বইঘর। নিরাপদ পেমেন্ট ও এনক্রিপ্টেড চেকআউট।</div>
+    </footer>
+    @endif
 
     @yield('scripts')
 </body>

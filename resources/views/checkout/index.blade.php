@@ -5,35 +5,39 @@
 @section('styles')
 <style>
     .checkout-header {
-        background: #fff;
-        border-bottom: 1px solid var(--border-color);
-        padding: 30px 0;
-        margin-bottom: 35px;
+        background: #ffffff;
+        border-bottom: 1px solid var(--sp-border);
+        padding: 24px 0;
+        margin-bottom: 30px;
     }
 
     .checkout-grid {
         display: grid;
         grid-template-columns: 1fr 380px;
-        gap: 30px;
+        gap: 28px;
         margin-bottom: 60px;
         align-items: flex-start;
     }
 
     .checkout-card {
-        background: #fff;
-        border: 1px solid var(--border-color);
-        border-radius: var(--radius);
-        padding: 30px;
-        box-shadow: var(--shadow-sm);
+        background: #ffffff;
+        border: 1px solid var(--sp-border);
+        border-radius: var(--sp-radius);
+        padding: 28px;
+        box-shadow: var(--sp-shadow-sm);
         margin-bottom: 24px;
     }
 
     .checkout-card h2 {
-        font-size: 20px;
-        color: var(--primary);
+        font-size: 19px;
+        font-weight: 800;
+        color: var(--sp-burgundy);
         margin-bottom: 18px;
-        border-bottom: 1.5px solid var(--cream-bg);
+        border-bottom: 1.5px solid var(--sp-paste-light);
         padding-bottom: 10px;
+        display: flex;
+        align-items: center;
+        gap: 8px;
     }
 
     .form-group {
@@ -42,26 +46,28 @@
 
     .form-group label {
         display: block;
-        font-size: 14px;
-        font-weight: 600;
+        font-size: 13.5px;
+        font-weight: 700;
         margin-bottom: 6px;
-        color: var(--primary);
+        color: var(--sp-heading);
     }
 
     .form-group input, .form-group textarea, .form-group select {
         width: 100%;
-        padding: 10px 14px;
-        border: 1.5px solid var(--border-color);
+        padding: 11px 14px;
+        border: 1.5px solid var(--sp-border);
         border-radius: 8px;
         font-family: inherit;
-        font-size: 15px;
+        font-size: 14.5px;
         outline: none;
-        transition: 0.2s;
+        transition: 0.2s ease;
+        background: #f8fafc;
     }
 
-    .form-group input:focus, .form-group textarea:focus {
-        border-color: var(--gold);
-        background: #fff;
+    .form-group input:focus, .form-group textarea:focus, .form-group select:focus {
+        border-color: var(--sp-burgundy);
+        background: #ffffff;
+        box-shadow: 0 0 0 3px rgba(15, 118, 110, 0.12);
     }
 
     .form-row {
@@ -79,20 +85,23 @@
     }
 
     .zone-label {
-        border: 1.5px solid var(--border-color);
-        border-radius: 8px;
-        padding: 12px;
+        border: 1.5px solid var(--sp-border);
+        border-radius: 10px;
+        padding: 14px;
         cursor: pointer;
         display: flex;
         align-items: center;
-        gap: 8px;
+        gap: 10px;
         font-size: 14px;
-        font-weight: 600;
+        font-weight: 700;
+        background: #f8fafc;
+        transition: all 0.2s;
     }
 
     .zone-label.active {
-        border-color: var(--gold);
-        background: #fffdf7;
+        border-color: var(--sp-burgundy);
+        background: #f0fdfa;
+        color: var(--sp-burgundy);
     }
 
     /* Payment Option Cards */
@@ -104,37 +113,41 @@
     }
 
     .pay-opt {
-        border: 1.5px solid var(--border-color);
-        border-radius: 8px;
+        border: 1.5px solid var(--sp-border);
+        border-radius: 10px;
         padding: 12px 6px;
         text-align: center;
         cursor: pointer;
-        font-weight: 700;
-        font-size: 14px;
+        font-weight: 800;
+        font-size: 13.5px;
+        background: #f8fafc;
+        transition: all 0.2s;
     }
 
     .pay-opt.active {
-        border-color: var(--gold);
-        background: #fffdf5;
-        color: var(--primary);
+        border-color: var(--sp-burgundy);
+        background: #f0fdfa;
+        color: var(--sp-burgundy);
+        box-shadow: 0 4px 10px rgba(15, 118, 110, 0.12);
     }
 
     .payment-instruction-box {
-        background: #fffdf5;
-        border: 1px solid #fde68a;
-        border-radius: 8px;
+        background: #f0fdfa;
+        border: 1.5px solid #99f6e4;
+        border-radius: 10px;
         padding: 18px;
         margin-bottom: 18px;
         font-size: 14px;
+        color: #134e4a;
     }
 
     /* Summary Card */
     .checkout-summary {
-        background: #fff;
-        border: 1px solid var(--border-color);
-        border-radius: var(--radius);
-        padding: 25px;
-        box-shadow: var(--shadow-sm);
+        background: #ffffff;
+        border: 1px solid var(--sp-border);
+        border-radius: var(--sp-radius);
+        padding: 26px;
+        box-shadow: var(--sp-shadow-md);
         position: sticky;
         top: 90px;
     }
@@ -142,19 +155,40 @@
     .summary-item {
         display: flex;
         justify-content: space-between;
-        margin-bottom: 10px;
+        margin-bottom: 12px;
         font-size: 14px;
     }
 
     .summary-total-line {
-        border-top: 2px solid var(--cream-bg);
+        border-top: 2px dashed var(--sp-border);
         padding-top: 15px;
         margin-top: 15px;
         display: flex;
         justify-content: space-between;
         font-size: 20px;
         font-weight: 800;
-        color: var(--primary);
+        color: var(--sp-burgundy);
+    }
+
+    .btn-submit-order {
+        width: 100%;
+        font-size: 16px;
+        font-weight: 800;
+        padding: 14px;
+        margin-top: 20px;
+        background: var(--sp-burgundy);
+        color: #ffffff;
+        border: none;
+        border-radius: 999px;
+        cursor: pointer;
+        transition: all 0.25s ease;
+        box-shadow: 0 4px 14px rgba(15, 118, 110, 0.3);
+    }
+
+    .btn-submit-order:hover {
+        background: var(--sp-crimson);
+        transform: translateY(-2px);
+        box-shadow: 0 6px 20px rgba(15, 118, 110, 0.4);
     }
 
     @media (max-width: 860px) {
@@ -166,9 +200,18 @@
 
 @section('content')
 <div class="checkout-header">
-    <div class="container">
-        <h1 style="font-size: 28px; color: var(--primary); margin-bottom: 6px;">📦 চেকআউট ও ডেলিভারি তথ্য</h1>
-        <p style="color: var(--text-muted); font-size: 15px;">অর্ডার নিশ্চিত করতে আপনার সঠিক নাম, ঠিকানা ও পেমেন্ট বিবরণ দিন।</p>
+    <div class="container" style="display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:16px;">
+        <div>
+            <h1 style="font-size: 24px; color: var(--sp-burgundy); margin-bottom: 4px; font-weight:800;">
+                <i class="bi bi-shield-check text-success"></i> চেকআউট ও ডেলিভারি তথ্য
+            </h1>
+            <p style="color: var(--sp-muted); font-size: 14px; margin:0;">অর্ডার নিশ্চিত করতে নিচের তথ্যগুলো পূরণ করুন।</p>
+        </div>
+        <div>
+            <a href="{{ route('cart.index') }}" class="checkout-back-btn">
+                <i class="bi bi-arrow-left"></i> কার্টে ফিরে যান
+            </a>
+        </div>
     </div>
 </div>
 
@@ -321,8 +364,8 @@
                     <span id="lblTotalAmount">৳ {{ number_format(max(0, ($subtotal - $discount) + ($hasHardcopy ? $deliveryDhaka : 0))) }}</span>
                 </div>
 
-                <button type="submit" class="btn btn-gold" style="width: 100%; font-size: 16px; padding: 14px; margin-top: 20px;">
-                    ✓ অর্ডার নিশ্চিত করুন
+                <button type="submit" class="btn-submit-order">
+                    <i class="bi bi-check2-circle me-1"></i> অর্ডার নিশ্চিত করুন
                 </button>
                 <small style="display: block; text-align: center; color: var(--text-muted); font-size: 12px; margin-top: 10px;">
                     🔒 আপনার তথ্য শতভাগ সুরক্ষিত

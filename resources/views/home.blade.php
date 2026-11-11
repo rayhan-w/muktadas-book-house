@@ -134,17 +134,31 @@
         margin-bottom: 40px;
     }
 
-    /* Membership Banner (Paste Teal Theme) */
+    /* Membership Banner (Royal Golden Style - Item 15) */
     .real-membership {
-        background: linear-gradient(135deg, #042f2e 0%, #0f766e 100%) !important;
+        background: linear-gradient(135deg, #451a03 0%, #78350f 25%, #b45309 60%, #d97706 85%, #f59e0b 100%) !important;
+        border: 2px solid #fde68a !important;
         border-radius: var(--sp-radius) !important;
-        padding: 35px 40px !important;
+        padding: 38px 44px !important;
         color: #ffffff !important;
         display: flex !important;
         align-items: center !important;
         justify-content: space-between !important;
         margin: 40px 0 !important;
-        box-shadow: 0 10px 30px rgba(15, 118, 110, 0.25) !important;
+        box-shadow: 0 12px 35px rgba(180, 83, 9, 0.35) !important;
+        position: relative;
+        overflow: hidden;
+    }
+
+    .real-membership::before {
+        content: '';
+        position: absolute;
+        top: -50%;
+        right: -10%;
+        width: 320px;
+        height: 320px;
+        background: radial-gradient(circle, rgba(254, 240, 138, 0.3) 0%, transparent 70%);
+        pointer-events: none;
     }
 
     .real-membership h2 {
@@ -152,37 +166,42 @@
         font-weight: 800 !important;
         color: #ffffff !important;
         margin-bottom: 8px !important;
+        text-shadow: 0 2px 4px rgba(0, 0, 0, 0.25);
     }
 
     .real-membership p {
         font-size: 14.5px !important;
-        color: #ccfbf1 !important;
-        max-width: 600px !important;
+        color: #fef3c7 !important;
+        max-width: 620px !important;
         margin-bottom: 18px !important;
+        line-height: 1.6;
     }
 
-    .real-membership a {
+    .real-membership a.btn-gold-card {
         display: inline-flex !important;
         align-items: center;
         gap: 8px;
         background: #ffffff !important;
-        color: var(--sp-burgundy) !important;
-        padding: 10px 24px !important;
+        color: #78350f !important;
+        padding: 12px 26px !important;
         border-radius: var(--sp-radius-pill) !important;
         font-weight: 800 !important;
         text-decoration: none !important;
-        transition: all 0.2s;
+        box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2) !important;
+        transition: all 0.25s ease;
     }
 
-    .real-membership a:hover {
-        background: var(--sp-paste-light) !important;
-        color: var(--sp-crimson) !important;
+    .real-membership a.btn-gold-card:hover {
+        background: #fef3c7 !important;
+        color: #451a03 !important;
         transform: translateY(-2px);
+        box-shadow: 0 8px 22px rgba(0, 0, 0, 0.3) !important;
     }
 
     .membership-crown {
-        font-size: 64px;
-        color: rgba(255, 255, 255, 0.25);
+        font-size: 72px;
+        color: rgba(254, 240, 138, 0.35);
+        filter: drop-shadow(0 4px 8px rgba(0,0,0,0.2));
     }
 
     /* Publisher Banner */
@@ -732,18 +751,21 @@
         </a>
     </div>
 
-    <!-- Membership Banner -->
+    <!-- Membership Banner (Royal Golden Style - Item 15) -->
     <section class="real-membership">
-        <div>
+        <div style="position:relative; z-index:1;">
+            <div style="display:inline-flex; align-items:center; gap:6px; background:rgba(0,0,0,0.28); border:1px solid rgba(254,240,138,0.5); padding:4px 14px; border-radius:999px; font-size:12px; font-weight:700; color:#fef08a; margin-bottom:12px;">
+                <i class="bi bi-stars text-warning"></i> ✨ প্রিমিয়াম মেম্বারশিপ বেনিফিট
+            </div>
             <h2>
-                <i class="bi bi-award-fill text-warning me-2"></i> মুক্তাদার বইঘর প্রিমিয়াম মেম্বারশিপ
+                <i class="fa-solid fa-crown text-warning me-2"></i> মুক্তাদার বইঘর প্রিমিয়াম মেম্বারশিপ
             </h2>
             <p>আমাদের যেকোনো মেম্বারশিপে যুক্ত হয়ে পান প্রতিটি বইয়ে সর্বোচ্চ ২৫% পর্যন্ত আজীবন ছাড়, ফ্রি প্রিমিয়াম ই-বুক ও লেখকের সাথে সরাসরি আড্ডার সুযোগ।</p>
-            <a href="{{ route('memberships.index') }}">
-                <i class="bi bi-gem text-danger"></i> মেম্বারশিপ প্ল্যানসমূহ দেখুন
+            <a href="{{ route('memberships.index') }}" class="btn-gold-card">
+                <i class="bi bi-gem text-warning"></i> মেম্বারশিপ প্ল্যানসমূহ দেখুন
             </a>
         </div>
-        <div class="membership-crown">
+        <div class="membership-crown" style="position:relative; z-index:1;">
             <i class="fa-solid fa-crown"></i>
         </div>
     </section>

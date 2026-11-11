@@ -115,8 +115,42 @@ if (!file_exists($envFile)) {
         $results[] = "⚠️ .env তৈরি করা যায়নি, দয়া করে রুট ডিরেক্টরির পারমিশন চেক করুন।";
     }
 } else {
-    $results[] = "✅ .env ফাইল আগেই বিদ্যমান আছে।";
+    $results[] = "✅ .env ফাইল বিদ্যমান আছে।";
 }
+
+// 5. Run Database Migrations & Ensure video_url column exists
+try {
+    if (file_exists($baseDir . '/vendor/autoload.php') && file_exists($baseDir . '/bootstrap/app.php')) {
+        $app = require_once $baseDir . '/bootstrap/app.php';
+        $kernel = $app->make(Illuminate\Contracts\Console\Kernel::class);
+        $kernel->bootstrap();
+        
+        \Illuminate\Support\Facades\Artisan::call('migrate', ['--force' => true]);
+        $artisanOut = trim(\Illuminate\Support\Facades\Artisan::output());
+        $results[] = "✅ ডাটাবেজ মাইগ্রেশন সম্পন্ন হয়েছে: " . ($artisanOut ?: "সব মাইগ্রেশন অলরেডি আপ-টু-ডেট");
+
+        // Ensure Admin user password is password123
+        $admin = \App\Models\User::where('email', 'admin@muktadasbookhouse.com')->first();
+        if ($admin) {
+            if (!\Illuminate\Support\Facades\Hash::check('password123', $admin->password)) {
+                $admin->password = \Illuminate\Support\Facades\Hash::make('password123');
+                $admin->save();
+                $results[] = "✅ অ্যাডমিন পাসওয়ার্ড সিঙ্ক করা হয়েছে (admin@muktadasbookhouse.com / password123)";
+            } else {
+                $results[] = "✅ অ্যাডমিন অ্যাকাউন্ট সম্পূর্ণ সচল ও ভেরিফায়েড।";
+            }
+        }
+    }
+} catch (\Throwable $e) {
+    $results[] = "⚠️ মাইগ্রেশন নোটিশ: " . $e->getMessage();
+}
+
+// 6. Reset OPcache if available
+if (function_exists('opcache_reset')) {
+    @opcache_reset();
+    $results[] = "✅ PHP OPcache রিসেট করা হয়েছে।";
+}
+
 
 ?>
 <!DOCTYPE html>

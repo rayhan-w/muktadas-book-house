@@ -123,9 +123,9 @@
 
     /* Container */
     .real-container {
-        max-width: 1240px;
+        max-width: 1440px;
         margin: 0 auto;
-        padding: 10px 20px 40px;
+        padding: 10px 24px 50px;
         width: 100%;
     }
 

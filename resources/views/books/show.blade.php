@@ -9,7 +9,7 @@
 <style>
     .book-page-wrap {
         padding: 0 0 50px;
-        max-width: 1240px;
+        max-width: 1440px;
         margin: 0 auto;
         width: 100%;
     }
@@ -46,7 +46,7 @@
         border-radius: var(--sp-radius);
         box-shadow: var(--sp-shadow-sm);
         margin: 20px auto;
-        max-width: 1200px;
+        width: 100%;
     }
 
     .reference-cover {

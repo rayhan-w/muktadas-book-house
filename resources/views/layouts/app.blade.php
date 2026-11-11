@@ -197,8 +197,10 @@
         </div>
 
         <div class="footer-bottom">
-            <div>স্বত্ব © ২০২৪-{{ date('Y') }} মুক্তাদার বইঘর (Muktada's Boighor)। সর্বস্বত্ব সংরক্ষিত।</div>
-            <div>ডিজিটাল পাঠ ও প্রকাশনা সহযোগী: <strong>Muktada Book House</strong></div>
+            <div class="footer-bottom-inner">
+                <div>স্বত্ব © ২০২৪-{{ date('Y') }} মুক্তাদার বইঘর (Muktada's Boighor)। সর্বস্বত্ব সংরক্ষিত।</div>
+                <div>ডিজিটাল পাঠ ও প্রকাশনা সহযোগী: <strong>Muktada Book House</strong></div>
+            </div>
         </div>
     </footer>
 

@@ -5,8 +5,8 @@
 @section('styles')
 <style>
     .catalog-shell {
-        padding: 30px 20px 60px;
-        max-width: 1240px;
+        padding: 30px 24px 60px;
+        max-width: 1440px;
         margin: 0 auto;
         width: 100%;
     }

@@ -132,6 +132,12 @@
                 <label class="form-label">ডিজিটাল ই-বুক ফাইল (PDF File - অনলাইন রিডারের জন্য)</label>
                 <input type="file" name="ebook_file" accept=".pdf" class="form-control">
             </div>
+
+            <div class="form-group" style="grid-column: 1 / -1;">
+                <label class="form-label">🎥 ইউটিউব ভিডিও / রিভিউ লিঙ্ক (YouTube Video URL)</label>
+                <input type="url" name="video_url" value="{{ old('video_url') }}" class="form-control" placeholder="https://www.youtube.com/watch?v=... বা https://youtu.be/...">
+                <small style="color: var(--admin-muted); display: block; margin-top: 4px;">বইটির ইউটিউব রিভিউ বা পরিচিতি লিংক দিলে বিস্তারিত পেজে ১৬:৯ রেসপনসিভ প্লেয়ার প্রদর্শিত হবে। লিংক না দিলে ভিডিও সেকশন লুকায়িত থাকবে।</small>
+            </div>
         </div>
 
         <!-- 5. Flags (Featured, Upcoming, etc.) -->

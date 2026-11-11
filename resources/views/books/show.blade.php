@@ -322,6 +322,31 @@
         color: var(--sp-heading);
     }
 
+    /* 16:9 Responsive Video Container */
+    .video-responsive-container {
+        position: relative;
+        width: 100%;
+        max-width: 960px;
+        margin: 0 auto;
+        padding-bottom: 56.25%; /* 16:9 Aspect Ratio */
+        height: 0;
+        overflow: hidden;
+        border-radius: 12px;
+        background: #0f172b;
+        box-shadow: 0 6px 24px rgba(15, 23, 42, 0.12);
+        border: 1px solid var(--sp-border);
+    }
+
+    .video-responsive-container iframe {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        border: 0;
+        border-radius: 12px;
+    }
+
     @media (max-width: 768px) {
         .book-hero-reference {
             flex-direction: column;
@@ -488,6 +513,11 @@
         <button type="button" class="book-tab-btn" onclick="showTab('reviews', this)">
             <i class="bi bi-chat-heart"></i> পাঠকদের মতামত ({{ $book->reviews()->count() }})
         </button>
+        @if($book->hasVideo())
+            <button type="button" class="book-tab-btn" onclick="showTab('video', this)">
+                <i class="bi bi-youtube text-danger"></i> ভিডিও রিভিউ
+            </button>
+        @endif
     </div>
 
     <div class="book-panels-wrap">
@@ -576,7 +606,41 @@
             </div>
         </div>
 
+        @if($book->hasVideo())
+            <!-- Tab 5: Video Review -->
+            <div id="tab-video" class="tab-panel" style="display:none;">
+                <div class="book-detail-card">
+                    <h2><i class="bi bi-play-circle-fill text-danger"></i> বই পরিচিতি ও ভিডিও পর্যালোচনা</h2>
+                    <p style="color: var(--sp-muted); font-size: 14px; margin-bottom: 20px;">ভিডিওতে দেখে নিন বইটির মূল ভাবনা ও পাঠ প্রতিক্রিয়া:</p>
+                    <div class="video-responsive-container">
+                        <iframe src="{{ $book->youtube_embed_url }}" 
+                                title="{{ $book->title }} - ভিডিও পর্যালোচনা" 
+                                frameborder="0" 
+                                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" 
+                                allowfullscreen></iframe>
+                    </div>
+                </div>
+            </div>
+        @endif
+
     </div>
+
+    @if($book->hasVideo())
+        <!-- Under-tabs 16:9 Responsive Video Review Section -->
+        <div style="padding: 0 24px 30px;">
+            <div class="book-detail-card" style="background: #ffffff;">
+                <h2><i class="bi bi-youtube text-danger"></i> ভিডিও পর্যালোচনা (YouTube Review)</h2>
+                <p style="color: var(--sp-muted); font-size: 14px; margin-bottom: 20px;">বইটি সম্পর্কে বিস্তারিত জানতে নিচের ভিডিওটি প্লে করে দেখতে পারেন:</p>
+                <div class="video-responsive-container">
+                    <iframe src="{{ $book->youtube_embed_url }}" 
+                            title="{{ $book->title }} - ভিডিও পর্যালোচনা" 
+                            frameborder="0" 
+                            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" 
+                            allowfullscreen></iframe>
+                </div>
+            </div>
+        </div>
+    @endif
 
 </div>
 

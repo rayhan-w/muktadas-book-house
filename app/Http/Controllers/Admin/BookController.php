@@ -63,6 +63,7 @@ class BookController extends Controller
             'meta_keywords' => 'nullable|string',
             'cover_image' => 'nullable|image|max:3072',
             'ebook_file' => 'nullable|mimes:pdf|max:51200',
+            'video_url' => 'nullable|string|max:500',
             'categories' => 'required|array',
             'categories.*' => 'exists:categories,id',
         ]);
@@ -95,6 +96,7 @@ class BookController extends Controller
             'meta_title' => $validated['meta_title'] ?? null,
             'meta_description' => $validated['meta_description'] ?? null,
             'meta_keywords' => $validated['meta_keywords'] ?? null,
+            'video_url' => $validated['video_url'] ?? null,
             'is_published' => true,
         ];
 
@@ -149,6 +151,7 @@ class BookController extends Controller
             'meta_keywords' => 'nullable|string',
             'cover_image' => 'nullable|image|max:3072',
             'ebook_file' => 'nullable|mimes:pdf|max:51200',
+            'video_url' => 'nullable|string|max:500',
             'categories' => 'required|array',
             'categories.*' => 'exists:categories,id',
         ]);
@@ -176,6 +179,7 @@ class BookController extends Controller
             'meta_title' => $validated['meta_title'] ?? null,
             'meta_description' => $validated['meta_description'] ?? null,
             'meta_keywords' => $validated['meta_keywords'] ?? null,
+            'video_url' => $validated['video_url'] ?? null,
         ];
 
         if ($request->hasFile('cover_image')) {

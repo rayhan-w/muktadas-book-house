@@ -159,6 +159,12 @@
                             <input type="file" name="ebook_file" accept=".pdf" class="form-control">
                             <small style="color: #64748b; font-size: 12px; display: block; margin-top: 4px;">ই-বুক পড়ার জন্য মূল PDF ফাইল আপলোড করুন (সর্বোচ্চ 50 MB)।</small>
                         </div>
+
+                        <div class="form-group" style="grid-column: 1 / -1;">
+                            <label class="form-label">🎥 ইউটিউব ভিডিও / রিভিউ লিঙ্ক (ঐচ্ছিক)</label>
+                            <input type="url" name="video_url" value="{{ old('video_url') }}" class="form-control" placeholder="https://www.youtube.com/watch?v=... বা https://youtu.be/...">
+                            <small style="color: #64748b; font-size: 12px; display: block; margin-top: 4px;">বইটির ইউটিউব ভিডিও রিভিউ থাকলে লিঙ্ক দিন। বিস্তারিত পেজে ১৬:৯ ফরম্যাটে ভিডিও প্রদর্শিত হবে।</small>
+                        </div>
                     </div>
                 </div>
 

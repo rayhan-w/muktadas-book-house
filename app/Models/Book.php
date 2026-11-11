@@ -24,6 +24,7 @@ class Book extends Model
         'stock_status',
         'cover_image',
         'ebook_file',
+        'video_url',
         'preview_pages',
         'is_featured',
         'is_latest',
@@ -152,5 +153,30 @@ class Book extends Model
             return asset(ltrim($this->cover_image, '/'));
         }
         return asset('covers/alor-poth.png');
+    }
+
+    public function getYoutubeEmbedUrlAttribute(): ?string
+    {
+        if (empty($this->video_url)) {
+            return null;
+        }
+
+        $url = trim($this->video_url);
+
+        // Pattern for standard watch URL, youtu.be, embed, shorts
+        if (preg_match('/(?:youtube\.com\/(?:[^\/]+\/.+\/|(?:v|e(?:mbed)?)\/|.*[?&]v=)|youtu\.be\/|youtube\.com\/shorts\/)([a-zA-Z0-9_-]{11})/', $url, $matches)) {
+            return 'https://www.youtube.com/embed/' . $matches[1];
+        }
+
+        if (str_contains($url, 'youtube.com/embed/')) {
+            return $url;
+        }
+
+        return $url;
+    }
+
+    public function hasVideo(): bool
+    {
+        return !empty($this->video_url) && !empty($this->youtube_embed_url);
     }
 }

@@ -161,6 +161,7 @@ class PublisherController extends Controller
             'pen_picture' => 'nullable|string',
             'cover_image' => 'required|image|max:4096',
             'ebook_file' => 'nullable|mimes:pdf|max:51200',
+            'video_url' => 'nullable|string|max:500',
         ], [
             'title.required' => 'বইয়ের শিরোনাম আবশ্যক।',
             'author_name.required' => 'লেখকের নাম আবশ্যক।',
@@ -192,6 +193,7 @@ class PublisherController extends Controller
             'stock_quantity' => $validated['stock_quantity'] ?? 50,
             'stock_status' => $validated['stock_status'],
             'preview_pages' => $validated['preview_pages'],
+            'video_url' => $validated['video_url'] ?? null,
             'pen_picture' => $validated['pen_picture'] ?? null,
             // SECURITY: Submitted books are hidden and pending approval
             'approval_status' => 'pending',
@@ -264,6 +266,7 @@ class PublisherController extends Controller
             'pen_picture' => 'nullable|string',
             'cover_image' => 'nullable|image|max:4096',
             'ebook_file' => 'nullable|mimes:pdf|max:51200',
+            'video_url' => 'nullable|string|max:500',
         ], [
             'title.required' => 'বইয়ের শিরোনাম আবশ্যক।',
             'author_name.required' => 'লেখকের নাম আবশ্যক।',
@@ -285,6 +288,7 @@ class PublisherController extends Controller
             'stock_quantity' => $validated['stock_quantity'] ?? 0,
             'stock_status' => $validated['stock_status'],
             'preview_pages' => $validated['preview_pages'],
+            'video_url' => $validated['video_url'] ?? null,
             'pen_picture' => $validated['pen_picture'] ?? null,
             // CRITICAL VOICE RULE: Reverts to pending and unpublished upon edit
             'approval_status' => 'pending',

@@ -69,7 +69,7 @@ class Book extends Model
 
     public function isApproved(): bool
     {
-        return $this->approval_status === 'approved';
+        return $this->approval_status === 'approved' || ($this->approval_status === null && (bool)$this->is_published);
     }
 
     public function isPending(): bool

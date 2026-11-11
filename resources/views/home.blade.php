@@ -4,578 +4,308 @@
 
 @section('styles')
 <style>
-    /* Hero Section */
+    /* SahojPath Modern Clean Hero */
     .real-hero {
         position: relative;
-        min-height: 380px;
-        background: linear-gradient(90deg, rgba(8, 27, 35, 0.75), rgba(8, 27, 35, 0.35)), url('{{ asset('library-hero.png') }}') center/cover no-repeat !important;
+        min-height: 340px;
+        background: linear-gradient(135deg, #0f172b 0%, #1e293b 60%, #334155 100%) !important;
         color: #fff !important;
         display: flex;
         align-items: center;
-        justify-content: flex-end;
+        justify-content: space-between;
         padding: 40px 30px;
+        border-radius: var(--sp-radius);
+        margin-bottom: 30px;
         overflow: hidden;
-        border-bottom: 3px solid var(--gold);
+        border-bottom: 4px solid var(--sp-burgundy);
+        box-shadow: 0 10px 30px rgba(15, 23, 42, 0.12);
     }
 
     .real-hero::after {
         content: "";
         position: absolute;
-        z-index: 2;
-        left: 2%;
+        z-index: 1;
+        right: 4%;
         bottom: 0;
         width: 320px;
         height: 100%;
         background-image: url('{{ asset('author-portrait-cutout.png') }}');
         background-repeat: no-repeat;
-        background-position: left bottom;
+        background-position: right bottom;
         background-size: contain;
         pointer-events: none;
+        opacity: 0.9;
     }
 
     .real-hero-content {
         position: relative;
-        z-index: 3;
-        max-width: 580px;
-        text-align: right;
-        padding-left: 20px;
+        z-index: 2;
+        max-width: 620px;
+        text-align: left;
+    }
+
+    .hero-badge-tag {
+        display: inline-block;
+        background: rgba(229, 70, 70, 0.2);
+        color: #fca5a5;
+        border: 1px solid rgba(229, 70, 70, 0.4);
+        padding: 4px 14px;
+        border-radius: var(--sp-radius-pill);
+        font-size: 12.5px;
+        font-weight: 700;
+        margin-bottom: 14px;
+        letter-spacing: 0.5px;
     }
 
     .real-hero h1 {
-        font-size: 36px;
+        font-size: 32px;
         font-weight: 800;
-        color: #fff !important;
-        line-height: 1.25;
-        margin-bottom: 14px;
-        text-shadow: 0 2px 10px rgba(0, 0, 0, 0.8) !important;
+        color: #ffffff !important;
+        line-height: 1.3;
+        margin-bottom: 12px;
     }
 
     .real-hero p {
-        font-size: 17px;
-        color: #f1f5f9 !important;
-        line-height: 1.6;
-        margin-bottom: 24px;
-        text-shadow: 0 1px 6px rgba(0, 0, 0, 0.7) !important;
+        font-size: 15px;
+        color: #cbd5e1 !important;
+        line-height: 1.65;
+        margin-bottom: 22px;
     }
 
     .real-hero-btns {
         display: flex;
         gap: 12px;
-        justify-content: flex-end;
         flex-wrap: wrap;
     }
 
     .hero-btn-primary {
-        background: linear-gradient(135deg, #f4cf68, #d6a12e);
-        color: #092d45 !important;
-        padding: 12px 24px;
-        border-radius: 999px;
-        font-size: 15px;
-        font-weight: 800;
+        background: var(--sp-crimson);
+        color: #ffffff !important;
+        padding: 12px 26px;
+        border-radius: var(--sp-radius-pill);
+        font-size: 14.5px;
+        font-weight: 700;
         text-decoration: none;
-        box-shadow: 0 4px 14px rgba(214, 161, 46, 0.4);
         transition: all 0.2s ease;
-        border: 1px solid #c48e1a;
+        box-shadow: 0 4px 14px rgba(229, 70, 70, 0.35);
     }
 
     .hero-btn-primary:hover {
-        background: linear-gradient(135deg, #e4b840, #bd881a);
+        background: var(--sp-burgundy);
         transform: translateY(-2px);
     }
 
     .hero-btn-secondary {
-        background: rgba(255, 255, 255, 0.15);
-        color: #fff !important;
-        backdrop-filter: blur(8px);
+        background: rgba(255, 255, 255, 0.1);
+        color: #ffffff !important;
         padding: 12px 22px;
-        border-radius: 999px;
-        font-size: 15px;
-        font-weight: 700;
+        border-radius: var(--sp-radius-pill);
+        font-size: 14.5px;
+        font-weight: 600;
         text-decoration: none;
-        border: 1.5px solid rgba(255, 255, 255, 0.6);
+        border: 1px solid rgba(255, 255, 255, 0.25);
         transition: all 0.2s ease;
     }
 
     .hero-btn-secondary:hover {
-        background: #fff;
-        color: var(--navy) !important;
+        background: #ffffff;
+        color: var(--sp-heading) !important;
         transform: translateY(-2px);
     }
 
     /* Container */
     .real-container {
-        padding: 30px 24px 50px;
+        max-width: 1240px;
+        margin: 0 auto;
+        padding: 10px 20px 40px;
     }
 
-    .real-section-header {
-        display: flex;
-        align-items: center;
-        justify-content: space-between;
-        margin-bottom: 16px;
-        border-bottom: 2px solid var(--line);
-        padding-bottom: 10px;
+    /* Category Grid (SahojPath Clean Badges) */
+    .real-categories {
+        background: #ffffff;
+        border: 1px solid var(--sp-border);
+        border-radius: var(--sp-radius);
+        padding: 22px 24px;
+        margin-bottom: 35px;
+        box-shadow: var(--sp-shadow-sm);
     }
 
-    .real-section-header h2 {
-        font-size: 24px;
-        font-weight: 800;
-        color: var(--navy);
+    .category-pills-grid {
         display: flex;
+        gap: 10px;
+        flex-wrap: wrap;
+        margin-top: 14px;
+    }
+
+    .home-cat-badge {
+        display: inline-flex;
         align-items: center;
         gap: 8px;
-    }
-
-    .real-section-header a {
-        font-size: 14px;
-        font-weight: 700;
-        color: var(--gold-dark);
-        text-decoration: none;
-    }
-
-    .real-section-header a:hover {
-        color: var(--navy);
-        text-decoration: underline;
-    }
-
-    /* ============================================================== */
-    /* MARQUEE ANIMATION ENGINE (Matching PlayMathEarn infinite ticker) */
-    /* ============================================================== */
-    .real-marquee-wrapper {
-        position: relative;
-        overflow: hidden;
-        width: 100%;
-        padding: 8px 0 16px;
-        margin-bottom: 35px;
-        mask-image: linear-gradient(to right, transparent 0%, black 2.5%, black 97.5%, transparent 100%);
-        -webkit-mask-image: linear-gradient(to right, transparent 0%, black 2.5%, black 97.5%, transparent 100%);
-    }
-
-    /* Categories Marquee */
-    .category-marquee-track {
-        display: flex !important;
-        gap: 12px !important;
-        width: max-content !important;
-        animation: category-scroll 32s linear infinite !important;
-        will-change: transform;
-    }
-
-    .category-marquee-track:hover {
-        animation-play-state: paused !important;
-    }
-
-    @keyframes category-scroll {
-        0% {
-            transform: translateX(0);
-        }
-        100% {
-            transform: translateX(-50%);
-        }
-    }
-
-    .real-category-badge {
-        flex: 0 0 135px !important;
-        width: 135px !important;
-        min-width: 135px !important;
-        background: linear-gradient(135deg, #fbf7ed, #f5ebd5);
-        border: 1.5px solid #e0d4bd;
-        border-radius: 12px;
-        padding: 12px 10px;
-        text-align: center;
-        text-decoration: none;
-        color: var(--navy);
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        gap: 5px;
-        transition: all 0.2s ease;
-        box-shadow: 0 3px 8px rgba(9, 45, 69, 0.04);
-        cursor: pointer;
-    }
-
-    .real-category-badge:hover {
-        background: linear-gradient(135deg, #f4cf68, #d6a12e);
-        border-color: #bd8b19;
-        color: var(--navy);
-        transform: translateY(-3px);
-        box-shadow: 0 6px 16px rgba(214, 161, 46, 0.25);
-    }
-
-    .category-badge-icon {
-        font-size: 22px;
-    }
-
-    .category-badge-name {
+        padding: 9px 18px;
+        background: #f8fafc;
+        border: 1px solid var(--sp-border);
+        border-radius: var(--sp-radius-pill);
         font-size: 13.5px;
-        font-weight: 700;
-        white-space: nowrap;
-    }
-
-    /* Books Responsive Grid (Clean, Stationary & Fast) */
-    .real-books-grid {
-        display: grid;
-        grid-template-columns: repeat(auto-fill, minmax(185px, 1fr));
-        gap: 18px;
-        margin-bottom: 35px;
-    }
-
-    /* Book Cards */
-    .real-book-card {
-        background: #fffdf8;
-        border: 1px solid var(--line);
-        border-radius: 12px;
-        padding: 10px;
-        display: flex;
-        flex-direction: column;
-        box-shadow: 0 4px 14px rgba(9, 45, 69, 0.05);
-        transition: transform 0.2s ease, box-shadow 0.2s ease, border-color 0.2s ease;
-        position: relative;
-    }
-
-    .real-book-card:hover {
-        transform: translateY(-4px);
-        box-shadow: 0 10px 25px rgba(9, 45, 69, 0.12);
-        border-color: var(--gold);
-    }
-
-    .real-book-link {
+        font-weight: 600;
+        color: var(--sp-heading);
         text-decoration: none;
-        color: inherit;
-        display: block;
-        flex: 1;
-    }
-
-    .real-cover {
-        position: relative;
-        aspect-ratio: 3/4;
-        border-radius: 8px;
-        overflow: hidden;
-        background: #f1ebd9;
-        margin-bottom: 8px;
-        border: 1px solid rgba(0,0,0,0.05);
-    }
-
-    .real-cover img {
-        width: 100%;
-        height: 100%;
-        object-fit: cover;
-        display: block;
-        transition: transform 0.3s ease;
-    }
-
-    .real-book-card:hover .real-cover img {
-        transform: scale(1.04);
-    }
-
-    .discount-badge {
-        position: absolute;
-        top: 6px;
-        right: 6px;
-        background: #e11d48;
-        color: #fff;
-        font-size: 10.5px;
-        font-weight: 800;
-        padding: 2px 6px;
-        border-radius: 5px;
-        box-shadow: 0 2px 5px rgba(0,0,0,0.25);
-    }
-
-    .publisher-tag {
-        position: absolute;
-        bottom: 6px;
-        left: 6px;
-        background: rgba(9, 45, 69, 0.88);
-        color: #f4cf68;
-        font-size: 9.5px;
-        font-weight: 700;
-        padding: 2px 6px;
-        border-radius: 4px;
-        backdrop-filter: blur(4px);
-    }
-
-    .real-book-card h3 {
-        font-size: 14px;
-        font-weight: 700;
-        color: var(--navy);
-        line-height: 1.3;
-        margin-bottom: 3px;
-        min-height: 38px;
-        display: -webkit-box;
-        -webkit-line-clamp: 2;
-        -webkit-box-orient: vertical;
-        overflow: hidden;
-    }
-
-    .real-book-card p.cat-label {
-        font-size: 11px;
-        color: var(--muted);
-        margin-bottom: 6px;
-        white-space: nowrap;
-        overflow: hidden;
-        text-overflow: ellipsis;
-    }
-
-    .real-price {
-        display: flex;
-        align-items: baseline;
-        gap: 6px;
-        margin-bottom: 10px;
-    }
-
-    .real-price strong {
-        font-size: 15px;
-        color: var(--navy);
-        font-weight: 800;
-    }
-
-    .real-price del {
-        font-size: 11.5px;
-        color: #94a3b8;
-    }
-
-    .real-card-bottom {
-        border-top: 1px solid #f1ebd9;
-        padding-top: 8px;
-        display: flex;
-        flex-direction: column;
-        gap: 6px;
-    }
-
-    .product-types {
-        display: grid;
-        grid-template-columns: 1fr 1fr;
-        gap: 5px;
-    }
-
-    .btn-ebook {
-        display: inline-flex;
-        align-items: center;
-        justify-content: center;
-        padding: 6px 4px;
-        border-radius: 5px;
-        background: #fdf2d0;
-        color: #925c07 !important;
-        border: 1px solid #e9cd89;
-        font-size: 11px;
-        font-weight: 700;
-        text-decoration: none;
-        text-align: center;
         transition: all 0.2s ease;
     }
 
-    .btn-ebook:hover {
-        background: #f4cf68;
-        color: var(--navy) !important;
+    .home-cat-badge:hover {
+        background: #fff1f2;
+        border-color: #fecdd3;
+        color: var(--sp-burgundy);
+        transform: translateY(-2px);
+        box-shadow: 0 4px 10px rgba(139, 38, 59, 0.08);
     }
 
-    .btn-hardcopy {
-        width: 100%;
-        display: inline-flex;
-        align-items: center;
-        justify-content: center;
-        padding: 6px 4px;
-        border-radius: 5px;
-        background: var(--navy);
-        color: #fff !important;
-        border: 1px solid var(--navy);
-        font-size: 11px;
-        font-weight: 700;
-        cursor: pointer;
-        text-align: center;
-        transition: all 0.2s ease;
-        font-family: inherit;
+    /* Section Styling */
+    .real-section {
+        margin-bottom: 40px;
     }
 
-    .btn-hardcopy:hover {
-        background: #174261;
-    }
-
-    /* Membership Banner matching PlayMathEarn */
+    /* Membership Banner (SahojPath Burgundy Accent) */
     .real-membership {
-        background: linear-gradient(135deg, #092d45 0%, #154566 100%) !important;
-        border: 2px solid var(--gold) !important;
-        border-radius: 16px !important;
+        background: linear-gradient(135deg, #4f1726 0%, #8b263b 100%) !important;
+        border-radius: var(--sp-radius) !important;
         padding: 35px 40px !important;
-        color: #fff !important;
+        color: #ffffff !important;
         display: flex !important;
         align-items: center !important;
         justify-content: space-between !important;
-        margin: 35px 0 45px !important;
-        box-shadow: 0 12px 30px rgba(9, 45, 69, 0.15) !important;
+        margin: 40px 0 !important;
+        box-shadow: 0 10px 30px rgba(139, 38, 59, 0.2) !important;
     }
 
     .real-membership h2 {
-        font-size: 28px !important;
+        font-size: 26px !important;
         font-weight: 800 !important;
-        color: var(--gold-light) !important;
+        color: #ffffff !important;
         margin-bottom: 8px !important;
     }
 
     .real-membership p {
-        font-size: 15px !important;
-        color: #e2e8f0 !important;
+        font-size: 14.5px !important;
+        color: #fecdd3 !important;
         max-width: 600px !important;
         margin-bottom: 18px !important;
     }
 
     .real-membership a {
         display: inline-block !important;
-        background: linear-gradient(135deg, #f4cf68, #d6a12e) !important;
-        color: #092d45 !important;
-        padding: 10px 22px !important;
-        border-radius: 999px !important;
+        background: #ffffff !important;
+        color: var(--sp-burgundy) !important;
+        padding: 10px 24px !important;
+        border-radius: var(--sp-radius-pill) !important;
         font-weight: 800 !important;
         text-decoration: none !important;
-        border: 1px solid #c48e1a !important;
-        box-shadow: 0 4px 12px rgba(214, 161, 46, 0.35) !important;
+        transition: all 0.2s;
+    }
+
+    .real-membership a:hover {
+        background: #fff1f2 !important;
+        transform: translateY(-2px);
     }
 
     .membership-crown {
-        font-size: 72px;
-        color: var(--gold-light);
-        line-height: 1;
-        opacity: 0.9;
-        text-shadow: 0 4px 12px rgba(0,0,0,0.3);
+        font-size: 70px;
+        color: rgba(255, 255, 255, 0.25);
     }
 
-    /* Publisher Section Banner */
+    /* Publisher Banner */
     .publisher-banner {
-        background: #fff;
-        border: 2px dashed #93c5fd;
-        border-radius: 16px;
-        padding: 26px 30px;
-        margin-bottom: 45px;
+        background: #ffffff;
+        border: 1px solid var(--sp-border);
+        border-left: 5px solid var(--sp-crimson);
+        border-radius: var(--sp-radius);
+        padding: 24px 28px;
+        margin-bottom: 40px;
         display: flex;
         align-items: center;
         justify-content: space-between;
         gap: 20px;
-        box-shadow: 0 4px 15px rgba(29, 78, 216, 0.05);
+        box-shadow: var(--sp-shadow-sm);
     }
 
     .publisher-banner h3 {
-        color: #1e40af;
-        font-size: 20px;
+        color: var(--sp-heading);
+        font-size: 19px;
         font-weight: 800;
-        margin-bottom: 6px;
+        margin-bottom: 4px;
     }
 
     .publisher-banner p {
-        color: #475569;
+        color: var(--sp-muted);
         font-size: 14px;
-        max-width: 650px;
         margin: 0;
     }
 
     .publisher-banner-btn {
-        background: #2563eb;
-        color: #fff !important;
-        padding: 11px 22px;
-        border-radius: 8px;
+        background: var(--sp-crimson);
+        color: #ffffff !important;
+        padding: 10px 20px;
+        border-radius: var(--sp-radius-sm);
         font-weight: 700;
-        text-decoration: none;
+        font-size: 13.5px;
         white-space: nowrap;
-        border: 1px solid #1d4ed8;
-        transition: all 0.2s;
+        text-decoration: none;
+        transition: background 0.2s;
     }
 
     .publisher-banner-btn:hover {
-        background: #1d4ed8;
-        transform: translateY(-2px);
+        background: var(--sp-burgundy);
     }
 
-    /* Author Spotlight */
-    .author-spotlight-card {
-        background: #fff;
-        border: 1px solid var(--line);
-        border-radius: 16px;
-        padding: 26px;
-        margin-bottom: 45px;
-        display: flex;
-        align-items: center;
-        gap: 25px;
-        box-shadow: 0 4px 15px rgba(9, 45, 69, 0.05);
-    }
-
-    .author-spotlight-img {
-        width: 110px;
-        height: 110px;
-        border-radius: 50%;
-        object-fit: cover;
-        border: 4px solid var(--gold-light);
-        box-shadow: 0 4px 12px rgba(9, 45, 69, 0.12);
-        flex-shrink: 0;
-    }
-
-    .author-spotlight-text h4 {
-        font-size: 18px;
-        color: var(--navy);
-        margin-bottom: 6px;
-    }
-
-    .author-quote-text {
-        font-size: 14.5px;
-        font-style: italic;
-        color: #334155;
-        border-left: 3px solid var(--gold);
-        padding-left: 14px;
-        margin: 8px 0;
-        line-height: 1.6;
-    }
-
-    /* Real Features matching PlayMathEarn */
-    .real-features-box {
-        margin-bottom: 45px;
-    }
-
-    .real-features-grid {
+    /* Features Grid */
+    .features-grid {
         display: grid;
         grid-template-columns: repeat(4, 1fr);
         gap: 16px;
+        margin-bottom: 40px;
     }
 
     .feature-card {
-        background: #fff;
-        border: 1px solid var(--line);
-        border-radius: 12px;
-        padding: 20px 16px;
-        text-align: center;
-        box-shadow: 0 3px 10px rgba(9, 45, 69, 0.04);
+        background: #ffffff;
+        border: 1px solid var(--sp-border);
+        border-radius: var(--sp-radius);
+        padding: 20px;
+        display: flex;
+        align-items: center;
+        gap: 14px;
+        box-shadow: var(--sp-shadow-sm);
     }
 
-    .feature-card-icon {
-        font-size: 30px;
-        margin-bottom: 6px;
-        display: block;
+    .feature-icon {
+        font-size: 28px;
+        color: var(--sp-crimson);
     }
 
-    .feature-card-title {
-        font-weight: 800;
-        font-size: 14px;
-        color: var(--navy);
-        margin-bottom: 4px;
+    .feature-title {
+        font-size: 14.5px;
+        font-weight: 700;
+        color: var(--sp-heading);
     }
 
-    .feature-card-sub {
-        font-size: 11.5px;
-        color: var(--muted);
+    .feature-sub {
+        font-size: 12px;
+        color: var(--sp-muted);
     }
 
-    /* Reviews Section */
-    .reviews-box {
-        margin-bottom: 20px;
-    }
-
+    /* Testimonials */
     .reviews-grid {
         display: grid;
         grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
         gap: 18px;
+        margin-bottom: 40px;
     }
 
     .reader-review-card {
-        background: #fff;
-        border: 1px solid var(--line);
-        border-radius: 12px;
+        background: #ffffff;
+        border: 1px solid var(--sp-border);
+        border-radius: var(--sp-radius);
         padding: 20px;
-        box-shadow: 0 3px 10px rgba(9, 45, 69, 0.04);
+        box-shadow: var(--sp-shadow-sm);
         display: flex;
         flex-direction: column;
         justify-content: space-between;
@@ -589,7 +319,7 @@
 
     .review-quote {
         font-size: 13.5px;
-        color: #334155;
+        color: var(--sp-body);
         font-style: italic;
         line-height: 1.6;
         margin-bottom: 14px;
@@ -598,8 +328,8 @@
     .review-author {
         font-size: 12.5px;
         font-weight: 700;
-        color: var(--navy);
-        border-top: 1px solid #f1ebd9;
+        color: var(--sp-heading);
+        border-top: 1px solid #f1f5f9;
         padding-top: 10px;
         display: flex;
         align-items: center;
@@ -607,467 +337,346 @@
     }
 
     .verified-pill {
-        background: #dcfce7;
-        color: #166534;
-        font-size: 10.5px;
-        padding: 2px 7px;
-        border-radius: 999px;
+        background: var(--sp-green-bg);
+        color: var(--sp-green);
+        font-size: 11px;
+        padding: 2px 8px;
+        border-radius: var(--sp-radius-pill);
+        font-weight: 700;
     }
 
-    /* Responsive */
     @media (max-width: 768px) {
         .real-hero {
-            min-height: 290px;
-            padding: 25px 16px;
-            justify-content: center;
+            padding: 25px 20px;
+            min-height: auto;
         }
-
         .real-hero::after {
             display: none;
         }
-
-        .real-hero-content {
-            max-width: 100%;
-            text-align: center;
-            padding: 0;
+        .features-grid {
+            grid-template-columns: repeat(2, 1fr);
         }
-
-        .real-hero h1 {
-            font-size: 25px;
-        }
-
-        .real-hero p {
-            font-size: 13.5px;
-        }
-
-        .real-hero-btns {
-            justify-content: center;
-        }
-
-        .real-book-card {
-            flex: 0 0 150px !important;
-            width: 150px !important;
-            min-width: 150px !important;
-            max-width: 150px !important;
-        }
-
-        .real-membership {
-            flex-direction: column;
-            text-align: center;
-            padding: 26px 18px !important;
-            gap: 12px;
-        }
-
         .publisher-banner {
             flex-direction: column;
-            text-align: center;
-        }
-
-        .publisher-banner-btn {
-            width: 100%;
-            text-align: center;
-        }
-
-        .author-spotlight-card {
-            flex-direction: column;
-            text-align: center;
-        }
-
-        .real-books-grid {
-            grid-template-columns: repeat(2, 1fr) !important;
-            gap: 12px !important;
-        }
-
-        .real-features-grid {
-            grid-template-columns: repeat(2, 1fr);
+            align-items: flex-start;
         }
     }
 </style>
 @endsection
 
 @section('content')
+<div class="real-container">
 
-    <!-- Hero Section with Library Background & Author Cutout -->
+    <!-- SahojPath Clean Modern Hero -->
     <section class="real-hero">
         <div class="real-hero-content">
-            <h1>{{ $settings['site_tagline'] ?? 'মুক্তাদার বইঘর — জ্ঞানের আলোয় নতুন পথচলা' }}</h1>
-            <p>ভালো বই পড়ুন, মনন গড়ুন, সুন্দর জীবনকে আরও সমৃদ্ধ করুন। চিন্তাশীল সাহিত্য, উপন্যাস ও গবেষণাধর্মী রচনার একমাত্র প্রামাণ্য ডিজিটাল ঠিকানা।</p>
+            <span class="hero-badge-tag">✨ মুক্তাদার বইঘরে আপনাকে স্বাগতম</span>
+            <h1>{{ $settings['site_tagline'] ?? 'জ্ঞানের আলোয় নতুন পথচলা — সুন্দর জীবনের প্রত্যয়' }}</h1>
+            <p>লেখক মুক্তাদার চিন্তাশীল গবেষণা, উপন্যাস ও জীবনমুখী সাহিত্যের বিশ্বস্ত ঠিকানা। আপনার পছন্দের বই অর্ডার করুন ঘরে বসেই অথবা সংগ্রহ করুন ডিজিটাল ই-বুক।</p>
             <div class="real-hero-btns">
-                <a href="{{ route('books.index') }}" class="hero-btn-primary">📖 সকল বই দেখুন →</a>
-                <a href="{{ route('memberships.index') }}" class="hero-btn-secondary">👑 মেম্বারশিপ নিন</a>
+                <a href="{{ route('books.index') }}" class="hero-btn-primary">সকল বই দেখুন →</a>
+                <a href="{{ route('memberships.index') }}" class="hero-btn-secondary">মেম্বারশিপ প্ল্যান</a>
             </div>
         </div>
     </section>
 
-    <div class="real-container">
-
-        <!-- Category Sliding Marquee Section (Matching PlayMathEarn continuous scroll) -->
-        <section id="categories" class="real-categories">
-            <div class="real-section-header">
-                <h2>📚 বিষয়ভিত্তিক ক্যাটাগরি</h2>
-                <a href="{{ route('books.index') }}">সকল বই ক্যাটালগ →</a>
-            </div>
-            
-            <div class="real-marquee-wrapper">
-                <div class="category-marquee-track">
-                    @php
-                        $categoryIcons = [
-                            'islamic' => '🕌',
-                            'novels' => '📖',
-                            'stories' => '✍️',
-                            'biography' => '👤',
-                            'self-development' => '🌱',
-                            'history' => '🏛️',
-                            'liberation-war' => '🇧🇩',
-                            'career' => '💼',
-                            'children' => '🧒',
-                            'other' => '📚',
-                        ];
-                    @endphp
-
-                    {{-- Loop 1 for infinite scroll --}}
-                    @foreach($categories as $cat)
-                        <a href="{{ route('books.index', ['category' => $cat->slug]) }}" class="real-category-badge">
-                            <span class="category-badge-icon">{{ $categoryIcons[$cat->slug] ?? '📖' }}</span>
-                            <span class="category-badge-name">{{ $cat->name }}</span>
-                        </a>
-                    @endforeach
-
-                    {{-- Loop 2 for continuous seamless looping --}}
-                    @foreach($categories as $cat)
-                        <a href="{{ route('books.index', ['category' => $cat->slug]) }}" class="real-category-badge" aria-hidden="true">
-                            <span class="category-badge-icon">{{ $categoryIcons[$cat->slug] ?? '📖' }}</span>
-                            <span class="category-badge-name">{{ $cat->name }}</span>
-                        </a>
-                    @endforeach
-                </div>
-            </div>
-        </section>
-
-        <!-- Featured Books Section (Clean Responsive Grid) -->
-        @if($featuredBooks->isNotEmpty())
-            <section class="real-section" id="featured">
-                <div class="real-section-header">
-                    <h2>⭐ নির্বাচিত বইসমূহ</h2>
-                    <a href="{{ route('books.index', ['filter' => 'featured']) }}">সবগুলো দেখুন →</a>
-                </div>
-
-                <div class="real-books-grid">
-                    @foreach($featuredBooks as $book)
-                        <article class="real-book-card">
-                            <a href="{{ route('books.show', $book->slug) }}" class="real-book-link">
-                                <div class="real-cover">
-                                    <img src="{{ $book->cover_url }}" alt="{{ $book->title }} বইয়ের প্রচ্ছদ" loading="lazy">
-                                    @if($book->discount_percent > 0)
-                                        <span class="discount-badge">-{{ round($book->discount_percent) }}%</span>
-                                    @endif
-                                    @if($book->publisher_name)
-                                        <span class="publisher-tag">{{ $book->publisher_name }}</span>
-                                    @endif
-                                </div>
-                                <h3>{{ $book->title }}</h3>
-                                <p class="cat-label">{{ $book->categories->first()?->name ?? 'বই' }}</p>
-                                <div class="real-price">
-                                    <strong>৳ {{ number_format($book->hardcopyEffectivePrice()) }}</strong>
-                                    @if($book->discount_percent > 0)
-                                        <del>৳ {{ number_format($book->price_hardcopy) }}</del>
-                                    @endif
-                                </div>
-                            </a>
-                            <div class="real-card-bottom">
-                                <div class="product-types">
-                                    <a href="{{ route('checkout', ['type' => 'ebook', 'bookSlug' => $book->slug]) }}" class="btn-ebook">ই-বুক</a>
-                                    <form action="{{ route('cart.add') }}" method="POST" style="margin:0;">
-                                        @csrf
-                                        <input type="hidden" name="book_id" value="{{ $book->id }}">
-                                        <input type="hidden" name="format" value="hardcopy">
-                                        <button type="submit" class="btn-hardcopy">হার্ডকপি</button>
-                                    </form>
-                                </div>
-                            </div>
-                        </article>
-                    @endforeach
-                </div>
-            </section>
-        @endif
-
-        <!-- Popular Books Section (Clean Responsive Grid) -->
-        @if($popularBooks->isNotEmpty())
-            <section class="real-section" id="popular">
-                <div class="real-section-header">
-                    <h2>🔥 জনপ্রিয় বেস্টসেলার বই</h2>
-                    <a href="{{ route('books.index', ['sort' => 'popular']) }}">সবগুলো দেখুন →</a>
-                </div>
-
-                <div class="real-books-grid">
-                    @foreach($popularBooks as $book)
-                        <article class="real-book-card">
-                            <a href="{{ route('books.show', $book->slug) }}" class="real-book-link">
-                                <div class="real-cover">
-                                    <img src="{{ $book->cover_url }}" alt="{{ $book->title }} বইয়ের প্রচ্ছদ" loading="lazy">
-                                    @if($book->discount_percent > 0)
-                                        <span class="discount-badge">-{{ round($book->discount_percent) }}%</span>
-                                    @endif
-                                    @if($book->publisher_name)
-                                        <span class="publisher-tag">{{ $book->publisher_name }}</span>
-                                    @endif
-                                </div>
-                                <h3>{{ $book->title }}</h3>
-                                <p class="cat-label">{{ $book->categories->first()?->name ?? 'বই' }}</p>
-                                <div class="real-price">
-                                    <strong>৳ {{ number_format($book->hardcopyEffectivePrice()) }}</strong>
-                                    @if($book->discount_percent > 0)
-                                        <del>৳ {{ number_format($book->price_hardcopy) }}</del>
-                                    @endif
-                                </div>
-                            </a>
-                            <div class="real-card-bottom">
-                                <div class="product-types">
-                                    <a href="{{ route('checkout', ['type' => 'ebook', 'bookSlug' => $book->slug]) }}" class="btn-ebook">ই-বুক</a>
-                                    <form action="{{ route('cart.add') }}" method="POST" style="margin:0;">
-                                        @csrf
-                                        <input type="hidden" name="book_id" value="{{ $book->id }}">
-                                        <input type="hidden" name="format" value="hardcopy">
-                                        <button type="submit" class="btn-hardcopy">হার্ডকপি</button>
-                                    </form>
-                                </div>
-                            </div>
-                        </article>
-                    @endforeach
-                </div>
-            </section>
-        @endif
-
-        <!-- Latest New Arrivals Section -->
-        @if($latestBooks->isNotEmpty())
-            <section class="real-section" id="latest">
-                <div class="real-section-header">
-                    <h2>✨ নতুন প্রকাশিত বইসমূহ</h2>
-                    <a href="{{ route('books.index') }}">সবগুলো দেখুন →</a>
-                </div>
-
-                <div class="real-books-grid">
-                    @foreach($latestBooks as $book)
-                        <article class="real-book-card">
-                            <a href="{{ route('books.show', $book->slug) }}" class="real-book-link">
-                                <div class="real-cover">
-                                    <img src="{{ $book->cover_url }}" alt="{{ $book->title }} বইয়ের প্রচ্ছদ" loading="lazy">
-                                    @if($book->is_upcoming)
-                                        <span class="discount-badge" style="background:#0284c7;">আসন্ন</span>
-                                    @elseif($book->discount_percent > 0)
-                                        <span class="discount-badge">-{{ round($book->discount_percent) }}%</span>
-                                    @endif
-                                    @if($book->publisher_name)
-                                        <span class="publisher-tag">{{ $book->publisher_name }}</span>
-                                    @endif
-                                </div>
-                                <h3>{{ $book->title }}</h3>
-                                <p class="cat-label">{{ $book->categories->first()?->name ?? 'বই' }}</p>
-                                <div class="real-price">
-                                    <strong>৳ {{ number_format($book->hardcopyEffectivePrice()) }}</strong>
-                                    @if($book->discount_percent > 0)
-                                        <del>৳ {{ number_format($book->price_hardcopy) }}</del>
-                                    @endif
-                                </div>
-                            </a>
-                            <div class="real-card-bottom">
-                                <div class="product-types">
-                                    @if($book->is_upcoming)
-                                        <a href="{{ route('books.show', $book->slug) }}" class="btn-hardcopy" style="text-align:center; text-decoration:none; background:#0284c7; width:100%;">বিস্তারিত দেখুন</a>
-                                    @else
-                                        <a href="{{ route('checkout', ['type' => 'ebook', 'bookSlug' => $book->slug]) }}" class="btn-ebook">ই-বুক</a>
-                                        <form action="{{ route('cart.add') }}" method="POST" style="margin:0;">
-                                            @csrf
-                                            <input type="hidden" name="book_id" value="{{ $book->id }}">
-                                            <input type="hidden" name="format" value="hardcopy">
-                                            <button type="submit" class="btn-hardcopy">হার্ডকপি</button>
-                                        </form>
-                                    @endif
-                                </div>
-                            </div>
-                        </article>
-                    @endforeach
-                </div>
-            </section>
-        @endif
-
-        <!-- All Books Showcase Section (100% of All Published Books Visible on Homepage) -->
-        @if(isset($allBooks) && $allBooks->isNotEmpty())
-            <section class="real-section" id="all-books-showcase">
-                <div class="real-section-header">
-                    <h2>📚 আমাদের ক্যাটালগের সকল বই</h2>
-                    <a href="{{ route('books.index') }}">সম্পূর্ণ ক্যাটালগ দেখুন →</a>
-                </div>
-
-                <div class="real-books-grid">
-                    @foreach($allBooks as $book)
-                        <article class="real-book-card">
-                            <a href="{{ route('books.show', $book->slug) }}" class="real-book-link">
-                                <div class="real-cover">
-                                    <img src="{{ $book->cover_url }}" alt="{{ $book->title }} বইয়ের প্রচ্ছদ" loading="lazy">
-                                    @if($book->is_upcoming)
-                                        <span class="discount-badge" style="background:#0284c7;">আসন্ন</span>
-                                    @elseif($book->discount_percent > 0)
-                                        <span class="discount-badge">-{{ round($book->discount_percent) }}%</span>
-                                    @endif
-                                    @if($book->publisher_name)
-                                        <span class="publisher-tag">{{ $book->publisher_name }}</span>
-                                    @endif
-                                </div>
-                                <h3>{{ $book->title }}</h3>
-                                <p class="cat-label">{{ $book->categories->first()?->name ?? 'বই' }}</p>
-                                <div class="real-price">
-                                    <strong>৳ {{ number_format($book->hardcopyEffectivePrice()) }}</strong>
-                                    @if($book->discount_percent > 0)
-                                        <del>৳ {{ number_format($book->price_hardcopy) }}</del>
-                                    @endif
-                                </div>
-                            </a>
-                            <div class="real-card-bottom">
-                                <div class="product-types">
-                                    @if($book->is_upcoming)
-                                        <a href="{{ route('books.show', $book->slug) }}" class="btn-hardcopy" style="text-align:center; text-decoration:none; background:#0284c7; width:100%;">বিস্তারিত দেখুন</a>
-                                    @else
-                                        <a href="{{ route('checkout', ['type' => 'ebook', 'bookSlug' => $book->slug]) }}" class="btn-ebook">ই-বুক</a>
-                                        <form action="{{ route('cart.add') }}" method="POST" style="margin:0;">
-                                            @csrf
-                                            <input type="hidden" name="book_id" value="{{ $book->id }}">
-                                            <input type="hidden" name="format" value="hardcopy">
-                                            <button type="submit" class="btn-hardcopy">হার্ডকপি</button>
-                                        </form>
-                                    @endif
-                                </div>
-                            </div>
-                        </article>
-                    @endforeach
-                </div>
-            </section>
-        @endif
-
-        <!-- Upcoming Books Section -->
-        @if($upcomingBooks->isNotEmpty())
-            <section class="real-section" id="upcoming">
-                <div class="real-section-header">
-                    <h2>⏳ শীঘ্রই আসছে (আসন্ন বইসমূহ)</h2>
-                </div>
-
-                <div class="real-books-grid">
-                    @foreach($upcomingBooks as $book)
-                        <article class="real-book-card">
-                            <a href="{{ route('books.show', $book->slug) }}" class="real-book-link">
-                                <div class="real-cover">
-                                    <img src="{{ $book->cover_url }}" alt="{{ $book->title }} বইয়ের প্রচ্ছদ" loading="lazy">
-                                    <span class="discount-badge" style="background:#0284c7;">আসন্ন</span>
-                                </div>
-                                <h3>{{ $book->title }}</h3>
-                                <p class="cat-label">{{ $book->categories->first()?->name ?? 'বই' }}</p>
-                                <div class="real-price">
-                                    <strong>৳ {{ number_format($book->hardcopyEffectivePrice()) }}</strong>
-                                </div>
-                            </a>
-                            <div class="real-card-bottom">
-                                <div class="product-types">
-                                    <a href="{{ route('books.show', $book->slug) }}" class="btn-hardcopy" style="text-align:center; text-decoration:none; background:#0284c7; width:100%;">বিস্তারিত দেখুন</a>
-                                </div>
-                            </div>
-                        </article>
-                    @endforeach
-                </div>
-            </section>
-        @endif
-
-        <!-- Membership Banner -->
-        <section id="membership" class="real-membership">
-            <div>
-                <h2>মেম্বারশিপ নিন!</h2>
-                <p>বিশেষ ডিসকাউন্টে বই কিনুন ও বিনামূল্যে আনলিমিটেড প্রিমিয়াম ডিজিটাল ই-বুক উপভোগ করুন।</p>
-                <a href="{{ route('memberships.index') }}">মেম্বারশিপ প্ল্যান দেখুন →</a>
-            </div>
-            <span class="membership-crown">♛</span>
-        </section>
-
-        <!-- Multi-Vendor Publisher Promotion Banner -->
-        <div class="publisher-banner">
-            <div>
-                <h3>🏢 আপনি কি একজন লেখক বা প্রকাশনা সংস্থা?</h3>
-                <p>মুক্তাদার বইঘরের অনুমোদিত প্রকাশক হয়ে আপনার প্রকাশিত বইগুলো যুক্ত করুন। লক্ষ লক্ষ পাঠকের কাছে পৌঁছে দিন আপনার সৃজনশীল সাহিত্যকর্ম।</p>
-            </div>
-            <a href="{{ route('publisher.register') }}" class="publisher-banner-btn">
-                প্রকাশক হিসেবে নিবন্ধন করুন →
+    <!-- Category Pills Section -->
+    <section id="categories" class="real-categories">
+        <div class="real-section-header">
+            <h2>🏷️ জনপ্রিয় ক্যাটাগরিসমূহ</h2>
+            <a href="{{ route('books.index') }}" class="view-all">সবগুলো দেখুন →</a>
+        </div>
+        <div class="category-pills-grid">
+            <a href="{{ route('books.index') }}" class="home-cat-badge">
+                <span>📚 সকল ক্যাটাগরি</span>
             </a>
+            @foreach($categories as $cat)
+                <a href="{{ route('books.index', ['category' => $cat->slug]) }}" class="home-cat-badge">
+                    <span>{{ $cat->name }}</span>
+                </a>
+            @endforeach
         </div>
+    </section>
 
-        <!-- Author Spotlight -->
-        <div class="author-spotlight-card">
-            <img src="{{ asset('author-portrait.jpg') }}" alt="লেখক মুক্তাদা" class="author-spotlight-img">
-            <div class="author-spotlight-text">
-                <h4>লেখক ও চিন্তক মুক্তাদা</h4>
-                <div class="author-quote-text">
-                    “বই হলো মনের জানালা, যা মানুষকে সত্য ও সুন্দরের পথ দেখায়। সুন্দর জীবন গড়তে ভালো বইয়ের কোনো বিকল্প নেই।”
-                </div>
-                <p style="font-size:13.5px; color:#64748b; margin-top:6px;">
-                    জীবন, সমাজ ও আত্মউন্নয়নমূলক সাহিত্যের মাধ্যমে মানুষের মনন ও চিন্তা পরিশুদ্ধ করাই তাঁর লেখার মূল উদ্দেশ্য।
-                    <a href="{{ route('author') }}" style="color:var(--gold-dark); font-weight:700; margin-left:8px;">লেখকের পূর্ণ পরিচিতি পড়ুন →</a>
-                </p>
-            </div>
-        </div>
-
-        <!-- Real Features matching PlayMathEarn -->
-        <section class="real-features-box">
+    <!-- Top Selling / Bestsellers -->
+    @if($popularBooks->isNotEmpty())
+        <section class="real-section" id="popular">
             <div class="real-section-header">
-                <h2>✨ মুক্তাদার বইঘরের বিশেষ সুবিধা</h2>
+                <h2>🔥 সর্বাধিক পঠিত ও বেস্টসেলার বই</h2>
+                <a href="{{ route('books.index', ['sort' => 'popular']) }}" class="view-all">সবগুলো দেখুন →</a>
             </div>
-            <div class="real-features-grid">
-                <div class="feature-card">
-                    <span class="feature-card-icon">🚚</span>
-                    <div class="feature-card-title">নির্ভরযোগ্য ডেলিভারি</div>
-                    <div class="feature-card-sub">সারাদেশে দ্রুততম হোম ডেলিভারি</div>
-                </div>
-                <div class="feature-card">
-                    <span class="feature-card-icon">🔒</span>
-                    <div class="feature-card-title">নিরাপদ পেমেন্ট</div>
-                    <div class="feature-card-sub">বিকাশ, নগদ ও ক্যাশ অন ডেলিভারি</div>
-                </div>
-                <div class="feature-card">
-                    <span class="feature-card-icon">📱</span>
-                    <div class="feature-card-title">অনলাইন রিডিং</div>
-                    <div class="feature-card-sub">ব্রাউজারেই ডিজিটাল ই-বুক রিডার</div>
-                </div>
-                <div class="feature-card">
-                    <span class="feature-card-icon">🎧</span>
-                    <div class="feature-card-title">২৪/৭ সাপোর্ট</div>
-                    <div class="feature-card-sub">সরাসরি ডেডিকেটেড কাস্টমার কেয়ার</div>
-                </div>
-            </div>
-        </section>
 
-        <!-- Reader Testimonials -->
-        @if($reviews->isNotEmpty())
-            <section class="reviews-box">
-                <div class="real-section-header">
-                    <h2>💬 পাঠকদের মূল্যবান মতামত</h2>
-                </div>
-                <div class="reviews-grid">
-                    @foreach($reviews as $rev)
-                        <div class="reader-review-card">
-                            <div>
-                                <div class="review-stars">
-                                    @for($i = 0; $i < $rev->rating; $i++) ★ @endfor
-                                </div>
-                                <p class="review-quote">“{{ $rev->comment }}”</p>
-                            </div>
-                            <div class="review-author">
-                                <span>{{ $rev->customer_name }}</span>
-                                @if($rev->is_verified_purchase)
-                                    <span class="verified-pill">✓ ভেরিফাইড পাঠক</span>
+            <div class="catalog-grid">
+                @foreach($popularBooks as $book)
+                    <article class="catalog-card">
+                        <div>
+                            <div class="card-cover-container">
+                                <a href="{{ route('books.show', $book->slug) }}">
+                                    <img src="{{ $book->cover_url }}" alt="{{ $book->title }}" loading="lazy" onerror="this.onerror=null; this.parentElement.innerHTML='<div class=\'cover-fallback\'><span>{{ addslashes($book->title) }}</span></div>';">
+                                </a>
+                                @if($book->is_upcoming)
+                                    <span class="badge-upcoming-tag">আসন্ন বই</span>
+                                @elseif($book->discount_percent > 0)
+                                    <span class="badge-discount-tag">({{ round($book->discount_percent) }}% ছাড়)</span>
                                 @endif
                             </div>
-                        </div>
-                    @endforeach
-                </div>
-            </section>
-        @endif
 
+                            <div class="card-details">
+                                <a href="{{ route('books.show', $book->slug) }}">
+                                    <h3 class="card-title">{{ $book->title }}</h3>
+                                </a>
+                                <div class="card-author-name">✍️ {{ $book->author_name }}</div>
+                                <div class="card-rating-strip">
+                                    <span>★★★★★</span>
+                                    <span class="card-rating-count">{{ number_format($book->averageRating(), 1) }}</span>
+                                </div>
+                                <div class="price-group">
+                                    @if($book->discount_percent > 0)
+                                        <del class="old-price">৳{{ number_format($book->price_hardcopy) }}</del>
+                                    @endif
+                                    <span class="product-price">৳{{ number_format($book->hardcopyEffectivePrice()) }}</span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div style="margin-top: 10px;">
+                            @if($book->is_upcoming)
+                                <a href="{{ route('books.show', $book->slug) }}" class="btn-cart btn-upcoming">⏳ প্রকাশের অপেক্ষায়</a>
+                            @else
+                                <a href="{{ route('books.show', $book->slug) }}" class="btn-cart">বিস্তারিত ও অর্ডার →</a>
+                            @endif
+                        </div>
+                    </article>
+                @endforeach
+            </div>
+        </section>
+    @endif
+
+    <!-- New Arrivals -->
+    @if($latestBooks->isNotEmpty())
+        <section class="real-section" id="latest">
+            <div class="real-section-header">
+                <h2>✨ নতুন প্রকাশিত বইসমূহ</h2>
+                <a href="{{ route('books.index', ['sort' => 'latest']) }}" class="view-all">সবগুলো দেখুন →</a>
+            </div>
+
+            <div class="catalog-grid">
+                @foreach($latestBooks as $book)
+                    <article class="catalog-card">
+                        <div>
+                            <div class="card-cover-container">
+                                <a href="{{ route('books.show', $book->slug) }}">
+                                    <img src="{{ $book->cover_url }}" alt="{{ $book->title }}" loading="lazy" onerror="this.onerror=null; this.parentElement.innerHTML='<div class=\'cover-fallback\'><span>{{ addslashes($book->title) }}</span></div>';">
+                                </a>
+                                @if($book->is_upcoming)
+                                    <span class="badge-upcoming-tag">আসন্ন বই</span>
+                                @elseif($book->discount_percent > 0)
+                                    <span class="badge-discount-tag">({{ round($book->discount_percent) }}% ছাড়)</span>
+                                @endif
+                            </div>
+
+                            <div class="card-details">
+                                <a href="{{ route('books.show', $book->slug) }}">
+                                    <h3 class="card-title">{{ $book->title }}</h3>
+                                </a>
+                                <div class="card-author-name">✍️ {{ $book->author_name }}</div>
+                                <div class="card-rating-strip">
+                                    <span>★★★★★</span>
+                                    <span class="card-rating-count">{{ number_format($book->averageRating(), 1) }}</span>
+                                </div>
+                                <div class="price-group">
+                                    @if($book->discount_percent > 0)
+                                        <del class="old-price">৳{{ number_format($book->price_hardcopy) }}</del>
+                                    @endif
+                                    <span class="product-price">৳{{ number_format($book->hardcopyEffectivePrice()) }}</span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div style="margin-top: 10px;">
+                            @if($book->is_upcoming)
+                                <a href="{{ route('books.show', $book->slug) }}" class="btn-cart btn-upcoming">⏳ প্রকাশের অপেক্ষায়</a>
+                            @else
+                                <a href="{{ route('books.show', $book->slug) }}" class="btn-cart">বিস্তারিত ও অর্ডার →</a>
+                            @endif
+                        </div>
+                    </article>
+                @endforeach
+            </div>
+        </section>
+    @endif
+
+    <!-- All Books Showcase -->
+    @if(isset($allBooks) && $allBooks->isNotEmpty())
+        <section class="real-section" id="all-books">
+            <div class="real-section-header">
+                <h2>📚 আমাদের ক্যাটালগের সকল বই</h2>
+                <a href="{{ route('books.index') }}" class="view-all">ক্যাটালগ দেখুন →</a>
+            </div>
+
+            <div class="catalog-grid">
+                @foreach($allBooks as $book)
+                    <article class="catalog-card">
+                        <div>
+                            <div class="card-cover-container">
+                                <a href="{{ route('books.show', $book->slug) }}">
+                                    <img src="{{ $book->cover_url }}" alt="{{ $book->title }}" loading="lazy" onerror="this.onerror=null; this.parentElement.innerHTML='<div class=\'cover-fallback\'><span>{{ addslashes($book->title) }}</span></div>';">
+                                </a>
+                                @if($book->is_upcoming)
+                                    <span class="badge-upcoming-tag">আসন্ন বই</span>
+                                @elseif($book->discount_percent > 0)
+                                    <span class="badge-discount-tag">({{ round($book->discount_percent) }}% ছাড়)</span>
+                                @endif
+                            </div>
+
+                            <div class="card-details">
+                                <a href="{{ route('books.show', $book->slug) }}">
+                                    <h3 class="card-title">{{ $book->title }}</h3>
+                                </a>
+                                <div class="card-author-name">✍️ {{ $book->author_name }}</div>
+                                <div class="card-rating-strip">
+                                    <span>★★★★★</span>
+                                    <span class="card-rating-count">{{ number_format($book->averageRating(), 1) }}</span>
+                                </div>
+                                <div class="price-group">
+                                    @if($book->discount_percent > 0)
+                                        <del class="old-price">৳{{ number_format($book->price_hardcopy) }}</del>
+                                    @endif
+                                    <span class="product-price">৳{{ number_format($book->hardcopyEffectivePrice()) }}</span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div style="margin-top: 10px;">
+                            @if($book->is_upcoming)
+                                <a href="{{ route('books.show', $book->slug) }}" class="btn-cart btn-upcoming">⏳ প্রকাশের অপেক্ষায়</a>
+                            @else
+                                <a href="{{ route('books.show', $book->slug) }}" class="btn-cart">বিস্তারিত ও অর্ডার →</a>
+                            @endif
+                        </div>
+                    </article>
+                @endforeach
+            </div>
+        </section>
+    @endif
+
+    <!-- Upcoming Books -->
+    @if($upcomingBooks->isNotEmpty())
+        <section class="real-section" id="upcoming">
+            <div class="real-section-header">
+                <h2>⏳ শীঘ্রই আসছে (আসন্ন বইসমূহ)</h2>
+            </div>
+
+            <div class="catalog-grid">
+                @foreach($upcomingBooks as $book)
+                    <article class="catalog-card">
+                        <div>
+                            <div class="card-cover-container">
+                                <a href="{{ route('books.show', $book->slug) }}">
+                                    <img src="{{ $book->cover_url }}" alt="{{ $book->title }}" loading="lazy" onerror="this.onerror=null; this.parentElement.innerHTML='<div class=\'cover-fallback\'><span>{{ addslashes($book->title) }}</span></div>';">
+                                </a>
+                                <span class="badge-upcoming-tag">আসন্ন বই</span>
+                            </div>
+
+                            <div class="card-details">
+                                <a href="{{ route('books.show', $book->slug) }}">
+                                    <h3 class="card-title">{{ $book->title }}</h3>
+                                </a>
+                                <div class="card-author-name">✍️ {{ $book->author_name }}</div>
+                                <div class="price-group">
+                                    <span class="product-price">৳{{ number_format($book->hardcopyEffectivePrice()) }}</span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div style="margin-top: 10px;">
+                            <a href="{{ route('books.show', $book->slug) }}" class="btn-cart btn-upcoming">⏳ প্রকাশের অপেক্ষায়</a>
+                        </div>
+                    </article>
+                @endforeach
+            </div>
+        </section>
+    @endif
+
+    <!-- Membership Banner -->
+    <section id="membership" class="real-membership">
+        <div>
+            <h2>👑 মেম্বারশিপে বিশেষ সুবিধা নিন!</h2>
+            <p>প্রিমিয়াম ডিসকাউন্টে হার্ডকপি ক্রয় এবং বিনামূল্যে আনলিমিটেড ডিজিটাল ই-বুক পড়ার সুযোগ।</p>
+            <a href="{{ route('memberships.index') }}">মেম্বারশিপ প্ল্যান দেখুন →</a>
+        </div>
+        <span class="membership-crown">♛</span>
+    </section>
+
+    <!-- Publisher Promotion Banner -->
+    <div class="publisher-banner">
+        <div>
+            <h3>🏢 আপনি কি একজন লেখক বা প্রকাশনা সংস্থা?</h3>
+            <p>মুক্তাদার বইঘরের অনুমোদিত প্রকাশক হয়ে আপনার প্রকাশিত বইগুলো যুক্ত করুন এবং পৌঁছে দিন পাঠকদের কাছে।</p>
+        </div>
+        <a href="{{ route('publisher.register') }}" class="publisher-banner-btn">
+            প্রকাশক হিসেবে যোগ দিন →
+        </a>
     </div>
 
+    <!-- Features -->
+    <div class="features-grid">
+        <div class="feature-card">
+            <span class="feature-icon">🚚</span>
+            <div>
+                <div class="feature-title">দ্রুততম ডেলিভারি</div>
+                <div class="feature-sub">সারাদেশে ক্যাশ অন ডেলিভারি</div>
+            </div>
+        </div>
+        <div class="feature-card">
+            <span class="feature-icon">🔒</span>
+            <div>
+                <div class="feature-title">নিরাপদ পেমেন্ট</div>
+                <div class="feature-sub">বিকাশ, নগদ ও সিওডি সুবিধা</div>
+            </div>
+        </div>
+        <div class="feature-card">
+            <span class="feature-icon">📱</span>
+            <div>
+                <div class="feature-title">ডিজিটাল ই-বুক</div>
+                <div class="feature-sub">ব্রাউজারেই সাথে সাথে পাঠ</div>
+            </div>
+        </div>
+        <div class="feature-card">
+            <span class="feature-icon">🎧</span>
+            <div>
+                <div class="feature-title">২৪/৭ সেবা</div>
+                <div class="feature-sub">সরাসরি ডেডিকেটেড সাপোর্ট</div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Reader Testimonials -->
+    @if($reviews->isNotEmpty())
+        <section class="real-section" id="testimonials">
+            <div class="real-section-header">
+                <h2>💬 পাঠকদের মূল্যবান মতামত</h2>
+            </div>
+            <div class="reviews-grid">
+                @foreach($reviews as $rev)
+                    <div class="reader-review-card">
+                        <div>
+                            <div class="review-stars">
+                                @for($i = 0; $i < $rev->rating; $i++) ★ @endfor
+                            </div>
+                            <p class="review-quote">“{{ $rev->comment }}”</p>
+                        </div>
+                        <div class="review-author">
+                            <span>{{ $rev->customer_name }}</span>
+                            @if($rev->is_verified_purchase)
+                                <span class="verified-pill">✓ ভেরিফাইড পাঠক</span>
+                            @endif
+                        </div>
+                    </div>
+                @endforeach
+            </div>
+        </section>
+    @endif
+
+</div>
 @endsection

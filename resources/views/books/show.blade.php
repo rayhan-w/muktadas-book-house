@@ -30,12 +30,16 @@
     }
 
     .book-hero-reference {
-        padding: 40px 30px;
+        padding: 35px 30px;
         display: flex;
         gap: 36px;
         align-items: flex-start;
-        background: #f7f0e3;
-        border-bottom: 1px solid var(--line);
+        background: #ffffff;
+        border: 1px solid var(--sp-border);
+        border-radius: var(--sp-radius);
+        box-shadow: var(--sp-shadow-sm);
+        margin: 20px auto;
+        max-width: 1200px;
     }
 
     .reference-cover {
@@ -62,7 +66,7 @@
         position: absolute;
         top: 10px;
         right: 10px;
-        background: #e11d48;
+        background: var(--sp-green);
         color: #fff;
         font-size: 12px;
         font-weight: 800;
@@ -77,7 +81,7 @@
     .reference-copy h1 {
         font-size: 38px;
         margin: 0 0 8px;
-        color: #063b56;
+        color: var(--sp-heading);
         font-weight: 800;
         line-height: 1.25;
     }
@@ -115,7 +119,7 @@
     }
 
     .price-hardcopy-val {
-        color: #092d45;
+        color: var(--sp-crimson);
         font-size: 26px;
         font-weight: 800;
     }
@@ -150,7 +154,7 @@
         text-decoration: none;
         font-size: 15px;
         font-weight: 800;
-        background: #063b56;
+        background: var(--sp-burgundy);
         color: #fff !important;
         border: 1px solid #063b56;
         transition: all 0.2s ease;
@@ -169,8 +173,8 @@
         border-radius: 8px;
         font-size: 15px;
         font-weight: 800;
-        background: linear-gradient(135deg, #f4cf68, #d6a12e);
-        color: #063b56 !important;
+        background: var(--sp-crimson);
+        color: var(--sp-heading) !important;
         border: 1px solid #c48e1a;
         cursor: pointer;
         font-family: inherit;

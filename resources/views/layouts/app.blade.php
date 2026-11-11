@@ -18,21 +18,21 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+Bengali:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
 
-    <!-- PlayMathEarn Reference Stylesheet -->
-    <link rel="stylesheet" href="{{ asset('css/playmathearn.css') }}?v={{ time() }}">
+    <!-- SahojPath Reference Stylesheet -->
+    <link rel="stylesheet" href="{{ asset('css/sahojpath.css') }}?v={{ time() }}">
 
     <style>
         :root {
-            --paper: #fffdf7;
-            --cream: #f6f0e4;
-            --navy: #092d45;
-            --ink: #193b4d;
-            --gold: #d6a12e;
-            --gold-light: #f4cf68;
-            --gold-dark: #b8850e;
-            --line: #e4ddcd;
-            --muted: #6f756f;
-            --font-bengali: 'Noto Sans Bengali', Arial, sans-serif;
+            --paper: #ffffff;
+            --cream: #f8f9fa;
+            --navy: #8b263b;
+            --ink: #1e293b;
+            --gold: #e54646;
+            --gold-light: #fff1f2;
+            --gold-dark: #641b2c;
+            --line: #eeeeee;
+            --muted: #64748b;
+            --font-bengali: 'Noto Sans Bengali', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
         }
 
         * {

@@ -1,34 +1,34 @@
 @extends('layouts.app')
 
-@section('title', 'সকল বইয়ের ক্যাটালগ | মুক্তাদার বইঘর')
+@section('title', 'সকল বইয়ের ক্যাটালগ | মুক্তাদার বইঘর — সহজপাঠ থিম')
 
 @section('styles')
 <style>
     .catalog-shell {
         padding: 30px 20px 60px;
-        max-width: 1200px;
+        max-width: 1240px;
         margin: 0 auto;
     }
 
     .catalog-header-box {
         background: #ffffff;
-        border: 1px solid var(--line);
-        border-radius: 16px;
+        border: 1px solid var(--sp-border);
+        border-radius: var(--sp-radius);
         padding: 24px 28px;
-        margin-bottom: 24px;
-        box-shadow: 0 4px 18px rgba(9, 45, 69, 0.04);
+        margin-bottom: 22px;
+        box-shadow: var(--sp-shadow-sm);
     }
 
     .catalog-header-box h1 {
-        font-size: 26px;
-        color: var(--navy);
+        font-size: 24px;
+        color: var(--sp-heading);
         font-weight: 800;
         margin-bottom: 6px;
     }
 
     .catalog-header-box p {
         font-size: 14px;
-        color: var(--muted);
+        color: var(--sp-muted);
         margin: 0;
     }
 
@@ -39,11 +39,12 @@
         justify-content: space-between;
         gap: 16px;
         flex-wrap: wrap;
-        background: #f8f4ec;
-        border: 1px solid var(--line);
-        border-radius: 14px;
+        background: #ffffff;
+        border: 1px solid var(--sp-border);
+        border-radius: var(--sp-radius);
         padding: 14px 20px;
-        margin-bottom: 28px;
+        margin-bottom: 26px;
+        box-shadow: var(--sp-shadow-sm);
     }
 
     .category-pills {
@@ -56,37 +57,43 @@
     .cat-pill {
         display: inline-flex;
         align-items: center;
-        gap: 5px;
-        padding: 7px 15px;
-        border-radius: 999px;
+        gap: 6px;
+        padding: 7px 14px;
+        border-radius: var(--sp-radius-pill);
         font-size: 13px;
-        font-weight: 700;
+        font-weight: 600;
         text-decoration: none;
-        color: var(--navy);
-        background: #ffffff;
-        border: 1px solid var(--line);
+        color: var(--sp-body);
+        background: #f8fafc;
+        border: 1px solid var(--sp-border);
         transition: all 0.2s ease;
     }
 
-    .cat-pill:hover,
+    .cat-pill:hover {
+        background: #fff1f2;
+        border-color: #fecdd3;
+        color: var(--sp-burgundy);
+    }
+
     .cat-pill.active {
-        background: linear-gradient(135deg, #f4cf68, #d6a12e);
-        border-color: #bd8b19;
-        color: var(--navy);
-        box-shadow: 0 2px 8px rgba(214, 161, 46, 0.25);
+        background: var(--sp-burgundy);
+        border-color: var(--sp-burgundy);
+        color: #ffffff !important;
+        font-weight: 700;
     }
 
     .cat-pill-count {
-        background: rgba(9, 45, 69, 0.08);
-        color: var(--navy);
+        background: rgba(0, 0, 0, 0.06);
+        color: inherit;
         padding: 1px 7px;
-        border-radius: 999px;
+        border-radius: var(--sp-radius-pill);
         font-size: 11px;
         font-weight: 800;
     }
 
     .cat-pill.active .cat-pill-count {
-        background: rgba(9, 45, 69, 0.2);
+        background: rgba(255, 255, 255, 0.25);
+        color: #ffffff;
     }
 
     .sort-box {
@@ -98,27 +105,27 @@
     .sort-label {
         font-size: 13px;
         font-weight: 700;
-        color: var(--navy);
+        color: var(--sp-heading);
     }
 
     .sort-select {
         padding: 8px 14px;
-        border-radius: 8px;
-        border: 1.5px solid var(--line);
+        border-radius: var(--sp-radius-sm);
+        border: 1.5px solid var(--sp-border);
         font-family: inherit;
-        font-size: 13.5px;
+        font-size: 13px;
         font-weight: 600;
         background: #ffffff;
-        color: var(--navy);
+        color: var(--sp-heading);
         outline: none;
         cursor: pointer;
     }
 
     .sort-select:focus {
-        border-color: var(--navy);
+        border-color: var(--sp-burgundy);
     }
 
-    /* Reference Cards Grid matching PlayMathEarn */
+    /* SahojPath Compact Product Cards Grid */
     .catalog-grid {
         display: grid;
         grid-template-columns: repeat(4, 1fr);
@@ -152,24 +159,24 @@
         }
     }
 
-    /* Single Book Card - PlayMathEarn Clone */
+    /* Single Book Card - SahojPath Premium Compact Card */
     .catalog-card {
         background: #ffffff;
-        border: 1px solid var(--line);
-        border-radius: 14px;
-        padding: 14px;
+        border: 1px solid var(--sp-border);
+        border-radius: var(--sp-radius);
+        padding: 12px;
         display: flex;
         flex-direction: column;
         justify-content: space-between;
-        box-shadow: 0 4px 15px rgba(9, 45, 69, 0.05);
-        transition: transform 0.2s ease, box-shadow 0.2s ease, border-color 0.2s ease;
+        box-shadow: var(--sp-shadow-sm);
+        transition: transform 0.25s ease, box-shadow 0.25s ease, border-color 0.25s ease;
         position: relative;
     }
 
     .catalog-card:hover {
         transform: translateY(-4px);
-        box-shadow: 0 10px 25px rgba(9, 45, 69, 0.1);
-        border-color: var(--gold);
+        box-shadow: var(--sp-shadow-hover);
+        border-color: #cbd5e1;
     }
 
     /* Cover Area */
@@ -179,9 +186,9 @@
         aspect-ratio: 3/4;
         border-radius: 10px;
         overflow: hidden;
-        background: #fbf8f0;
+        background: #f8fafc;
         margin-bottom: 12px;
-        border: 1px solid rgba(0, 0, 0, 0.04);
+        border: 1px solid #f1f5f9;
     }
 
     .card-cover-container a {
@@ -199,7 +206,7 @@
     }
 
     .catalog-card:hover .card-cover-container img {
-        transform: scale(1.03);
+        transform: scale(1.04);
     }
 
     .cover-fallback {
@@ -209,27 +216,27 @@
         flex-direction: column;
         align-items: center;
         justify-content: center;
-        background: linear-gradient(135deg, #092d45, #193b4d);
+        background: linear-gradient(135deg, #1e293b, #0f172a);
         color: #ffffff;
         padding: 16px;
         text-align: center;
         font-weight: 700;
-        font-size: 14px;
+        font-size: 13.5px;
         line-height: 1.4;
     }
 
-    /* Badges */
+    /* SahojPath Badges */
     .badge-discount-tag {
         position: absolute;
         top: 8px;
         right: 8px;
-        background: #dc2626 !important;
-        color: #ffffff !important;
-        font-size: 11px;
+        background: var(--sp-green-bg) !important;
+        color: var(--sp-green) !important;
+        font-size: 11.5px;
         font-weight: 800;
         padding: 3px 8px;
-        border-radius: 6px;
-        box-shadow: 0 2px 6px rgba(220, 38, 38, 0.4);
+        border-radius: var(--sp-radius-pill);
+        border: 1px solid rgba(25, 135, 84, 0.25);
         z-index: 3;
         line-height: 1.2;
     }
@@ -238,13 +245,13 @@
         position: absolute;
         top: 8px;
         right: 8px;
-        background: #0284c7 !important;
-        color: #ffffff !important;
-        font-size: 11px;
+        background: var(--sp-amber-bg) !important;
+        color: var(--sp-amber) !important;
+        font-size: 11.5px;
         font-weight: 800;
-        padding: 3px 8px;
-        border-radius: 6px;
-        box-shadow: 0 2px 6px rgba(2, 132, 199, 0.4);
+        padding: 3px 9px;
+        border-radius: var(--sp-radius-pill);
+        border: 1px solid rgba(234, 88, 12, 0.25);
         z-index: 3;
         line-height: 1.2;
     }
@@ -253,151 +260,172 @@
         position: absolute;
         bottom: 8px;
         left: 8px;
-        background: rgba(9, 45, 69, 0.88);
-        color: #f4cf68;
+        background: rgba(15, 23, 42, 0.75);
+        color: #ffffff;
         font-size: 10px;
         font-weight: 700;
         padding: 2px 7px;
-        border-radius: 4px;
+        border-radius: 6px;
         backdrop-filter: blur(4px);
-        z-index: 3;
+        z-index: 2;
     }
 
-    /* Info Area */
+    /* Card Details */
     .card-details {
         display: flex;
         flex-direction: column;
-        flex-grow: 1;
+        flex: 1;
     }
 
     .card-title-link {
         text-decoration: none;
-        color: var(--navy);
-    }
-
-    .card-title-link:hover h3 {
-        color: var(--gold-dark);
     }
 
     .card-title {
-        font-size: 15.5px;
-        font-weight: 800;
-        color: var(--navy);
+        font-size: 15px;
+        font-weight: 600;
+        color: var(--sp-heading);
         line-height: 1.35;
         margin-bottom: 4px;
-        min-height: 42px;
         display: -webkit-box;
         -webkit-line-clamp: 2;
         -webkit-box-orient: vertical;
         overflow: hidden;
+        min-height: 40px;
+        transition: color 0.2s ease;
+    }
+
+    .card-title:hover {
+        color: var(--sp-burgundy);
     }
 
     .card-author-name {
         font-size: 12.5px;
-        color: #64748b;
-        margin-bottom: 8px;
-        font-weight: 500;
+        color: var(--sp-muted);
+        margin-bottom: 6px;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
     }
 
-    /* Gold Stars + DB Review Count */
     .card-rating-strip {
         display: flex;
         align-items: center;
         gap: 5px;
         font-size: 12px;
-        margin-bottom: 12px;
-    }
-
-    .card-gold-stars {
         color: #f59e0b;
-        letter-spacing: 1px;
+        margin-bottom: 8px;
     }
 
     .card-rating-count {
-        color: #64748b;
+        color: var(--sp-muted);
+        font-size: 11.5px;
         font-weight: 600;
     }
 
-    /* Two Pale-Gold Price Pills */
-    .card-price-pills-row {
+    /* SahojPath Price Group */
+    .price-group {
         display: flex;
-        gap: 6px;
+        align-items: baseline;
+        gap: 8px;
+        margin-bottom: 8px;
         flex-wrap: wrap;
-        margin-bottom: 14px;
+    }
+
+    .price-group .product-price {
+        font-size: 18px;
+        font-weight: 800;
+        color: var(--sp-crimson);
+    }
+
+    .price-group .old-price {
+        font-size: 13px;
+        color: var(--sp-light);
+        text-decoration: line-through;
+        font-weight: 600;
+    }
+
+    .card-price-pills-row {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 6px;
+        margin-bottom: 12px;
     }
 
     .pale-gold-pill {
-        background: #fdf8eb;
-        border: 1px solid #ebd9a8;
-        border-radius: 8px;
-        padding: 5px 8px;
-        display: inline-flex;
-        align-items: baseline;
-        gap: 4px;
-        font-size: 11.5px;
-        flex: 1;
-        min-width: 90px;
+        background: #f8fafc;
+        border: 1px solid var(--sp-border);
+        border-radius: var(--sp-radius-sm);
+        padding: 5px 6px;
+        text-align: center;
+        font-size: 11px;
+        color: var(--sp-body);
+        line-height: 1.25;
     }
 
     .pale-gold-pill .pill-kind {
-        color: #85590a;
-        font-weight: 700;
-        font-size: 10.5px;
+        display: block;
+        font-size: 10px;
+        color: var(--sp-muted);
     }
 
     .pale-gold-pill .pill-val {
-        color: var(--navy);
+        display: block;
+        color: var(--sp-heading);
         font-weight: 800;
-        font-size: 13.5px;
+        font-size: 12px;
     }
 
-    .pale-gold-pill del {
-        color: #94a3b8;
-        font-size: 10.5px;
-    }
-
-    /* Full-Width Dark-Navy Button */
-    .btn-detail-full {
+    /* SahojPath .btn-cart Action Button */
+    .btn-cart {
         display: block;
         width: 100%;
-        text-align: center;
-        background: var(--navy);
+        background: var(--sp-crimson);
         color: #ffffff !important;
-        padding: 10px 0;
-        border-radius: 8px;
-        font-weight: 700;
+        border: 0;
+        border-radius: var(--sp-radius-sm);
+        padding: 10px 14px;
         font-size: 13.5px;
+        font-weight: 700;
+        text-align: center;
         text-decoration: none;
+        cursor: pointer;
         transition: all 0.2s ease;
-        border: 1px solid var(--navy);
     }
 
-    .btn-detail-full:hover {
-        background: var(--gold);
-        border-color: var(--gold-dark);
-        color: var(--navy) !important;
-        box-shadow: 0 4px 12px rgba(214, 161, 46, 0.25);
+    .btn-cart:hover {
+        background: var(--sp-burgundy);
+        color: #ffffff !important;
+        box-shadow: 0 4px 12px rgba(139, 38, 59, 0.25);
+        transform: translateY(-1px);
+    }
+
+    .btn-upcoming {
+        background: #f1f5f9;
+        color: var(--sp-muted) !important;
+        border: 1px solid #e2e8f0;
+        cursor: not-allowed;
     }
 
     /* Empty state */
     .empty-state-box {
         background: #ffffff;
         padding: 60px 20px;
-        border-radius: 14px;
+        border-radius: var(--sp-radius);
         text-align: center;
-        border: 2px dashed var(--line);
+        border: 2px dashed var(--sp-border);
         margin: 30px 0;
     }
 
     .empty-state-box h3 {
-        color: var(--navy);
+        color: var(--sp-heading);
         font-size: 20px;
         font-weight: 800;
         margin-bottom: 8px;
     }
 
     .empty-state-box p {
-        color: var(--muted);
+        color: var(--sp-muted);
         font-size: 14px;
         margin-bottom: 20px;
     }
@@ -417,14 +445,14 @@
                 সকল প্রকাশিত বইয়ের সম্ভার
             @endif
         </h1>
-        <p>মোট {{ $books->total() }}টি বই পাওয়া গেছে। পছন্দের বই নির্বাচন করে সরাসরি হার্ডকপি কিংবা ডিজিটাল ই-বুক হিসেবে সংগ্রহ করুন।</p>
+        <p>মোট {{ $books->total() }}টি বই পাওয়া গেছে। আপনার পছন্দের বইটি নির্বাচন করুন।</p>
     </div>
 
     <!-- Toolbar: Categories and Sorting -->
     <div class="category-toolbar">
         <div class="category-pills">
             <a href="{{ route('books.index') }}" class="cat-pill {{ !request('category') ? 'active' : '' }}">
-                <span>সব ক্যাটাগরি</span>
+                <span>সব বই</span>
                 <span class="cat-pill-count">{{ $totalBooksCount }}</span>
             </a>
             @foreach($categories as $cat)
@@ -456,7 +484,7 @@
             <div style="font-size: 48px; margin-bottom: 14px;">🔍</div>
             <h3>কোনো বই খুঁজে পাওয়া যায়নি</h3>
             <p>এই ক্যাটাগরিতে বর্তমানে কোনো প্রকাশিত বই নেই। দয়া করে অন্য কোনো ক্যাটাগরি নির্বাচন করে চেষ্টা করুন।</p>
-            <a href="{{ route('books.index') }}" class="cat-pill active" style="font-size: 15px; padding: 10px 22px; display: inline-flex;">
+            <a href="{{ route('books.index') }}" class="cat-pill active" style="font-size: 14px; padding: 10px 22px; display: inline-flex;">
                 সকল বই দেখুন
             </a>
         </div>
@@ -465,7 +493,7 @@
             @foreach($books as $book)
                 <article class="catalog-card">
                     <div>
-                        <!-- Cover with Safe Fallback and No Red Overlays -->
+                        <!-- Cover with Safe Fallback -->
                         <div class="card-cover-container">
                             <a href="{{ route('books.show', $book->slug) }}">
                                 <img src="{{ $book->cover_url }}" 
@@ -475,9 +503,9 @@
                             </a>
 
                             @if($book->is_upcoming)
-                                <span class="badge-upcoming-tag">আসন্ন</span>
+                                <span class="badge-upcoming-tag">আসন্ন বই</span>
                             @elseif($book->discount_percent > 0)
-                                <span class="badge-discount-tag">-{{ round($book->discount_percent) }}%</span>
+                                <span class="badge-discount-tag">({{ round($book->discount_percent) }}% ছাড়)</span>
                             @endif
 
                             @if($book->publisher_name)
@@ -490,15 +518,23 @@
                             <a href="{{ route('books.show', $book->slug) }}" class="card-title-link">
                                 <h3 class="card-title">{{ $book->title }}</h3>
                             </a>
-                            <div class="card-author-name">লেখক: {{ $book->author_name }}</div>
+                            <div class="card-author-name">✍️ {{ $book->author_name }}</div>
 
                             <!-- Rating & Real DB Review Count -->
                             <div class="card-rating-strip">
-                                <span class="card-gold-stars">★★★★★</span>
+                                <span>★★★★★</span>
                                 <span class="card-rating-count">{{ number_format($book->averageRating(), 1) }} ({{ $book->approvedReviews()->count() }})</span>
                             </div>
 
-                            <!-- Two Pale-Gold Price Pills (E-book + Hardcopy) -->
+                            <!-- SahojPath Price Group -->
+                            <div class="price-group">
+                                @if($book->discount_percent > 0)
+                                    <del class="old-price">৳{{ number_format($book->price_hardcopy) }}</del>
+                                @endif
+                                <span class="product-price">৳{{ number_format($book->hardcopyEffectivePrice()) }}</span>
+                            </div>
+
+                            <!-- Dual Pricing Pills (E-book + Hardcopy) -->
                             <div class="card-price-pills-row">
                                 @if($book->price_ebook > 0)
                                     <div class="pale-gold-pill" title="ডিজিটাল ই-বুক মূল্য">
@@ -509,19 +545,22 @@
                                 <div class="pale-gold-pill" title="মুদ্রিত হার্ডকপি মূল্য">
                                     <span class="pill-kind">হার্ডকপি</span>
                                     <span class="pill-val">৳{{ number_format($book->hardcopyEffectivePrice()) }}</span>
-                                    @if($book->discount_percent > 0)
-                                        <del>৳{{ number_format($book->price_hardcopy) }}</del>
-                                    @endif
                                 </div>
                             </div>
                         </div>
                     </div>
 
-                    <!-- Full-Width Dark-Navy Button -->
+                    <!-- Action Button: SahojPath .btn-cart -->
                     <div style="margin-top: 10px;">
-                        <a href="{{ route('books.show', $book->slug) }}" class="btn-detail-full">
-                            বিস্তারিত দেখুন →
-                        </a>
+                        @if($book->is_upcoming)
+                            <a href="{{ route('books.show', $book->slug) }}" class="btn-cart btn-upcoming">
+                                ⏳ প্রকাশের অপেক্ষায়
+                            </a>
+                        @else
+                            <a href="{{ route('books.show', $book->slug) }}" class="btn-cart">
+                                বিস্তারিত দেখুন →
+                            </a>
+                        @endif
                     </div>
                 </article>
             @endforeach

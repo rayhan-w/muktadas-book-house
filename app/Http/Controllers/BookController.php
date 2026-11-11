@@ -105,13 +105,22 @@ class BookController extends Controller
 
         $inWishlist = false;
         $hasEbook = false;
+        $hasPurchased = false;
 
         if (Auth::check()) {
-            $inWishlist = Wishlist::where('user_id', Auth::id())->where('book_id', $book->id)->exists();
-            $hasEbook = Auth::user()->isAdmin() || EbookLibrary::where('user_id', Auth::id())->where('book_id', $book->id)->exists();
+            $userId = Auth::id();
+            $inWishlist = Wishlist::where('user_id', $userId)->where('book_id', $book->id)->exists();
+            $hasEbook = Auth::user()->isAdmin() || EbookLibrary::where('user_id', $userId)->where('book_id', $book->id)->exists();
+            
+            // Check if user has purchased this book (Item 8)
+            $hasPurchased = Auth::user()->isAdmin() 
+                || \App\Models\OrderItem::whereHas('order', function ($q) use ($userId) {
+                    $q->where('user_id', $userId)->whereIn('order_status', ['delivered', 'payment_verified', 'processing', 'completed']);
+                })->where('book_id', $book->id)->exists()
+                || \App\Models\EbookLibrary::where('user_id', $userId)->where('book_id', $book->id)->exists();
         }
 
-        return view('books.show', compact('book', 'relatedBooks', 'inWishlist', 'hasEbook'));
+        return view('books.show', compact('book', 'relatedBooks', 'inWishlist', 'hasEbook', 'hasPurchased'));
     }
 
     public function preview($slug)
@@ -167,36 +176,41 @@ class BookController extends Controller
 
     public function submitReview(Request $request, $slug)
     {
+        if (!Auth::check()) {
+            return back()->with('review_error', 'রিভিউ প্রদানের জন্য অনুগ্রহ করে প্রথমে আপনার অ্যাকাউন্টে লগইন করুন।');
+        }
+
         $book = Book::where('slug', $slug)->firstOrFail();
+        $userId = Auth::id();
+
+        // Enforce verified purchase only (Item 8)
+        $hasPurchased = Auth::user()->isAdmin()
+            || \App\Models\OrderItem::whereHas('order', function ($q) use ($userId) {
+                $q->where('user_id', $userId)->whereIn('order_status', ['delivered', 'payment_verified', 'processing', 'completed']);
+            })->where('book_id', $book->id)->exists()
+            || \App\Models\EbookLibrary::where('user_id', $userId)->where('book_id', $book->id)->exists();
+
+        if (!$hasPurchased) {
+            return back()->with('review_error', 'দুঃখিত, শুধুমাত্র এই বইটি ক্রয়কারী ভেরিফায়েড পাঠকরাই রিভিউ ও মতামত প্রদান করতে পারবেন।');
+        }
 
         $validated = $request->validate([
-            'customer_name' => 'required|string|max:100',
-            'customer_email' => 'nullable|email|max:100',
+            'customer_name' => 'nullable|string|max:100',
             'rating' => 'required|integer|min:1|max:5',
             'comment' => 'required|string|max:1000',
         ]);
 
-        $isVerified = false;
-        $userId = Auth::id();
-
-        if ($userId) {
-            // Check if user purchased this book
-            $isVerified = \App\Models\OrderItem::whereHas('order', function ($q) use ($userId) {
-                $q->where('user_id', $userId)->whereIn('order_status', ['delivered', 'payment_verified', 'processing']);
-            })->where('book_id', $book->id)->exists();
-        }
-
         Review::create([
             'book_id' => $book->id,
             'user_id' => $userId,
-            'customer_name' => $validated['customer_name'],
-            'customer_email' => $validated['customer_email'] ?? (Auth::user()?->email),
+            'customer_name' => $validated['customer_name'] ?: Auth::user()->name,
+            'customer_email' => Auth::user()->email,
             'rating' => $validated['rating'],
             'comment' => $validated['comment'],
-            'is_verified_purchase' => $isVerified,
-            'status' => 'pending', // Requires admin approval
+            'is_verified_purchase' => true,
+            'status' => 'approved',
         ]);
 
-        return back()->with('review_success', 'আপনার রিভিউটির জন্য ধন্যবাদ! অ্যাডমিন যাচাই করার পর এটি ওয়েবসাইটে প্রকাশিত হবে।');
+        return back()->with('review_success', 'আপনার মূল্যবান পর্যালোচনার জন্য ধন্যবাদ! আপনার রিভিউটি প্রকাশিত হয়েছে।');
     }
 }

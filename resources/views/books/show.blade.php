@@ -471,6 +471,11 @@
                             <i class="bi bi-book"></i> {{ $book->preview_pages }} পৃষ্ঠার ফ্রি প্রিভিউ পড়ুন
                         </a>
                     @endif
+                    @if($book->hasVideo())
+                        <a href="#book-video-section" onclick="scrollToVideoSection(event)" class="video-preview-action">
+                            <i class="bi bi-play-circle-fill text-danger"></i> ভিডিও পর্যালোচনা / রিভিউ দেখুন
+                        </a>
+                    @endif
                 @else
                     @if($book->price_ebook > 0)
                         <a href="{{ route('checkout', ['type' => 'ebook', 'bookSlug' => $book->slug]) }}" class="ebook-action">
@@ -492,10 +497,34 @@
                             <i class="bi bi-book"></i> {{ $book->preview_pages }} পৃষ্ঠার ফ্রি প্রিভিউ পড়ুন
                         </a>
                     @endif
+
+                    @if($book->hasVideo())
+                        <a href="#book-video-section" onclick="scrollToVideoSection(event)" class="video-preview-action">
+                            <i class="bi bi-play-circle-fill text-danger"></i> ভিডিও পর্যালোচনা / রিভিউ দেখুন
+                        </a>
+                    @endif
                 @endif
             </div>
         </div>
     </div>
+
+    @if($book->hasVideo())
+        <!-- Dedicated Book Video Showcase (Directly Below Preview & Purchase Block - Item 9) -->
+        <div id="book-video-section" class="book-video-showcase-card">
+            <div class="video-card-header">
+                <h3><i class="bi bi-play-circle-fill text-danger"></i> বই পরিচিতি ও ভিডিও পর্যালোচনা</h3>
+                <span class="badge-discount-tag" style="background:var(--sp-paste-badge); color:var(--sp-burgundy); font-weight:700;">ভিডিও বুক রিভিউ</span>
+            </div>
+            <p class="video-card-sub">বইটি সম্পর্কে বিস্তারিত জানতে ও লেখকের ভাবনা বুঝতে ভিডিওটি প্লে করে দেখুন:</p>
+            <div class="video-responsive-container">
+                <iframe src="{{ $book->youtube_embed_url }}" 
+                        title="{{ $book->title }} - ভিডিও পর্যালোচনা" 
+                        frameborder="0" 
+                        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" 
+                        allowfullscreen></iframe>
+            </div>
+        </div>
+    @endif
 
     <!-- Tabs Navigation -->
     <div class="book-tabs">
@@ -580,29 +609,120 @@
             </div>
         </div>
 
-        <!-- Tab 4: Reviews -->
+        <!-- Tab 4: Reviews (পাঠকদের মতামত - Item 8: শুধুমাত্র বইটির ক্রেতারা রিভিউ দিতে পারবেন) -->
         <div id="tab-reviews" class="tab-panel" style="display:none;">
             <div class="book-detail-card">
-                <h2><i class="bi bi-stars text-danger"></i> পাঠকদের মতামত ও রিভিউ</h2>
+                <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:18px; flex-wrap:wrap; gap:10px;">
+                    <h2 style="margin:0;"><i class="bi bi-stars text-danger"></i> পাঠকদের মতামত ও রিভিউ</h2>
+                    <span style="font-size:13px; color:var(--sp-muted); background:#f1f5f9; padding:4px 12px; border-radius:var(--sp-radius-pill); font-weight:600;">
+                        মোট রিভিউ: {{ $book->approvedReviews->count() }}টি
+                    </span>
+                </div>
+
+                @if(session('review_success'))
+                    <div style="background:#ecfdf5; border:1px solid #a7f3d0; color:#065f46; padding:12px 18px; border-radius:10px; margin-bottom:18px; font-weight:600; font-size:14px; display:flex; align-items:center; gap:8px;">
+                        <i class="bi bi-check-circle-fill text-success"></i> {{ session('review_success') }}
+                    </div>
+                @endif
+
+                @if(session('review_error'))
+                    <div style="background:#fef2f2; border:1px solid #fecaca; color:#991b1b; padding:12px 18px; border-radius:10px; margin-bottom:18px; font-weight:600; font-size:14px; display:flex; align-items:center; gap:8px;">
+                        <i class="bi bi-exclamation-triangle-fill text-danger"></i> {{ session('review_error') }}
+                    </div>
+                @endif
+
                 @if($book->approvedReviews->isEmpty())
-                    <p style="color:var(--sp-muted);">এই বইটির জন্য এখনও কোনো রিভিউ নেই। প্রথম রিভিউ দিয়ে আপনার অনুভূতি প্রকাশ করুন।</p>
+                    <p style="color:var(--sp-muted); font-size:14px; margin-bottom:20px;">এই বইটির জন্য এখনও কোনো রিভিউ যোগ করা হয়নি। আপনি বইটি পড়ে থাকলে আপনার সুচিন্তিত মতামত জানান।</p>
                 @else
-                    <div style="display:flex; flex-direction:column; gap:16px;">
+                    <div style="display:flex; flex-direction:column; gap:14px; margin-bottom:25px;">
                         @foreach($book->approvedReviews as $rev)
                             <div style="background:#f8fafc; border:1px solid var(--sp-border); border-radius:10px; padding:16px;">
-                                <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:6px;">
-                                    <strong style="color:var(--sp-heading); font-size:14px;"><i class="bi bi-person-circle"></i> {{ $rev->customer_name }}</strong>
+                                <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:6px; flex-wrap:wrap; gap:6px;">
+                                    <div style="display:flex; align-items:center; gap:8px;">
+                                        <strong style="color:var(--sp-heading); font-size:14px;"><i class="bi bi-person-circle"></i> {{ $rev->customer_name }}</strong>
+                                        @if($rev->is_verified_purchase)
+                                            <span style="background:var(--sp-paste-badge); color:var(--sp-burgundy); font-size:11px; font-weight:700; padding:2px 8px; border-radius:var(--sp-radius-pill);">
+                                                <i class="bi bi-patch-check-fill text-success"></i> ক্রেতা
+                                            </span>
+                                        @endif
+                                    </div>
                                     <span style="color:#f59e0b; font-size:13px;">
                                         @for($i=0; $i<$rev->rating; $i++)
                                             <i class="bi bi-star-fill"></i>
                                         @endfor
+                                        @for($i=$rev->rating; $i<5; $i++)
+                                            <i class="bi bi-star" style="color:#cbd5e1;"></i>
+                                        @endfor
                                     </span>
                                 </div>
-                                <p style="margin:0; font-size:14px; color:#475569;">"{{ $rev->comment }}"</p>
+                                <p style="margin:0; font-size:14px; color:#475569; line-height:1.6;">"{{ $rev->comment }}"</p>
                             </div>
                         @endforeach
                     </div>
                 @endif
+
+                <!-- Review Form / Gate Section (Item 8) -->
+                @auth
+                    @if($hasPurchased)
+                        <div style="margin-top:20px; padding-top:20px; border-top:1.5px dashed var(--sp-border);">
+                            <div style="display:flex; align-items:center; justify-content:space-between; margin-bottom:14px; flex-wrap:wrap; gap:8px;">
+                                <h3 style="font-size:16px; font-weight:800; color:var(--sp-heading); margin:0;">
+                                    <i class="bi bi-pencil-square text-danger"></i> আপনার অনুভূতি বা রিভিউ লিখুন
+                                </h3>
+                                <span style="background:var(--sp-paste-badge); color:var(--sp-burgundy); padding:4px 12px; border-radius:var(--sp-radius-pill); font-size:12px; font-weight:700;">
+                                    <i class="bi bi-patch-check-fill text-success"></i> ভেরিফায়েড ক্রেতা হিসেবে লিখছেন
+                                </span>
+                            </div>
+
+                            <form action="{{ route('books.review.submit', $book->slug) }}" method="POST">
+                                @csrf
+                                <div style="margin-bottom:14px;">
+                                    <label style="display:block; font-size:13px; font-weight:700; margin-bottom:6px; color:var(--sp-heading);">
+                                        রেটিং দিন (স্টার নির্বাচন করুন):
+                                    </label>
+                                    <select name="rating" required style="padding:9px 14px; border:1.5px solid var(--sp-border); border-radius:8px; font-size:14px; background:#fff; outline:none; font-weight:700; color:#b45309;">
+                                        <option value="5" selected>⭐⭐⭐⭐⭐ (৫ স্টার — অসাধারণ)</option>
+                                        <option value="4">⭐⭐⭐⭐ (৪ স্টার — খুব ভালো)</option>
+                                        <option value="3">⭐⭐⭐ (৩ স্টার — ভালো)</option>
+                                        <option value="2">⭐⭐ (২ স্টার — মোটামুটি)</option>
+                                        <option value="1">⭐ (১ স্টার — সন্তোষজনক নয়)</option>
+                                    </select>
+                                </div>
+
+                                <div style="margin-bottom:16px;">
+                                    <label style="display:block; font-size:13px; font-weight:700; margin-bottom:6px; color:var(--sp-heading);">
+                                        আপনার বিস্তারিত মন্তব্য বা রিভিউ <span style="color:#ef4444;">*</span>:
+                                    </label>
+                                    <textarea name="comment" rows="3" required placeholder="বইটি পড়ে আপনার কেমন লেগেছে? আপনার মূল ভাবনা ও অনুভূতি সংক্ষেপে লিখুন..." style="width:100%; padding:11px 14px; border:1.5px solid var(--sp-border); border-radius:8px; font-family:inherit; font-size:14px; outline:none; transition:border-color 0.2s;" onfocus="this.style.borderColor='var(--sp-crimson)'" onblur="this.style.borderColor='var(--sp-border)'"></textarea>
+                                </div>
+
+                                <button type="submit" class="btn-cart" style="width:auto; padding:10px 26px; font-size:14px; cursor:pointer;">
+                                    <i class="bi bi-send"></i> রিভিউ জমা দিন
+                                </button>
+                            </form>
+                        </div>
+                    @else
+                        <div style="margin-top:20px; padding:18px 20px; border-radius:12px; background:#f8fafc; border:1.5px dashed #cbd5e1; display:flex; align-items:center; gap:14px;">
+                            <div style="width:44px; height:44px; border-radius:50%; background:var(--sp-paste-light); display:flex; align-items:center; justify-content:center; color:var(--sp-burgundy); font-size:20px; flex-shrink:0;">
+                                <i class="bi bi-shield-lock-fill"></i>
+                            </div>
+                            <div>
+                                <strong style="color:var(--sp-heading); font-size:14.5px; display:block;">শুধুমাত্র বইটির ক্রেতাদের মতামত</strong>
+                                <span style="color:var(--sp-muted); font-size:13.5px;">মুক্তাদার বইঘর থেকে শুধুমাত্র <strong>এই বইটি ক্রয়কারী ভেরিফায়েড পাঠকরাই</strong> রিভিউ ও রেটিং দিতে পারবেন।</span>
+                            </div>
+                        </div>
+                    @endif
+                @else
+                    <div style="margin-top:20px; padding:18px 20px; border-radius:12px; background:#f8fafc; border:1.5px dashed #cbd5e1; display:flex; align-items:center; gap:14px;">
+                        <div style="width:44px; height:44px; border-radius:50%; background:var(--sp-paste-light); display:flex; align-items:center; justify-content:center; color:var(--sp-burgundy); font-size:20px; flex-shrink:0;">
+                            <i class="bi bi-person-lock"></i>
+                        </div>
+                        <div>
+                            <strong style="color:var(--sp-heading); font-size:14.5px; display:block;">রিভিউ দেওয়ার নিয়ম</strong>
+                            <span style="color:var(--sp-muted); font-size:13.5px;">মতামত বা রিভিউ প্রদান করতে অনুগ্রহ করে <a href="{{ route('login') }}" style="color:var(--sp-crimson); font-weight:700;">লগইন করুন</a>। (শুধুমাত্র বইটি ক্রয়কারী পাঠকরাই রিভিউ দিতে পারবেন)</span>
+                        </div>
+                    </div>
+                @endauth
             </div>
         </div>
 
@@ -625,23 +745,6 @@
 
     </div>
 
-    @if($book->hasVideo())
-        <!-- Under-tabs 16:9 Responsive Video Review Section -->
-        <div style="padding: 0 24px 30px;">
-            <div class="book-detail-card" style="background: #ffffff;">
-                <h2><i class="bi bi-youtube text-danger"></i> ভিডিও পর্যালোচনা (YouTube Review)</h2>
-                <p style="color: var(--sp-muted); font-size: 14px; margin-bottom: 20px;">বইটি সম্পর্কে বিস্তারিত জানতে নিচের ভিডিওটি প্লে করে দেখতে পারেন:</p>
-                <div class="video-responsive-container">
-                    <iframe src="{{ $book->youtube_embed_url }}" 
-                            title="{{ $book->title }} - ভিডিও পর্যালোচনা" 
-                            frameborder="0" 
-                            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" 
-                            allowfullscreen></iframe>
-                </div>
-            </div>
-        </div>
-    @endif
-
 </div>
 
 <script>
@@ -655,6 +758,16 @@ function showTab(tabName, btn) {
     }
     if (btn) {
         btn.classList.add('active');
+    }
+}
+
+function scrollToVideoSection(e) {
+    if (e) e.preventDefault();
+    const sec = document.getElementById('book-video-section');
+    if (sec) {
+        sec.scrollIntoView({ behavior: 'smooth', block: 'center' });
+        sec.classList.add('highlight-pulse');
+        setTimeout(() => sec.classList.remove('highlight-pulse'), 2500);
     }
 }
 </script>

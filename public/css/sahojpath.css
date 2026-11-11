@@ -6,25 +6,29 @@
 
 :root {
     /* Page & Surfaces */
-    --sp-bg: #f8f9fa;
+    --sp-bg: #f8fafc;
     --sp-card-bg: #ffffff;
     --sp-border: #f1f5f9;
     --sp-border-hover: #e2e8f0;
     
-    /* SahojPath Brand Colors */
-    --sp-burgundy: #8b263b;       /* Primary Deep Maroon/Burgundy */
-    --sp-burgundy-dark: #641b2c;  /* Dark Burgundy */
-    --sp-crimson: #e54646;        /* Vivid Red Accent (.btn-cart, view-all) */
-    --sp-crimson-hover: #dc2626;
-    --sp-gold: #e8ca8e;           /* Sahojpath Gold Accent */
+    /* Muktada Paste Color Brand Theme (পেস্ট কালার) */
+    --sp-burgundy: #0f766e;       /* Primary Deep Paste / Teal (#0f766e) */
+    --sp-burgundy-dark: #115e59;  /* Dark Paste (#115e59) */
+    --sp-crimson: #0d9488;        /* Vibrant Paste Accent (#0d9488) */
+    --sp-crimson-hover: #0f766e;  /* Darker Paste on hover */
+    --sp-paste: #0d9488;          /* Base Paste */
+    --sp-paste-light: #f0fdfa;    /* Soft pastel teal surface */
+    --sp-paste-badge: #ccfbf1;    /* Light pastel badge bg */
+    --sp-paste-border: #99f6e4;   /* Soft teal border */
+    --sp-gold: #e8ca8e;           /* Gold Accent */
     --sp-gold-dark: #b45309;
-    --sp-green: #198754;          /* Green Discount Badge (20%) */
-    --sp-green-bg: #dcfce7;
+    --sp-green: #0d9488;          /* Paste Green */
+    --sp-green-bg: #ccfbf1;
     --sp-amber: #ea580c;          /* Upcoming Book Badge */
     --sp-amber-bg: #ffedd5;
     
     /* Text Colors */
-    --sp-heading: rgb(48, 51, 63); /* #30333f */
+    --sp-heading: rgb(30, 41, 59); /* #1e293b */
     --sp-body: #334155;
     --sp-muted: #64748b;
     --sp-light: #94a3b8;
@@ -39,7 +43,7 @@
     --sp-radius-sm: 8px;
     --sp-radius-pill: 9999px;
     --sp-shadow-sm: 0 2px 10px rgba(0, 0, 0, 0.035);
-    --sp-shadow-hover: 0 10px 25px rgba(100, 27, 44, 0.08);
+    --sp-shadow-hover: 0 10px 25px rgba(13, 148, 136, 0.12);
     --sp-font: 'Noto Sans Bengali', 'Manrope', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
 }
 
@@ -240,10 +244,44 @@ a {
 }
 
 .nav-pill:hover {
-    background: #fff5f6;
-    border-color: #fecdd3;
+    background: var(--sp-paste-light);
+    border-color: var(--sp-paste-border);
     color: var(--sp-burgundy) !important;
     transform: translateY(-1px);
+}
+
+/* Combined Auth Pill (লগইন / রেজিস্টার একসাথে) */
+.nav-pill-auth {
+    display: inline-flex;
+    align-items: center;
+    gap: 4px;
+    padding: 7px 14px;
+    border-radius: var(--sp-radius-pill);
+    background: #ffffff;
+    border: 1.5px solid var(--sp-paste-border);
+    font-size: 13px;
+    font-weight: 700;
+    box-shadow: var(--sp-shadow-sm);
+    white-space: nowrap;
+}
+
+.nav-pill-auth .auth-link {
+    color: var(--sp-burgundy) !important;
+    text-decoration: none;
+    transition: color 0.2s ease;
+    display: inline-flex;
+    align-items: center;
+    gap: 4px;
+}
+
+.nav-pill-auth .auth-link:hover {
+    color: var(--sp-crimson) !important;
+}
+
+.nav-pill-auth .auth-sep {
+    color: #cbd5e1;
+    font-weight: 400;
+    margin: 0 2px;
 }
 
 .pill-cart {
@@ -251,23 +289,28 @@ a {
     color: #ffffff !important;
     border-color: var(--sp-burgundy) !important;
     position: relative;
-    box-shadow: 0 2px 8px rgba(139, 38, 59, 0.2);
+    box-shadow: 0 2px 8px rgba(15, 118, 110, 0.25);
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 6px;
 }
 
 .pill-cart:hover {
     background: var(--sp-crimson) !important;
     border-color: var(--sp-crimson) !important;
     color: #ffffff !important;
+    box-shadow: 0 4px 12px rgba(13, 148, 136, 0.35);
 }
 
 .cart-badge {
     background: #ffffff !important;
     color: var(--sp-burgundy) !important;
     border-radius: var(--sp-radius-pill);
-    padding: 2px 8px;
-    font-size: 11.5px;
+    padding: 2px 7px;
+    font-size: 11px;
     font-weight: 800;
-    margin-left: 3px;
+    line-height: 1;
 }
 
 .pill-gold {
@@ -845,6 +888,10 @@ a {
     color: #94a3b8;
 }
 
+.mobile-publisher-link {
+    display: none;
+}
+
 /* =========================================================
    RESPONSIVENESS (Ultra Wide, Desktop, Tablet & Mobile)
    ========================================================= */
@@ -873,45 +920,267 @@ a {
     }
 }
 
+/* Override Bootstrap text-danger to Paste Color in real-site */
+.real-site .text-danger {
+    color: var(--sp-crimson) !important;
+}
+
+/* Category Drag & Touch Scrollable Track */
+.category-marquee-container {
+    margin-bottom: 35px;
+    position: relative;
+}
+
+.category-scroll-wrapper {
+    position: relative;
+    display: flex;
+    align-items: center;
+}
+
+.category-scroll-container {
+    display: flex;
+    gap: 12px;
+    overflow-x: auto;
+    scroll-behavior: smooth;
+    -webkit-overflow-scrolling: touch;
+    scrollbar-width: none;
+    -ms-overflow-style: none;
+    padding: 10px 4px 16px;
+    cursor: grab;
+    width: 100%;
+}
+
+.category-scroll-container::-webkit-scrollbar {
+    display: none;
+}
+
+.category-scroll-container.is-dragging {
+    cursor: grabbing;
+    scroll-behavior: auto;
+}
+
+.cat-nav-btn {
+    width: 36px;
+    height: 36px;
+    border-radius: 50%;
+    background: #ffffff;
+    border: 1px solid var(--sp-border);
+    color: var(--sp-burgundy);
+    box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    font-size: 15px;
+    transition: all 0.2s ease;
+    flex-shrink: 0;
+}
+
+.cat-nav-btn:hover {
+    background: var(--sp-burgundy);
+    color: #ffffff;
+    transform: scale(1.08);
+}
+
+/* Video Under Preview Button in Book Detail */
+.video-preview-action {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    width: 100%;
+    padding: 11px 18px;
+    border-radius: var(--sp-radius-pill);
+    background: var(--sp-paste-light);
+    color: var(--sp-burgundy) !important;
+    border: 1.5px solid var(--sp-paste-border);
+    font-size: 14px;
+    font-weight: 700;
+    text-decoration: none;
+    transition: all 0.2s ease;
+    margin-top: 10px;
+    cursor: pointer;
+}
+
+.video-preview-action:hover {
+    background: var(--sp-paste-badge);
+    border-color: var(--sp-crimson);
+    color: var(--sp-burgundy-dark) !important;
+    transform: translateY(-1px);
+}
+
+.book-video-showcase-card {
+    background: #ffffff;
+    border: 1px solid var(--sp-border);
+    border-radius: var(--sp-radius);
+    padding: 24px;
+    box-shadow: var(--sp-shadow-sm);
+    margin: 24px 0 30px;
+    transition: box-shadow 0.3s ease;
+}
+
+.book-video-showcase-card.highlight-pulse {
+    box-shadow: 0 0 0 3px var(--sp-crimson), 0 10px 30px rgba(13, 148, 136, 0.2);
+}
+
+.video-card-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 12px;
+    margin-bottom: 6px;
+    flex-wrap: wrap;
+}
+
+.video-card-header h3 {
+    font-size: 18px;
+    font-weight: 800;
+    color: var(--sp-heading);
+    margin: 0;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.video-card-sub {
+    font-size: 13.5px;
+    color: var(--sp-muted);
+    margin-bottom: 16px;
+}
+
+/* Contact Page Responsive Grid */
+.contact-grid {
+    display: grid;
+    grid-template-columns: 1fr 360px;
+    gap: 35px;
+    align-items: flex-start;
+}
+
+.contact-form-row {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 16px;
+    margin-bottom: 16px;
+}
+
 @media (max-width: 768px) {
     .real-container,
     .catalog-shell,
     .book-page-wrap {
-        padding: 16px 14px 40px !important;
+        padding: 14px 12px 35px !important;
     }
 
+    /* Mobile Header: Grid with Cart Anchored Top-Right */
     .real-head-top {
-        flex-wrap: wrap;
-        padding: 12px 14px;
-        gap: 10px;
+        display: grid !important;
+        grid-template-columns: 1fr auto !important;
+        grid-template-rows: auto auto !important;
+        align-items: center !important;
+        padding: 10px 14px !important;
+        gap: 8px 10px !important;
     }
 
-    .real-search-form {
-        order: 3;
-        max-width: 100%;
-        width: 100%;
-        margin-top: 4px;
-        height: 40px;
+    .real-brand {
+        grid-column: 1 !important;
+        grid-row: 1 !important;
+        gap: 8px !important;
+    }
+
+    .real-brand img {
+        width: 38px !important;
+        height: 38px !important;
+    }
+
+    .real-brand b {
+        font-size: 16px !important;
+    }
+
+    .real-brand small {
+        font-size: 9.5px !important;
     }
 
     .real-head-nav {
-        gap: 6px;
+        grid-column: 2 !important;
+        grid-row: 1 !important;
+        display: flex !important;
+        align-items: center !important;
+        justify-content: flex-end !important;
+        gap: 6px !important;
     }
 
-    .nav-pill {
-        padding: 6px 10px;
-        font-size: 12px;
+    /* Top Publisher Pill Hidden on Mobile (will show in sub-nav/bottom) */
+    .pill-publisher {
+        display: none !important;
+    }
+
+    /* Cart Pill Anchored Nicely at Top-Right on Mobile */
+    .pill-cart {
+        padding: 7px 12px !important;
+        font-size: 14px !important;
+    }
+
+    .pill-cart i {
+        font-size: 15px !important;
+    }
+
+    .nav-pill-auth {
+        padding: 6px 10px !important;
+        font-size: 12px !important;
+    }
+
+    .real-search-form {
+        grid-column: 1 / -1 !important;
+        grid-row: 2 !important;
+        width: 100% !important;
+        margin-top: 2px !important;
+        height: 38px !important;
+    }
+
+    .real-search {
+        font-size: 13px !important;
+        padding: 6px 14px !important;
     }
 
     .real-nav {
-        justify-content: flex-start;
-        padding: 8px 12px;
-        gap: 8px;
+        justify-content: flex-start !important;
+        padding: 6px 10px !important;
+        gap: 6px !important;
+        overflow-x: auto !important;
+        white-space: nowrap !important;
+        scrollbar-width: none !important;
+    }
+
+    .real-nav::-webkit-scrollbar {
+        display: none;
     }
 
     .real-nav a {
-        font-size: 12.5px;
-        padding: 5px 10px;
+        font-size: 12px !important;
+        padding: 4px 8px !important;
+    }
+
+    .mobile-publisher-link {
+        display: inline-flex !important;
+        background: var(--sp-paste-light) !important;
+        color: var(--sp-burgundy) !important;
+        border: 1px solid var(--sp-paste-border) !important;
+        border-radius: var(--sp-radius-pill) !important;
+        font-weight: 700 !important;
+    }
+
+    /* Contact Page Mobile View */
+    .contact-grid {
+        grid-template-columns: 1fr !important;
+        gap: 20px !important;
+    }
+
+    .contact-form-row {
+        grid-template-columns: 1fr !important;
+        gap: 12px !important;
+    }
+
+    .contact-box {
+        padding: 20px 16px !important;
     }
 
     .catalog-grid, .books-grid, .real-books {
@@ -936,15 +1205,15 @@ a {
 
 @media (max-width: 640px) {
     .footer-inner {
-        grid-template-columns: 1fr;
-        gap: 24px;
-        padding: 0 16px 35px;
+        grid-template-columns: 1fr !important;
+        gap: 24px !important;
+        padding: 0 16px 35px !important;
     }
 
     .footer-bottom > div {
-        flex-direction: column;
-        gap: 6px;
-        text-align: center;
+        flex-direction: column !important;
+        gap: 6px !important;
+        text-align: center !important;
     }
 
     .catalog-grid, .books-grid, .real-books {

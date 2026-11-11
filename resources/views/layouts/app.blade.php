@@ -72,17 +72,20 @@
                     </a>
                 @endauth
 
-                <!-- Auth / Profile -->
+                <!-- Auth / Profile (লগইন ও রেজিস্ট্রেশন একসাথে) -->
                 @guest
-                    <a href="{{ route('login') }}" class="nav-pill">
-                        <i class="bi bi-box-arrow-in-right"></i> লগইন
-                    </a>
-                    <a href="{{ route('register') }}" class="nav-pill pill-gold">
-                        <i class="bi bi-person-plus-fill"></i> রেজিস্ট্রেশন
-                    </a>
+                    <div class="nav-pill-auth">
+                        <a href="{{ route('login') }}" class="auth-link" title="লগইন করুন">
+                            <i class="bi bi-box-arrow-in-right"></i> লগইন
+                        </a>
+                        <span class="auth-sep">/</span>
+                        <a href="{{ route('register') }}" class="auth-link" title="নতুন একাউন্ট খুলুন">
+                            রেজিস্টার
+                        </a>
+                    </div>
                 @else
                     @if(auth()->user()->isAdmin())
-                        <a href="{{ route('admin.dashboard') }}" class="nav-pill" style="background:#fee2e2; color:#991b1b; border-color:#fca5a5;">
+                        <a href="{{ route('admin.dashboard') }}" class="nav-pill" style="background:#ccfbf1; color:#0f766e; border-color:#99f6e4;">
                             <i class="bi bi-gear-fill"></i> অ্যাডমিন
                         </a>
                     @endif
@@ -91,13 +94,13 @@
                     </a>
                     <form action="{{ route('logout') }}" method="POST" style="display:inline;">
                         @csrf
-                        <button type="submit" class="nav-pill" style="cursor:pointer; background:transparent; border:none;">
+                        <button type="submit" class="nav-pill" style="cursor:pointer; background:transparent; border:none;" title="লগআউট">
                             <i class="bi bi-box-arrow-right"></i>
                         </button>
                     </form>
                 @endguest
 
-                <!-- Shopping Cart -->
+                <!-- Shopping Cart (মোবাইলে সবসময় উপরে ডানে থাকবে) -->
                 <a href="{{ route('cart.index') }}" class="nav-pill pill-cart" title="শপিং কার্ট">
                     <i class="bi bi-bag-heart-fill"></i>
                     <span class="cart-badge">{{ session('cart') ? count(session('cart')) : 0 }}</span>
@@ -127,6 +130,9 @@
             </a>
             <a href="{{ route('contact') }}" class="{{ request()->routeIs('contact') ? 'active' : '' }}">
                 <i class="bi bi-chat-dots"></i> যোগাযোগ
+            </a>
+            <a href="{{ route('publisher.register') }}" class="mobile-publisher-link" title="মোবাইল ভিউতে প্রকাশক লিঙ্ক">
+                <i class="fa-solid fa-store"></i> প্রকাশক নিবন্ধন
             </a>
         </nav>
     </header>

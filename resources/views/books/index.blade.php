@@ -74,8 +74,8 @@
     }
 
     .cat-pill:hover {
-        background: #fff5f6;
-        border-color: #fecdd3;
+        background: var(--sp-paste-light);
+        border-color: var(--sp-paste-border);
         color: var(--sp-burgundy);
     }
 

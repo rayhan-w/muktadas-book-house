@@ -4,20 +4,20 @@
 
 @section('styles')
 <style>
-    /* SahojPath Modern Clean Hero */
+    /* Paste Color Modern Clean Hero */
     .real-hero {
         position: relative;
         min-height: 340px;
-        background: linear-gradient(135deg, #0f172b 0%, #1e293b 60%, #334155 100%) !important;
+        background: linear-gradient(135deg, #042f2e 0%, #0f172b 60%, #115e59 100%) !important;
         color: #fff !important;
         display: flex;
         align-items: center;
         justify-content: space-between;
-        padding: 40px 30px;
+        padding: 40px 32px;
         border-radius: var(--sp-radius);
         margin-bottom: 30px;
         overflow: hidden;
-        border-bottom: 4px solid var(--sp-burgundy);
+        border-bottom: 4px solid var(--sp-crimson);
         box-shadow: 0 10px 30px rgba(15, 23, 42, 0.12);
     }
 
@@ -34,7 +34,7 @@
         background-position: right bottom;
         background-size: contain;
         pointer-events: none;
-        opacity: 0.9;
+        opacity: 0.92;
     }
 
     .real-hero-content {
@@ -48,15 +48,15 @@
         display: inline-flex;
         align-items: center;
         gap: 6px;
-        background: rgba(229, 70, 70, 0.2);
-        color: #fca5a5;
-        border: 1px solid rgba(229, 70, 70, 0.4);
-        padding: 4px 14px;
+        background: rgba(13, 148, 136, 0.22);
+        color: #5eead4;
+        border: 1px solid rgba(13, 148, 136, 0.45);
+        padding: 5px 14px;
         border-radius: var(--sp-radius-pill);
-        font-size: 12.5px;
+        font-size: 13px;
         font-weight: 700;
         margin-bottom: 14px;
-        letter-spacing: 0.5px;
+        letter-spacing: 0.3px;
     }
 
     .real-hero h1 {
@@ -89,7 +89,7 @@
         font-weight: 700;
         text-decoration: none;
         transition: all 0.2s ease;
-        box-shadow: 0 4px 14px rgba(229, 70, 70, 0.35);
+        box-shadow: 0 4px 14px rgba(13, 148, 136, 0.35);
         display: inline-flex;
         align-items: center;
         gap: 8px;
@@ -134,9 +134,9 @@
         margin-bottom: 40px;
     }
 
-    /* Membership Banner (SahojPath Burgundy Accent) */
+    /* Membership Banner (Paste Teal Theme) */
     .real-membership {
-        background: linear-gradient(135deg, #4f1726 0%, #8b263b 100%) !important;
+        background: linear-gradient(135deg, #042f2e 0%, #0f766e 100%) !important;
         border-radius: var(--sp-radius) !important;
         padding: 35px 40px !important;
         color: #ffffff !important;
@@ -144,7 +144,7 @@
         align-items: center !important;
         justify-content: space-between !important;
         margin: 40px 0 !important;
-        box-shadow: 0 10px 30px rgba(139, 38, 59, 0.2) !important;
+        box-shadow: 0 10px 30px rgba(15, 118, 110, 0.25) !important;
     }
 
     .real-membership h2 {
@@ -156,7 +156,7 @@
 
     .real-membership p {
         font-size: 14.5px !important;
-        color: #fecdd3 !important;
+        color: #ccfbf1 !important;
         max-width: 600px !important;
         margin-bottom: 18px !important;
     }
@@ -175,7 +175,8 @@
     }
 
     .real-membership a:hover {
-        background: #fff1f2 !important;
+        background: var(--sp-paste-light) !important;
+        color: var(--sp-crimson) !important;
         transform: translateY(-2px);
     }
 
@@ -343,21 +344,65 @@
     }
 
     @media (max-width: 768px) {
+        /* Mobile Hero Card: Clean, Perfectly Proportioned & Centered (Item 6) */
         .real-hero {
-            padding: 28px 20px;
-            min-height: 280px;
+            padding: 24px 18px !important;
+            min-height: auto !important;
+            border-radius: 16px !important;
+            margin-bottom: 22px !important;
+            background: linear-gradient(145deg, #042f2e 0%, #0f172b 100%) !important;
+            border-bottom: 4px solid var(--sp-crimson) !important;
+            display: block !important;
         }
 
         .real-hero::after {
-            display: none;
+            display: none !important;
+        }
+
+        .real-hero-content {
+            max-width: 100% !important;
+            text-align: center !important;
+        }
+
+        .hero-badge-tag {
+            font-size: 12px !important;
+            padding: 5px 14px !important;
+            margin-bottom: 12px !important;
+            background: rgba(13, 148, 136, 0.25) !important;
+            color: #5eead4 !important;
+            border: 1px solid rgba(13, 148, 136, 0.45) !important;
+            display: inline-flex !important;
+            justify-content: center !important;
         }
 
         .real-hero h1 {
-            font-size: 24px;
+            font-size: 21px !important;
+            line-height: 1.35 !important;
+            margin-bottom: 10px !important;
+            text-align: center !important;
         }
 
         .real-hero p {
-            font-size: 13.5px;
+            font-size: 13.5px !important;
+            line-height: 1.6 !important;
+            margin-bottom: 18px !important;
+            text-align: center !important;
+            color: #cbd5e1 !important;
+        }
+
+        .real-hero-btns {
+            display: flex !important;
+            flex-direction: column !important;
+            gap: 10px !important;
+            width: 100% !important;
+        }
+
+        .hero-btn-primary, .hero-btn-secondary {
+            width: 100% !important;
+            text-align: center !important;
+            justify-content: center !important;
+            padding: 12px 18px !important;
+            font-size: 14px !important;
         }
 
         .publisher-banner {
@@ -413,17 +458,25 @@
         </div>
     </section>
 
-    <!-- Category Marquee Section (Auto-Scrolling Infinite Ticker with Realistic Icons) -->
+    <!-- Category Section (Touch-Swipeable & Mouse-Draggable Horizontal Slider - Item 7) -->
     <section id="categories" class="category-marquee-container">
         <div class="category-marquee-header">
             <h2>
                 <i class="bi bi-bookmark-star-fill text-danger"></i> বইয়ের ক্যাটাগরিসমূহ
             </h2>
-            <a href="{{ route('books.index') }}" class="view-all">সবগুলো দেখুন →</a>
+            <div style="display:flex; align-items:center; gap:8px;">
+                <button type="button" class="cat-nav-btn" onclick="scrollCategories(-280)" title="বামে সরান" aria-label="বামে যান">
+                    <i class="bi bi-chevron-left"></i>
+                </button>
+                <button type="button" class="cat-nav-btn" onclick="scrollCategories(280)" title="ডানে সরান" aria-label="ডানে যান">
+                    <i class="bi bi-chevron-right"></i>
+                </button>
+                <a href="{{ route('books.index') }}" class="view-all ms-2">সবগুলো দেখুন →</a>
+            </div>
         </div>
 
-        <div class="category-marquee-wrapper">
-            <div class="category-marquee-track">
+        <div class="category-scroll-wrapper">
+            <div class="category-scroll-container" id="categoryScrollTrack">
                 @php
                     $catIconMap = [
                         'islamic'          => ['icon' => 'fa-solid fa-mosque', 'class' => 'cat-icon-islamic'],
@@ -440,7 +493,7 @@
                 @endphp
 
                 <!-- First Pass -->
-                <a href="{{ route('books.index') }}" class="sp-cat-card">
+                <a href="{{ route('books.index') }}" class="sp-cat-card" title="সকল ক্যাটাগরির বই">
                     <div class="sp-cat-icon cat-icon-all">
                         <i class="fa-solid fa-books"></i>
                     </div>
@@ -455,7 +508,7 @@
                         $info = $catIconMap[$cat->slug] ?? ['icon' => 'fa-solid fa-book-bookmark', 'class' => 'cat-icon-all'];
                         $bCount = $cat->books_count ?? ($cat->books ? $cat->books->count() : 0);
                     @endphp
-                    <a href="{{ route('books.index', ['category' => $cat->slug]) }}" class="sp-cat-card">
+                    <a href="{{ route('books.index', ['category' => $cat->slug]) }}" class="sp-cat-card" title="{{ $cat->name }}">
                         <div class="sp-cat-icon {{ $info['class'] }}">
                             <i class="{{ $info['icon'] }}"></i>
                         </div>
@@ -466,8 +519,8 @@
                     </a>
                 @endforeach
 
-                <!-- Duplicate Pass for Seamless Infinite Loop -->
-                <a href="{{ route('books.index') }}" class="sp-cat-card" aria-hidden="true">
+                <!-- Duplicate Loop for Continuous Scroll -->
+                <a href="{{ route('books.index') }}" class="sp-cat-card" title="সকল ক্যাটাগরির বই">
                     <div class="sp-cat-icon cat-icon-all">
                         <i class="fa-solid fa-books"></i>
                     </div>
@@ -482,7 +535,7 @@
                         $info = $catIconMap[$cat->slug] ?? ['icon' => 'fa-solid fa-book-bookmark', 'class' => 'cat-icon-all'];
                         $bCount = $cat->books_count ?? ($cat->books ? $cat->books->count() : 0);
                     @endphp
-                    <a href="{{ route('books.index', ['category' => $cat->slug]) }}" class="sp-cat-card" aria-hidden="true">
+                    <a href="{{ route('books.index', ['category' => $cat->slug]) }}" class="sp-cat-card" title="{{ $cat->name }}">
                         <div class="sp-cat-icon {{ $info['class'] }}">
                             <i class="{{ $info['icon'] }}"></i>
                         </div>
@@ -759,4 +812,89 @@
     @endif
 
 </div>
+
+<script>
+function scrollCategories(distance) {
+    const track = document.getElementById('categoryScrollTrack');
+    if (track) {
+        track.scrollBy({ left: distance, behavior: 'smooth' });
+    }
+}
+
+document.addEventListener('DOMContentLoaded', function () {
+    const track = document.getElementById('categoryScrollTrack');
+    if (!track) return;
+
+    let isDown = false;
+    let startX, scrollLeft;
+    let moved = false;
+    let autoScrollTimer = null;
+
+    function startAutoScroll() {
+        if (autoScrollTimer) return;
+        autoScrollTimer = setInterval(() => {
+            if (!isDown) {
+                track.scrollLeft += 1;
+                if (track.scrollLeft >= track.scrollWidth - track.clientWidth - 2) {
+                    track.scrollLeft = 0;
+                }
+            }
+        }, 35);
+    }
+
+    function stopAutoScroll() {
+        clearInterval(autoScrollTimer);
+        autoScrollTimer = null;
+    }
+
+    startAutoScroll();
+
+    // Pause on hover
+    track.addEventListener('mouseenter', stopAutoScroll);
+    track.addEventListener('mouseleave', () => {
+        if (!isDown) startAutoScroll();
+    });
+
+    // Touch & Pointer Drag
+    track.addEventListener('pointerdown', (e) => {
+        isDown = true;
+        moved = false;
+        stopAutoScroll();
+        track.classList.add('is-dragging');
+        startX = e.pageX - track.offsetLeft;
+        scrollLeft = track.scrollLeft;
+    });
+
+    track.addEventListener('pointermove', (e) => {
+        if (!isDown) return;
+        const x = e.pageX - track.offsetLeft;
+        const walk = (x - startX);
+        if (Math.abs(walk) > 5) {
+            moved = true;
+        }
+        track.scrollLeft = scrollLeft - walk;
+    });
+
+    const stopDragging = () => {
+        if (!isDown) return;
+        isDown = false;
+        track.classList.remove('is-dragging');
+        setTimeout(startAutoScroll, 3500);
+    };
+
+    track.addEventListener('pointerup', stopDragging);
+    track.addEventListener('pointercancel', stopDragging);
+    track.addEventListener('pointerleave', stopDragging);
+
+    // Prevent accidental navigation when user is dragging
+    track.querySelectorAll('.sp-cat-card').forEach(card => {
+        card.addEventListener('click', (e) => {
+            if (moved) {
+                e.preventDefault();
+                e.stopPropagation();
+            }
+        });
+    });
+});
+</script>
 @endsection

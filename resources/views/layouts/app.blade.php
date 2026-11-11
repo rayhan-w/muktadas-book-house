@@ -163,7 +163,7 @@
         <div class="footer-inner">
             <div class="footer-brand">
                 <b>
-                    <i class="fa-solid fa-book-bookmark text-danger"></i> মুক্তাদার বইঘর
+                    <i class="fa-solid fa-book-bookmark" style="color: #8b263b;"></i> মুক্তাদার বইঘর
                 </b>
                 <small>MUKTADA'S BOOK HOUSE — জ্ঞান, পাঠ ও সুন্দর জীবন</small>
                 <p>লেখক মুক্তাদার চিন্তাশীল সাহিত্য, উপন্যাস, জীবনমুখী গবেষণা ও ইসলামী বইয়ের একমাত্র প্রামাণ্য রিডিং প্ল্যাটফর্ম। ঘরে বসে হার্ডকপি সংগ্রহ করুন কিংবা সরাসরি ডিজিটাল রিডারে ই-বুক উপভোগ করুন।</p>

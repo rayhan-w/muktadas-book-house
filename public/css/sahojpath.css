@@ -12,6 +12,7 @@
     --sp-border-hover: #e2e8f0;
     
     /* Muktada Paste Color Brand Theme (পেস্ট কালার) */
+    --sp-brand-name: #8b263b;     /* লোগোর পাশের নাম আগের অরিজিনাল কালার (#8b263b) অপরিবর্তিত */
     --sp-burgundy: #0f766e;       /* Primary Deep Paste / Teal (#0f766e) */
     --sp-burgundy-dark: #115e59;  /* Dark Paste (#115e59) */
     --sp-crimson: #0d9488;        /* Vibrant Paste Accent (#0d9488) */
@@ -149,7 +150,7 @@ a {
 .real-brand b {
     font-size: 20px;
     font-weight: 800;
-    color: var(--sp-burgundy) !important;
+    color: var(--sp-brand-name, #8b263b) !important; /* আগের অরিজিনাল কালার অপরিবর্তিত */
     letter-spacing: -0.3px;
     display: block;
     line-height: 1.2;
@@ -180,7 +181,7 @@ a {
 .real-search-form:focus-within {
     border-color: var(--sp-burgundy) !important;
     background: #ffffff !important;
-    box-shadow: 0 0 0 3px rgba(139, 38, 59, 0.1) !important;
+    box-shadow: 0 0 0 3px rgba(15, 118, 110, 0.12) !important;
 }
 
 .real-search-form input.real-search {
@@ -371,7 +372,7 @@ a {
 
 .real-nav a:hover,
 .real-nav a.active {
-    background: #fff5f6 !important;
+    background: var(--sp-paste-light) !important;
     color: var(--sp-burgundy) !important;
 }
 
@@ -472,10 +473,10 @@ a {
 }
 
 .sp-cat-card:hover {
-    background: #fff5f6;
+    background: var(--sp-paste-light);
     border-color: var(--sp-burgundy);
     transform: translateY(-2px);
-    box-shadow: 0 6px 14px rgba(139, 38, 59, 0.1);
+    box-shadow: 0 6px 14px rgba(15, 118, 110, 0.12);
 }
 
 .sp-cat-icon {
@@ -505,7 +506,7 @@ a {
 .cat-icon-career  { background: #e0f2fe; color: #0369a1; }
 .cat-icon-kids    { background: #fdf4ff; color: #c026d3; }
 .cat-icon-other   { background: #f1f5f9; color: #475569; }
-.cat-icon-all     { background: #fff1f2; color: #8b263b; }
+.cat-icon-all     { background: #ccfbf1; color: #0f766e; }
 
 .sp-cat-info {
     display: flex;
@@ -707,12 +708,12 @@ a {
     border: 0;
     cursor: pointer;
     transition: all 0.2s ease;
-    box-shadow: 0 3px 8px rgba(229, 70, 70, 0.25);
+    box-shadow: 0 3px 8px rgba(13, 148, 136, 0.25);
 }
 
 .btn-cart:hover {
     background: var(--sp-burgundy);
-    box-shadow: 0 4px 12px rgba(139, 38, 59, 0.3);
+    box-shadow: 0 4px 12px rgba(15, 118, 110, 0.3);
     transform: translateY(-1px);
 }
 
@@ -1093,6 +1094,7 @@ a {
 
     .real-brand b {
         font-size: 16px !important;
+        color: var(--sp-brand-name, #8b263b) !important;
     }
 
     .real-brand small {

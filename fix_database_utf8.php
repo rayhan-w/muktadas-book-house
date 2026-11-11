@@ -98,6 +98,17 @@ if (file_exists($envFile)) {
         if (!in_array('rejection_reason', $bookCols)) {
             $pdo->exec("ALTER TABLE `books` ADD COLUMN `rejection_reason` TEXT NULL AFTER `approval_status`");
         }
+        if (!in_array('video_url', $bookCols)) {
+            $pdo->exec("ALTER TABLE `books` ADD COLUMN `video_url` VARCHAR(500) NULL AFTER `cover_image`");
+            echo '<div class="item-ok">✓ `books` টেবিলে `video_url` কলাম যুক্ত হয়েছে।</div>';
+        }
+        // Set demo video on alor-poth
+        $pdo->exec("UPDATE `books` SET `video_url` = 'https://www.youtube.com/watch?v=dQw4w9WgXcQ' WHERE `slug` = 'alor-poth' AND (`video_url` IS NULL OR `video_url` = '')");
+        
+        // Ensure Admin password is password123
+        $adminPass = password_hash('password123', PASSWORD_BCRYPT);
+        $pdo->exec("UPDATE `users` SET `password` = '$adminPass' WHERE `email` = 'admin@muktadasbookhouse.com'");
+
 
         // 3. Settings Update (Safe INSERT ... ON DUPLICATE KEY UPDATE)
         $settings = [

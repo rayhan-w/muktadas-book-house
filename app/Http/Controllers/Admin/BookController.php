@@ -101,12 +101,18 @@ class BookController extends Controller
         ];
 
         if ($request->hasFile('cover_image')) {
+            if (!file_exists(public_path('covers'))) {
+                @mkdir(public_path('covers'), 0775, true);
+            }
             $filename = time() . '_' . Str::slug($validated['title']) . '.' . $request->file('cover_image')->getClientOriginalExtension();
             $request->file('cover_image')->move(public_path('covers'), $filename);
             $bookData['cover_image'] = 'covers/' . $filename;
         }
 
         if ($request->hasFile('ebook_file')) {
+            if (!file_exists(public_path('ebooks'))) {
+                @mkdir(public_path('ebooks'), 0775, true);
+            }
             $pdfFilename = time() . '_' . Str::slug($validated['title']) . '.' . $request->file('ebook_file')->getClientOriginalExtension();
             $request->file('ebook_file')->move(public_path('ebooks'), $pdfFilename);
             $bookData['ebook_file'] = 'ebooks/' . $pdfFilename;
@@ -183,12 +189,18 @@ class BookController extends Controller
         ];
 
         if ($request->hasFile('cover_image')) {
+            if (!file_exists(public_path('covers'))) {
+                @mkdir(public_path('covers'), 0775, true);
+            }
             $filename = time() . '_' . Str::slug($validated['title']) . '.' . $request->file('cover_image')->getClientOriginalExtension();
             $request->file('cover_image')->move(public_path('covers'), $filename);
             $bookData['cover_image'] = 'covers/' . $filename;
         }
 
         if ($request->hasFile('ebook_file')) {
+            if (!file_exists(public_path('ebooks'))) {
+                @mkdir(public_path('ebooks'), 0775, true);
+            }
             $pdfFilename = time() . '_' . Str::slug($validated['title']) . '.' . $request->file('ebook_file')->getClientOriginalExtension();
             $request->file('ebook_file')->move(public_path('ebooks'), $pdfFilename);
             $bookData['ebook_file'] = 'ebooks/' . $pdfFilename;

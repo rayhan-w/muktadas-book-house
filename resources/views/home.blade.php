@@ -45,7 +45,9 @@
     }
 
     .hero-badge-tag {
-        display: inline-block;
+        display: inline-flex;
+        align-items: center;
+        gap: 6px;
         background: rgba(229, 70, 70, 0.2);
         color: #fca5a5;
         border: 1px solid rgba(229, 70, 70, 0.4);
@@ -88,6 +90,9 @@
         text-decoration: none;
         transition: all 0.2s ease;
         box-shadow: 0 4px 14px rgba(229, 70, 70, 0.35);
+        display: inline-flex;
+        align-items: center;
+        gap: 8px;
     }
 
     .hero-btn-primary:hover {
@@ -105,6 +110,9 @@
         text-decoration: none;
         border: 1px solid rgba(255, 255, 255, 0.25);
         transition: all 0.2s ease;
+        display: inline-flex;
+        align-items: center;
+        gap: 8px;
     }
 
     .hero-btn-secondary:hover {
@@ -118,46 +126,7 @@
         max-width: 1240px;
         margin: 0 auto;
         padding: 10px 20px 40px;
-    }
-
-    /* Category Grid (SahojPath Clean Badges) */
-    .real-categories {
-        background: #ffffff;
-        border: 1px solid var(--sp-border);
-        border-radius: var(--sp-radius);
-        padding: 22px 24px;
-        margin-bottom: 35px;
-        box-shadow: var(--sp-shadow-sm);
-    }
-
-    .category-pills-grid {
-        display: flex;
-        gap: 10px;
-        flex-wrap: wrap;
-        margin-top: 14px;
-    }
-
-    .home-cat-badge {
-        display: inline-flex;
-        align-items: center;
-        gap: 8px;
-        padding: 9px 18px;
-        background: #f8fafc;
-        border: 1px solid var(--sp-border);
-        border-radius: var(--sp-radius-pill);
-        font-size: 13.5px;
-        font-weight: 600;
-        color: var(--sp-heading);
-        text-decoration: none;
-        transition: all 0.2s ease;
-    }
-
-    .home-cat-badge:hover {
-        background: #fff1f2;
-        border-color: #fecdd3;
-        color: var(--sp-burgundy);
-        transform: translateY(-2px);
-        box-shadow: 0 4px 10px rgba(139, 38, 59, 0.08);
+        width: 100%;
     }
 
     /* Section Styling */
@@ -193,7 +162,9 @@
     }
 
     .real-membership a {
-        display: inline-block !important;
+        display: inline-flex !important;
+        align-items: center;
+        gap: 8px;
         background: #ffffff !important;
         color: var(--sp-burgundy) !important;
         padding: 10px 24px !important;
@@ -209,7 +180,7 @@
     }
 
     .membership-crown {
-        font-size: 70px;
+        font-size: 64px;
         color: rgba(255, 255, 255, 0.25);
     }
 
@@ -219,8 +190,8 @@
         border: 1px solid var(--sp-border);
         border-left: 5px solid var(--sp-crimson);
         border-radius: var(--sp-radius);
-        padding: 24px 28px;
-        margin-bottom: 40px;
+        padding: 24px 30px;
+        margin-bottom: 35px;
         display: flex;
         align-items: center;
         justify-content: space-between;
@@ -229,32 +200,36 @@
     }
 
     .publisher-banner h3 {
-        color: var(--sp-heading);
         font-size: 19px;
         font-weight: 800;
+        color: var(--sp-heading);
         margin-bottom: 4px;
     }
 
     .publisher-banner p {
-        color: var(--sp-muted);
         font-size: 14px;
+        color: var(--sp-muted);
         margin: 0;
     }
 
-    .publisher-banner-btn {
-        background: var(--sp-crimson);
+    .publisher-banner a {
+        display: inline-flex;
+        align-items: center;
+        gap: 8px;
+        background: var(--sp-burgundy);
         color: #ffffff !important;
-        padding: 10px 20px;
-        border-radius: var(--sp-radius-sm);
+        padding: 9px 20px;
+        border-radius: var(--sp-radius-pill);
         font-weight: 700;
         font-size: 13.5px;
-        white-space: nowrap;
         text-decoration: none;
-        transition: background 0.2s;
+        flex-shrink: 0;
+        transition: all 0.2s;
     }
 
-    .publisher-banner-btn:hover {
-        background: var(--sp-burgundy);
+    .publisher-banner a:hover {
+        background: var(--sp-crimson);
+        transform: translateY(-2px);
     }
 
     /* Features Grid */
@@ -274,11 +249,24 @@
         align-items: center;
         gap: 14px;
         box-shadow: var(--sp-shadow-sm);
+        transition: transform 0.2s ease;
+    }
+
+    .feature-card:hover {
+        transform: translateY(-3px);
     }
 
     .feature-icon {
-        font-size: 28px;
-        color: var(--sp-crimson);
+        font-size: 26px;
+        color: var(--sp-burgundy);
+        width: 50px;
+        height: 50px;
+        border-radius: 50%;
+        background: #fff5f6;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        flex-shrink: 0;
     }
 
     .feature-title {
@@ -308,57 +296,96 @@
         box-shadow: var(--sp-shadow-sm);
         display: flex;
         flex-direction: column;
-        justify-content: space-between;
+    }
+
+    .review-user-row {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        margin-bottom: 10px;
+    }
+
+    .review-user-avatar {
+        width: 38px;
+        height: 38px;
+        border-radius: 50%;
+        background: #f1f5f9;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 16px;
+        color: var(--sp-burgundy);
+        font-weight: 700;
+    }
+
+    .review-user-name {
+        font-size: 13.5px;
+        font-weight: 700;
+        color: var(--sp-heading);
     }
 
     .review-stars {
-        color: #f59e0b;
-        font-size: 15px;
-        margin-bottom: 8px;
+        color: #eab308;
+        font-size: 12px;
     }
 
-    .review-quote {
+    .review-comment {
         font-size: 13.5px;
         color: var(--sp-body);
-        font-style: italic;
         line-height: 1.6;
-        margin-bottom: 14px;
+        margin-top: 6px;
     }
 
-    .review-author {
-        font-size: 12.5px;
-        font-weight: 700;
-        color: var(--sp-heading);
-        border-top: 1px solid #f1f5f9;
-        padding-top: 10px;
-        display: flex;
-        align-items: center;
-        justify-content: space-between;
-    }
-
-    .verified-pill {
-        background: var(--sp-green-bg);
-        color: var(--sp-green);
-        font-size: 11px;
-        padding: 2px 8px;
-        border-radius: var(--sp-radius-pill);
-        font-weight: 700;
+    @media (max-width: 900px) {
+        .features-grid {
+            grid-template-columns: repeat(2, 1fr);
+        }
     }
 
     @media (max-width: 768px) {
         .real-hero {
-            padding: 25px 20px;
-            min-height: auto;
+            padding: 28px 20px;
+            min-height: 280px;
         }
+
         .real-hero::after {
             display: none;
         }
-        .features-grid {
-            grid-template-columns: repeat(2, 1fr);
+
+        .real-hero h1 {
+            font-size: 24px;
         }
+
+        .real-hero p {
+            font-size: 13.5px;
+        }
+
         .publisher-banner {
             flex-direction: column;
-            align-items: flex-start;
+            text-align: center;
+            padding: 20px;
+        }
+
+        .real-membership {
+            flex-direction: column;
+            text-align: center;
+            padding: 28px 20px !important;
+            gap: 16px;
+        }
+
+        .membership-crown {
+            display: none;
+        }
+    }
+
+    @media (max-width: 640px) {
+        .features-grid {
+            grid-template-columns: 1fr;
+            gap: 10px;
+        }
+
+        .real-container {
+            padding: 10px 12px 30px;
         }
     }
 </style>
@@ -367,34 +394,105 @@
 @section('content')
 <div class="real-container">
 
-    <!-- SahojPath Clean Modern Hero -->
+    <!-- SahojPath Style Hero Banner -->
     <section class="real-hero">
         <div class="real-hero-content">
-            <span class="hero-badge-tag">✨ মুক্তাদার বইঘরে আপনাকে স্বাগতম</span>
-            <h1>{{ $settings['site_tagline'] ?? 'জ্ঞানের আলোয় নতুন পথচলা — সুন্দর জীবনের প্রত্যয়' }}</h1>
-            <p>লেখক মুক্তাদার চিন্তাশীল গবেষণা, উপন্যাস ও জীবনমুখী সাহিত্যের বিশ্বস্ত ঠিকানা। আপনার পছন্দের বই অর্ডার করুন ঘরে বসেই অথবা সংগ্রহ করুন ডিজিটাল ই-বুক।</p>
+            <span class="hero-badge-tag">
+                <i class="bi bi-patch-check-fill"></i> লেখক মুক্তাদার অফিসিয়াল প্ল্যাটফর্ম
+            </span>
+            <h1>জ্ঞানের আলোয় নতুন পথচলা,<br>সুন্দর ও অর্থবহ জীবনের সন্ধান</h1>
+            <p>জীবনমুখী সাহিত্য, উপন্যাস, গবেষণা ও ইসলামী বইয়ের একমাত্র বিশ্বস্ত ঠিকানা। ঘরে বসে হার্ডকপি সংগ্রহ করুন কিংবা সরাসরি অ্যাপ ছাড়াই ইনস্ট্যান্ট ই-বুক রিডারে পড়া শুরু করুন।</p>
             <div class="real-hero-btns">
-                <a href="{{ route('books.index') }}" class="hero-btn-primary">সকল বই দেখুন →</a>
-                <a href="{{ route('memberships.index') }}" class="hero-btn-secondary">মেম্বারশিপ প্ল্যান</a>
+                <a href="{{ route('books.index') }}" class="hero-btn-primary">
+                    <i class="bi bi-grid-fill"></i> বইয়ের ক্যাটালগ দেখুন
+                </a>
+                <a href="#popular" class="hero-btn-secondary">
+                    <i class="bi bi-fire text-warning"></i> বেস্টসেলার বই
+                </a>
             </div>
         </div>
     </section>
 
-    <!-- Category Pills Section -->
-    <section id="categories" class="real-categories">
-        <div class="real-section-header">
-            <h2>🏷️ জনপ্রিয় ক্যাটাগরিসমূহ</h2>
+    <!-- Category Marquee Section (Auto-Scrolling Infinite Ticker with Realistic Icons) -->
+    <section id="categories" class="category-marquee-container">
+        <div class="category-marquee-header">
+            <h2>
+                <i class="bi bi-bookmark-star-fill text-danger"></i> বইয়ের ক্যাটাগরিসমূহ
+            </h2>
             <a href="{{ route('books.index') }}" class="view-all">সবগুলো দেখুন →</a>
         </div>
-        <div class="category-pills-grid">
-            <a href="{{ route('books.index') }}" class="home-cat-badge">
-                <span>📚 সকল ক্যাটাগরি</span>
-            </a>
-            @foreach($categories as $cat)
-                <a href="{{ route('books.index', ['category' => $cat->slug]) }}" class="home-cat-badge">
-                    <span>{{ $cat->name }}</span>
+
+        <div class="category-marquee-wrapper">
+            <div class="category-marquee-track">
+                @php
+                    $catIconMap = [
+                        'islamic'          => ['icon' => 'fa-solid fa-mosque', 'class' => 'cat-icon-islamic'],
+                        'novels'           => ['icon' => 'fa-solid fa-book-open-reader', 'class' => 'cat-icon-novel'],
+                        'stories'          => ['icon' => 'fa-solid fa-feather-pointed', 'class' => 'cat-icon-story'],
+                        'biography'        => ['icon' => 'fa-solid fa-user-pen', 'class' => 'cat-icon-bio'],
+                        'self-development' => ['icon' => 'fa-solid fa-lightbulb', 'class' => 'cat-icon-self'],
+                        'history'          => ['icon' => 'fa-solid fa-landmark-dome', 'class' => 'cat-icon-history'],
+                        'liberation-war'   => ['icon' => 'fa-solid fa-flag', 'class' => 'cat-icon-war'],
+                        'career'           => ['icon' => 'fa-solid fa-briefcase', 'class' => 'cat-icon-career'],
+                        'children'         => ['icon' => 'fa-solid fa-shapes', 'class' => 'cat-icon-kids'],
+                        'other'            => ['icon' => 'fa-solid fa-layer-group', 'class' => 'cat-icon-other'],
+                    ];
+                @endphp
+
+                <!-- First Pass -->
+                <a href="{{ route('books.index') }}" class="sp-cat-card">
+                    <div class="sp-cat-icon cat-icon-all">
+                        <i class="fa-solid fa-books"></i>
+                    </div>
+                    <div class="sp-cat-info">
+                        <span class="sp-cat-title">সকল ক্যাটাগরি</span>
+                        <span class="sp-cat-count">সব বই</span>
+                    </div>
                 </a>
-            @endforeach
+
+                @foreach($categories as $cat)
+                    @php
+                        $info = $catIconMap[$cat->slug] ?? ['icon' => 'fa-solid fa-book-bookmark', 'class' => 'cat-icon-all'];
+                        $bCount = $cat->books_count ?? ($cat->books ? $cat->books->count() : 0);
+                    @endphp
+                    <a href="{{ route('books.index', ['category' => $cat->slug]) }}" class="sp-cat-card">
+                        <div class="sp-cat-icon {{ $info['class'] }}">
+                            <i class="{{ $info['icon'] }}"></i>
+                        </div>
+                        <div class="sp-cat-info">
+                            <span class="sp-cat-title">{{ $cat->name }}</span>
+                            <span class="sp-cat-count">{{ $bCount }}টি বই</span>
+                        </div>
+                    </a>
+                @endforeach
+
+                <!-- Duplicate Pass for Seamless Infinite Loop -->
+                <a href="{{ route('books.index') }}" class="sp-cat-card" aria-hidden="true">
+                    <div class="sp-cat-icon cat-icon-all">
+                        <i class="fa-solid fa-books"></i>
+                    </div>
+                    <div class="sp-cat-info">
+                        <span class="sp-cat-title">সকল ক্যাটাগরি</span>
+                        <span class="sp-cat-count">সব বই</span>
+                    </div>
+                </a>
+
+                @foreach($categories as $cat)
+                    @php
+                        $info = $catIconMap[$cat->slug] ?? ['icon' => 'fa-solid fa-book-bookmark', 'class' => 'cat-icon-all'];
+                        $bCount = $cat->books_count ?? ($cat->books ? $cat->books->count() : 0);
+                    @endphp
+                    <a href="{{ route('books.index', ['category' => $cat->slug]) }}" class="sp-cat-card" aria-hidden="true">
+                        <div class="sp-cat-icon {{ $info['class'] }}">
+                            <i class="{{ $info['icon'] }}"></i>
+                        </div>
+                        <div class="sp-cat-info">
+                            <span class="sp-cat-title">{{ $cat->name }}</span>
+                            <span class="sp-cat-count">{{ $bCount }}টি বই</span>
+                        </div>
+                    </a>
+                @endforeach
+            </div>
         </div>
     </section>
 
@@ -402,49 +500,49 @@
     @if($popularBooks->isNotEmpty())
         <section class="real-section" id="popular">
             <div class="real-section-header">
-                <h2>🔥 সর্বাধিক পঠিত ও বেস্টসেলার বই</h2>
+                <h2>
+                    <i class="bi bi-fire text-danger"></i> বহুল পঠিত ও বেস্টসেলার বই
+                </h2>
                 <a href="{{ route('books.index', ['sort' => 'popular']) }}" class="view-all">সবগুলো দেখুন →</a>
             </div>
-
             <div class="catalog-grid">
-                @foreach($popularBooks as $book)
+                @foreach($popularBooks->take(4) as $book)
                     <article class="catalog-card">
-                        <div>
-                            <div class="card-cover-container">
-                                <a href="{{ route('books.show', $book->slug) }}">
-                                    <img src="{{ $book->cover_url }}" alt="{{ $book->title }}" loading="lazy" onerror="this.onerror=null; this.parentElement.innerHTML='<div class=\'cover-fallback\'><span>{{ addslashes($book->title) }}</span></div>';">
-                                </a>
-                                @if($book->is_upcoming)
-                                    <span class="badge-upcoming-tag">আসন্ন বই</span>
-                                @elseif($book->discount_percent > 0)
-                                    <span class="badge-discount-tag">({{ round($book->discount_percent) }}% ছাড়)</span>
-                                @endif
-                            </div>
-
-                            <div class="card-details">
-                                <a href="{{ route('books.show', $book->slug) }}">
-                                    <h3 class="card-title">{{ $book->title }}</h3>
-                                </a>
-                                <div class="card-author-name">✍️ {{ $book->author_name }}</div>
-                                <div class="card-rating-strip">
-                                    <span>★★★★★</span>
-                                    <span class="card-rating-count">{{ number_format($book->averageRating(), 1) }}</span>
-                                </div>
-                                <div class="price-group">
-                                    @if($book->discount_percent > 0)
-                                        <del class="old-price">৳{{ number_format($book->price_hardcopy) }}</del>
-                                    @endif
-                                    <span class="product-price">৳{{ number_format($book->hardcopyEffectivePrice()) }}</span>
-                                </div>
-                            </div>
-                        </div>
-
-                        <div style="margin-top: 10px;">
-                            @if($book->is_upcoming)
-                                <a href="{{ route('books.show', $book->slug) }}" class="btn-cart btn-upcoming">⏳ প্রকাশের অপেক্ষায়</a>
-                            @else
-                                <a href="{{ route('books.show', $book->slug) }}" class="btn-cart">বিস্তারিত ও অর্ডার →</a>
+                        <div class="card-cover-container">
+                            @if($book->discount_percent > 0)
+                                <span class="badge-discount-tag">({{ $book->discount_percent }}% ছাড়)</span>
                             @endif
+                            <a href="{{ route('books.show', $book->slug) }}">
+                                <img src="{{ $book->cover_image ? asset($book->cover_image) : asset('author-portrait.jpg') }}" alt="{{ $book->title }}" loading="lazy">
+                            </a>
+                        </div>
+                        <div class="card-body">
+                            <a href="{{ route('books.show', $book->slug) }}">
+                                <h3 class="card-title">{{ $book->title }}</h3>
+                            </a>
+                            <div class="card-author"><i class="bi bi-pen"></i> {{ $book->author_name ?? 'মুক্তাদা' }}</div>
+                            <div class="card-rating">
+                                <i class="bi bi-star-fill"></i>
+                                <i class="bi bi-star-fill"></i>
+                                <i class="bi bi-star-fill"></i>
+                                <i class="bi bi-star-fill"></i>
+                                <i class="bi bi-star-half"></i>
+                                <span>({{ $book->reviews_count ?? 5 }})</span>
+                            </div>
+                            <div class="card-price-group">
+                                @if($book->price_ebook > 0)
+                                    <span class="price-pill-ebook">ই-বুক ৳{{ $book->price_ebook }}</span>
+                                @endif
+                                <div class="price-pill-hardcopy">
+                                    হার্ডকপি ৳{{ $book->discounted_price ?? $book->price_hardcopy }}
+                                    @if($book->discount_percent > 0)
+                                        <span class="price-original-struck">৳{{ $book->price_hardcopy }}</span>
+                                    @endif
+                                </div>
+                            </div>
+                            <a href="{{ route('books.show', $book->slug) }}" class="btn-cart">
+                                <i class="bi bi-bag-plus"></i> বিস্তারিত ও অর্ডার
+                            </a>
                         </div>
                     </article>
                 @endforeach
@@ -456,49 +554,49 @@
     @if($latestBooks->isNotEmpty())
         <section class="real-section" id="latest">
             <div class="real-section-header">
-                <h2>✨ নতুন প্রকাশিত বইসমূহ</h2>
-                <a href="{{ route('books.index', ['sort' => 'latest']) }}" class="view-all">সবগুলো দেখুন →</a>
+                <h2>
+                    <i class="bi bi-stars text-warning"></i> সদ্য প্রকাশিত নতুন বই
+                </h2>
+                <a href="{{ route('books.index', ['sort' => 'newest']) }}" class="view-all">সবগুলো দেখুন →</a>
             </div>
-
             <div class="catalog-grid">
-                @foreach($latestBooks as $book)
+                @foreach($latestBooks->take(4) as $book)
                     <article class="catalog-card">
-                        <div>
-                            <div class="card-cover-container">
-                                <a href="{{ route('books.show', $book->slug) }}">
-                                    <img src="{{ $book->cover_url }}" alt="{{ $book->title }}" loading="lazy" onerror="this.onerror=null; this.parentElement.innerHTML='<div class=\'cover-fallback\'><span>{{ addslashes($book->title) }}</span></div>';">
-                                </a>
-                                @if($book->is_upcoming)
-                                    <span class="badge-upcoming-tag">আসন্ন বই</span>
-                                @elseif($book->discount_percent > 0)
-                                    <span class="badge-discount-tag">({{ round($book->discount_percent) }}% ছাড়)</span>
-                                @endif
-                            </div>
-
-                            <div class="card-details">
-                                <a href="{{ route('books.show', $book->slug) }}">
-                                    <h3 class="card-title">{{ $book->title }}</h3>
-                                </a>
-                                <div class="card-author-name">✍️ {{ $book->author_name }}</div>
-                                <div class="card-rating-strip">
-                                    <span>★★★★★</span>
-                                    <span class="card-rating-count">{{ number_format($book->averageRating(), 1) }}</span>
-                                </div>
-                                <div class="price-group">
-                                    @if($book->discount_percent > 0)
-                                        <del class="old-price">৳{{ number_format($book->price_hardcopy) }}</del>
-                                    @endif
-                                    <span class="product-price">৳{{ number_format($book->hardcopyEffectivePrice()) }}</span>
-                                </div>
-                            </div>
-                        </div>
-
-                        <div style="margin-top: 10px;">
-                            @if($book->is_upcoming)
-                                <a href="{{ route('books.show', $book->slug) }}" class="btn-cart btn-upcoming">⏳ প্রকাশের অপেক্ষায়</a>
-                            @else
-                                <a href="{{ route('books.show', $book->slug) }}" class="btn-cart">বিস্তারিত ও অর্ডার →</a>
+                        <div class="card-cover-container">
+                            @if($book->discount_percent > 0)
+                                <span class="badge-discount-tag">({{ $book->discount_percent }}% ছাড়)</span>
                             @endif
+                            <a href="{{ route('books.show', $book->slug) }}">
+                                <img src="{{ $book->cover_image ? asset($book->cover_image) : asset('author-portrait.jpg') }}" alt="{{ $book->title }}" loading="lazy">
+                            </a>
+                        </div>
+                        <div class="card-body">
+                            <a href="{{ route('books.show', $book->slug) }}">
+                                <h3 class="card-title">{{ $book->title }}</h3>
+                            </a>
+                            <div class="card-author"><i class="bi bi-pen"></i> {{ $book->author_name ?? 'মুক্তাদা' }}</div>
+                            <div class="card-rating">
+                                <i class="bi bi-star-fill"></i>
+                                <i class="bi bi-star-fill"></i>
+                                <i class="bi bi-star-fill"></i>
+                                <i class="bi bi-star-fill"></i>
+                                <i class="bi bi-star-fill"></i>
+                                <span>({{ $book->reviews_count ?? 4 }})</span>
+                            </div>
+                            <div class="card-price-group">
+                                @if($book->price_ebook > 0)
+                                    <span class="price-pill-ebook">ই-বুক ৳{{ $book->price_ebook }}</span>
+                                @endif
+                                <div class="price-pill-hardcopy">
+                                    হার্ডকপি ৳{{ $book->discounted_price ?? $book->price_hardcopy }}
+                                    @if($book->discount_percent > 0)
+                                        <span class="price-original-struck">৳{{ $book->price_hardcopy }}</span>
+                                    @endif
+                                </div>
+                            </div>
+                            <a href="{{ route('books.show', $book->slug) }}" class="btn-cart">
+                                <i class="bi bi-bag-plus"></i> বিস্তারিত ও অর্ডার
+                            </a>
                         </div>
                     </article>
                 @endforeach
@@ -507,51 +605,59 @@
     @endif
 
     <!-- All Books Showcase -->
-    @if(isset($allBooks) && $allBooks->isNotEmpty())
+    @if($allBooks->isNotEmpty())
         <section class="real-section" id="all-books">
             <div class="real-section-header">
-                <h2>📚 আমাদের ক্যাটালগের সকল বই</h2>
-                <a href="{{ route('books.index') }}" class="view-all">ক্যাটালগ দেখুন →</a>
+                <h2>
+                    <i class="bi bi-collection-fill text-danger"></i> নির্বাচিত গ্রন্থ সম্ভার
+                </h2>
+                <a href="{{ route('books.index') }}" class="view-all">সবগুলো বই দেখুন →</a>
             </div>
-
             <div class="catalog-grid">
-                @foreach($allBooks as $book)
+                @foreach($allBooks->take(8) as $book)
                     <article class="catalog-card">
-                        <div>
-                            <div class="card-cover-container">
-                                <a href="{{ route('books.show', $book->slug) }}">
-                                    <img src="{{ $book->cover_url }}" alt="{{ $book->title }}" loading="lazy" onerror="this.onerror=null; this.parentElement.innerHTML='<div class=\'cover-fallback\'><span>{{ addslashes($book->title) }}</span></div>';">
-                                </a>
-                                @if($book->is_upcoming)
-                                    <span class="badge-upcoming-tag">আসন্ন বই</span>
-                                @elseif($book->discount_percent > 0)
-                                    <span class="badge-discount-tag">({{ round($book->discount_percent) }}% ছাড়)</span>
-                                @endif
-                            </div>
-
-                            <div class="card-details">
-                                <a href="{{ route('books.show', $book->slug) }}">
-                                    <h3 class="card-title">{{ $book->title }}</h3>
-                                </a>
-                                <div class="card-author-name">✍️ {{ $book->author_name }}</div>
-                                <div class="card-rating-strip">
-                                    <span>★★★★★</span>
-                                    <span class="card-rating-count">{{ number_format($book->averageRating(), 1) }}</span>
-                                </div>
-                                <div class="price-group">
-                                    @if($book->discount_percent > 0)
-                                        <del class="old-price">৳{{ number_format($book->price_hardcopy) }}</del>
-                                    @endif
-                                    <span class="product-price">৳{{ number_format($book->hardcopyEffectivePrice()) }}</span>
-                                </div>
-                            </div>
-                        </div>
-
-                        <div style="margin-top: 10px;">
+                        <div class="card-cover-container">
                             @if($book->is_upcoming)
-                                <a href="{{ route('books.show', $book->slug) }}" class="btn-cart btn-upcoming">⏳ প্রকাশের অপেক্ষায়</a>
+                                <span class="badge-upcoming-tag">আসন্ন বই</span>
+                            @elseif($book->discount_percent > 0)
+                                <span class="badge-discount-tag">({{ $book->discount_percent }}% ছাড়)</span>
+                            @endif
+                            <a href="{{ route('books.show', $book->slug) }}">
+                                <img src="{{ $book->cover_image ? asset($book->cover_image) : asset('author-portrait.jpg') }}" alt="{{ $book->title }}" loading="lazy">
+                            </a>
+                        </div>
+                        <div class="card-body">
+                            <a href="{{ route('books.show', $book->slug) }}">
+                                <h3 class="card-title">{{ $book->title }}</h3>
+                            </a>
+                            <div class="card-author"><i class="bi bi-pen"></i> {{ $book->author_name ?? 'মুক্তাদা' }}</div>
+                            <div class="card-rating">
+                                <i class="bi bi-star-fill"></i>
+                                <i class="bi bi-star-fill"></i>
+                                <i class="bi bi-star-fill"></i>
+                                <i class="bi bi-star-fill"></i>
+                                <i class="bi bi-star-half"></i>
+                                <span>(৫.০)</span>
+                            </div>
+                            <div class="card-price-group">
+                                @if($book->price_ebook > 0)
+                                    <span class="price-pill-ebook">ই-বুক ৳{{ $book->price_ebook }}</span>
+                                @endif
+                                <div class="price-pill-hardcopy">
+                                    হার্ডকপি ৳{{ $book->discounted_price ?? $book->price_hardcopy }}
+                                    @if($book->discount_percent > 0)
+                                        <span class="price-original-struck">৳{{ $book->price_hardcopy }}</span>
+                                    @endif
+                                </div>
+                            </div>
+                            @if($book->is_upcoming)
+                                <a href="{{ route('books.show', $book->slug) }}" class="btn-cart btn-upcoming">
+                                    <i class="bi bi-clock-history"></i> আসন্ন বই — প্রি-অর্ডার
+                                </a>
                             @else
-                                <a href="{{ route('books.show', $book->slug) }}" class="btn-cart">বিস্তারিত ও অর্ডার →</a>
+                                <a href="{{ route('books.show', $book->slug) }}" class="btn-cart">
+                                    <i class="bi bi-bag-plus"></i> বিস্তারিত ও অর্ডার
+                                </a>
                             @endif
                         </div>
                     </article>
@@ -560,118 +666,92 @@
         </section>
     @endif
 
-    <!-- Upcoming Books -->
-    @if($upcomingBooks->isNotEmpty())
-        <section class="real-section" id="upcoming">
-            <div class="real-section-header">
-                <h2>⏳ শীঘ্রই আসছে (আসন্ন বইসমূহ)</h2>
-            </div>
-
-            <div class="catalog-grid">
-                @foreach($upcomingBooks as $book)
-                    <article class="catalog-card">
-                        <div>
-                            <div class="card-cover-container">
-                                <a href="{{ route('books.show', $book->slug) }}">
-                                    <img src="{{ $book->cover_url }}" alt="{{ $book->title }}" loading="lazy" onerror="this.onerror=null; this.parentElement.innerHTML='<div class=\'cover-fallback\'><span>{{ addslashes($book->title) }}</span></div>';">
-                                </a>
-                                <span class="badge-upcoming-tag">আসন্ন বই</span>
-                            </div>
-
-                            <div class="card-details">
-                                <a href="{{ route('books.show', $book->slug) }}">
-                                    <h3 class="card-title">{{ $book->title }}</h3>
-                                </a>
-                                <div class="card-author-name">✍️ {{ $book->author_name }}</div>
-                                <div class="price-group">
-                                    <span class="product-price">৳{{ number_format($book->hardcopyEffectivePrice()) }}</span>
-                                </div>
-                            </div>
-                        </div>
-
-                        <div style="margin-top: 10px;">
-                            <a href="{{ route('books.show', $book->slug) }}" class="btn-cart btn-upcoming">⏳ প্রকাশের অপেক্ষায়</a>
-                        </div>
-                    </article>
-                @endforeach
-            </div>
-        </section>
-    @endif
-
-    <!-- Membership Banner -->
-    <section id="membership" class="real-membership">
-        <div>
-            <h2>👑 মেম্বারশিপে বিশেষ সুবিধা নিন!</h2>
-            <p>প্রিমিয়াম ডিসকাউন্টে হার্ডকপি ক্রয় এবং বিনামূল্যে আনলিমিটেড ডিজিটাল ই-বুক পড়ার সুযোগ।</p>
-            <a href="{{ route('memberships.index') }}">মেম্বারশিপ প্ল্যান দেখুন →</a>
-        </div>
-        <span class="membership-crown">♛</span>
-    </section>
-
-    <!-- Publisher Promotion Banner -->
+    <!-- Publisher Partnership Callout -->
     <div class="publisher-banner">
         <div>
-            <h3>🏢 আপনি কি একজন লেখক বা প্রকাশনা সংস্থা?</h3>
-            <p>মুক্তাদার বইঘরের অনুমোদিত প্রকাশক হয়ে আপনার প্রকাশিত বইগুলো যুক্ত করুন এবং পৌঁছে দিন পাঠকদের কাছে।</p>
+            <h3>
+                <i class="fa-solid fa-store text-danger me-2"></i> আপনি কি প্রকাশক বা লেখক?
+            </h3>
+            <p>আপনার বই মুক্তাদার বইঘরে সরাসরি তালিকাভুক্ত করুন এবং সারাদেশে হাজার হাজার পাঠকের কাছে পৌঁছে দিন।</p>
         </div>
-        <a href="{{ route('publisher.register') }}" class="publisher-banner-btn">
-            প্রকাশক হিসেবে যোগ দিন →
+        <a href="{{ route('publisher.register') }}">
+            <i class="bi bi-arrow-right-circle"></i> প্রকাশক নিবন্ধন করুন
         </a>
     </div>
 
-    <!-- Features -->
+    <!-- Membership Banner -->
+    <section class="real-membership">
+        <div>
+            <h2>
+                <i class="bi bi-award-fill text-warning me-2"></i> মুক্তাদার বইঘর প্রিমিয়াম মেম্বারশিপ
+            </h2>
+            <p>আমাদের যেকোনো মেম্বারশিপে যুক্ত হয়ে পান প্রতিটি বইয়ে সর্বোচ্চ ২৫% পর্যন্ত আজীবন ছাড়, ফ্রি প্রিমিয়াম ই-বুক ও লেখকের সাথে সরাসরি আড্ডার সুযোগ।</p>
+            <a href="{{ route('memberships.index') }}">
+                <i class="bi bi-gem text-danger"></i> মেম্বারশিপ প্ল্যানসমূহ দেখুন
+            </a>
+        </div>
+        <div class="membership-crown">
+            <i class="fa-solid fa-crown"></i>
+        </div>
+    </section>
+
+    <!-- Store Features Grid -->
     <div class="features-grid">
         <div class="feature-card">
-            <span class="feature-icon">🚚</span>
+            <div class="feature-icon"><i class="bi bi-truck"></i></div>
             <div>
-                <div class="feature-title">দ্রুততম ডেলিভারি</div>
-                <div class="feature-sub">সারাদেশে ক্যাশ অন ডেলিভারি</div>
+                <div class="feature-title">দ্রুত হোম ডেলিভারি</div>
+                <div class="feature-sub">ঢাকা সিটিতে ২-৩ দিন, সারাদেশে ৩-৫ দিন</div>
             </div>
         </div>
         <div class="feature-card">
-            <span class="feature-icon">🔒</span>
+            <div class="feature-icon"><i class="bi bi-shield-check"></i></div>
             <div>
-                <div class="feature-title">নিরাপদ পেমেন্ট</div>
-                <div class="feature-sub">বিকাশ, নগদ ও সিওডি সুবিধা</div>
+                <div class="feature-title">ক্যাশ অন ডেলিভারি</div>
+                <div class="feature-sub">বই হাতে পেয়ে মূল্য পরিশোধের সুবিধা</div>
             </div>
         </div>
         <div class="feature-card">
-            <span class="feature-icon">📱</span>
+            <div class="feature-icon"><i class="bi bi-tablet"></i></div>
             <div>
-                <div class="feature-title">ডিজিটাল ই-বুক</div>
-                <div class="feature-sub">ব্রাউজারেই সাথে সাথে পাঠ</div>
+                <div class="feature-title">ইনস্ট্যান্ট ই-বুক</div>
+                <div class="feature-sub">ডিজিটাল রিডারে যেকোনো ডিভাইসে পাঠ</div>
             </div>
         </div>
         <div class="feature-card">
-            <span class="feature-icon">🎧</span>
+            <div class="feature-icon"><i class="bi bi-patch-check"></i></div>
             <div>
-                <div class="feature-title">২৪/৭ সেবা</div>
-                <div class="feature-sub">সরাসরি ডেডিকেটেড সাপোর্ট</div>
+                <div class="feature-title">১০০% আসল বই</div>
+                <div class="feature-sub">লেখক ও প্রকাশকের নিজস্ব মুদ্রণ</div>
             </div>
         </div>
     </div>
 
     <!-- Reader Testimonials -->
-    @if($reviews->isNotEmpty())
-        <section class="real-section" id="testimonials">
+    @if(isset($reviews) && $reviews->isNotEmpty())
+        <section class="real-section">
             <div class="real-section-header">
-                <h2>💬 পাঠকদের মূল্যবান মতামত</h2>
+                <h2>
+                    <i class="bi bi-chat-heart text-danger"></i> পাঠকদের অনুভূতি ও মতামত
+                </h2>
             </div>
             <div class="reviews-grid">
-                @foreach($reviews as $rev)
+                @foreach($reviews->take(3) as $rev)
                     <div class="reader-review-card">
-                        <div>
-                            <div class="review-stars">
-                                @for($i = 0; $i < $rev->rating; $i++) ★ @endfor
+                        <div class="review-user-row">
+                            <div class="review-user-avatar">
+                                <i class="bi bi-person"></i>
                             </div>
-                            <p class="review-quote">“{{ $rev->comment }}”</p>
+                            <div>
+                                <div class="review-user-name">{{ $rev->user_name ?? 'সম্মানিত পাঠক' }}</div>
+                                <div class="review-stars">
+                                    @for($i=0; $i < ($rev->rating ?? 5); $i++)
+                                        <i class="bi bi-star-fill"></i>
+                                    @endfor
+                                </div>
+                            </div>
                         </div>
-                        <div class="review-author">
-                            <span>{{ $rev->customer_name }}</span>
-                            @if($rev->is_verified_purchase)
-                                <span class="verified-pill">✓ ভেরিফাইড পাঠক</span>
-                            @endif
-                        </div>
+                        <div class="review-comment">"{{ $rev->comment }}"</div>
                     </div>
                 @endforeach
             </div>

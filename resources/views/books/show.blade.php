@@ -9,18 +9,25 @@
 <style>
     .book-page-wrap {
         padding: 0 0 50px;
+        max-width: 1240px;
+        margin: 0 auto;
+        width: 100%;
     }
 
     .book-breadcrumb {
-        padding: 16px 24px;
-        color: #718096;
-        font-size: 14px;
-        border-bottom: 1px solid var(--line);
-        background: #fff;
+        padding: 14px 20px;
+        color: var(--sp-muted);
+        font-size: 13.5px;
+        border-bottom: 1px solid var(--sp-border);
+        background: #ffffff;
+        display: flex;
+        align-items: center;
+        gap: 6px;
+        flex-wrap: wrap;
     }
 
     .book-breadcrumb a {
-        color: var(--navy);
+        color: var(--sp-burgundy);
         text-decoration: none;
         font-weight: 600;
     }
@@ -44,34 +51,35 @@
 
     .reference-cover {
         width: 250px;
-        aspect-ratio: 3/4;
-        background: #fff;
+        aspect-ratio: 1 / 1.35;
+        background: #ffffff;
         border-radius: 12px;
-        padding: 14px;
-        box-shadow: 0 10px 25px rgba(9, 45, 69, 0.12);
+        padding: 10px;
+        box-shadow: 0 10px 25px rgba(15, 23, 42, 0.08);
         flex-shrink: 0;
         position: relative;
-        border: 1px solid #e2d9cc;
+        border: 1px solid var(--sp-border);
     }
 
     .reference-cover img {
         width: 100%;
         height: 100%;
         object-fit: cover;
-        border-radius: 6px;
+        border-radius: 8px;
         display: block;
     }
 
     .reference-discount {
         position: absolute;
         top: 10px;
-        right: 10px;
-        background: var(--sp-green);
-        color: #fff;
+        left: 10px;
+        background: var(--sp-green-bg);
+        color: var(--sp-green);
+        border: 1px solid rgba(25, 135, 84, 0.25);
         font-size: 12px;
         font-weight: 800;
-        padding: 4px 8px;
-        border-radius: 6px;
+        padding: 4px 10px;
+        border-radius: var(--sp-radius-pill);
     }
 
     .reference-copy {
@@ -79,7 +87,7 @@
     }
 
     .reference-copy h1 {
-        font-size: 38px;
+        font-size: 32px;
         margin: 0 0 8px;
         color: var(--sp-heading);
         font-weight: 800;
@@ -87,55 +95,66 @@
     }
 
     .reference-author {
-        font-size: 16px;
-        color: var(--muted);
+        font-size: 15px;
+        color: var(--sp-muted);
         margin-bottom: 12px;
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        flex-wrap: wrap;
     }
 
     .reference-author strong {
-        color: var(--navy);
+        color: var(--sp-burgundy);
     }
 
     .reference-rating {
-        color: #d97706;
-        font-size: 16px;
-        font-weight: 700;
-        margin-bottom: 18px;
+        color: #f59e0b;
+        font-size: 13.5px;
         display: flex;
         align-items: center;
         gap: 6px;
+        margin-bottom: 20px;
+    }
+
+    .reference-rating span {
+        color: var(--sp-muted);
+        font-weight: 600;
     }
 
     .reference-prices {
         display: flex;
-        align-items: baseline;
-        gap: 12px;
-        margin-bottom: 22px;
-        background: #fffdf7;
-        padding: 14px 20px;
+        align-items: center;
+        gap: 20px;
+        background: #f8fafc;
+        border: 1px solid var(--sp-border);
         border-radius: 10px;
-        border: 1px solid var(--line);
-        max-width: fit-content;
+        padding: 16px 20px;
+        margin-bottom: 24px;
+        max-width: 480px;
+        flex-wrap: wrap;
     }
 
     .price-hardcopy-val {
-        color: var(--sp-crimson);
         font-size: 26px;
         font-weight: 800;
+        color: var(--sp-crimson);
+        display: inline-block;
     }
 
     .price-orig-del {
-        color: #94a3b8;
-        font-size: 16px;
+        color: var(--sp-light);
+        font-size: 14px;
+        margin-left: 8px;
+        text-decoration: line-through;
     }
 
     .price-ebook-val {
-        color: #b8850e;
-        font-size: 15px;
+        border-left: 2px solid var(--sp-border);
+        padding-left: 20px;
+        font-size: 18px;
         font-weight: 700;
-        margin-left: 10px;
-        border-left: 1px solid #cbd5e1;
-        padding-left: 14px;
+        color: var(--sp-heading);
     }
 
     .reference-actions {
@@ -149,19 +168,24 @@
         flex: 1;
         min-width: 140px;
         text-align: center;
-        padding: 13px 18px;
-        border-radius: 8px;
+        padding: 12px 18px;
+        border-radius: var(--sp-radius-pill);
         text-decoration: none;
-        font-size: 15px;
-        font-weight: 800;
+        font-size: 14.5px;
+        font-weight: 700;
         background: var(--sp-burgundy);
-        color: #fff !important;
-        border: 1px solid #063b56;
+        color: #ffffff !important;
+        border: 0;
         transition: all 0.2s ease;
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        gap: 8px;
+        box-shadow: 0 4px 10px rgba(139, 38, 59, 0.2);
     }
 
     .ebook-action:hover {
-        background: #0d4a6b;
+        background: var(--sp-burgundy-dark);
         transform: translateY(-2px);
     }
 
@@ -169,20 +193,25 @@
         flex: 1;
         min-width: 140px;
         text-align: center;
-        padding: 13px 18px;
-        border-radius: 8px;
-        font-size: 15px;
-        font-weight: 800;
+        padding: 12px 18px;
+        border-radius: var(--sp-radius-pill);
+        font-size: 14.5px;
+        font-weight: 700;
         background: var(--sp-crimson);
-        color: var(--sp-heading) !important;
-        border: 1px solid #c48e1a;
+        color: #ffffff !important;
+        border: 0;
         cursor: pointer;
         font-family: inherit;
         transition: all 0.2s ease;
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        gap: 8px;
+        box-shadow: 0 4px 10px rgba(229, 70, 70, 0.25);
     }
 
     .hardcopy-action:hover {
-        background: linear-gradient(135deg, #e4b840, #bd881a);
+        background: var(--sp-burgundy);
         transform: translateY(-2px);
     }
 
@@ -190,100 +219,107 @@
         width: 100%;
         text-align: center;
         padding: 10px 18px;
-        border-radius: 8px;
+        border-radius: var(--sp-radius-pill);
         text-decoration: none;
         font-size: 14px;
         font-weight: 700;
-        background: #fff;
-        color: var(--navy);
-        border: 1.5px solid var(--navy);
+        background: #ffffff;
+        color: var(--sp-burgundy) !important;
+        border: 1.5px solid var(--sp-burgundy);
         transition: all 0.2s ease;
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        gap: 8px;
     }
 
     .preview-action:hover {
-        background: #f1f5f9;
+        background: #fff5f6;
     }
 
     /* Content Tabs & Panels */
     .book-tabs {
         display: flex;
-        gap: 15px;
-        background: #fff;
-        padding: 16px 30px;
-        border-bottom: 1px solid var(--line);
+        gap: 10px;
+        background: #ffffff;
+        padding: 14px 24px;
+        border-bottom: 1px solid var(--sp-border);
         overflow-x: auto;
     }
 
     .book-tab-btn {
         background: transparent;
         border: none;
-        padding: 10px 18px;
-        font-size: 16px;
+        padding: 8px 16px;
+        font-size: 14.5px;
         font-weight: 700;
-        color: var(--muted);
+        color: var(--sp-muted);
         cursor: pointer;
         font-family: inherit;
-        border-radius: 8px;
+        border-radius: var(--sp-radius-pill);
         transition: all 0.2s ease;
+        display: inline-flex;
+        align-items: center;
+        gap: 6px;
     }
 
     .book-tab-btn.active,
     .book-tab-btn:hover {
-        color: var(--navy);
-        background: #fdf6e2;
-        border-bottom: 3px solid var(--gold);
+        color: var(--sp-burgundy);
+        background: #fff5f6;
     }
 
     .book-panels-wrap {
-        padding: 30px;
+        padding: 24px;
     }
 
     .book-detail-card {
-        background: #fffdf8;
-        border: 1px solid var(--line);
-        border-radius: 14px;
+        background: #ffffff;
+        border: 1px solid var(--sp-border);
+        border-radius: var(--sp-radius);
         padding: 28px;
-        margin-bottom: 30px;
-        box-shadow: 0 4px 15px rgba(9, 45, 69, 0.04);
+        margin-bottom: 24px;
+        box-shadow: var(--sp-shadow-sm);
         line-height: 1.8;
     }
 
     .book-detail-card h2 {
-        font-size: 22px;
-        color: var(--navy);
+        font-size: 20px;
         font-weight: 800;
+        color: var(--sp-heading);
         margin-bottom: 16px;
-        border-bottom: 1.5px solid var(--line);
-        padding-bottom: 8px;
+        display: flex;
+        align-items: center;
+        gap: 8px;
     }
 
     .meta-specs {
         display: grid;
-        grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
-        gap: 14px;
-        margin-top: 20px;
-        background: #fff;
-        border: 1px solid var(--line);
+        grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+        gap: 16px;
+        margin-top: 24px;
+        padding-top: 20px;
+        border-top: 1px solid var(--sp-border);
+    }
+
+    .meta-spec-item {
+        background: #f8fafc;
+        padding: 12px 16px;
         border-radius: 10px;
-        padding: 16px;
+        border: 1px solid var(--sp-border);
     }
 
     .meta-spec-item b {
         display: block;
         font-size: 12px;
-        color: var(--muted);
+        color: var(--sp-muted);
+        margin-bottom: 4px;
     }
 
     .meta-spec-item span {
-        font-size: 15px;
-        color: var(--navy);
+        font-size: 14px;
         font-weight: 700;
-    }
-
-    /* Related Books */
-    .related-books-section {
-        padding: 0 30px;
-        margin-top: 30px;
+        color: var(--sp-heading);
     }
 
     @media (max-width: 768px) {
@@ -292,14 +328,23 @@
             align-items: center;
             text-align: center;
             padding: 24px 16px;
+            margin: 10px;
         }
 
         .reference-cover {
-            width: 170px;
+            width: 180px;
         }
 
         .reference-copy h1 {
-            font-size: 26px;
+            font-size: 24px;
+        }
+
+        .reference-author {
+            justify-content: center;
+        }
+
+        .reference-rating {
+            justify-content: center;
         }
 
         .reference-prices {
@@ -309,19 +354,20 @@
 
         .reference-actions {
             margin: 0 auto;
+            width: 100%;
         }
 
         .book-tabs {
-            padding: 10px 16px;
+            padding: 10px 14px;
         }
 
         .book-tab-btn {
-            font-size: 14px;
-            padding: 8px 12px;
+            font-size: 13px;
+            padding: 6px 12px;
         }
 
         .book-panels-wrap {
-            padding: 20px 16px;
+            padding: 16px 12px;
         }
     }
 </style>
@@ -332,43 +378,50 @@
 
     <!-- Breadcrumb Navigation -->
     <div class="book-breadcrumb">
-        <a href="{{ route('home') }}">হোম</a> &gt;
-        <a href="{{ route('books.index') }}">সকল বই</a> &gt;
+        <a href="{{ route('home') }}"><i class="bi bi-house"></i> হোম</a>
+        <i class="bi bi-chevron-right small"></i>
+        <a href="{{ route('books.index') }}">সকল বই</a>
         @if($book->categories->isNotEmpty())
-            <a href="{{ route('books.index', ['category' => $book->categories->first()->slug]) }}">{{ $book->categories->first()->name }}</a> &gt;
+            <i class="bi bi-chevron-right small"></i>
+            <a href="{{ route('books.index', ['category' => $book->categories->first()->slug]) }}">{{ $book->categories->first()->name }}</a>
         @endif
+        <i class="bi bi-chevron-right small"></i>
         <span>{{ $book->title }}</span>
     </div>
 
-    <!-- Hero Reference matching PlayMathEarn -->
+    <!-- Hero Reference matching SahojPath -->
     <div class="book-hero-reference">
         <div class="reference-cover">
-            <img src="{{ $book->cover_url }}" alt="{{ $book->title }} বইয়ের প্রচ্ছদ" onerror="this.onerror=null; this.parentElement.innerHTML='<div style=\'width:100%;height:100%;display:flex;align-items:center;justify-content:center;background:#092d45;color:#fff;font-weight:bold;padding:20px;text-align:center;\'>{{ addslashes($book->title) }}</div>';">
+            <img src="{{ $book->cover_url }}" alt="{{ $book->title }} বইয়ের প্রচ্ছদ" onerror="this.onerror=null; this.parentElement.innerHTML='<div style=\'width:100%;height:100%;display:flex;align-items:center;justify-content:center;background:#0f172b;color:#fff;font-weight:bold;padding:20px;text-align:center;\'>{{ addslashes($book->title) }}</div>';">
             @if($book->is_upcoming)
-                <span class="reference-discount" style="background:#0284c7;">আসন্ন বই</span>
+                <span class="reference-discount" style="background:var(--sp-amber-bg); color:var(--sp-amber);">আসন্ন বই</span>
             @elseif($book->discount_percent > 0)
-                <span class="reference-discount">-{{ round($book->discount_percent) }}% ছাড়</span>
+                <span class="reference-discount">({{ round($book->discount_percent) }}% ছাড়)</span>
             @endif
         </div>
 
         <div class="reference-copy">
             <h1>{{ $book->title }}</h1>
             <div class="reference-author">
-                লেখক: <strong>{{ $book->author_name }}</strong>
+                <span><i class="bi bi-pen"></i> লেখক: <strong>{{ $book->author_name }}</strong></span>
                 @if($book->publisher_name)
-                    | প্রকাশনী: <strong style="color:#0284c7;">{{ $book->publisher_name }}</strong>
+                    <span>| <i class="bi bi-building"></i> প্রকাশনী: <strong>{{ $book->publisher_name }}</strong></span>
                 @endif
-                | ক্যাটাগরি: <strong>{{ $book->categories->first()?->name ?? 'বই' }}</strong>
+                | <i class="bi bi-bookmark"></i> ক্যাটাগরি: <strong>{{ $book->categories->first()?->name ?? 'বই' }}</strong>
             </div>
 
             <div class="reference-rating">
-                <span style="color:#f59e0b;">★★★★★</span>
+                <i class="bi bi-star-fill"></i>
+                <i class="bi bi-star-fill"></i>
+                <i class="bi bi-star-fill"></i>
+                <i class="bi bi-star-fill"></i>
+                <i class="bi bi-star-half"></i>
                 <span>{{ number_format($book->averageRating(), 1) }} ({{ $book->approvedReviews()->count() }}টি পাঠকদের রিভিউ)</span>
             </div>
 
             <div class="reference-prices">
                 <div>
-                    <span style="font-size:12px;color:var(--muted);display:block;">হার্ডকপি মূল্য</span>
+                    <span style="font-size:12px;color:var(--sp-muted);display:block;">হার্ডকপি মূল্য</span>
                     <span class="price-hardcopy-val">৳ {{ number_format($book->hardcopyEffectivePrice()) }}</span>
                     @if($book->discount_percent > 0)
                         <del class="price-orig-del">৳ {{ number_format($book->price_hardcopy) }}</del>
@@ -377,7 +430,7 @@
 
                 @if($book->price_ebook > 0)
                     <div class="price-ebook-val">
-                        <span style="font-size:12px;color:var(--muted);display:block;">ডিজিটাল ই-বুক</span>
+                        <span style="font-size:12px;color:var(--sp-muted);display:block;">ডিজিটাল ই-বুক</span>
                         ৳ {{ number_format($book->ebookEffectivePrice()) }}
                     </div>
                 @endif
@@ -385,18 +438,18 @@
 
             <div class="reference-actions">
                 @if($book->is_upcoming)
-                    <div style="background:#e0f2fe; border:1px solid #7dd3fc; border-radius:10px; padding:15px; color:#0369a1; text-align:center; font-weight:700; width:100%; margin-bottom:10px; font-size:15px;">
-                        ⏳ বইটি বর্তমানে প্রকাশের অপেক্ষায় রয়েছে (আসন্ন বই)। প্রকাশিত হওয়া মাত্রই সংগ্রহের জন্য উন্মুক্ত করা হবে।
+                    <div style="background:#eff6ff; border:1px solid #bfdbfe; border-radius:10px; padding:15px; color:#1e40af; text-align:center; font-weight:700; width:100%; margin-bottom:10px; font-size:14.5px;">
+                        <i class="bi bi-clock-history"></i> বইটি বর্তমানে প্রকাশের অপেক্ষায় রয়েছে (আসন্ন বই)। প্রকাশিত হওয়া মাত্রই সংগ্রহের জন্য উন্মুক্ত করা হবে।
                     </div>
                     @if($book->preview_pages > 0)
-                        <a href="{{ route('books.preview', $book->slug) }}" class="preview-action" style="flex:1; text-align:center; width:100%;">
-                            📖 {{ $book->preview_pages }} পৃষ্ঠার ফ্রি প্রিভিউ পড়ুন
+                        <a href="{{ route('books.preview', $book->slug) }}" class="preview-action">
+                            <i class="bi bi-book"></i> {{ $book->preview_pages }} পৃষ্ঠার ফ্রি প্রিভিউ পড়ুন
                         </a>
                     @endif
                 @else
                     @if($book->price_ebook > 0)
                         <a href="{{ route('checkout', ['type' => 'ebook', 'bookSlug' => $book->slug]) }}" class="ebook-action">
-                            📱 ই-বুক কিনুন (৳{{ number_format($book->ebookEffectivePrice()) }})
+                            <i class="bi bi-tablet"></i> ই-বুক কিনুন (৳{{ number_format($book->ebookEffectivePrice()) }})
                         </a>
                     @endif
 
@@ -405,13 +458,13 @@
                         <input type="hidden" name="book_id" value="{{ $book->id }}">
                         <input type="hidden" name="format" value="hardcopy">
                         <button type="submit" class="hardcopy-action" style="width:100%;">
-                            🛒 হার্ডকপি কার্টে যোগ করুন
+                            <i class="bi bi-bag-plus"></i> কার্টে যোগ করুন
                         </button>
                     </form>
 
                     @if($book->preview_pages > 0)
                         <a href="{{ route('books.preview', $book->slug) }}" class="preview-action">
-                            📖 {{ $book->preview_pages }} পৃষ্ঠার ফ্রি প্রিভিউ পড়ুন
+                            <i class="bi bi-book"></i> {{ $book->preview_pages }} পৃষ্ঠার ফ্রি প্রিভিউ পড়ুন
                         </a>
                     @endif
                 @endif
@@ -421,12 +474,20 @@
 
     <!-- Tabs Navigation -->
     <div class="book-tabs">
-        <button type="button" class="book-tab-btn active" onclick="showTab('summary', this)">📖 বইয়ের বিবরণ</button>
+        <button type="button" class="book-tab-btn active" onclick="showTab('summary', this)">
+            <i class="bi bi-file-text"></i> বইয়ের বিবরণ
+        </button>
         @if($book->story_behind)
-            <button type="button" class="book-tab-btn" onclick="showTab('story', this)">✍️ লেখার পেছনের গল্প</button>
+            <button type="button" class="book-tab-btn" onclick="showTab('story', this)">
+                <i class="bi bi-pen"></i> লেখার পেছনের গল্প
+            </button>
         @endif
-        <button type="button" class="book-tab-btn" onclick="showTab('author', this)">👤 লেখক পরিচিতি</button>
-        <button type="button" class="book-tab-btn" onclick="showTab('reviews', this)">⭐ পাঠকদের মতামত ({{ $book->reviews()->count() }})</button>
+        <button type="button" class="book-tab-btn" onclick="showTab('author', this)">
+            <i class="bi bi-person"></i> লেখক পরিচিতি
+        </button>
+        <button type="button" class="book-tab-btn" onclick="showTab('reviews', this)">
+            <i class="bi bi-chat-heart"></i> পাঠকদের মতামত ({{ $book->reviews()->count() }})
+        </button>
     </div>
 
     <div class="book-panels-wrap">
@@ -434,8 +495,8 @@
         <!-- Tab 1: Summary & Details -->
         <div id="tab-summary" class="tab-panel">
             <div class="book-detail-card">
-                <h2>বইয়ের সারসংক্ষেপ ও পরিচয়</h2>
-                <div style="font-size:16px; color:#334155;">
+                <h2><i class="bi bi-info-circle text-danger"></i> বইয়ের সারসংক্ষেপ ও পরিচয়</h2>
+                <div style="font-size:15px; color:#334155;">
                     {!! nl2br(e($book->summary ?: 'এই বইটির বিস্তারিত বিবরণ শীঘ্রই যুক্ত করা হবে।')) !!}
                 </div>
 
@@ -450,51 +511,41 @@
                     </div>
                     <div class="meta-spec-item">
                         <b>ভাষা</b>
-                        <span>বাংলা (প্রমিত)</span>
-                    </div>
-                    <div class="meta-spec-item">
-                        <b>স্টক স্ট্যাটাস</b>
-                        @if($book->is_upcoming)
-                            <span style="color:#0284c7; font-weight:700;">আসন্ন (শীঘ্রই প্রকাশিত হবে)</span>
-                        @else
-                            <span style="color:#16a34a; font-weight:700;">{{ $book->stock_status === 'in_stock' ? 'মজুদ আছে' : 'সীমিত স্টক' }}</span>
-                        @endif
+                        <span>বাংলা (Bangla)</span>
                     </div>
                     <div class="meta-spec-item">
                         <b>ক্যাটাগরি</b>
                         <span>{{ $book->categories->pluck('name')->join(', ') ?: 'সাধারণ সাহিত্য' }}</span>
                     </div>
-                    @if($book->publisher_name)
-                        <div class="meta-spec-item">
-                            <b>অনুমোদিত প্রকাশক</b>
-                            <span style="color:#0284c7;">{{ $book->publisher_name }}</span>
-                        </div>
-                    @endif
                 </div>
             </div>
         </div>
 
-        <!-- Tab 2: Story Behind -->
         @if($book->story_behind)
+            <!-- Tab 2: Story Behind -->
             <div id="tab-story" class="tab-panel" style="display:none;">
                 <div class="book-detail-card">
-                    <h2>বইটি লেখার পেছনের গল্প</h2>
-                    <div style="font-size:16px; color:#334155; font-style:italic;">
+                    <h2><i class="bi bi-feather text-danger"></i> লেখার পেছনের গল্প</h2>
+                    <div style="font-size:15px; color:#334155; line-height:1.8;">
                         {!! nl2br(e($book->story_behind)) !!}
                     </div>
                 </div>
             </div>
         @endif
 
-        <!-- Tab 3: Author Info -->
+        <!-- Tab 3: Author Bio -->
         <div id="tab-author" class="tab-panel" style="display:none;">
             <div class="book-detail-card">
-                <h2>লেখক পরিচিতি — {{ $book->author_name }}</h2>
-                <p style="font-size:16px; color:#334155;">
-                    {{ \App\Models\SiteSetting::get('author_bio', 'লেখক, গবেষক ও চিন্তক। জীবন, সমাজ ও নৈতিক মূল্যবোধের ওপর রচিত তাঁর গ্রন্থসমূহ পাঠকদের হৃদয়ে গভীর প্রেরণা জুগিয়েছে।') }}
-                </p>
-                <div style="margin-top:16px;">
-                    <a href="{{ route('author') }}" class="cat-pill active" style="font-size:14px; padding:8px 18px;">লেখকের পূর্ণ পরিচিতি দেখুন →</a>
+                <h2><i class="bi bi-person-badge text-danger"></i> লেখক সম্পর্কে</h2>
+                <div style="display:flex; gap:20px; align-items:center; margin-bottom:16px;">
+                    <img src="{{ asset('author-portrait.jpg') }}" alt="লেখক মুক্তাদা" style="width:80px; height:80px; border-radius:50%; object-fit:cover; border:2px solid var(--sp-burgundy);">
+                    <div>
+                        <h3 style="font-size:18px; margin:0 0 4px; color:var(--sp-heading);">{{ $book->author_name }}</h3>
+                        <p style="margin:0; color:var(--sp-muted); font-size:13.5px;">চিন্তাশীল লেখক, চিন্তাবিদ ও গবেষক</p>
+                    </div>
+                </div>
+                <div style="font-size:15px; color:#334155;">
+                    {!! nl2br(e($book->pen_picture ?: 'লেখক মুক্তাদা সমকালীন বাংলা সাহিত্যের এক অনন্য চিন্তাশীল কণ্ঠস্বর। তাঁর রচনা মানুষের অন্তর ও মানবজীবনকে ইতিবাচক আলোয় পরিবর্তনের প্রেরণা দেয়।')) !!}
                 </div>
             </div>
         </div>
@@ -502,52 +553,30 @@
         <!-- Tab 4: Reviews -->
         <div id="tab-reviews" class="tab-panel" style="display:none;">
             <div class="book-detail-card">
-                <h2>পাঠকদের রিভিউ ও রেটিং</h2>
-                @php
-                    $bookReviews = $book->reviews()->where('status', 'approved')->latest()->get();
-                @endphp
-                @if($bookReviews->isEmpty())
-                    <p style="color:var(--muted);">এই বইটির জন্য এখনও কোনো রিভিউ প্রকাশিত হয়নি। আপনি বই পাঠ করে প্রথম রিভিউটি দিন!</p>
+                <h2><i class="bi bi-stars text-danger"></i> পাঠকদের মতামত ও রিভিউ</h2>
+                @if($book->approvedReviews->isEmpty())
+                    <p style="color:var(--sp-muted);">এই বইটির জন্য এখনও কোনো রিভিউ নেই। প্রথম রিভিউ দিয়ে আপনার অনুভূতি প্রকাশ করুন।</p>
                 @else
-                    @foreach($bookReviews as $rev)
-                        <div style="border-bottom:1px solid #f1ebd9; padding-bottom:14px; margin-bottom:14px;">
-                            <div style="color:#f59e0b; font-size:15px; margin-bottom:4px;">
-                                @for($i=0; $i<$rev->rating; $i++) ★ @endfor
+                    <div style="display:flex; flex-direction:column; gap:16px;">
+                        @foreach($book->approvedReviews as $rev)
+                            <div style="background:#f8fafc; border:1px solid var(--sp-border); border-radius:10px; padding:16px;">
+                                <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:6px;">
+                                    <strong style="color:var(--sp-heading); font-size:14px;"><i class="bi bi-person-circle"></i> {{ $rev->customer_name }}</strong>
+                                    <span style="color:#f59e0b; font-size:13px;">
+                                        @for($i=0; $i<$rev->rating; $i++)
+                                            <i class="bi bi-star-fill"></i>
+                                        @endfor
+                                    </span>
+                                </div>
+                                <p style="margin:0; font-size:14px; color:#475569;">"{{ $rev->comment }}"</p>
                             </div>
-                            <p style="font-style:italic; margin-bottom:6px;">“{{ $rev->comment }}”</p>
-                            <small style="color:var(--navy); font-weight:700;">— {{ $rev->customer_name }}</small>
-                        </div>
-                    @endforeach
+                        @endforeach
+                    </div>
                 @endif
             </div>
         </div>
 
     </div>
-
-    <!-- Related Books -->
-    @if(isset($relatedBooks) && $relatedBooks->isNotEmpty())
-        <div class="related-books-section">
-            <div class="real-section-header">
-                <h2>📚 একই বিষয়ের আরও কিছু বই</h2>
-                <a href="{{ route('books.index') }}">সকল বই দেখুন →</a>
-            </div>
-            <div class="real-books-grid">
-                @foreach($relatedBooks->take(4) as $rel)
-                    <article class="real-book-card">
-                        <a href="{{ route('books.show', $rel->slug) }}" class="real-book-link">
-                            <div class="real-cover">
-                                <img src="{{ $rel->cover_url }}" alt="{{ $rel->title }}" loading="lazy">
-                            </div>
-                            <h3>{{ $rel->title }}</h3>
-                            <div class="real-price">
-                                <strong>৳ {{ number_format($rel->hardcopyEffectivePrice()) }}</strong>
-                            </div>
-                        </a>
-                    </article>
-                @endforeach
-            </div>
-        </div>
-    @endif
 
 </div>
 
@@ -556,9 +585,13 @@ function showTab(tabName, btn) {
     document.querySelectorAll('.tab-panel').forEach(p => p.style.display = 'none');
     document.querySelectorAll('.book-tab-btn').forEach(b => b.classList.remove('active'));
     
-    const target = document.getElementById('tab-' + tabName);
-    if (target) target.style.display = 'block';
-    if (btn) btn.classList.add('active');
+    const panel = document.getElementById('tab-' + tabName);
+    if (panel) {
+        panel.style.display = 'block';
+    }
+    if (btn) {
+        btn.classList.add('active');
+    }
 }
 </script>
 @endsection

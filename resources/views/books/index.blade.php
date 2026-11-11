@@ -8,6 +8,7 @@
         padding: 30px 20px 60px;
         max-width: 1240px;
         margin: 0 auto;
+        width: 100%;
     }
 
     .catalog-header-box {
@@ -24,6 +25,9 @@
         color: var(--sp-heading);
         font-weight: 800;
         margin-bottom: 6px;
+        display: flex;
+        align-items: center;
+        gap: 8px;
     }
 
     .catalog-header-box p {
@@ -70,7 +74,7 @@
     }
 
     .cat-pill:hover {
-        background: #fff1f2;
+        background: #fff5f6;
         border-color: #fecdd3;
         color: var(--sp-burgundy);
     }
@@ -106,6 +110,9 @@
         font-size: 13px;
         font-weight: 700;
         color: var(--sp-heading);
+        display: flex;
+        align-items: center;
+        gap: 4px;
     }
 
     .sort-select {
@@ -129,33 +136,37 @@
     .catalog-grid {
         display: grid;
         grid-template-columns: repeat(4, 1fr);
-        gap: 20px;
+        gap: 18px;
         margin-bottom: 35px;
     }
 
     @media (max-width: 1024px) {
         .catalog-grid {
             grid-template-columns: repeat(3, 1fr);
+            gap: 16px;
         }
     }
 
     @media (max-width: 768px) {
         .catalog-grid {
-            grid-template-columns: repeat(2, 1fr);
-            gap: 12px;
+            grid-template-columns: repeat(2, 1fr) !important;
+            gap: 12px !important;
         }
         .catalog-header-box {
-            padding: 18px;
+            padding: 16px;
         }
         .catalog-header-box h1 {
-            font-size: 20px;
+            font-size: 19px;
         }
     }
 
     @media (max-width: 480px) {
         .catalog-grid {
-            grid-template-columns: repeat(2, 1fr);
-            gap: 10px;
+            grid-template-columns: repeat(2, 1fr) !important;
+            gap: 8px !important;
+        }
+        .catalog-shell {
+            padding: 15px 10px 40px;
         }
     }
 
@@ -183,7 +194,7 @@
     .card-cover-container {
         position: relative;
         width: 100%;
-        aspect-ratio: 3/4;
+        aspect-ratio: 1 / 1.35;
         border-radius: 10px;
         overflow: hidden;
         background: #f8fafc;
@@ -229,10 +240,10 @@
     .badge-discount-tag {
         position: absolute;
         top: 8px;
-        right: 8px;
+        left: 8px;
         background: var(--sp-green-bg) !important;
         color: var(--sp-green) !important;
-        font-size: 11.5px;
+        font-size: 11px;
         font-weight: 800;
         padding: 3px 8px;
         border-radius: var(--sp-radius-pill);
@@ -247,9 +258,9 @@
         right: 8px;
         background: var(--sp-amber-bg) !important;
         color: var(--sp-amber) !important;
-        font-size: 11.5px;
+        font-size: 11px;
         font-weight: 800;
-        padding: 3px 9px;
+        padding: 3px 8px;
         border-radius: var(--sp-radius-pill);
         border: 1px solid rgba(234, 88, 12, 0.25);
         z-index: 3;
@@ -282,8 +293,8 @@
     }
 
     .card-title {
-        font-size: 15px;
-        font-weight: 600;
+        font-size: 14.5px;
+        font-weight: 700;
         color: var(--sp-heading);
         line-height: 1.35;
         margin-bottom: 4px;
@@ -291,7 +302,7 @@
         -webkit-line-clamp: 2;
         -webkit-box-orient: vertical;
         overflow: hidden;
-        min-height: 40px;
+        min-height: 38px;
         transition: color 0.2s ease;
     }
 
@@ -300,7 +311,7 @@
     }
 
     .card-author-name {
-        font-size: 12.5px;
+        font-size: 12px;
         color: var(--sp-muted);
         margin-bottom: 6px;
         white-space: nowrap;
@@ -311,15 +322,15 @@
     .card-rating-strip {
         display: flex;
         align-items: center;
-        gap: 5px;
-        font-size: 12px;
+        gap: 4px;
+        font-size: 11.5px;
         color: #f59e0b;
         margin-bottom: 8px;
     }
 
     .card-rating-count {
         color: var(--sp-muted);
-        font-size: 11.5px;
+        font-size: 11px;
         font-weight: 600;
     }
 
@@ -327,19 +338,19 @@
     .price-group {
         display: flex;
         align-items: baseline;
-        gap: 8px;
+        gap: 6px;
         margin-bottom: 8px;
         flex-wrap: wrap;
     }
 
     .price-group .product-price {
-        font-size: 18px;
+        font-size: 16px;
         font-weight: 800;
         color: var(--sp-crimson);
     }
 
     .price-group .old-price {
-        font-size: 13px;
+        font-size: 12px;
         color: var(--sp-light);
         text-decoration: line-through;
         font-weight: 600;
@@ -356,7 +367,7 @@
         background: #f8fafc;
         border: 1px solid var(--sp-border);
         border-radius: var(--sp-radius-sm);
-        padding: 5px 6px;
+        padding: 4px 6px;
         text-align: center;
         font-size: 11px;
         color: var(--sp-body);
@@ -365,7 +376,7 @@
 
     .pale-gold-pill .pill-kind {
         display: block;
-        font-size: 10px;
+        font-size: 9.5px;
         color: var(--sp-muted);
     }
 
@@ -378,19 +389,23 @@
 
     /* SahojPath .btn-cart Action Button */
     .btn-cart {
-        display: block;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 6px;
         width: 100%;
         background: var(--sp-crimson);
         color: #ffffff !important;
         border: 0;
-        border-radius: var(--sp-radius-sm);
-        padding: 10px 14px;
-        font-size: 13.5px;
+        border-radius: var(--sp-radius-pill);
+        padding: 9px 14px;
+        font-size: 13px;
         font-weight: 700;
         text-align: center;
         text-decoration: none;
         cursor: pointer;
         transition: all 0.2s ease;
+        box-shadow: 0 3px 8px rgba(229, 70, 70, 0.2);
     }
 
     .btn-cart:hover {
@@ -401,10 +416,10 @@
     }
 
     .btn-upcoming {
-        background: #f1f5f9;
-        color: var(--sp-muted) !important;
-        border: 1px solid #e2e8f0;
-        cursor: not-allowed;
+        background: #f1f5f9 !important;
+        color: var(--sp-amber) !important;
+        border: 1px dashed var(--sp-amber) !important;
+        box-shadow: none !important;
     }
 
     /* Empty state */
@@ -437,6 +452,7 @@
 
     <div class="catalog-header-box">
         <h1>
+            <i class="bi bi-book-half text-danger"></i>
             @if(isset($selectedCategory) && $selectedCategory)
                 {{ $selectedCategory->name }} ক্যাটাগরির বইসমূহ
             @elseif(!empty($searchTerm))
@@ -452,7 +468,7 @@
     <div class="category-toolbar">
         <div class="category-pills">
             <a href="{{ route('books.index') }}" class="cat-pill {{ !request('category') ? 'active' : '' }}">
-                <span>সব বই</span>
+                <i class="fa-solid fa-books"></i> সব বই
                 <span class="cat-pill-count">{{ $totalBooksCount }}</span>
             </a>
             @foreach($categories as $cat)
@@ -468,7 +484,9 @@
             @if(request('q')) <input type="hidden" name="q" value="{{ request('q') }}"> @endif
             @if(request('category')) <input type="hidden" name="category" value="{{ request('category') }}"> @endif
             
-            <label for="sort-select-input" class="sort-label">সর্ট করুন:</label>
+            <label for="sort-select-input" class="sort-label">
+                <i class="bi bi-sort-down"></i> সর্ট করুন:
+            </label>
             <select id="sort-select-input" name="sort" class="sort-select" onchange="this.form.submit()">
                 <option value="latest" {{ request('sort') == 'latest' ? 'selected' : '' }}>সর্বশেষ প্রকাশিত</option>
                 <option value="popular" {{ request('sort') == 'popular' ? 'selected' : '' }}>জনপ্রিয় / বেস্টসেলার</option>
@@ -481,7 +499,9 @@
 
     @if($books->isEmpty())
         <div class="empty-state-box">
-            <div style="font-size: 48px; margin-bottom: 14px;">🔍</div>
+            <div style="font-size: 42px; margin-bottom: 14px; color: var(--sp-muted);">
+                <i class="bi bi-journal-x"></i>
+            </div>
             <h3>কোনো বই খুঁজে পাওয়া যায়নি</h3>
             <p>এই ক্যাটাগরিতে বর্তমানে কোনো প্রকাশিত বই নেই। দয়া করে অন্য কোনো ক্যাটাগরি নির্বাচন করে চেষ্টা করুন।</p>
             <a href="{{ route('books.index') }}" class="cat-pill active" style="font-size: 14px; padding: 10px 22px; display: inline-flex;">
@@ -518,11 +538,17 @@
                             <a href="{{ route('books.show', $book->slug) }}" class="card-title-link">
                                 <h3 class="card-title">{{ $book->title }}</h3>
                             </a>
-                            <div class="card-author-name">✍️ {{ $book->author_name }}</div>
+                            <div class="card-author-name">
+                                <i class="bi bi-pen"></i> {{ $book->author_name }}
+                            </div>
 
                             <!-- Rating & Real DB Review Count -->
                             <div class="card-rating-strip">
-                                <span>★★★★★</span>
+                                <i class="bi bi-star-fill"></i>
+                                <i class="bi bi-star-fill"></i>
+                                <i class="bi bi-star-fill"></i>
+                                <i class="bi bi-star-fill"></i>
+                                <i class="bi bi-star-half"></i>
                                 <span class="card-rating-count">{{ number_format($book->averageRating(), 1) }} ({{ $book->approvedReviews()->count() }})</span>
                             </div>
 
@@ -537,7 +563,7 @@
                             <!-- Dual Pricing Pills (E-book + Hardcopy) -->
                             <div class="card-price-pills-row">
                                 @if($book->price_ebook > 0)
-                                    <div class="pale-gold-pill" title="ডিজিটাল ই-বুক মূল্য">
+                                    <div class="pale-gold-pill" title="ডিজিタル ই-বুক মূল্য">
                                         <span class="pill-kind">ই-বুক</span>
                                         <span class="pill-val">৳{{ number_format($book->ebookEffectivePrice()) }}</span>
                                     </div>
@@ -554,11 +580,11 @@
                     <div style="margin-top: 10px;">
                         @if($book->is_upcoming)
                             <a href="{{ route('books.show', $book->slug) }}" class="btn-cart btn-upcoming">
-                                ⏳ প্রকাশের অপেক্ষায়
+                                <i class="bi bi-clock-history"></i> প্রকাশের অপেক্ষায়
                             </a>
                         @else
                             <a href="{{ route('books.show', $book->slug) }}" class="btn-cart">
-                                বিস্তারিত দেখুন →
+                                <i class="bi bi-bag-plus"></i> বিস্তারিত দেখুন
                             </a>
                         @endif
                     </div>

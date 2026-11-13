@@ -583,6 +583,31 @@
             white-space: nowrap !important;
         }
 
+        /* Mobile Section Headers & View All Link (Compact & Refined) */
+        .real-section-header {
+            margin-bottom: 12px !important;
+            padding-bottom: 6px !important;
+            border-bottom: 1.5px solid #f1f5f9 !important;
+        }
+
+        .real-section-header h2 {
+            font-size: 14px !important;
+            font-weight: 700 !important;
+            gap: 6px !important;
+            margin: 0 !important;
+            line-height: 1.25 !important;
+        }
+
+        .real-section-header h2 i {
+            font-size: 13.5px !important;
+        }
+
+        .view-all, .real-section-header a {
+            font-size: 11.5px !important;
+            font-weight: 700 !important;
+            white-space: nowrap !important;
+        }
+
         .publisher-banner {
             flex-direction: column;
             text-align: center;

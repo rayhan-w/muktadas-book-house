@@ -239,6 +239,11 @@
             </button>
         </form>
 
+        <!-- New User Register Prompt -->
+        <div style="text-align:center; margin:18px 0 12px; font-size:14px; color:var(--sp-muted);">
+            নতুন পাঠক? <a href="{{ route('register') }}" style="color:var(--sp-burgundy); font-weight:700; text-decoration:none;">বিনামূল্যে রেজিস্ট্রেশন করুন →</a>
+        </div>
+
         <!-- Publisher Notice -->
         <div class="publisher-notice-box">
             🏢 আপনি কি প্রকাশক বা লেখক? <a href="{{ route('publisher.register') }}" style="color:#15803d; font-weight:800; text-decoration:none;">প্রকাশক নিবন্ধন করুন →</a>

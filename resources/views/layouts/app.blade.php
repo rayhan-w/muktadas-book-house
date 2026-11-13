@@ -51,17 +51,11 @@
 
                 <!-- Right Nav / User Actions -->
                 <nav class="real-head-nav">
-                    <!-- Auth / Profile (লগইন ও রেজিস্ট্রেশন / প্রোফাইল ও লগআউট একসাথে কম্প্যাক্ট) -->
+                    <!-- Auth / Profile (একক লগইন বাটন - ক্লিক করলে ভেতরে রেজিস্ট্রেশনের অপশন রয়েছে) -->
                     @guest
-                        <div class="nav-pill-auth">
-                            <a href="{{ route('login') }}" class="auth-link" title="লগইন করুন">
-                                <i class="bi bi-box-arrow-in-right"></i> লগইন
-                            </a>
-                            <span class="auth-sep">/</span>
-                            <a href="{{ route('register') }}" class="auth-link" title="নতুন একাউন্ট খুলুন">
-                                রেজিস্টার
-                            </a>
-                        </div>
+                        <a href="{{ route('login') }}" class="nav-pill-auth auth-link" title="লগইন করুন">
+                            <i class="bi bi-box-arrow-in-right"></i> লগইন
+                        </a>
                     @else
                         <div class="nav-pill-auth nav-pill-logged">
                             <a href="{{ route('reader.dashboard') }}" class="auth-link" title="আমার প্রোফাইল">

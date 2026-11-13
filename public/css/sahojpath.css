@@ -1144,12 +1144,17 @@ a {
     }
 
     .real-nav {
-        justify-content: flex-start !important;
-        padding: 6px 10px !important;
-        gap: 6px !important;
+        display: flex !important;
+        justify-content: center !important;
+        align-items: center !important;
+        text-align: center !important;
+        padding: 8px 12px !important;
+        gap: 12px !important;
         overflow-x: auto !important;
         white-space: nowrap !important;
         scrollbar-width: none !important;
+        width: 100% !important;
+        margin: 0 auto !important;
     }
 
     .real-nav::-webkit-scrollbar {
@@ -1157,8 +1162,12 @@ a {
     }
 
     .real-nav a {
-        font-size: 12px !important;
-        padding: 4px 8px !important;
+        font-size: 13px !important;
+        padding: 6px 12px !important;
+        display: inline-flex !important;
+        align-items: center !important;
+        justify-content: center !important;
+        gap: 5px !important;
     }
 
     .mobile-publisher-link {

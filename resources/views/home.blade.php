@@ -5,6 +5,53 @@
 @section('styles')
 <style>
     /* Paste Color Modern Clean Hero */
+    .hero-banner-section {
+        width: 100%;
+        max-width: 1280px;
+        margin: 0 auto 30px auto;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        text-align: center;
+    }
+
+    .hero-banner-link {
+        display: block;
+        width: 100%;
+        border-radius: var(--sp-radius, 16px);
+        overflow: hidden;
+        box-shadow: 0 10px 30px rgba(15, 23, 42, 0.14);
+        border: 1.5px solid rgba(13, 148, 136, 0.22);
+        transition: transform 0.25s ease, box-shadow 0.25s ease;
+        background: #0f172a;
+        text-decoration: none;
+    }
+
+    .hero-banner-link:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 16px 36px rgba(13, 148, 136, 0.28);
+        border-color: var(--sp-crimson);
+    }
+
+    .hero-banner-image {
+        width: 100%;
+        height: auto;
+        display: block;
+        margin: 0 auto;
+        object-fit: cover;
+    }
+
+    @media (max-width: 768px) {
+        .hero-banner-section {
+            margin-bottom: 20px;
+        }
+
+        .hero-banner-link {
+            border-radius: 12px;
+            box-shadow: 0 6px 18px rgba(15, 23, 42, 0.10);
+        }
+    }
+
     .real-hero {
         position: relative;
         min-height: 340px;
@@ -458,23 +505,15 @@
 @section('content')
 <div class="real-container">
 
-    <!-- SahojPath Style Hero Banner (Page 1 Design) -->
-    <section class="real-hero">
-        <div class="real-hero-content">
-            <span class="hero-badge-tag">
-                <i class="bi bi-book-half"></i> ভালো বই, সুন্দর ভাবনা।
-            </span>
-            <h1>মুক্তাদার বইঘর</h1>
-            <p style="font-size:16px; color:#e2e8f0; line-height:1.7;">শব্দের মায়ায়, গল্পের ছায়ায়—<br>বইয়ের পাতায় খুঁজে নিন জীবন, স্বপ্ন ও নতুন এক পৃথিবী।</p>
-            <div class="real-hero-btns">
-                <a href="{{ route('books.index') }}" class="hero-btn-primary">
-                    <i class="bi bi-bag-check-fill"></i> এখনই কিনুন <i class="bi bi-chevron-right ms-1"></i>
-                </a>
-                <a href="#popular" class="hero-btn-secondary">
-                    <i class="bi bi-fire text-warning"></i> বেস্টসেলার বই
-                </a>
-            </div>
-        </div>
+    <!-- Official Author Hero Banner (Page 1 Design - Centered & Responsive) -->
+    <section class="hero-banner-section">
+        <a href="{{ route('books.index') }}" class="hero-banner-link" title="মুক্তাদার বইঘর — এখনই কিনুন">
+            <img src="{{ asset('muktadar-hero-banner.jpg') }}" 
+                 alt="মুক্তাদার বইঘর — ভালো বই, সুন্দর ভাবনা। শব্দের মায়ায়, গল্পের ছায়ায়— বইয়ের পাতায় খুঁজে নিন জীবন, স্বপ্ন ও নতুন এক পৃথিবী। এখনই কিনুন" 
+                 class="hero-banner-image"
+                 loading="eager"
+                 fetchpriority="high">
+        </a>
     </section>
 
     <!-- Category Section (Touch-Swipeable & Mouse-Draggable Horizontal Slider - Item 7) -->

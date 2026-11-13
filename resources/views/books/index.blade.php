@@ -236,18 +236,19 @@
         line-height: 1.4;
     }
 
-    /* SahojPath Badges */
+    /* SahojPath Red Badges */
     .badge-discount-tag {
         position: absolute;
         top: 8px;
         left: 8px;
-        background: var(--sp-green-bg) !important;
-        color: var(--sp-green) !important;
+        background: #dc2626 !important;
+        color: #ffffff !important;
         font-size: 11px;
         font-weight: 800;
         padding: 3px 8px;
         border-radius: var(--sp-radius-pill);
-        border: 1px solid rgba(25, 135, 84, 0.25);
+        border: none !important;
+        box-shadow: 0 2px 8px rgba(220, 38, 38, 0.4) !important;
         z-index: 3;
         line-height: 1.2;
     }

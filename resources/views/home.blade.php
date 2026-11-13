@@ -52,6 +52,21 @@
         }
     }
 
+    .badge-discount-tag {
+        position: absolute;
+        top: 8px;
+        left: 8px;
+        background: #dc2626 !important;
+        color: #ffffff !important;
+        border: none !important;
+        font-size: 11px !important;
+        font-weight: 800 !important;
+        padding: 3px 8px !important;
+        border-radius: var(--sp-radius-pill) !important;
+        z-index: 2;
+        box-shadow: 0 2px 8px rgba(220, 38, 38, 0.4) !important;
+    }
+
     .real-hero {
         position: relative;
         min-height: 340px;
@@ -428,7 +443,22 @@
         }
 
         /* Mobile Hero Card: Clean, Slim & Proportionate (Item 6 & Image 2) */
-        .real-hero {
+        .badge-discount-tag {
+        position: absolute;
+        top: 8px;
+        left: 8px;
+        background: #dc2626 !important;
+        color: #ffffff !important;
+        border: none !important;
+        font-size: 11px !important;
+        font-weight: 800 !important;
+        padding: 3px 8px !important;
+        border-radius: var(--sp-radius-pill) !important;
+        z-index: 2;
+        box-shadow: 0 2px 8px rgba(220, 38, 38, 0.4) !important;
+    }
+
+    .real-hero {
             padding: 14px 14px 16px !important;
             min-height: auto !important;
             border-radius: 12px !important;
@@ -758,7 +788,7 @@
                     <article class="catalog-card">
                         <div class="card-cover-container">
                             @if($book->discount_percent > 0)
-                                <span class="badge-discount-tag">({{ $book->discount_percent }}% ছাড়)</span>
+                                <span class="badge-discount-tag">({{ round($book->discount_percent) }}% ছাড়)</span>
                             @endif
                             <a href="{{ route('books.show', $book->slug) }}">
                                 <img src="{{ $book->cover_image ? asset($book->cover_image) : asset('author-portrait.jpg') }}" alt="{{ $book->title }}" loading="lazy">
@@ -812,7 +842,7 @@
                     <article class="catalog-card">
                         <div class="card-cover-container">
                             @if($book->discount_percent > 0)
-                                <span class="badge-discount-tag">({{ $book->discount_percent }}% ছাড়)</span>
+                                <span class="badge-discount-tag">({{ round($book->discount_percent) }}% ছাড়)</span>
                             @endif
                             <a href="{{ route('books.show', $book->slug) }}">
                                 <img src="{{ $book->cover_image ? asset($book->cover_image) : asset('author-portrait.jpg') }}" alt="{{ $book->title }}" loading="lazy">
@@ -868,7 +898,7 @@
                             @if($book->is_upcoming)
                                 <span class="badge-upcoming-tag">আসন্ন বই</span>
                             @elseif($book->discount_percent > 0)
-                                <span class="badge-discount-tag">({{ $book->discount_percent }}% ছাড়)</span>
+                                <span class="badge-discount-tag">({{ round($book->discount_percent) }}% ছাড়)</span>
                             @endif
                             <a href="{{ route('books.show', $book->slug) }}">
                                 <img src="{{ $book->cover_image ? asset($book->cover_image) : asset('author-portrait.jpg') }}" alt="{{ $book->title }}" loading="lazy">

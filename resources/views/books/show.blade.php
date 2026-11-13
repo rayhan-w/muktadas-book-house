@@ -73,13 +73,14 @@
         position: absolute;
         top: 10px;
         left: 10px;
-        background: var(--sp-green-bg);
-        color: var(--sp-green);
-        border: 1px solid rgba(25, 135, 84, 0.25);
+        background: #dc2626 !important;
+        color: #ffffff !important;
+        border: none !important;
         font-size: 12px;
         font-weight: 800;
         padding: 4px 10px;
         border-radius: var(--sp-radius-pill);
+        box-shadow: 0 2px 8px rgba(220, 38, 38, 0.4);
     }
 
     .reference-copy {

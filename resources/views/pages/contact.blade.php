@@ -84,6 +84,17 @@
                     <a href="mailto:{{ $settings['contact_email'] }}" style="color: var(--sp-burgundy); text-decoration: none; font-weight: 600;">{{ $settings['contact_email'] }}</a>
                 </div>
 
+                <!-- অন্যান্য প্রাপ্তি স্থান (Page 1) -->
+                <div style="margin-top: 16px; padding: 12px 14px; background: var(--sp-paste-light); border: 1px solid var(--sp-paste-border); border-radius: 10px; font-size: 13px;">
+                    <strong style="color: var(--sp-burgundy); display: block; margin-bottom: 4px; font-weight: 800;">
+                        <i class="bi bi-shop me-1"></i> অন্যান্য সরাসরি প্রাপ্তি স্থান:
+                    </strong>
+                    <div style="color: var(--sp-body); line-height: 1.6;">
+                        (১) <strong>সি এস ডি</strong>, ঢাকা সেনানিবাস, ঢাকা<br>
+                        (২) <strong>রাওয়া পাবলিকেশন</strong>, রাওয়া কমপ্লেক্স, মহাখালী, ঢাকা।
+                    </div>
+                </div>
+
                 @if($settings['whatsapp_number'])
                     <div style="margin-top: 18px;">
                         <a href="https://wa.me/{{ preg_replace('/[^0-9]/', '', $settings['whatsapp_number']) }}" target="_blank" style="display: flex; align-items: center; justify-content: center; gap: 8px; background: #16a34a; color: #ffffff; padding: 12px 18px; border-radius: var(--sp-radius-pill); text-decoration: none; font-weight: 700; font-size: 14px; box-shadow: 0 4px 12px rgba(22, 163, 74, 0.25);">

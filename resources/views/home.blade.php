@@ -458,17 +458,17 @@
 @section('content')
 <div class="real-container">
 
-    <!-- SahojPath Style Hero Banner -->
+    <!-- SahojPath Style Hero Banner (Page 1 Design) -->
     <section class="real-hero">
         <div class="real-hero-content">
             <span class="hero-badge-tag">
-                <i class="bi bi-patch-check-fill"></i> লেখক মুক্তাদার অফিসিয়াল প্ল্যাটফর্ম
+                <i class="bi bi-book-half"></i> ভালো বই, সুন্দর ভাবনা।
             </span>
-            <h1>জ্ঞানের আলোয় নতুন পথচলা,<br>সুন্দর ও অর্থবহ জীবনের সন্ধান</h1>
-            <p>জীবনমুখী সাহিত্য, উপন্যাস, গবেষণা ও ইসলামী বইয়ের একমাত্র বিশ্বস্ত ঠিকানা। ঘরে বসে হার্ডকপি সংগ্রহ করুন কিংবা সরাসরি অ্যাপ ছাড়াই ইনস্ট্যান্ট ই-বুক রিডারে পড়া শুরু করুন।</p>
+            <h1>মুক্তাদার বইঘর</h1>
+            <p style="font-size:16px; color:#e2e8f0; line-height:1.7;">শব্দের মায়ায়, গল্পের ছায়ায়—<br>বইয়ের পাতায় খুঁজে নিন জীবন, স্বপ্ন ও নতুন এক পৃথিবী।</p>
             <div class="real-hero-btns">
                 <a href="{{ route('books.index') }}" class="hero-btn-primary">
-                    <i class="bi bi-grid-fill"></i> বইয়ের ক্যাটালগ দেখুন
+                    <i class="bi bi-bag-check-fill"></i> এখনই কিনুন <i class="bi bi-chevron-right ms-1"></i>
                 </a>
                 <a href="#popular" class="hero-btn-secondary">
                     <i class="bi bi-fire text-warning"></i> বেস্টসেলার বই
@@ -800,6 +800,24 @@
                 <div class="feature-sub">লেখক ও প্রকাশকের নিজস্ব মুদ্রণ</div>
             </div>
         </div>
+    </div>
+
+    <!-- অন্যান্য প্রাপ্তি স্থান (Physical Bookstore Availability - Page 1) -->
+    <div style="background:#ffffff; border:1.5px solid var(--sp-paste-border); border-radius:var(--sp-radius); padding:20px 24px; margin-bottom:40px; box-shadow:var(--sp-shadow-sm); display:flex; align-items:center; justify-content:space-between; flex-wrap:wrap; gap:16px;">
+        <div style="display:flex; align-items:center; gap:14px;">
+            <div style="width:46px; height:46px; border-radius:50%; background:var(--sp-paste-light); color:var(--sp-burgundy); display:flex; align-items:center; justify-content:center; font-size:22px; flex-shrink:0;">
+                <i class="bi bi-shop"></i>
+            </div>
+            <div>
+                <h4 style="margin:0 0 4px; font-size:15.5px; font-weight:800; color:var(--sp-heading);">
+                    অফলাইনে সরাসরি বই সংগ্রহের ঠিকানা (অন্যান্য প্রাপ্তি স্থান)
+                </h4>
+                <p style="margin:0; font-size:13.5px; color:var(--sp-muted); line-height:1.5;">
+                    (১) <strong>সি এস ডি</strong>, ঢাকা সেনানিবাস, ঢাকা &nbsp;|&nbsp; (২) <strong>রাওয়া পাবলিকেশন</strong>, রাওয়া কমপ্লেক্স, মহাখালী, ঢাকা।
+                </p>
+            </div>
+        </div>
+        <a href="{{ route('contact') }}" class="view-all" style="font-weight:700; text-decoration:none;">যোগাযোগ ঠিকানা →</a>
     </div>
 
     <!-- Reader Testimonials -->

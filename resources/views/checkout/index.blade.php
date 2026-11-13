@@ -200,18 +200,11 @@
 
 @section('content')
 <div class="checkout-header">
-    <div class="container" style="display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:16px;">
-        <div>
-            <h1 style="font-size: 24px; color: var(--sp-burgundy); margin-bottom: 4px; font-weight:800;">
-                <i class="bi bi-shield-check text-success"></i> চেকআউট ও ডেলিভারি তথ্য
-            </h1>
-            <p style="color: var(--sp-muted); font-size: 14px; margin:0;">অর্ডার নিশ্চিত করতে নিচের তথ্যগুলো পূরণ করুন।</p>
-        </div>
-        <div>
-            <a href="{{ route('cart.index') }}" class="checkout-back-btn">
-                <i class="bi bi-arrow-left"></i> কার্টে ফিরে যান
-            </a>
-        </div>
+    <div class="container">
+        <h1 style="font-size: 22px; color: var(--sp-burgundy); margin-bottom: 4px; font-weight:800; display:flex; align-items:center; gap:8px;">
+            <i class="bi bi-shield-lock-fill text-success"></i> নিরাপদ চেকআউট ও ডেলিভারি তথ্য
+        </h1>
+        <p style="color: var(--sp-muted); font-size: 13.5px; margin:0;">অর্ডার নিশ্চিত করতে আপনার সঠিক নাম, ঠিকানা ও পেমেন্ট বিবরণ দিন।</p>
     </div>
 </div>
 
@@ -304,11 +297,27 @@
                         @endif
                     </div>
 
-                    <div class="payment-instruction-box" id="payInstructionBox">
-                        <strong style="color: var(--primary); display: block; margin-bottom: 4px;" id="payMethodTitle">বিকাশ পেমেন্ট নম্বর:</strong>
-                        <div style="font-size: 18px; font-weight: 800; color: #d97706; margin-bottom: 8px;" id="payNumberDisplay">{{ $paymentSettings['bkash'] }}</div>
-                        <p style="color: var(--text-muted); line-height: 1.6;" id="payGuideText">
-                            {{ $paymentSettings['instruction'] }}
+                    <div class="payment-instruction-box" id="payInstructionBox" style="background:#f0fdfa; border:1.5px solid #99f6e4; border-radius:12px; padding:18px; margin-bottom:18px;">
+                        <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:6px; flex-wrap:wrap; gap:6px;">
+                            <strong style="color:var(--sp-burgundy); font-size:15px;" id="payMethodTitle">বিকাশ পেমেন্ট বিবরণ:</strong>
+                            <span id="accountTypeBadge" style="background:#ccfbf1; color:#0f766e; font-size:11.5px; font-weight:700; padding:2px 8px; border-radius:999px; border:1px solid #99f6e4;">
+                                {{ ($paymentSettings['bkash_type'] ?? 'merchant') === 'merchant' ? 'মার্চেন্ট অ্যাকাউন্ট' : 'পার্সোনাল অ্যাকাউন্ট' }}
+                            </span>
+                        </div>
+
+                        <!-- Copy Number Box (Page 9) -->
+                        <div id="numberDisplayRow" style="display:flex; align-items:center; justify-content:space-between; background:#ffffff; border:1.5px solid #99f6e4; padding:10px 14px; border-radius:8px; margin:10px 0; flex-wrap:wrap; gap:8px;">
+                            <div>
+                                <span style="font-size:11.5px; color:var(--sp-muted); display:block;">টাকা পাঠানোর নম্বর:</span>
+                                <strong style="font-size:18px; color:var(--sp-burgundy); letter-spacing:0.8px;" id="payNumberDisplay">{{ $paymentSettings['bkash'] }}</strong>
+                            </div>
+                            <button type="button" onclick="copyPaymentNumber()" id="btnCopyNumber" style="display:inline-flex; align-items:center; gap:6px; background:#f0fdfa; color:#0f766e; border:1px solid #99f6e4; padding:7px 14px; border-radius:6px; font-size:13px; font-weight:700; cursor:pointer; transition:all 0.2s;">
+                                <i class="bi bi-clipboard" id="copyIcon"></i> <span id="copyBtnText">নম্বর কপি করুন</span>
+                            </button>
+                        </div>
+
+                        <p style="color:#334155; line-height:1.6; font-size:13.5px; margin:0;" id="payGuideText">
+                            {{ ($paymentSettings['bkash_type'] ?? 'merchant') === 'merchant' ? "বিকাশ অ্যাপ থেকে 'Payment' (পেমেন্ট) অপশনে গিয়ে উপরের নম্বরে টাকা পরিশোধ করুন।" : "বিকাশ অ্যাপ থেকে 'Send Money' (সেন্ড মানি) অপশনে গিয়ে উপরের নম্বরে টাকা পাঠিয়ে নিচে TrxID দিন।" }}
                         </p>
                     </div>
 
@@ -384,30 +393,73 @@
     const chargeDhaka = {{ $deliveryDhaka }};
     const chargeOutside = {{ $deliveryOutside }};
 
+    const bkashType = "{{ $paymentSettings['bkash_type'] ?? 'merchant' }}";
+    const nagadType = "{{ $paymentSettings['nagad_type'] ?? 'personal' }}";
+    const upayType = "{{ $paymentSettings['upay_type'] ?? 'personal' }}";
+
     const paymentData = {
         bkash: {
-            title: "বিকাশ পেমেন্ট / মার্চেন্ট নম্বর:",
+            title: "বিকাশ পেমেন্ট বিবরণ:",
+            badge: bkashType === 'merchant' ? 'মার্চেন্ট অ্যাকাউন্ট' : 'পার্সোনাল অ্যাকাউন্ট',
             number: "{{ $paymentSettings['bkash'] }}",
-            guide: "বিকাশ অ্যাপ থেকে Send Money বা Payment করুন। এরপর TrxID টি নিচের বক্সে দিন।"
+            guide: bkashType === 'merchant'
+                ? "বিকাশ অ্যাপ থেকে 'Payment' (পেমেন্ট) অপশনে গিয়ে উপরের নম্বরে টাকা পরিশোধ করুন।"
+                : "বিকাশ অ্যাপ থেকে 'Send Money' (সেন্ড মানি) অপশনে গিয়ে উপরের নম্বরে টাকা পাঠিয়ে নিচে TrxID দিন।"
         },
         nagad: {
-            title: "নগদ মার্চেন্ট / সেন্ড মানি নম্বর:",
+            title: "নগদ পেমেন্ট বিবরণ:",
+            badge: nagadType === 'merchant' ? 'মার্চেন্ট অ্যাকাউন্ট' : 'পার্সোনাল অ্যাকাউন্ট',
             number: "{{ $paymentSettings['nagad'] }}",
-            guide: "নগদ অ্যাপ থেকে টাকা পাঠিয়ে প্রাপ্ত ট্রানজেকশন আইডিটি নিচে পূরণ করুন।"
+            guide: nagadType === 'merchant'
+                ? "নগদ অ্যাপ থেকে 'মার্চেন্ট পে' অপশনে গিয়ে টাকা পরিশোধ করুন।"
+                : "নগদ অ্যাপ থেকে 'সেন্ড মানি' করে নিচে প্রাপ্ত ট্রানজেকশন আইডি (TrxID) দিন।"
         },
         upay: {
-            title: "উপায় একাউন্ট নম্বর:",
+            title: "উপায় পেমেন্ট বিবরণ:",
+            badge: upayType === 'merchant' ? 'মার্চেন্ট অ্যাকাউন্ট' : 'পার্সোনাল অ্যাকাউন্ট',
             number: "{{ $paymentSettings['upay'] }}",
-            guide: "উপায় অ্যাপ বা ইউএসএসডি কোডের মাধ্যমে টাকা পাঠিয়ে TrxID দিন।"
+            guide: upayType === 'merchant'
+                ? "উপায় অ্যাপ থেকে 'পেমেন্ট' করে TrxID নিচে দিন।"
+                : "উপায় অ্যাপ থেকে 'সেন্ড মানি' করে নিচে ট্রানজেকশন আইডি দিন।"
         },
         cod: {
             title: "ক্যাশ অন ডেলিভারি (Cash on Delivery):",
+            badge: "ক্যাশ অন ডেলিভারি",
             number: "বই হাতে পেয়ে মূল্য পরিশোধ করবেন",
-            guide: "বই ডেলিভারি পাওয়ার পর কুরিয়ার প্রতিনিধিকে বইয়ের মূল্য বুঝিয়ে দিন। ডেলিভারি কনফার্মেশনের জন্য আমাদের প্রতিনিধি কল করতে পারেন।"
+            guide: "বই ডেলিভারি পাওয়ার পর কুরিয়ার প্রতিনিধিকে বইয়ের মূল্য বুঝিয়ে দিন। ডেলিভারি কনফার্মেশনের জন্য আমাদের প্রতিনিধি আপনাকে কল করতে পারেন।"
         }
     };
 
     let currentDelivery = hasHardcopy ? chargeDhaka : 0;
+
+    function copyPaymentNumber() {
+        const text = document.getElementById('payNumberDisplay').innerText.trim();
+        if (!text || text.includes('হাতে পেয়ে')) return;
+        
+        if (navigator.clipboard && window.isSecureContext) {
+            navigator.clipboard.writeText(text).then(showCopiedFeedback);
+        } else {
+            // Fallback for older browsers
+            const input = document.createElement('textarea');
+            input.value = text;
+            document.body.appendChild(input);
+            input.select();
+            document.execCommand('copy');
+            document.body.removeChild(input);
+            showCopiedFeedback();
+        }
+    }
+
+    function showCopiedFeedback() {
+        const btnText = document.getElementById('copyBtnText');
+        const icon = document.getElementById('copyIcon');
+        btnText.innerText = 'কপি হয়েছে!';
+        icon.className = 'bi bi-check2';
+        setTimeout(() => {
+            btnText.innerText = 'নম্বর কপি করুন';
+            icon.className = 'bi bi-clipboard';
+        }, 2500);
+    }
 
     function updateDelivery(zone) {
         currentDelivery = (zone === 'outside_dhaka') ? chargeOutside : chargeDhaka;
@@ -423,6 +475,7 @@
         const info = paymentData[method];
         if (info) {
             document.getElementById('payMethodTitle').innerText = info.title;
+            document.getElementById('accountTypeBadge').innerText = info.badge;
             document.getElementById('payNumberDisplay').innerText = info.number;
             document.getElementById('payGuideText').innerText = info.guide;
         }
@@ -430,12 +483,16 @@
         const isCod = (method === 'cod');
         const trxFields = document.getElementById('trxFields');
         const trxInput = document.getElementById('payment_trx_id');
+        const btnCopy = document.getElementById('btnCopyNumber');
+
         if (isCod) {
             trxFields.style.display = 'none';
             trxInput.removeAttribute('required');
+            if (btnCopy) btnCopy.style.display = 'none';
         } else {
             trxFields.style.display = 'block';
             trxInput.setAttribute('required', 'required');
+            if (btnCopy) btnCopy.style.display = 'inline-flex';
         }
 
         ['optBkash', 'optNagad', 'optUpay', 'optCod'].forEach(id => {

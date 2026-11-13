@@ -60,8 +60,11 @@ class CheckoutController extends Controller
 
         $paymentSettings = [
             'bkash' => SiteSetting::get('bkash_number', '01700-112233'),
+            'bkash_type' => SiteSetting::get('bkash_type', 'merchant'),
             'nagad' => SiteSetting::get('nagad_number', '01800-445566'),
+            'nagad_type' => SiteSetting::get('nagad_type', 'personal'),
             'upay' => SiteSetting::get('upay_number', '01900-778899'),
+            'upay_type' => SiteSetting::get('upay_type', 'personal'),
             'instruction' => SiteSetting::get('payment_instruction', 'নির্ধারিত নম্বরে টাকা পাঠিয়ে Transaction ID দিন।'),
         ];
 

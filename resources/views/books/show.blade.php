@@ -471,65 +471,55 @@
                             <i class="bi bi-book"></i> {{ $book->preview_pages }} পৃষ্ঠার ফ্রি প্রিভিউ পড়ুন
                         </a>
                     @endif
-                    @if($book->hasVideo())
-                        <a href="#book-video-section" onclick="scrollToVideoSection(event)" class="video-preview-action">
-                            <i class="bi bi-play-circle-fill text-danger"></i> ভিডিও পর্যালোচনা / রিভিউ দেখুন
-                        </a>
-                    @endif
                 @else
-                    @if($book->price_ebook > 0)
-                        <a href="{{ route('checkout', ['type' => 'ebook', 'bookSlug' => $book->slug]) }}" class="ebook-action">
-                            <i class="bi bi-tablet"></i> ই-বুক কিনুন (৳{{ number_format($book->ebookEffectivePrice()) }})
-                        </a>
-                    @endif
-
-                    <form action="{{ route('cart.add') }}" method="POST" style="flex:1; margin:0;">
+                    <!-- হার্ডকপি অর্ডার ও কার্টে যোগ ফরম (Page 7) -->
+                    <form action="{{ route('cart.add') }}" method="POST" style="width:100%; margin:0; display:flex; flex-direction:column; gap:10px;">
                         @csrf
                         <input type="hidden" name="book_id" value="{{ $book->id }}">
                         <input type="hidden" name="format" value="hardcopy">
-                        <button type="submit" class="hardcopy-action" style="width:100%;">
-                            <i class="bi bi-bag-plus"></i> কার্টে যোগ করুন
+                        
+                        <!-- সরাসরি হার্ডকপি কিনুন / অর্ডার করুন -->
+                        <button type="submit" name="buy_now" value="1" class="hardcopy-action" style="width:100%; background:var(--sp-burgundy); color:#ffffff !important; border:none; padding:13px 20px; font-size:15px; font-weight:800; border-radius:var(--sp-radius-pill); cursor:pointer; display:flex; align-items:center; justify-content:center; gap:8px; box-shadow:0 4px 14px rgba(15,118,110,0.3); transition:all 0.2s;">
+                            <i class="bi bi-truck"></i> হার্ডকপি অর্ডার করুন (৳{{ number_format($book->hardcopyEffectivePrice()) }})
                         </button>
+
+                        <div style="display:flex; gap:10px; width:100%;">
+                            <!-- কার্টে যোগ করুন -->
+                            <button type="submit" style="flex:1; background:#ffffff; color:var(--sp-burgundy) !important; border:1.5px solid var(--sp-burgundy); padding:11px 16px; font-size:14px; font-weight:700; border-radius:var(--sp-radius-pill); cursor:pointer; display:flex; align-items:center; justify-content:center; gap:6px; transition:all 0.2s;">
+                                <i class="bi bi-cart-plus"></i> কার্টে যোগ করুন
+                            </button>
+
+                            @if($book->price_ebook > 0)
+                                <!-- ই-বুক কিনুন -->
+                                <a href="{{ route('checkout', ['type' => 'ebook', 'bookSlug' => $book->slug]) }}" class="ebook-action" style="flex:1; text-align:center; display:flex; align-items:center; justify-content:center; gap:6px; text-decoration:none;">
+                                    <i class="bi bi-tablet"></i> ই-বুক কিনুন (৳{{ number_format($book->ebookEffectivePrice()) }})
+                                </a>
+                            @endif
+                        </div>
                     </form>
 
                     @if($book->preview_pages > 0)
-                        <a href="{{ route('books.preview', $book->slug) }}" class="preview-action">
+                        <a href="{{ route('books.preview', $book->slug) }}" class="preview-action" style="margin-top:6px;">
                             <i class="bi bi-book"></i> {{ $book->preview_pages }} পৃষ্ঠার ফ্রি প্রিভিউ পড়ুন
-                        </a>
-                    @endif
-
-                    @if($book->hasVideo())
-                        <a href="#book-video-section" onclick="scrollToVideoSection(event)" class="video-preview-action">
-                            <i class="bi bi-play-circle-fill text-danger"></i> ভিডিও পর্যালোচনা / রিভিউ দেখুন
                         </a>
                     @endif
                 @endif
             </div>
+
+            <!-- অন্যান্য প্রাপ্তি স্থান (Page 1) -->
+            <div style="margin-top:16px; padding:12px 16px; background:#f0fdfa; border:1px solid #99f6e4; border-radius:10px; font-size:13px; color:#0f766e; line-height:1.6;">
+                <strong style="display:block; margin-bottom:3px; color:#115e59; font-size:13.5px;">
+                    <i class="bi bi-shop me-1"></i> অফলাইনে সরাসরি প্রাপ্তি স্থান:
+                </strong>
+                <span>(১) সি এস ডি, ঢাকা সেনানিবাস, ঢাকা &bull; (২) রাওয়া পাবলিকেশন, রাওয়া কমপ্লেক্স, মহাখালী, ঢাকা।</span>
+            </div>
         </div>
     </div>
 
-    @if($book->hasVideo())
-        <!-- Dedicated Book Video Showcase (Directly Below Preview & Purchase Block - Item 9) -->
-        <div id="book-video-section" class="book-video-showcase-card">
-            <div class="video-card-header">
-                <h3><i class="bi bi-play-circle-fill text-danger"></i> বই পরিচিতি ও ভিডিও পর্যালোচনা</h3>
-                <span class="badge-discount-tag" style="background:var(--sp-paste-badge); color:var(--sp-burgundy); font-weight:700;">ভিডিও বুক রিভিউ</span>
-            </div>
-            <p class="video-card-sub">বইটি সম্পর্কে বিস্তারিত জানতে ও লেখকের ভাবনা বুঝতে ভিডিওটি প্লে করে দেখুন:</p>
-            <div class="video-responsive-container">
-                <iframe src="{{ $book->youtube_embed_url }}" 
-                        title="{{ $book->title }} - ভিডিও পর্যালোচনা" 
-                        frameborder="0" 
-                        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" 
-                        allowfullscreen></iframe>
-            </div>
-        </div>
-    @endif
-
-    <!-- Tabs Navigation -->
+    <!-- Tabs Navigation (Page 1: সংক্ষিপ্ত পরিচিতি - লেখার পেছনের গল্প - লেখক নিয়ে কিছু কথা - বুক রিভিউ) -->
     <div class="book-tabs">
         <button type="button" class="book-tab-btn active" onclick="showTab('summary', this)">
-            <i class="bi bi-file-text"></i> বইয়ের বিবরণ
+            <i class="bi bi-file-text"></i> সংক্ষিপ্ত পরিচিতি
         </button>
         @if($book->story_behind)
             <button type="button" class="book-tab-btn" onclick="showTab('story', this)">
@@ -537,10 +527,10 @@
             </button>
         @endif
         <button type="button" class="book-tab-btn" onclick="showTab('author', this)">
-            <i class="bi bi-person"></i> লেখক পরিচিতি
+            <i class="bi bi-person"></i> লেখক নিয়ে কিছু কথা
         </button>
         <button type="button" class="book-tab-btn" onclick="showTab('reviews', this)">
-            <i class="bi bi-chat-heart"></i> পাঠকদের মতামত ({{ $book->reviews()->count() }})
+            <i class="bi bi-chat-heart"></i> বুক রিভিউ ({{ $book->reviews()->count() }})
         </button>
         @if($book->hasVideo())
             <button type="button" class="book-tab-btn" onclick="showTab('video', this)">
@@ -551,10 +541,10 @@
 
     <div class="book-panels-wrap">
 
-        <!-- Tab 1: Summary & Details -->
+        <!-- Tab 1: Summary & Details (সংক্ষিপ্ত পরিচিতি) -->
         <div id="tab-summary" class="tab-panel">
             <div class="book-detail-card">
-                <h2><i class="bi bi-info-circle text-danger"></i> বইয়ের সারসংক্ষেপ ও পরিচয়</h2>
+                <h2><i class="bi bi-info-circle text-danger"></i> সংক্ষিপ্ত পরিচিতি</h2>
                 <div style="font-size:15px; color:#334155;">
                     {!! nl2br(e($book->summary ?: 'এই বইটির বিস্তারিত বিবরণ শীঘ্রই যুক্ত করা হবে।')) !!}
                 </div>
@@ -592,10 +582,10 @@
             </div>
         @endif
 
-        <!-- Tab 3: Author Bio -->
+        <!-- Tab 3: Author Bio (লেখক নিয়ে কিছু কথা) -->
         <div id="tab-author" class="tab-panel" style="display:none;">
             <div class="book-detail-card">
-                <h2><i class="bi bi-person-badge text-danger"></i> লেখক সম্পর্কে</h2>
+                <h2><i class="bi bi-person-badge text-danger"></i> লেখক নিয়ে কিছু কথা</h2>
                 <div style="display:flex; gap:20px; align-items:center; margin-bottom:16px;">
                     <img src="{{ asset('author-portrait.jpg') }}" alt="লেখক মুক্তাদা" style="width:80px; height:80px; border-radius:50%; object-fit:cover; border:2px solid var(--sp-burgundy);">
                     <div>
@@ -609,11 +599,11 @@
             </div>
         </div>
 
-        <!-- Tab 4: Reviews (পাঠকদের মতামত - Item 8: শুধুমাত্র বইটির ক্রেতারা রিভিউ দিতে পারবেন) -->
+        <!-- Tab 4: Reviews (বুক রিভিউ) -->
         <div id="tab-reviews" class="tab-panel" style="display:none;">
             <div class="book-detail-card">
                 <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:18px; flex-wrap:wrap; gap:10px;">
-                    <h2 style="margin:0;"><i class="bi bi-stars text-danger"></i> পাঠকদের মতামত ও রিভিউ</h2>
+                    <h2 style="margin:0;"><i class="bi bi-stars text-danger"></i> বুক রিভিউ</h2>
                     <span style="font-size:13px; color:var(--sp-muted); background:#f1f5f9; padding:4px 12px; border-radius:var(--sp-radius-pill); font-weight:600;">
                         মোট রিভিউ: {{ $book->approvedReviews->count() }}টি
                     </span>

@@ -32,12 +32,11 @@
     <!-- Header matching SahojPath -->
     <header class="real-header">
         <div class="real-head-top {{ request()->routeIs('checkout*') ? 'checkout-header-mode' : '' }}">
-            <!-- Brand -->
+            <!-- Brand (লোগোর পাশে শুধু বাংলা নাম, ইংরেজি Muktada..house বাদ) -->
             <a href="{{ route('home') }}" class="real-brand">
                 <img src="{{ asset('muktadar-logo.jpg') }}" alt="মুক্তাদার বইঘর">
                 <span>
                     <b>মুক্তাদার বইঘর</b>
-                    <small>MUKTADA'S BOOK HOUSE</small>
                 </span>
             </a>
 
@@ -52,28 +51,7 @@
 
                 <!-- Right Nav / User Actions -->
                 <nav class="real-head-nav">
-                    <!-- Publisher Section -->
-                    @auth
-                        @if(auth()->user()->isApprovedPublisher())
-                            <a href="{{ route('publisher.dashboard') }}" class="nav-pill pill-publisher" title="প্রকাশক ড্যাশবোর্ড">
-                                <i class="fa-solid fa-store"></i> ড্যাশবোর্ড
-                            </a>
-                        @elseif(auth()->user()->isPublisher())
-                            <a href="{{ route('publisher.dashboard') }}" class="nav-pill pill-publisher" title="প্রকাশক পেন্ডিং">
-                                <i class="fa-regular fa-clock"></i> প্রকাশক
-                            </a>
-                        @else
-                            <a href="{{ route('publisher.register') }}" class="nav-pill pill-publisher" title="প্রকাশক হিসেবে যোগ দিন">
-                                <i class="fa-solid fa-store"></i> প্রকাশক
-                            </a>
-                        @endif
-                    @else
-                        <a href="{{ route('publisher.register') }}" class="nav-pill pill-publisher" title="প্রকাশক হিসেবে যোগ দিন">
-                            <i class="fa-solid fa-store"></i> প্রকাশক
-                        </a>
-                    @endauth
-
-                    <!-- Auth / Profile (লগইন ও রেজিস্ট্রেশন একসাথে) -->
+                    <!-- Auth / Profile (লগইন ও রেজিস্ট্রেশন / প্রোফাইল ও লগআউট একসাথে কম্প্যাক্ট) -->
                     @guest
                         <div class="nav-pill-auth">
                             <a href="{{ route('login') }}" class="auth-link" title="লগইন করুন">
@@ -85,32 +63,35 @@
                             </a>
                         </div>
                     @else
-                        @if(auth()->user()->isAdmin())
-                            <a href="{{ route('admin.dashboard') }}" class="nav-pill" style="background:#ccfbf1; color:#0f766e; border-color:#99f6e4;">
-                                <i class="bi bi-gear-fill"></i> অ্যাডমিন
+                        <div class="nav-pill-auth nav-pill-logged">
+                            <a href="{{ route('reader.dashboard') }}" class="auth-link" title="আমার প্রোফাইল">
+                                <i class="bi bi-person-circle"></i> {{ Str::limit(auth()->user()->name, 8) }}
                             </a>
-                        @endif
-                        <a href="{{ route('reader.dashboard') }}" class="nav-pill">
-                            <i class="bi bi-person-circle"></i> প্রোফাইল
-                        </a>
-                        <form action="{{ route('logout') }}" method="POST" style="display:inline;">
-                            @csrf
-                            <button type="submit" class="nav-pill" style="cursor:pointer; background:transparent; border:none;" title="লগআউট">
-                                <i class="bi bi-box-arrow-right"></i>
-                            </button>
-                        </form>
+                            @if(auth()->user()->isAdmin())
+                                <span class="auth-sep">|</span>
+                                <a href="{{ route('admin.dashboard') }}" class="auth-link" style="color:var(--sp-burgundy);" title="অ্যাডমিন">
+                                    <i class="bi bi-gear-fill"></i>
+                                </a>
+                            @endif
+                            <span class="auth-sep">|</span>
+                            <form action="{{ route('logout') }}" method="POST" style="display:inline; margin:0;">
+                                @csrf
+                                <button type="submit" class="auth-link" style="background:transparent; border:none; cursor:pointer; padding:0; display:inline-flex; align-items:center;" title="লগআউট">
+                                    <i class="bi bi-box-arrow-right"></i>
+                                </button>
+                            </form>
+                        </div>
                     @endguest
 
                     <!-- Shopping Cart (মোবাইলে সবসময় উপরে ডানে থাকবে) -->
-                    <a href="{{ route('cart.index') }}" class="nav-pill pill-cart" title="শピング কার্ট">
+                    <a href="{{ route('cart.index') }}" class="nav-pill pill-cart" title="শপিং কার্ট">
                         <i class="bi bi-bag-heart-fill"></i>
                         <span class="cart-badge">{{ session('cart') ? count(session('cart')) : 0 }}</span>
                     </a>
                 </nav>
             @else
-                <!-- Checkout Header Actions (শুধু চেকআউটে থাকবে) -->
+                <!-- Checkout Header Actions (মোবাইলে ক্লিন ব্যাক বাটন) -->
                 <div class="checkout-head-actions">
-                    <span class="checkout-secure-pill"><i class="bi bi-shield-check"></i> ১০০% নিরাপদ চেকআউট</span>
                     <a href="{{ route('cart.index') }}" class="checkout-back-btn">
                         <i class="bi bi-arrow-left"></i> কার্টে ফিরে যান
                     </a>
@@ -119,7 +100,7 @@
         </div>
 
         @if(!request()->routeIs('checkout*'))
-        <!-- Navigation Bar (১২. উপরে মেম্বারশিপ, লেখক পরিচিতি, যোগাযোগ, ক্যাটাগরি বাদ - এগুলো ফুটারে আছে) -->
+        <!-- Navigation Bar (প্রকাশক অপশন নিচে ফুটারে থাকবে) -->
         <nav class="real-nav">
             <a href="{{ route('home') }}" class="{{ request()->routeIs('home') ? 'active' : '' }}">
                 <i class="bi bi-house-door"></i> হোম
@@ -129,9 +110,6 @@
             </a>
             <a href="{{ route('home') }}#popular">
                 <i class="bi bi-fire text-danger"></i> বেস্টসেলার
-            </a>
-            <a href="{{ route('publisher.register') }}" class="mobile-publisher-link" title="মোবাইল ভিউতে প্রকাশক লিঙ্ক">
-                <i class="fa-solid fa-store"></i> প্রকাশক নিবন্ধন
             </a>
         </nav>
         @endif
@@ -162,11 +140,24 @@
     <footer class="site-footer" id="contact">
         <div class="footer-inner">
             <div class="footer-brand">
-                <b>
-                    <i class="fa-solid fa-book-bookmark" style="color: #8b263b;"></i> মুক্তাদার বইঘর
-                </b>
-                <small>MUKTADA'S BOOK HOUSE — জ্ঞান, পাঠ ও সুন্দর জীবন</small>
+                <div style="display:flex; align-items:center; gap:12px; margin-bottom:12px;">
+                    <img src="{{ asset('muktadar-logo.jpg') }}" alt="মুক্তাদার বইঘর" style="width:48px; height:48px; border-radius:10px; object-fit:cover; border:1.5px solid rgba(255,255,255,0.2);">
+                    <div>
+                        <b style="font-size:20px; color:#ffffff; font-weight:800; display:block; line-height:1.2;">মুক্তাদার বইঘর</b>
+                        <small style="color:#94a3b8; font-size:11.5px; font-weight:600; display:block; margin-top:2px;">শব্দের মায়ায়, গল্পের ছায়ায়</small>
+                    </div>
+                </div>
                 <p>লেখক মুক্তাদার চিন্তাশীল সাহিত্য, উপন্যাস, জীবনমুখী গবেষণা ও ইসলামী বইয়ের একমাত্র প্রামাণ্য রিডিং প্ল্যাটফর্ম। ঘরে বসে হার্ডকপি সংগ্রহ করুন কিংবা সরাসরি ডিজিটাল রিডারে ই-বুক উপভোগ করুন।</p>
+                
+                <!-- অন্যান্য প্রাপ্তি স্থান (Page 1) -->
+                <div style="margin:14px 0; padding:12px 14px; background:rgba(255,255,255,0.06); border:1px solid rgba(255,255,255,0.12); border-radius:10px; font-size:12.5px; color:#cbd5e1; line-height:1.6;">
+                    <strong style="color:#fef08a; display:block; margin-bottom:4px; font-size:13px;">
+                        <i class="bi bi-geo-alt-fill text-warning me-1"></i> অন্যান্য প্রাপ্তি স্থান:
+                    </strong>
+                    <div>(১) সি এস ডি, ঢাকা সেনানিবাস, ঢাকা</div>
+                    <div>(২) রাওয়া পাবলিকেশন, রাওয়া কমপ্লেক্স, মহাখালী, ঢাকা।</div>
+                </div>
+
                 @if(\App\Models\SiteSetting::get('whatsapp_number'))
                     <a href="https://wa.me/{{ preg_replace('/[^0-9]/', '', \App\Models\SiteSetting::get('whatsapp_number')) }}" target="_blank" class="footer-whatsapp">
                         <i class="bi bi-whatsapp"></i> WhatsApp এ যোগাযোগ

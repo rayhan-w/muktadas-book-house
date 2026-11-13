@@ -17,24 +17,45 @@
         <form action="{{ route('admin.payments.update') }}" method="POST">
             @csrf
 
-            <div class="form-group">
-                <label class="form-label">bKash (বিকাশ) নম্বর ও অ্যাকাউন্ট টাইপ *</label>
-                <input type="text" name="bkash_number" value="{{ old('bkash_number', $numbers['bkash']) }}" required class="form-control" placeholder="যেমন: 01700-112233 (Merchant / Send Money)">
+            <!-- bKash -->
+            <div class="form-group" style="background:#f8fafc; padding:14px; border-radius:8px; border:1px solid #e2e8f0; margin-bottom:16px;">
+                <label class="form-label" style="font-weight:700; color:#db2777;">bKash (বিকাশ) পেমেন্ট তথ্য *</label>
+                <div style="display:grid; grid-template-columns: 1fr 140px; gap:10px;">
+                    <input type="text" name="bkash_number" value="{{ old('bkash_number', $numbers['bkash']) }}" required class="form-control" placeholder="যেমন: 01700-112233">
+                    <select name="bkash_type" class="form-control" style="font-weight:600;">
+                        <option value="merchant" {{ old('bkash_type', $numbers['bkash_type']) === 'merchant' ? 'selected' : '' }}>মার্চেন্ট (Payment)</option>
+                        <option value="personal" {{ old('bkash_type', $numbers['bkash_type']) === 'personal' ? 'selected' : '' }}>পার্সোনাল (Send Money)</option>
+                    </select>
+                </div>
             </div>
 
-            <div class="form-group">
-                <label class="form-label">Nagad (নগদ) নম্বর ও অ্যাকাউন্ট টাইপ *</label>
-                <input type="text" name="nagad_number" value="{{ old('nagad_number', $numbers['nagad']) }}" required class="form-control" placeholder="যেমন: 01800-445566 (Merchant)">
+            <!-- Nagad -->
+            <div class="form-group" style="background:#f8fafc; padding:14px; border-radius:8px; border:1px solid #e2e8f0; margin-bottom:16px;">
+                <label class="form-label" style="font-weight:700; color:#ea580c;">Nagad (নগদ) পেমেন্ট তথ্য *</label>
+                <div style="display:grid; grid-template-columns: 1fr 140px; gap:10px;">
+                    <input type="text" name="nagad_number" value="{{ old('nagad_number', $numbers['nagad']) }}" required class="form-control" placeholder="যেমন: 01800-445566">
+                    <select name="nagad_type" class="form-control" style="font-weight:600;">
+                        <option value="personal" {{ old('nagad_type', $numbers['nagad_type']) === 'personal' ? 'selected' : '' }}>পার্সোনাল (Send Money)</option>
+                        <option value="merchant" {{ old('nagad_type', $numbers['nagad_type']) === 'merchant' ? 'selected' : '' }}>মার্চেন্ট (Payment)</option>
+                    </select>
+                </div>
             </div>
 
-            <div class="form-group">
-                <label class="form-label">Upay (উপায়) নম্বর *</label>
-                <input type="text" name="upay_number" value="{{ old('upay_number', $numbers['upay']) }}" required class="form-control" placeholder="যেমন: 01900-778899 (Personal)">
+            <!-- Upay -->
+            <div class="form-group" style="background:#f8fafc; padding:14px; border-radius:8px; border:1px solid #e2e8f0; margin-bottom:16px;">
+                <label class="form-label" style="font-weight:700; color:#0284c7;">Upay (উপায়) পেমেন্ট তথ্য *</label>
+                <div style="display:grid; grid-template-columns: 1fr 140px; gap:10px;">
+                    <input type="text" name="upay_number" value="{{ old('upay_number', $numbers['upay']) }}" required class="form-control" placeholder="যেমন: 01900-778899">
+                    <select name="upay_type" class="form-control" style="font-weight:600;">
+                        <option value="personal" {{ old('upay_type', $numbers['upay_type']) === 'personal' ? 'selected' : '' }}>পার্সোনাল (Send Money)</option>
+                        <option value="merchant" {{ old('upay_type', $numbers['upay_type']) === 'merchant' ? 'selected' : '' }}>মার্চেন্ট (Payment)</option>
+                    </select>
+                </div>
             </div>
 
             <div class="form-group">
                 <label class="form-label">পাঠকদের জন্য পেমেন্ট নির্দেশনাবলী</label>
-                <textarea name="payment_instruction" rows="4" class="form-control">{{ old('payment_instruction', $numbers['instruction']) }}</textarea>
+                <textarea name="payment_instruction" rows="3" class="form-control">{{ old('payment_instruction', $numbers['instruction']) }}</textarea>
                 <small style="color: var(--admin-muted); font-size: 12px;">টাকা পাঠানোর নিয়ম ও ট্রানজেকশন আইডি দেওয়ার নিয়মাবলি এখানে লিখুন।</small>
             </div>
 

@@ -1308,27 +1308,83 @@ a {
 /* Slim Category Header Section on Mobile (Page 4 & 5 - Item 4) */
 @media (max-width: 768px) {
     .category-marquee-container {
-        margin-bottom: 20px !important;
+        padding: 8px 10px !important;
+        margin-bottom: 16px !important;
+        border-radius: 12px !important;
+        border: 1px solid #e2e8f0 !important;
+        box-shadow: 0 1px 4px rgba(0,0,0,0.03) !important;
+        background: #ffffff !important;
     }
     .category-marquee-header {
         margin-bottom: 6px !important;
-        padding-bottom: 4px !important;
+        padding-bottom: 5px !important;
+        border-bottom: 1px solid #f1f5f9 !important;
+        display: flex !important;
+        align-items: center !important;
+        justify-content: space-between !important;
     }
     .category-marquee-header h2 {
-        font-size: 15px !important;
-        gap: 6px !important;
+        font-size: 13.5px !important;
+        font-weight: 700 !important;
+        gap: 5px !important;
+        margin: 0 !important;
+        color: var(--sp-heading) !important;
+    }
+    .category-marquee-header h2 i {
+        font-size: 13px !important;
+    }
+    .cat-nav-btn {
+        display: none !important;
     }
     .category-marquee-header .view-all {
         font-size: 11.5px !important;
-    }
-    .cat-nav-btn {
-        width: 28px !important;
-        height: 28px !important;
-        font-size: 12px !important;
+        font-weight: 700 !important;
+        color: var(--sp-burgundy) !important;
+        white-space: nowrap !important;
     }
     .category-scroll-container {
-        padding: 4px 2px 10px !important;
-        gap: 8px !important;
+        padding: 3px 2px 5px !important;
+        gap: 7px !important;
+        display: flex !important;
+        flex-wrap: nowrap !important;
+        overflow-x: auto !important;
+        -webkit-overflow-scrolling: touch !important;
+    }
+    .sp-cat-card {
+        display: inline-flex !important;
+        align-items: center !important;
+        gap: 6px !important;
+        padding: 5px 10px !important;
+        background: #f8fafc !important;
+        border: 1px solid #e2e8f0 !important;
+        border-radius: 20px !important;
+        flex-shrink: 0 !important;
+        white-space: nowrap !important;
+        text-decoration: none !important;
+        min-width: max-content !important;
+    }
+    .sp-cat-icon {
+        width: 26px !important;
+        height: 26px !important;
+        font-size: 11px !important;
+        flex-shrink: 0 !important;
+    }
+    .sp-cat-info {
+        display: flex !important;
+        flex-direction: column !important;
+        line-height: 1.15 !important;
+    }
+    .sp-cat-title {
+        font-size: 11.5px !important;
+        font-weight: 700 !important;
+        color: #1e293b !important;
+        white-space: nowrap !important;
+    }
+    .sp-cat-count {
+        font-size: 9.5px !important;
+        color: #64748b !important;
+        font-weight: 600 !important;
+        white-space: nowrap !important;
     }
     
     /* Mobile Checkout Header (Clean Back Button - Page 10) */

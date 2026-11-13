@@ -410,14 +410,31 @@
     }
 
     @media (max-width: 768px) {
-        /* Mobile Hero Card: Clean, Perfectly Proportioned & Centered (Item 6) */
+        /* Mobile Hero Banner: Ultra Compact & Slim */
+        .hero-banner-section {
+            margin: 0 auto 12px auto !important;
+            padding: 0 !important;
+        }
+
+        .hero-banner-link {
+            border-radius: 12px !important;
+            box-shadow: 0 4px 12px rgba(15, 23, 42, 0.08) !important;
+        }
+
+        .hero-banner-image {
+            border-radius: 12px !important;
+            max-height: 145px !important;
+            object-fit: cover !important;
+        }
+
+        /* Mobile Hero Card: Clean, Slim & Proportionate (Item 6 & Image 2) */
         .real-hero {
-            padding: 24px 18px !important;
+            padding: 14px 14px 16px !important;
             min-height: auto !important;
-            border-radius: 16px !important;
-            margin-bottom: 22px !important;
+            border-radius: 12px !important;
+            margin-bottom: 14px !important;
             background: linear-gradient(145deg, #042f2e 0%, #0f172b 100%) !important;
-            border-bottom: 4px solid var(--sp-crimson) !important;
+            border-bottom: 3px solid var(--sp-crimson) !important;
             display: block !important;
         }
 
@@ -431,9 +448,9 @@
         }
 
         .hero-badge-tag {
-            font-size: 12px !important;
-            padding: 5px 14px !important;
-            margin-bottom: 12px !important;
+            font-size: 11px !important;
+            padding: 3px 10px !important;
+            margin-bottom: 8px !important;
             background: rgba(13, 148, 136, 0.25) !important;
             color: #5eead4 !important;
             border: 1px solid rgba(13, 148, 136, 0.45) !important;
@@ -442,33 +459,128 @@
         }
 
         .real-hero h1 {
-            font-size: 21px !important;
-            line-height: 1.35 !important;
-            margin-bottom: 10px !important;
+            font-size: 18px !important;
+            line-height: 1.25 !important;
+            margin-bottom: 6px !important;
             text-align: center !important;
         }
 
         .real-hero p {
-            font-size: 13.5px !important;
-            line-height: 1.6 !important;
-            margin-bottom: 18px !important;
+            font-size: 12px !important;
+            line-height: 1.5 !important;
+            margin-bottom: 12px !important;
             text-align: center !important;
             color: #cbd5e1 !important;
         }
 
         .real-hero-btns {
             display: flex !important;
-            flex-direction: column !important;
-            gap: 10px !important;
+            flex-direction: row !important;
+            gap: 8px !important;
             width: 100% !important;
+            justify-content: center !important;
         }
 
         .hero-btn-primary, .hero-btn-secondary {
-            width: 100% !important;
+            flex: 1 !important;
+            width: auto !important;
             text-align: center !important;
             justify-content: center !important;
-            padding: 12px 18px !important;
-            font-size: 14px !important;
+            padding: 8px 12px !important;
+            font-size: 12.5px !important;
+            border-radius: 20px !important;
+        }
+
+        /* Super Slim & Clean Category Header & Cards (Image 1 fix) */
+        .category-marquee-container {
+            padding: 8px 10px !important;
+            margin-bottom: 16px !important;
+            border-radius: 12px !important;
+            border: 1px solid #e2e8f0 !important;
+            box-shadow: 0 1px 4px rgba(0,0,0,0.03) !important;
+            background: #ffffff !important;
+        }
+
+        .category-marquee-header {
+            margin-bottom: 6px !important;
+            padding-bottom: 5px !important;
+            border-bottom: 1px solid #f1f5f9 !important;
+            display: flex !important;
+            align-items: center !important;
+            justify-content: space-between !important;
+        }
+
+        .category-marquee-header h2 {
+            font-size: 13.5px !important;
+            font-weight: 700 !important;
+            gap: 5px !important;
+            margin: 0 !important;
+            color: var(--sp-heading) !important;
+        }
+
+        .category-marquee-header h2 i {
+            font-size: 13px !important;
+        }
+
+        .cat-nav-btn {
+            display: none !important; /* Hide bulky arrows on mobile */
+        }
+
+        .category-marquee-header .view-all {
+            font-size: 11.5px !important;
+            font-weight: 700 !important;
+            color: var(--sp-burgundy) !important;
+            white-space: nowrap !important;
+        }
+
+        .category-scroll-container {
+            padding: 3px 2px 5px !important;
+            gap: 7px !important;
+            display: flex !important;
+            flex-wrap: nowrap !important;
+            overflow-x: auto !important;
+            -webkit-overflow-scrolling: touch !important;
+        }
+
+        .sp-cat-card {
+            display: inline-flex !important;
+            align-items: center !important;
+            gap: 6px !important;
+            padding: 5px 10px !important;
+            background: #f8fafc !important;
+            border: 1px solid #e2e8f0 !important;
+            border-radius: 20px !important;
+            flex-shrink: 0 !important;
+            white-space: nowrap !important;
+            text-decoration: none !important;
+            min-width: max-content !important;
+        }
+
+        .sp-cat-icon {
+            width: 26px !important;
+            height: 26px !important;
+            font-size: 11px !important;
+            flex-shrink: 0 !important;
+        }
+
+        .sp-cat-info {
+            display: flex !important;
+            flex-direction: column !important;
+            line-height: 1.15 !important;
+        }
+
+        .sp-cat-title {
+            font-size: 11.5px !important;
+            font-weight: 700 !important;
+            color: #1e293b !important;
+            white-space: nowrap !important;
+        }
+
+        .sp-cat-count {
+            font-size: 9.5px !important;
+            color: #64748b !important;
+            font-weight: 600 !important;
+            white-space: nowrap !important;
         }
 
         .publisher-banner {

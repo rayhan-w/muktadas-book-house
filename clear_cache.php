@@ -120,7 +120,10 @@ if (!file_exists($envFile)) {
 
 // 5. Run Database Migrations & Ensure video_url column exists
 try {
-    if (file_exists($baseDir . '/vendor/autoload.php') && file_exists($baseDir . '/bootstrap/app.php')) {
+    if (!class_exists('PDO')) {
+        $results[] = "⚠️ PHP PDO এক্সটেনশন নিষ্ক্রিয় থাকায় ডাটাবেজ বুট করা সম্ভব হয়নি। cPanel > MultiPHP Manager থেকে PHP 8.2 নির্বাচন করুন।";
+    } elseif (file_exists($baseDir . '/vendor/autoload.php') && file_exists($baseDir . '/bootstrap/app.php')) {
+        require_once $baseDir . '/vendor/autoload.php';
         $app = require_once $baseDir . '/bootstrap/app.php';
         $kernel = $app->make(Illuminate\Contracts\Console\Kernel::class);
         $kernel->bootstrap();

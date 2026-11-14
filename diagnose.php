@@ -98,16 +98,20 @@ header('Content-Type: text/html; charset=utf-8');
         <span>Database Connection</span>
         <span>
             <?php
-            try {
-                $pdo = new PDO('mysql:host=localhost;dbname=muktadar_boighor_db;charset=utf8mb4', 'muktadar_boighor_user', 'pDa_uZLSq3Z6dGG', [
-                    PDO::ATTR_TIMEOUT => 3,
-                    PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION
-                ]);
-                $stmt = $pdo->query("SELECT count(*) as cnt FROM books");
-                $count = $stmt->fetch(PDO::FETCH_ASSOC)['cnt'] ?? 0;
-                echo "<span class='ok'>Connected! ($count books found in database)</span>";
-            } catch (Exception $e) {
-                echo "<span class='err'>Failed: " . htmlspecialchars($e->getMessage()) . "</span>";
+            if (!class_exists('PDO')) {
+                echo "<span class='err'>❌ PDO এক্সটেনশন মিসিং! (PHP তে pdo ও pdo_mysql চালু করতে হবে)</span>";
+            } else {
+                try {
+                    $pdo = new PDO('mysql:host=localhost;dbname=muktadar_boighor_db;charset=utf8mb4', 'muktadar_boighor_user', 'pDa_uZLSq3Z6dGG', [
+                        PDO::ATTR_TIMEOUT => 3,
+                        PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION
+                    ]);
+                    $stmt = $pdo->query("SELECT count(*) as cnt FROM books");
+                    $count = $stmt->fetch(PDO::FETCH_ASSOC)['cnt'] ?? 0;
+                    echo "<span class='ok'>Connected! ($count books found in database)</span>";
+                } catch (\Throwable $e) {
+                    echo "<span class='err'>Failed: " . htmlspecialchars($e->getMessage()) . "</span>";
+                }
             }
             ?>
         </span>

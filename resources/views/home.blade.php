@@ -666,6 +666,80 @@
             padding: 10px 12px 30px;
         }
     }
+
+    /* 2-Row Horizontal Scroll Grid Showcase (Desktop & Mobile) */
+    .book-scroll-grid-wrapper {
+        position: relative;
+        width: 100%;
+        margin-bottom: 35px;
+    }
+
+    .book-scroll-grid {
+        display: grid;
+        grid-template-rows: repeat(2, auto);
+        grid-auto-flow: column;
+        grid-auto-columns: minmax(260px, 280px);
+        gap: 18px;
+        overflow-x: auto;
+        overflow-y: hidden;
+        padding: 6px 4px 16px;
+        scroll-snap-type: x mandatory;
+        -webkit-overflow-scrolling: touch;
+        scrollbar-width: thin;
+        scrollbar-color: var(--sp-teal) #f1f5f9;
+    }
+
+    .book-scroll-grid::-webkit-scrollbar {
+        height: 6px;
+    }
+
+    .book-scroll-grid::-webkit-scrollbar-track {
+        background: #f1f5f9;
+        border-radius: 10px;
+    }
+
+    .book-scroll-grid::-webkit-scrollbar-thumb {
+        background: #cbd5e1;
+        border-radius: 10px;
+        transition: background 0.2s;
+    }
+
+    .book-scroll-grid::-webkit-scrollbar-thumb:hover {
+        background: var(--sp-teal);
+    }
+
+    .book-scroll-grid .catalog-card {
+        scroll-snap-align: start;
+        margin-bottom: 0;
+        height: 100%;
+    }
+
+    @media (max-width: 768px) {
+        .book-scroll-grid {
+            grid-auto-columns: minmax(175px, 195px);
+            gap: 10px;
+            padding: 4px 2px 12px;
+        }
+
+        .book-scroll-grid .catalog-card {
+            padding: 10px !important;
+        }
+
+        .book-scroll-grid .card-cover-container {
+            aspect-ratio: 1 / 1.35;
+            margin-bottom: 8px;
+        }
+
+        .book-scroll-grid .card-title {
+            font-size: 13px !important;
+            height: 34px !important;
+        }
+
+        .book-scroll-grid .btn-cart {
+            height: 35px !important;
+            font-size: 12px !important;
+        }
+    }
 </style>
 @endsection
 
@@ -898,7 +972,7 @@
         </section>
     @endif
 
-    <!-- All Books Showcase -->
+    <!-- All Books Showcase (2-Row Horizontal Scrollable Grid) -->
     @if($allBooks->isNotEmpty())
         <section class="real-section" id="all-books">
             <div class="real-section-header">
@@ -907,63 +981,65 @@
                 </h2>
                 <a href="{{ route('books.index') }}" class="view-all">সবগুলো বই দেখুন →</a>
             </div>
-            <div class="catalog-grid">
-                @foreach($allBooks->take(8) as $book)
-                    <article class="catalog-card">
-                        <div class="card-cover-container">
-                            @if($book->is_upcoming)
-                                <span class="badge-upcoming-tag">আসন্ন বই</span>
-                            @elseif($book->discount_percent > 0)
-                                <span class="badge-discount-tag">({{ round($book->discount_percent) }}% ছাড়)</span>
-                            @endif
-                            <a href="{{ route('books.show', $book->slug) }}">
-                                <img src="{{ $book->cover_image ? asset($book->cover_image) : asset('author-portrait.jpg') }}" alt="{{ $book->title }}" loading="lazy">
-                            </a>
-                        </div>
-                        <div class="card-body">
-                            <a href="{{ route('books.show', $book->slug) }}">
-                                <h3 class="card-title">{{ $book->title }}</h3>
-                            </a>
-                            <div class="card-author-row">
-                                <div class="card-author"><i class="bi bi-pen"></i> {{ $book->author_name ?? 'মুক্তাদা' }}</div>
-                                <div class="card-rating">
-                                    <i class="bi bi-star-fill"></i>
-                                    <i class="bi bi-star-fill"></i>
-                                    <i class="bi bi-star-fill"></i>
-                                    <i class="bi bi-star-fill"></i>
-                                    <i class="bi bi-star-half"></i>
-                                    <span>(৫.০)</span>
-                                </div>
-                            </div>
-                            <div class="card-price-group">
-                                @if($book->price_ebook > 0)
-                                    <div class="price-format-pill" title="ডিজিটাল ই-বুক মূল্য">
-                                        <span class="pill-kind">ই-বুক</span>
-                                        <span class="pill-val">৳{{ $book->price_ebook }}</span>
-                                    </div>
+            <div class="book-scroll-grid-wrapper">
+                <div class="book-scroll-grid">
+                    @foreach($allBooks as $book)
+                        <article class="catalog-card">
+                            <div class="card-cover-container">
+                                @if($book->is_upcoming)
+                                    <span class="badge-upcoming-tag">আসন্ন বই</span>
+                                @elseif($book->discount_percent > 0)
+                                    <span class="badge-discount-tag">({{ round($book->discount_percent) }}% ছাড়)</span>
                                 @endif
-                                <div class="price-format-pill" title="মুদ্রিত হার্ডকপি মূল্য">
-                                    <span class="pill-kind">হার্ডকপি</span>
-                                    <span class="pill-val">
-                                        ৳{{ $book->discounted_price ?? $book->price_hardcopy }}
-                                        @if($book->discount_percent > 0)
-                                            <span class="price-original-struck">৳{{ $book->price_hardcopy }}</span>
-                                        @endif
-                                    </span>
-                                </div>
+                                <a href="{{ route('books.show', $book->slug) }}">
+                                    <img src="{{ $book->cover_image ? asset($book->cover_image) : asset('author-portrait.jpg') }}" alt="{{ $book->title }}" loading="lazy">
+                                </a>
                             </div>
-                            @if($book->is_upcoming)
-                                <a href="{{ route('books.show', $book->slug) }}" class="btn-cart btn-upcoming">
-                                    <i class="bi bi-clock-history"></i> আসন্ন বই — প্রি-অর্ডার
+                            <div class="card-body">
+                                <a href="{{ route('books.show', $book->slug) }}">
+                                    <h3 class="card-title">{{ $book->title }}</h3>
                                 </a>
-                            @else
-                                <a href="{{ route('books.show', $book->slug) }}" class="btn-cart">
-                                    <i class="bi bi-bag-plus"></i> বিস্তারিত ও অর্ডার
-                                </a>
-                            @endif
-                        </div>
-                    </article>
-                @endforeach
+                                <div class="card-author-row">
+                                    <div class="card-author"><i class="bi bi-pen"></i> {{ $book->author_name ?? 'মুক্তাদা' }}</div>
+                                    <div class="card-rating">
+                                        <i class="bi bi-star-fill"></i>
+                                        <i class="bi bi-star-fill"></i>
+                                        <i class="bi bi-star-fill"></i>
+                                        <i class="bi bi-star-fill"></i>
+                                        <i class="bi bi-star-half"></i>
+                                        <span>(৫.০)</span>
+                                    </div>
+                                </div>
+                                <div class="card-price-group">
+                                    @if($book->price_ebook > 0)
+                                        <div class="price-format-pill" title="ডিজিটাল ই-বুক মূল্য">
+                                            <span class="pill-kind">ই-বুক</span>
+                                            <span class="pill-val">৳{{ $book->price_ebook }}</span>
+                                        </div>
+                                    @endif
+                                    <div class="price-format-pill" title="মুদ্রিত হার্ডকপি মূল্য">
+                                        <span class="pill-kind">হার্ডকপি</span>
+                                        <span class="pill-val">
+                                            ৳{{ $book->discounted_price ?? $book->price_hardcopy }}
+                                            @if($book->discount_percent > 0)
+                                                <span class="price-original-struck">৳{{ $book->price_hardcopy }}</span>
+                                            @endif
+                                        </span>
+                                    </div>
+                                </div>
+                                @if($book->is_upcoming)
+                                    <a href="{{ route('books.show', $book->slug) }}" class="btn-cart btn-upcoming">
+                                        <i class="bi bi-clock-history"></i> আসন্ন বই — প্রি-অর্ডার
+                                    </a>
+                                @else
+                                    <a href="{{ route('books.show', $book->slug) }}" class="btn-cart">
+                                        <i class="bi bi-bag-plus"></i> বিস্তারিত ও অর্ডার
+                                    </a>
+                                @endif
+                            </div>
+                        </article>
+                    @endforeach
+                </div>
             </div>
         </section>
     @endif

@@ -23,42 +23,45 @@
 
     .plan-card {
         background: #fff;
-        border-radius: var(--radius);
-        border: 2px solid var(--border-color);
+        border-radius: var(--sp-radius, 16px);
+        border: 1.5px solid var(--sp-border, #e2e8f0);
         padding: 35px 25px;
         text-align: center;
-        box-shadow: var(--shadow-md);
+        box-shadow: 0 4px 14px rgba(15, 23, 42, 0.05);
         display: flex;
         flex-direction: column;
-        transition: 0.2s;
+        transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        position: relative;
     }
 
     .plan-card:hover {
         transform: translateY(-5px);
-        box-shadow: var(--shadow-lg);
+        box-shadow: 0 12px 30px rgba(15, 23, 42, 0.12);
     }
 
     .plan-card.featured {
-        border-color: var(--gold);
+        border-color: #f59e0b;
         background: #fffdf7;
-        box-shadow: 0 10px 30px rgba(212, 155, 20, 0.18);
+        box-shadow: 0 10px 30px rgba(245, 158, 11, 0.18);
     }
 
     .plan-badge {
         display: inline-block;
-        background: var(--gold);
+        background: linear-gradient(135deg, #d97706, #f59e0b);
         color: #fff;
-        padding: 4px 14px;
-        border-radius: 15px;
+        padding: 5px 16px;
+        border-radius: var(--sp-radius-pill, 999px);
         font-size: 12px;
-        font-weight: 700;
+        font-weight: 800;
         margin-bottom: 12px;
+        letter-spacing: 0.3px;
+        box-shadow: 0 3px 8px rgba(217, 119, 6, 0.3);
     }
 
     .plan-price {
         font-size: 38px;
         font-weight: 800;
-        color: var(--primary);
+        color: var(--sp-burgundy, #0f766e);
         margin: 15px 0 20px;
     }
 
@@ -69,24 +72,67 @@
         flex: 1;
         font-size: 15px;
         line-height: 2;
+        padding: 0;
     }
 
     .plan-benefits li {
         padding-left: 24px;
         position: relative;
-        color: var(--text-dark);
+        color: #334155;
     }
 
     .plan-benefits li::before {
         content: "✓";
         position: absolute;
         left: 0;
-        color: #16a34a;
-        font-weight: 700;
+        color: #10b981;
+        font-weight: 800;
+    }
+
+    /* Modern Attractive Membership Action Buttons */
+    .btn-plan-action {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 8px;
+        width: 100%;
+        padding: 13px 20px;
+        font-size: 15px;
+        font-weight: 800;
+        border-radius: var(--sp-radius-pill, 999px);
+        text-decoration: none !important;
+        border: none;
+        cursor: pointer;
+        transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+        margin-top: auto;
+    }
+
+    .btn-plan-standard {
+        background: var(--sp-crimson, #0d9488);
+        color: #ffffff !important;
+        box-shadow: 0 4px 14px rgba(13, 148, 136, 0.28);
+    }
+
+    .btn-plan-standard:hover {
+        background: var(--sp-burgundy, #0f766e);
+        transform: translateY(-2px);
+        box-shadow: 0 6px 20px rgba(15, 118, 110, 0.38);
+    }
+
+    .btn-plan-featured {
+        background: linear-gradient(135deg, #d97706 0%, #b45309 100%);
+        color: #ffffff !important;
+        box-shadow: 0 4px 16px rgba(217, 119, 6, 0.35);
+    }
+
+    .btn-plan-featured:hover {
+        background: linear-gradient(135deg, #b45309 0%, #92400e 100%);
+        transform: translateY(-2px);
+        box-shadow: 0 6px 22px rgba(180, 83, 9, 0.45);
     }
 
     @media (max-width: 860px) {
-        .membership-grid { grid-template-columns: 1fr; margin-top: 20px; }
+        .membership-grid { grid-template-columns: 1fr; margin-top: 20px; gap: 20px; }
     }
 </style>
 @endsection
@@ -118,8 +164,8 @@
                     @endforeach
                 </ul>
 
-                <a href="{{ route('contact') }}?subject={{ urlencode($plan->title . ' মেম্বারশিপ আবেদন') }}" class="btn {{ $plan->slug === 'two-years' ? 'btn-gold' : 'btn-primary' }}" style="width: 100%; font-size: 16px;">
-                    মেম্বারশিপ নিন →
+                <a href="{{ route('contact') }}?subject={{ urlencode($plan->title . ' মেম্বারশিপ আবেদন') }}" class="btn-plan-action {{ $plan->slug === 'two-years' ? 'btn-plan-featured' : 'btn-plan-standard' }}">
+                    <i class="bi bi-star-fill"></i> মেম্বারশিপ নিন →
                 </a>
             </div>
         @endforeach

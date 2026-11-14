@@ -160,60 +160,95 @@
 
     .reference-actions {
         display: flex;
-        gap: 12px;
-        flex-wrap: wrap;
-        max-width: 520px;
+        flex-direction: column;
+        gap: 10px;
+        width: 100%;
+        max-width: 540px;
     }
 
-    .ebook-action {
-        flex: 1;
-        min-width: 140px;
-        text-align: center;
-        padding: 12px 18px;
-        border-radius: var(--sp-radius-pill);
-        text-decoration: none;
-        font-size: 14.5px;
-        font-weight: 700;
-        background: var(--sp-burgundy);
-        color: #ffffff !important;
-        border: 0;
-        transition: all 0.2s ease;
-        display: inline-flex;
-        align-items: center;
-        justify-content: center;
+    .book-action-row {
+        display: grid;
+        grid-template-columns: 1fr 1fr 1fr;
         gap: 8px;
-        box-shadow: 0 4px 10px rgba(139, 38, 59, 0.2);
+        width: 100%;
     }
 
-    .ebook-action:hover {
-        background: var(--sp-burgundy-dark);
-        transform: translateY(-2px);
+    @media (max-width: 480px) {
+        .book-action-row {
+            grid-template-columns: 1fr;
+            gap: 8px;
+        }
     }
 
-    .hardcopy-action {
-        flex: 1;
-        min-width: 140px;
-        text-align: center;
-        padding: 12px 18px;
-        border-radius: var(--sp-radius-pill);
-        font-size: 14.5px;
-        font-weight: 700;
+    .btn-action-primary {
         background: var(--sp-crimson);
         color: #ffffff !important;
         border: 0;
+        padding: 10px 12px;
+        border-radius: var(--sp-radius-pill);
+        font-size: 13.5px;
+        font-weight: 700;
         cursor: pointer;
         font-family: inherit;
-        transition: all 0.2s ease;
         display: inline-flex;
         align-items: center;
         justify-content: center;
-        gap: 8px;
-        box-shadow: 0 4px 10px rgba(229, 70, 70, 0.25);
+        gap: 6px;
+        transition: all 0.2s ease;
+        box-shadow: 0 3px 10px rgba(13, 148, 136, 0.25);
+        white-space: nowrap;
     }
 
-    .hardcopy-action:hover {
+    .btn-action-primary:hover {
         background: var(--sp-burgundy);
-        transform: translateY(-2px);
+        transform: translateY(-1px);
+        box-shadow: 0 4px 14px rgba(15, 118, 110, 0.35);
+    }
+
+    .btn-action-outline {
+        background: #ffffff;
+        color: var(--sp-crimson) !important;
+        border: 1.5px solid var(--sp-crimson);
+        padding: 9px 12px;
+        border-radius: var(--sp-radius-pill);
+        font-size: 13.5px;
+        font-weight: 700;
+        cursor: pointer;
+        font-family: inherit;
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        gap: 6px;
+        transition: all 0.2s ease;
+        white-space: nowrap;
+    }
+
+    .btn-action-outline:hover {
+        background: #f0fdfa;
+        transform: translateY(-1px);
+    }
+
+    .btn-action-ebook {
+        background: var(--sp-teal);
+        color: #ffffff !important;
+        border: 0;
+        padding: 10px 12px;
+        border-radius: var(--sp-radius-pill);
+        font-size: 13.5px;
+        font-weight: 700;
+        text-decoration: none;
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        gap: 6px;
+        transition: all 0.2s ease;
+        box-shadow: 0 3px 10px rgba(13, 148, 136, 0.2);
+        white-space: nowrap;
+    }
+
+    .btn-action-ebook:hover {
+        background: var(--sp-teal-dark);
+        transform: translateY(-1px);
     }
 
     .preview-action {
@@ -238,36 +273,53 @@
         background: #fff5f6;
     }
 
-    /* Content Tabs & Panels */
+    /* Enhanced Modern Rounded Tabs Navigation */
     .book-tabs {
         display: flex;
-        gap: 10px;
-        background: #ffffff;
-        padding: 14px 24px;
-        border-bottom: 1px solid var(--sp-border);
+        gap: 8px;
+        background: #f8fafc;
+        padding: 8px 14px;
+        border-radius: var(--sp-radius-pill);
+        border: 1px solid var(--sp-border);
         overflow-x: auto;
+        white-space: nowrap;
+        scrollbar-width: none;
+        -ms-overflow-style: none;
+        box-shadow: 0 2px 6px rgba(15, 23, 42, 0.04);
+        margin: 0 16px;
+    }
+
+    .book-tabs::-webkit-scrollbar {
+        display: none;
     }
 
     .book-tab-btn {
         background: transparent;
         border: none;
         padding: 8px 16px;
-        font-size: 14.5px;
+        font-size: 13.5px;
         font-weight: 700;
         color: var(--sp-muted);
         cursor: pointer;
         font-family: inherit;
         border-radius: var(--sp-radius-pill);
-        transition: all 0.2s ease;
+        transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
         display: inline-flex;
         align-items: center;
         gap: 6px;
+        white-space: nowrap;
+        flex-shrink: 0;
     }
 
-    .book-tab-btn.active,
     .book-tab-btn:hover {
         color: var(--sp-burgundy);
-        background: #fff5f6;
+        background: rgba(139, 38, 59, 0.06);
+    }
+
+    .book-tab-btn.active {
+        color: #ffffff !important;
+        background: var(--sp-burgundy) !important;
+        box-shadow: 0 4px 12px rgba(139, 38, 59, 0.3) !important;
     }
 
     .book-panels-wrap {
@@ -384,11 +436,13 @@
         }
 
         .book-tabs {
-            padding: 10px 14px;
+            padding: 6px 8px;
+            margin: 0 10px;
+            gap: 6px;
         }
 
         .book-tab-btn {
-            font-size: 13px;
+            font-size: 12.5px;
             padding: 6px 12px;
         }
 
@@ -429,11 +483,13 @@
         <div class="reference-copy">
             <h1>{{ $book->title }}</h1>
             <div class="reference-author">
-                <span><i class="bi bi-pen"></i> লেখক: <strong>{{ $book->author_name }}</strong></span>
+                <span><i class="bi bi-pen"></i> লেখক: <a href="{{ route('books.index', ['author' => $book->author_name]) }}" style="color:var(--sp-burgundy); text-decoration:underline; font-weight:700;">{{ $book->author_name }}</a></span>
                 @if($book->publisher_name)
                     <span>| <i class="bi bi-building"></i> প্রকাশনী: <strong>{{ $book->publisher_name }}</strong></span>
                 @endif
-                | <i class="bi bi-bookmark"></i> ক্যাটাগরি: <strong>{{ $book->categories->first()?->name ?? 'বই' }}</strong>
+                @if($book->categories->isNotEmpty())
+                    | <i class="bi bi-bookmark"></i> ক্যাটাগরি: <a href="{{ route('books.index', ['category' => $book->categories->first()->slug]) }}" style="color:var(--sp-burgundy); text-decoration:underline; font-weight:700;">{{ $book->categories->first()->name }}</a>
+                @endif
             </div>
 
             <div class="reference-rating">
@@ -473,27 +529,27 @@
                         </a>
                     @endif
                 @else
-                    <!-- হার্ডকপি অর্ডার ও কার্টে যোগ ফরম (Page 7) -->
-                    <form action="{{ route('cart.add') }}" method="POST" style="width:100%; margin:0; display:flex; flex-direction:column; gap:10px;">
+                    <!-- 1 Line Action Controls: হার্ডকপি অর্ডার | কার্টে যোগ | ই-বুক কিনুন -->
+                    <form action="{{ route('cart.add') }}" method="POST" style="width:100%; margin:0;">
                         @csrf
                         <input type="hidden" name="book_id" value="{{ $book->id }}">
                         <input type="hidden" name="format" value="hardcopy">
                         
-                        <!-- সরাসরি হার্ডকপি কিনুন / অর্ডার করুন -->
-                        <button type="submit" name="buy_now" value="1" class="hardcopy-action" style="width:100%; background:var(--sp-burgundy); color:#ffffff !important; border:none; padding:13px 20px; font-size:15px; font-weight:800; border-radius:var(--sp-radius-pill); cursor:pointer; display:flex; align-items:center; justify-content:center; gap:8px; box-shadow:0 4px 14px rgba(15,118,110,0.3); transition:all 0.2s;">
-                            <i class="bi bi-truck"></i> হার্ডকপি অর্ডার করুন (৳{{ number_format($book->hardcopyEffectivePrice()) }})
-                        </button>
+                        <div class="book-action-row">
+                            <!-- হার্ডকপি অর্ডার -->
+                            <button type="submit" name="buy_now" value="1" class="btn-action-primary" title="হার্ডকপি অর্ডার করুন">
+                                <i class="bi bi-truck"></i> হার্ডকপি অর্ডার
+                            </button>
 
-                        <div style="display:flex; gap:10px; width:100%;">
-                            <!-- কার্টে যোগ করুন -->
-                            <button type="submit" style="flex:1; background:#ffffff; color:var(--sp-burgundy) !important; border:1.5px solid var(--sp-burgundy); padding:11px 16px; font-size:14px; font-weight:700; border-radius:var(--sp-radius-pill); cursor:pointer; display:flex; align-items:center; justify-content:center; gap:6px; transition:all 0.2s;">
-                                <i class="bi bi-cart-plus"></i> কার্টে যোগ করুন
+                            <!-- কার্টে যোগ -->
+                            <button type="submit" class="btn-action-outline" title="কার্টে যোগ করুন">
+                                <i class="bi bi-cart-plus"></i> কার্টে যোগ
                             </button>
 
                             @if($book->price_ebook > 0)
                                 <!-- ই-বুক কিনুন -->
-                                <a href="{{ route('checkout', ['type' => 'ebook', 'bookSlug' => $book->slug]) }}" class="ebook-action" style="flex:1; text-align:center; display:flex; align-items:center; justify-content:center; gap:6px; text-decoration:none;">
-                                    <i class="bi bi-tablet"></i> ই-বুক কিনুন (৳{{ number_format($book->ebookEffectivePrice()) }})
+                                <a href="{{ route('checkout', ['type' => 'ebook', 'bookSlug' => $book->slug]) }}" class="btn-action-ebook" title="ডিজিটাল ই-বুক পড়ুন">
+                                    <i class="bi bi-tablet"></i> ই-বুক কিনুন
                                 </a>
                             @endif
                         </div>

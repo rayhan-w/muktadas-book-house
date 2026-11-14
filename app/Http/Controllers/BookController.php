@@ -42,8 +42,13 @@ class BookController extends Controller
         if ($request->filled('category')) {
             $catSlug = $request->category;
             $query->whereHas('categories', function ($q) use ($catSlug) {
-                $q->where('slug', $catSlug);
+                $q->where('slug', $catSlug)->orWhere('name', $catSlug);
             });
+        }
+
+        if ($request->filled('author')) {
+            $authorName = trim($request->author);
+            $query->where('author_name', 'like', "%{$authorName}%");
         }
 
         if ($request->filled('sort')) {

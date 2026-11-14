@@ -178,8 +178,8 @@
     </div>
 
     <!-- Book Rejection Modal -->
-    <div id="rejectBookModal" style="display: none; position: fixed; inset: 0; background: rgba(0,0,0,0.5); z-index: 100; align-items: center; justify-content: center;">
-        <div style="background: #fff; width: 450px; max-width: 90%; border-radius: 12px; padding: 24px; box-shadow: 0 10px 25px rgba(0,0,0,0.2);">
+    <div id="rejectBookModal" style="display: none; position: fixed; inset: 0; background: rgba(0,0,0,0.6); z-index: 1000; align-items: center; justify-content: center; padding: 15px;">
+        <div style="background: #fff; width: 450px; max-width: 100%; max-height: 90vh; overflow-y: auto; border-radius: 12px; padding: 24px 20px; box-shadow: 0 10px 25px rgba(0,0,0,0.2);">
             <h3 style="font-size: 17px; font-weight: 700; color: #0f172a; margin-bottom: 8px;">
                 বইয়ের আবেদন বাতিলকরণ
             </h3>

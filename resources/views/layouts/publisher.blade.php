@@ -326,25 +326,174 @@
             box-shadow: 0 0 0 3px rgba(2, 132, 199, 0.15);
         }
 
-        @media (max-width: 900px) {
-            .sidebar { width: 70px; }
-            .sidebar-brand span, .sidebar-brand small, .nav-label, .sidebar-link span, .sidebar-footer { display: none; }
-            .main-wrapper { margin-left: 70px; }
-            .grid-4, .grid-3, .grid-2 { grid-template-columns: 1fr; }
+        /* Backdrop */
+        .sidebar-backdrop {
+            position: fixed;
+            inset: 0;
+            background: rgba(15, 23, 42, 0.7);
+            backdrop-filter: blur(4px);
+            z-index: 990;
+            opacity: 0;
+            visibility: hidden;
+            transition: opacity 0.3s ease, visibility 0.3s ease;
+        }
+        .sidebar-backdrop.active {
+            opacity: 1;
+            visibility: visible;
+        }
+
+        /* Mobile Menu Toggle Button */
+        .mobile-menu-toggle {
+            display: none;
+            background: #f1f5f9;
+            border: 1px solid var(--pub-border);
+            border-radius: 9px;
+            width: 38px;
+            height: 38px;
+            align-items: center;
+            justify-content: center;
+            font-size: 20px;
+            color: var(--pub-dark);
+            cursor: pointer;
+            margin-right: 10px;
+            transition: all 0.2s ease;
+            flex-shrink: 0;
+        }
+        .mobile-menu-toggle:hover {
+            background: #e2e8f0;
+            color: var(--pub-primary);
+        }
+
+        /* Sidebar Close Button */
+        .sidebar-close-btn {
+            display: none;
+            background: rgba(255, 255, 255, 0.1);
+            border: none;
+            color: #cbd5e1;
+            width: 32px;
+            height: 32px;
+            border-radius: 8px;
+            align-items: center;
+            justify-content: center;
+            font-size: 16px;
+            cursor: pointer;
+            margin-left: auto;
+            transition: 0.2s;
+        }
+        .sidebar-close-btn:hover {
+            background: rgba(255, 255, 255, 0.2);
+            color: #fff;
+        }
+
+        /* Table Responsive */
+        .table-responsive {
+            width: 100%;
+            overflow-x: auto;
+            -webkit-overflow-scrolling: touch;
+            margin-bottom: 1rem;
+        }
+
+        @media (max-width: 991px) {
+            .mobile-menu-toggle {
+                display: inline-flex;
+            }
+            .sidebar-close-btn {
+                display: inline-flex;
+            }
+            .sidebar {
+                position: fixed;
+                top: 0;
+                bottom: 0;
+                left: 0;
+                width: 280px;
+                max-width: 85vw;
+                z-index: 1000;
+                transform: translateX(-100%);
+                transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+                box-shadow: none;
+            }
+            .sidebar.open {
+                transform: translateX(0);
+                box-shadow: 0 10px 40px rgba(0, 0, 0, 0.4);
+            }
+            .main-wrapper {
+                margin-left: 0 !important;
+                width: 100%;
+            }
+            .grid-4 {
+                grid-template-columns: repeat(2, 1fr);
+                gap: 14px;
+            }
+            .grid-3 {
+                grid-template-columns: repeat(2, 1fr);
+                gap: 14px;
+            }
+            .grid-2 {
+                grid-template-columns: 1fr;
+                gap: 14px;
+            }
+            .pub-topbar {
+                padding: 12px 18px;
+            }
+            .content-area {
+                padding: 20px 16px;
+            }
+        }
+
+        @media (max-width: 600px) {
+            .grid-4, .grid-3 {
+                grid-template-columns: 1fr;
+                gap: 12px;
+            }
+            .pub-topbar {
+                padding: 10px 14px;
+            }
+            .topbar-title {
+                font-size: 15px;
+            }
+            .pub-user-meta {
+                display: none;
+            }
+            .pub-user {
+                gap: 8px;
+            }
+            .pub-card {
+                padding: 16px 12px;
+                border-radius: 12px;
+                margin-bottom: 16px;
+            }
+            .card-header {
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 12px;
+            }
+            .data-table {
+                min-width: 620px;
+            }
+            .data-table th, .data-table td {
+                padding: 10px 10px;
+                font-size: 13px;
+            }
         }
     </style>
     @yield('styles')
 </head>
 <body>
 
+    <!-- Mobile Drawer Backdrop -->
+    <div class="sidebar-backdrop" id="pubSidebarBackdrop"></div>
+
     <!-- Sidebar -->
-    <aside class="sidebar">
+    <aside class="sidebar" id="pubSidebar">
         <div class="sidebar-brand">
             <i class="bi bi-buildings" style="font-size: 20px; color: #38bdf8;"></i>
             <div>
                 <span>মুক্তাদার বইঘর</span>
                 <small>পাবলিশার কর্নার</small>
             </div>
+            <button type="button" class="sidebar-close-btn" id="pubSidebarCloseBtn" aria-label="মেনু বন্ধ করুন">
+                <i class="bi bi-x-lg"></i>
+            </button>
         </div>
 
         <nav class="sidebar-nav">
@@ -386,11 +535,16 @@
     <!-- Main Wrapper -->
     <div class="main-wrapper">
         <header class="pub-topbar">
-            <div class="topbar-title">@yield('page_title', 'পাবলিশার ড্যাশবোর্ড')</div>
+            <div style="display: flex; align-items: center; min-width: 0;">
+                <button type="button" class="mobile-menu-toggle" id="pubSidebarToggleBtn" aria-label="মেনু খুলুন">
+                    <i class="bi bi-list"></i>
+                </button>
+                <div class="topbar-title">@yield('page_title', 'পাবলিশার ড্যাশবোর্ড')</div>
+            </div>
 
             <div class="pub-user">
-                <div>
-                    <div style="font-weight: 700;">{{ Auth::user()->publisher_company ?: Auth::user()->name }}</div>
+                <div class="pub-user-meta">
+                    <div style="font-weight: 700; line-height: 1.2;">{{ Auth::user()->publisher_company ?: Auth::user()->name }}</div>
                     <div style="display: flex; align-items: center; gap: 8px; margin-top: 2px;">
                         @if(Auth::user()->isExpiredPublisher())
                             <span class="status-badge" style="background:#fee2e2; color:#991b1b; padding: 3px 10px; border-radius: 999px; font-size: 12px; font-weight: 700; display: inline-flex; align-items: center; gap: 4px;">
@@ -429,6 +583,43 @@
             @yield('content')
         </div>
     </div>
+
+    <script>
+        (function() {
+            var sidebar = document.getElementById('pubSidebar');
+            var backdrop = document.getElementById('pubSidebarBackdrop');
+            var toggleBtn = document.getElementById('pubSidebarToggleBtn');
+            var closeBtn = document.getElementById('pubSidebarCloseBtn');
+
+            function openSidebar() {
+                if (sidebar) sidebar.classList.add('open');
+                if (backdrop) backdrop.classList.add('active');
+                document.body.style.overflow = 'hidden';
+            }
+
+            function closeSidebar() {
+                if (sidebar) sidebar.classList.remove('open');
+                if (backdrop) backdrop.classList.remove('active');
+                document.body.style.overflow = '';
+            }
+
+            if (toggleBtn) toggleBtn.addEventListener('click', openSidebar);
+            if (closeBtn) closeBtn.addEventListener('click', closeSidebar);
+            if (backdrop) backdrop.addEventListener('click', closeSidebar);
+
+            // Close on Escape key
+            document.addEventListener('keydown', function(e) {
+                if (e.key === 'Escape') closeSidebar();
+            });
+
+            // Auto close if screen enlarged
+            window.addEventListener('resize', function() {
+                if (window.innerWidth > 991) {
+                    closeSidebar();
+                }
+            });
+        })();
+    </script>
 
     @yield('scripts')
 </body>

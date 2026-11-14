@@ -166,8 +166,8 @@
     </div>
 
     <!-- Approval / Renewal Modal -->
-    <div id="approveModal" style="display: none; position: fixed; inset: 0; background: rgba(0,0,0,0.5); z-index: 100; align-items: center; justify-content: center;">
-        <div style="background: #fff; width: 480px; max-width: 90%; border-radius: 14px; padding: 26px; box-shadow: 0 10px 30px rgba(0,0,0,0.25);">
+    <div id="approveModal" style="display: none; position: fixed; inset: 0; background: rgba(0,0,0,0.6); z-index: 1000; align-items: center; justify-content: center; padding: 15px;">
+        <div style="background: #fff; width: 480px; max-width: 100%; max-height: 90vh; overflow-y: auto; border-radius: 14px; padding: 24px 20px; box-shadow: 0 10px 30px rgba(0,0,0,0.25);">
             <h3 style="font-size: 18px; font-weight: 700; color: #0f172a; margin-bottom: 6px; display: flex; align-items: center; gap: 8px;">
                 <i class="bi bi-patch-check-fill" style="color: #10b981;"></i> প্রকাশনী অনুমোদন ও মেয়াদ নির্ধারণ
             </h3>
@@ -213,8 +213,8 @@
     </div>
 
     <!-- Rejection Modal -->
-    <div id="rejectModal" style="display: none; position: fixed; inset: 0; background: rgba(0,0,0,0.5); z-index: 100; align-items: center; justify-content: center;">
-        <div style="background: #fff; width: 450px; max-width: 90%; border-radius: 12px; padding: 24px; box-shadow: 0 10px 25px rgba(0,0,0,0.2);">
+    <div id="rejectModal" style="display: none; position: fixed; inset: 0; background: rgba(0,0,0,0.6); z-index: 1000; align-items: center; justify-content: center; padding: 15px;">
+        <div style="background: #fff; width: 450px; max-width: 100%; max-height: 90vh; overflow-y: auto; border-radius: 12px; padding: 24px 20px; box-shadow: 0 10px 25px rgba(0,0,0,0.2);">
             <h3 style="font-size: 17px; font-weight: 700; color: #0f172a; margin-bottom: 8px;">
                 প্রকাশনী বাতিলকরণ
             </h3>

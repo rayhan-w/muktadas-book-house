@@ -15,6 +15,7 @@
                 </a>
             </div>
 
+            <div style="overflow-x: auto; -webkit-overflow-scrolling: touch;">
             <table class="data-table" style="margin-bottom: 20px;">
                 <thead>
                     <tr>
@@ -64,6 +65,7 @@
                     </tr>
                 </tfoot>
             </table>
+            </div>
 
             <!-- Customer & Delivery -->
             <div style="background: #f8fafc; border: 1px solid var(--admin-border); border-radius: 8px; padding: 18px; font-size: 14px;">

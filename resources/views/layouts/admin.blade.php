@@ -407,28 +407,169 @@
         .alert-success { background: #dcfce7; color: #166534; border: 1px solid #bbf7d0; }
         .alert-error { background: #fee2e2; color: #991b1b; border: 1px solid #fecaca; }
 
-        @media (max-width: 900px) {
-            .sidebar { width: 70px; }
-            .sidebar-brand span, .brand-text, .nav-label, .sidebar-link span, .sidebar-footer span, .sidebar-link .badge-count { display: none; }
-            .sidebar-link { justify-content: center; padding: 10px; }
-            .sidebar-link .nav-icon { margin: 0; }
-            .main-wrapper { margin-left: 70px; }
-            .grid-4, .grid-3, .grid-2 { grid-template-columns: 1fr; }
+        /* Backdrop */
+        .sidebar-backdrop {
+            position: fixed;
+            inset: 0;
+            background: rgba(15, 23, 42, 0.7);
+            backdrop-filter: blur(4px);
+            z-index: 990;
+            opacity: 0;
+            visibility: hidden;
+            transition: opacity 0.3s ease, visibility 0.3s ease;
+        }
+        .sidebar-backdrop.active {
+            opacity: 1;
+            visibility: visible;
+        }
+
+        /* Mobile Menu Toggle Button */
+        .mobile-menu-toggle {
+            display: none;
+            background: #f1f5f9;
+            border: 1px solid var(--admin-border);
+            border-radius: 9px;
+            width: 38px;
+            height: 38px;
+            align-items: center;
+            justify-content: center;
+            font-size: 20px;
+            color: var(--admin-dark);
+            cursor: pointer;
+            margin-right: 10px;
+            transition: all 0.2s ease;
+            flex-shrink: 0;
+        }
+        .mobile-menu-toggle:hover {
+            background: #e2e8f0;
+            color: var(--admin-primary);
+        }
+
+        /* Sidebar Close Button */
+        .sidebar-close-btn {
+            display: none;
+            background: rgba(255, 255, 255, 0.1);
+            border: none;
+            color: #cbd5e1;
+            width: 32px;
+            height: 32px;
+            border-radius: 8px;
+            align-items: center;
+            justify-content: center;
+            font-size: 16px;
+            cursor: pointer;
+            margin-left: auto;
+            transition: 0.2s;
+        }
+        .sidebar-close-btn:hover {
+            background: rgba(255, 255, 255, 0.2);
+            color: #fff;
+        }
+
+        /* Table Container Responsive Wrapper */
+        .table-responsive {
+            width: 100%;
+            overflow-x: auto;
+            -webkit-overflow-scrolling: touch;
+            margin-bottom: 1rem;
+        }
+
+        @media (max-width: 991px) {
+            .mobile-menu-toggle {
+                display: inline-flex;
+            }
+            .sidebar-close-btn {
+                display: inline-flex;
+            }
+            .sidebar {
+                position: fixed;
+                top: 0;
+                bottom: 0;
+                left: 0;
+                width: 280px;
+                max-width: 85vw;
+                z-index: 1000;
+                transform: translateX(-100%);
+                transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+                box-shadow: none;
+            }
+            .sidebar.open {
+                transform: translateX(0);
+                box-shadow: 0 10px 40px rgba(0, 0, 0, 0.4);
+            }
+            .main-wrapper {
+                margin-left: 0 !important;
+                width: 100%;
+            }
+            .grid-4 {
+                grid-template-columns: repeat(2, 1fr);
+                gap: 14px;
+            }
+            .grid-3 {
+                grid-template-columns: repeat(2, 1fr);
+                gap: 14px;
+            }
+            .grid-2 {
+                grid-template-columns: 1fr;
+                gap: 14px;
+            }
+            .admin-topbar {
+                padding: 12px 18px;
+            }
+            .content-area {
+                padding: 20px 16px;
+            }
         }
 
         @media (max-width: 600px) {
-            .content-area { padding: 16px 12px; }
-            .admin-topbar { padding: 12px 14px; }
-            .topbar-title { font-size: 15px; }
-            .admin-card { padding: 16px 14px; }
+            .grid-4, .grid-3 {
+                grid-template-columns: 1fr;
+                gap: 12px;
+            }
+            .admin-topbar {
+                padding: 10px 14px;
+            }
+            .topbar-title {
+                font-size: 15px;
+                gap: 8px;
+            }
+            .admin-name-role {
+                display: none;
+            }
+            .admin-user {
+                gap: 8px;
+            }
+            .admin-user form {
+                margin-left: 6px !important;
+            }
+            .admin-card {
+                padding: 16px 12px;
+                border-radius: 12px;
+                margin-bottom: 16px;
+            }
+            .card-header {
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 12px;
+            }
+            .data-table {
+                min-width: 620px;
+            }
+            .data-table th, .data-table td {
+                padding: 10px 10px;
+                font-size: 13px;
+            }
         }
     </style>
     @yield('styles')
 </head>
 <body>
 
+    <!-- Mobile Drawer Backdrop -->
+    <div class="sidebar-backdrop" id="sidebarBackdrop"></div>
+
     <!-- Sidebar -->
-    <aside class="sidebar">
+    <aside class="sidebar" id="adminSidebar">
         <div class="sidebar-brand">
             <div class="brand-icon">
                 <i class="bi bi-book-half"></i>
@@ -437,6 +578,9 @@
                 <div style="font-weight: 700; font-size: 16px; color: #fff; line-height: 1.2;">মুক্তাদার বইঘর</div>
                 <small style="font-size: 11px; color: #94a3b8; font-weight: 500; display: block; margin-top: 2px;">অ্যাডমিন কন্ট্রোল</small>
             </div>
+            <button type="button" class="sidebar-close-btn" id="sidebarCloseBtn" aria-label="মেনু বন্ধ করুন">
+                <i class="bi bi-x-lg"></i>
+            </button>
         </div>
 
         <nav class="sidebar-nav">
@@ -520,23 +664,28 @@
     <!-- Main Wrapper -->
     <div class="main-wrapper">
         <header class="admin-topbar">
-            <div class="topbar-title">
-                <i class="bi bi-grid-fill" style="color: var(--admin-primary); font-size: 19px;"></i>
-                @yield('page_title', 'অ্যাডমিন ড্যাশবোর্ড')
+            <div style="display: flex; align-items: center; min-width: 0;">
+                <button type="button" class="mobile-menu-toggle" id="sidebarToggleBtn" aria-label="মেনু খুলুন">
+                    <i class="bi bi-list"></i>
+                </button>
+                <div class="topbar-title">
+                    <i class="bi bi-grid-fill" style="color: var(--admin-primary); font-size: 19px;"></i>
+                    <span>@yield('page_title', 'অ্যাডমিন ড্যাশবোর্ড')</span>
+                </div>
             </div>
 
             <div class="admin-user">
                 <div class="admin-avatar">
                     <i class="bi bi-person-fill"></i>
                 </div>
-                <div>
-                    <div>{{ Auth::user()?->name ?? 'অ্যাডমিন' }}</div>
-                    <small style="color: var(--admin-muted); display: block; line-height: 1;">সুপার অ্যাডমিন</small>
+                <div class="admin-name-role">
+                    <div style="line-height: 1.2;">{{ Auth::user()?->name ?? 'অ্যাডমিন' }}</div>
+                    <small style="color: var(--admin-muted); display: block; line-height: 1; margin-top: 2px;">সুপার অ্যাডমিন</small>
                 </div>
-                <form action="{{ route('logout') }}" method="POST" style="margin-left: 15px;">
+                <form action="{{ route('logout') }}" method="POST" style="margin-left: 12px;">
                     @csrf
-                    <button type="submit" class="btn-sm btn-gray">
-                        <i class="bi bi-box-arrow-right"></i> <span>লগআউট</span>
+                    <button type="submit" class="btn-sm btn-gray" title="লগআউট">
+                        <i class="bi bi-box-arrow-right"></i> <span class="admin-name-role">লগআউট</span>
                     </button>
                 </form>
             </div>
@@ -553,6 +702,43 @@
             @yield('content')
         </div>
     </div>
+
+    <script>
+        (function() {
+            var sidebar = document.getElementById('adminSidebar');
+            var backdrop = document.getElementById('sidebarBackdrop');
+            var toggleBtn = document.getElementById('sidebarToggleBtn');
+            var closeBtn = document.getElementById('sidebarCloseBtn');
+
+            function openSidebar() {
+                if (sidebar) sidebar.classList.add('open');
+                if (backdrop) backdrop.classList.add('active');
+                document.body.style.overflow = 'hidden';
+            }
+
+            function closeSidebar() {
+                if (sidebar) sidebar.classList.remove('open');
+                if (backdrop) backdrop.classList.remove('active');
+                document.body.style.overflow = '';
+            }
+
+            if (toggleBtn) toggleBtn.addEventListener('click', openSidebar);
+            if (closeBtn) closeBtn.addEventListener('click', closeSidebar);
+            if (backdrop) backdrop.addEventListener('click', closeSidebar);
+
+            // Close when pressing Escape key
+            document.addEventListener('keydown', function(e) {
+                if (e.key === 'Escape') closeSidebar();
+            });
+
+            // Automatically close if screen resized above 991px
+            window.addEventListener('resize', function() {
+                if (window.innerWidth > 991) {
+                    closeSidebar();
+                }
+            });
+        })();
+    </script>
 
     @yield('scripts')
 </body>

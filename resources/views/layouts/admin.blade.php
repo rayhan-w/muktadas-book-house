@@ -293,6 +293,13 @@
             .main-wrapper { margin-left: 70px; }
             .grid-4, .grid-3, .grid-2 { grid-template-columns: 1fr; }
         }
+
+        @media (max-width: 600px) {
+            .content-area { padding: 16px 12px; }
+            .admin-topbar { padding: 12px 14px; }
+            .topbar-title { font-size: 15px; }
+            .admin-card { padding: 16px 14px; }
+        }
     </style>
     @yield('styles')
 </head>

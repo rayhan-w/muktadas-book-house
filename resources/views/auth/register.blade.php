@@ -224,11 +224,22 @@
             </div>
 
             <button type="submit" class="auth-submit-btn">
-                অ্যাকাউন্ট তৈরি করুন <i class="bi bi-arrow-right ms-1"></i>
+                পাঠক অ্যাকাউন্ট তৈরি করুন <i class="bi bi-arrow-right ms-1"></i>
             </button>
         </form>
 
-        <div style="text-align: center; margin-top: 22px; font-size: 13.5px; color: var(--sp-muted);">
+        <!-- Publisher Notice & Direct Link -->
+        <div style="margin-top: 22px; padding: 14px 16px; background: #f0f9ff; border: 1px dashed #7dd3fc; border-radius: 12px; text-align: center; font-size: 13px; color: #0369a1; line-height: 1.5;">
+            <div>🏢 <strong>আপনি কি কোনো প্রকাশনী বা বই বিক্রেতা?</strong></div>
+            <div style="margin-top: 4px;">
+                পাঠক অ্যাকাউন্টে বই আপলোড করা যায় না। আপনার প্রকাশনীর বই বিক্রির জন্য
+                <a href="{{ route('publisher.register') }}" style="color: #0284c7; font-weight: 800; text-decoration: underline;">
+                    প্রকাশক হিসেবে নিবন্ধন করুন →
+                </a>
+            </div>
+        </div>
+
+        <div style="text-align: center; margin-top: 20px; font-size: 13.5px; color: var(--sp-muted);">
             ইতিমধ্যে অ্যাকাউন্ট আছে? <a href="{{ route('login') }}" style="color: var(--sp-burgundy); font-weight: 800; text-decoration: none;">সরাসরি লগইন করুন →</a>
         </div>
     </div>

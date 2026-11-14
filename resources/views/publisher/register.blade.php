@@ -150,6 +150,9 @@
                 <div style="text-align: center; margin-top: 24px; font-size: 14px; color: #64748b;">
                     ইতিমধ্যে প্রকাশক অ্যাকাউন্ট আছে? 
                     <a href="{{ route('login') }}" style="color: #0284c7; font-weight: 700; text-decoration: none;">লগইন করুন</a>
+                    <span style="margin: 0 8px; color: #cbd5e1;">|</span>
+                    সাধারণ পাঠক হিসেবে বই কিনতে চান? 
+                    <a href="{{ route('register') }}" style="color: #0284c7; font-weight: 700; text-decoration: none;">পাঠক নিবন্ধন</a>
                 </div>
             </div>
 

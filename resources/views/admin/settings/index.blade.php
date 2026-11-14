@@ -111,8 +111,40 @@
             </div>
         </div>
 
+        <hr style="border: none; border-top: 1px solid var(--admin-border); margin: 25px 0;">
+
+        <!-- 5. Admin Security & Password Change -->
+        <h3 style="font-size: 16px; margin-bottom: 6px; color: var(--admin-primary); display: flex; align-items: center; gap: 8px;">
+            <i class="bi bi-shield-lock-fill"></i> ৫. অ্যাডমিন প্রোফাইল ও পাসওয়ার্ড পরিবর্তন
+        </h3>
+        <p style="font-size: 13px; color: var(--admin-muted); margin-bottom: 14px;">
+            আপনার অ্যাডমিন প্যানেলের নাম, লগইন ইমেইল অথবা পাসওয়ার্ড পরিবর্তন করতে পারেন। পাসওয়ার্ড পরিবর্তন না করতে চাইলে পাসওয়ার্ডের ঘর দুটি ফাঁকা রাখুন।
+        </p>
+
+        <div class="grid-2">
+            <div class="form-group">
+                <label class="form-label">অ্যাডমিনের নাম</label>
+                <input type="text" name="admin_name" value="{{ old('admin_name', $admin?->name ?? 'অ্যাডমিন মুক্তাদা') }}" class="form-control">
+            </div>
+            <div class="form-group">
+                <label class="form-label">অ্যাডমিন লগইন ইমেইল</label>
+                <input type="email" name="admin_email" value="{{ old('admin_email', $admin?->email ?? 'admin@muktadasbookhouse.com') }}" class="form-control">
+            </div>
+        </div>
+
+        <div class="grid-2">
+            <div class="form-group">
+                <label class="form-label">নতুন পাসওয়ার্ড (ঐচ্ছিক — পরিবর্তন করতে চাইলে লিখুন)</label>
+                <input type="password" name="admin_password" class="form-control" placeholder="কমপক্ষে ৬ অক্ষরের নতুন পাসওয়ার্ড">
+            </div>
+            <div class="form-group">
+                <label class="form-label">নতুন পাসওয়ার্ড নিশ্চিতকরণ (Confirm Password)</label>
+                <input type="password" name="admin_password_confirmation" class="form-control" placeholder="পুনরায় নতুন পাসওয়ার্ড লিখুন">
+            </div>
+        </div>
+
         <button type="submit" class="btn-sm btn-blue" style="padding: 14px 28px; font-size: 16px; margin-top: 10px;">
-            ✓ সেটিংস আপডেট করুন
+            <i class="bi bi-check-circle-fill"></i> সেটিংস ও প্রোফাইল আপডেট করুন
         </button>
     </form>
 </div>

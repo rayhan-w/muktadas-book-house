@@ -56,7 +56,23 @@
     <!-- Newsletter Subscribers -->
     <div class="admin-card">
         <div class="card-header">
-            <h2>নিউজলেটার সাবস্ক্রাইবার তালিকা ({{ $subscribers->count() }})</h2>
+            <div>
+                <h2>নিউজলেটার সাবস্ক্রাইবার তালিকা ({{ $subscribers->count() }})</h2>
+                <small style="color: var(--admin-muted);">পাবলিক সাইটের ফুটার থেকে পাঠকরা সাবস্ক্রাইব করলে এখানে জমা হয়।</small>
+            </div>
+            @if($subscribers->isNotEmpty())
+                @php
+                    $allEmails = $subscribers->pluck('email')->join(',');
+                @endphp
+                <div style="display: flex; gap: 8px;">
+                    <button type="button" class="btn-sm btn-blue" onclick="navigator.clipboard.writeText('{{ $allEmails }}'); alert('সকল ইমেইল ক্লিপবোর্ডে কপি করা হয়েছে!');">
+                        <i class="bi bi-clipboard-check"></i> সব ইমেইল কপি
+                    </button>
+                    <a href="mailto:{{ $subscribers->first()->email }}?bcc={{ $allEmails }}&subject={{ urlencode('মুক্তাদার বইঘর — নতুন বই ও অফার') }}" class="btn-sm btn-green">
+                        <i class="bi bi-envelope-paper"></i> ইমেইল পাঠান
+                    </a>
+                </div>
+            @endif
         </div>
 
         @if($subscribers->isEmpty())

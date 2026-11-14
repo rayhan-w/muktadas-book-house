@@ -42,6 +42,7 @@ class BookController extends Controller
             'title' => 'required|string|max:255',
             'slug' => 'nullable|string|max:255|unique:books,slug',
             'author_name' => 'required|string|max:255',
+            'publisher_name' => 'nullable|string|max:255',
             'summary' => 'nullable|string',
             'story_behind' => 'nullable|string',
             'publication_year' => 'nullable|string|max:50',
@@ -77,6 +78,7 @@ class BookController extends Controller
             'title' => $validated['title'],
             'slug' => $slug,
             'author_name' => $validated['author_name'],
+            'publisher_name' => $request->filled('publisher_name') ? trim($request->publisher_name) : null,
             'summary' => $validated['summary'] ?? null,
             'story_behind' => $validated['story_behind'] ?? null,
             'publication_year' => $validated['publication_year'] ?? null,
@@ -98,6 +100,7 @@ class BookController extends Controller
             'meta_keywords' => $validated['meta_keywords'] ?? null,
             'video_url' => $validated['video_url'] ?? null,
             'is_published' => true,
+            'approval_status' => 'approved',
         ];
 
         if ($request->hasFile('cover_image')) {
@@ -136,6 +139,7 @@ class BookController extends Controller
             'title' => 'required|string|max:255',
             'slug' => 'required|string|max:255|unique:books,slug,' . $book->id,
             'author_name' => 'required|string|max:255',
+            'publisher_name' => 'nullable|string|max:255',
             'summary' => 'nullable|string',
             'story_behind' => 'nullable|string',
             'publication_year' => 'nullable|string|max:50',
@@ -166,6 +170,7 @@ class BookController extends Controller
             'title' => $validated['title'],
             'slug' => Str::slug($validated['slug']),
             'author_name' => $validated['author_name'],
+            'publisher_name' => $request->filled('publisher_name') ? trim($request->publisher_name) : null,
             'summary' => $validated['summary'] ?? null,
             'story_behind' => $validated['story_behind'] ?? null,
             'publication_year' => $validated['publication_year'] ?? null,

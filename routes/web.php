@@ -170,8 +170,11 @@ Route::middleware(['auth', 'admin'])->prefix('admin')->name('admin.')->group(fun
     Route::get('settings', [AdminSettingController::class, 'index'])->name('settings.index');
     Route::post('settings', [AdminSettingController::class, 'update'])->name('settings.update');
 
-    // Customers
+    // Customers & Users Management
     Route::get('customers', [AdminCustomerController::class, 'index'])->name('customers.index');
+    Route::get('customers/{user}/edit', [AdminCustomerController::class, 'edit'])->name('customers.edit');
+    Route::put('customers/{user}', [AdminCustomerController::class, 'update'])->name('customers.update');
+    Route::delete('customers/{user}', [AdminCustomerController::class, 'destroy'])->name('customers.destroy');
 
     // Contact Inquiries & Newsletter
     Route::get('contacts', [AdminContactController::class, 'index'])->name('contacts.index');

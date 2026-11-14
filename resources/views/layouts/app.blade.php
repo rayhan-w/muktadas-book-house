@@ -132,6 +132,33 @@
     @if(!request()->routeIs('checkout*'))
     <!-- Footer matching SahojPath -->
     <footer class="site-footer" id="contact">
+        <!-- Newsletter Strip -->
+        <div style="background: rgba(255, 255, 255, 0.04); border-bottom: 1px solid rgba(255, 255, 255, 0.08); padding: 22px 20px;">
+            <div style="max-width: 1200px; margin: 0 auto; display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 16px;">
+                <div style="display: flex; align-items: center; gap: 14px;">
+                    <div style="width: 44px; height: 44px; border-radius: 12px; background: rgba(251, 191, 36, 0.15); color: #fbbf24; display: flex; align-items: center; justify-content: center; font-size: 22px; flex-shrink: 0;">
+                        <i class="bi bi-envelope-paper-heart-fill"></i>
+                    </div>
+                    <div>
+                        <b style="color: #ffffff; font-size: 16px; display: block; line-height: 1.3;">নতুন বই ও বিশেষ ছাড়ের আপডেট পেতে চান?</b>
+                        <small style="color: #94a3b8; font-size: 13px;">আমাদের নিউজলেটারে সাবস্ক্রাইব করুন, সরাসরি আপনার ইমেইলে পেয়ে যাবেন আকর্ষণীয় অফার।</small>
+                    </div>
+                </div>
+                <form action="{{ route('newsletter.subscribe') }}" method="POST" style="display: flex; gap: 8px; flex: 1; max-width: 440px; min-width: 260px;">
+                    @csrf
+                    <input type="email" name="email" required placeholder="আপনার ইমেইল অ্যাড্রেস লিখুন..." style="flex: 1; padding: 10px 14px; border-radius: 8px; border: 1px solid rgba(255,255,255,0.2); background: rgba(255,255,255,0.08); color: #ffffff; font-size: 13.5px; outline: none;">
+                    <button type="submit" style="background: #16a34a; color: #ffffff; border: none; padding: 10px 18px; border-radius: 8px; font-weight: 700; font-size: 14px; cursor: pointer; white-space: nowrap; transition: 0.2s; display: inline-flex; align-items: center; gap: 6px;">
+                        <i class="bi bi-send-fill"></i> সাবস্ক্রাইব
+                    </button>
+                </form>
+            </div>
+            @if(session('newsletter_success'))
+                <div style="max-width: 1200px; margin: 12px auto 0; background: #dcfce7; color: #166534; padding: 10px 14px; border-radius: 8px; font-size: 13.5px; font-weight: 600;">
+                    ✓ {{ session('newsletter_success') }}
+                </div>
+            @endif
+        </div>
+
         <div class="footer-inner">
             <div class="footer-brand">
                 <div style="display:flex; align-items:center; gap:12px; margin-bottom:12px;">

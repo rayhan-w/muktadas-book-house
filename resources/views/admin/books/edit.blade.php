@@ -54,6 +54,13 @@
             </div>
         </div>
 
+        <div class="form-group">
+            <label class="form-label">
+                <i class="bi bi-buildings"></i> প্রকাশনীর নাম (ঐচ্ছিক — ফাঁকা রাখলে সাইটের নিজস্ব "মুক্তাদার বইঘর" হিসেবে প্রদর্শিত হবে)
+            </label>
+            <input type="text" name="publisher_name" value="{{ old('publisher_name', $book->publisher_name) }}" class="form-control" placeholder="যেমন: অন্যপ্রকাশ, ঐতিহ্য, ইত্যাদি (ফাঁকা রাখলে মুক্তাদার বইঘর)">
+        </div>
+
         <!-- Categories -->
         <div class="form-group">
             <label class="form-label">বইয়ের ক্যাটাগরি *</label>

@@ -5,11 +5,14 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use App\Models\SiteSetting;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Hash;
 
 class SettingController extends Controller
 {
     public function index()
     {
+        $admin = Auth::user();
         $settings = [
             'site_name' => SiteSetting::get('site_name', 'মুক্তাদার বইঘর | Muktada\'s Boighor'),
             'site_tagline' => SiteSetting::get('site_tagline', 'জ্ঞানের আলোয় নতুন পথচলা — ভালো বই, সুন্দর ভাবনা'),
@@ -27,11 +30,13 @@ class SettingController extends Controller
             'youtube_url' => SiteSetting::get('youtube_url', ''),
         ];
 
-        return view('admin.settings.index', compact('settings'));
+        return view('admin.settings.index', compact('settings', 'admin'));
     }
 
     public function update(Request $request)
     {
+        $admin = Auth::user();
+
         $validated = $request->validate([
             'site_name' => 'required|string|max:200',
             'site_tagline' => 'nullable|string|max:300',
@@ -47,11 +52,23 @@ class SettingController extends Controller
             'whatsapp_number' => 'nullable|string|max:50',
             'youtube_url' => 'nullable|string|max:200',
             'author_photo' => 'nullable|image|max:2048',
+            'admin_name' => 'nullable|string|max:100',
+            'admin_email' => 'nullable|email|max:120|unique:users,email,' . ($admin ? $admin->id : 0),
+            'admin_password' => 'nullable|string|min:6|confirmed',
+        ], [
+            'admin_password.min' => 'অ্যাডমিন নতুন পাসওয়ার্ড কমপক্ষে ৬ অক্ষরের হতে হবে।',
+            'admin_password.confirmed' => 'নতুন পাসওয়ার্ড নিশ্চিতকরণ মেলেনি।',
         ]);
 
-        foreach ($validated as $key => $val) {
-            if ($key !== 'author_photo') {
-                SiteSetting::set($key, (string) $val);
+        $settingKeys = [
+            'site_name', 'site_tagline', 'author_name', 'author_bio', 'author_quote',
+            'delivery_charge_dhaka', 'delivery_charge_outside', 'contact_email',
+            'contact_phone', 'contact_address', 'facebook_url', 'whatsapp_number', 'youtube_url'
+        ];
+
+        foreach ($settingKeys as $key) {
+            if (isset($validated[$key])) {
+                SiteSetting::set($key, (string) $validated[$key]);
             }
         }
 
@@ -61,6 +78,20 @@ class SettingController extends Controller
             SiteSetting::set('author_photo', $photoName);
         }
 
-        return back()->with('success', 'সকল ওয়েবসাইট ও বিজনেস সেটিংস সফলভাবে আপডেট করা হয়েছে।');
+        // Update Admin Credentials if provided
+        if ($admin) {
+            if (!empty($validated['admin_name'])) {
+                $admin->name = $validated['admin_name'];
+            }
+            if (!empty($validated['admin_email'])) {
+                $admin->email = $validated['admin_email'];
+            }
+            if (!empty($validated['admin_password'])) {
+                $admin->password = Hash::make($validated['admin_password']);
+            }
+            $admin->save();
+        }
+
+        return back()->with('success', 'সকল ওয়েবসাইট, বিজনেস সেটিংস ও অ্যাডমিন প্রোফাইল সফলভাবে আপডেট করা হয়েছে।');
     }
 }

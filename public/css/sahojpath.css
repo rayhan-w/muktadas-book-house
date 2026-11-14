@@ -631,38 +631,86 @@ a {
     height: 40px;
 }
 
+.card-author-row {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 6px;
+    margin-bottom: 8px;
+}
+
 .card-author {
-    font-size: 12.5px;
+    font-size: 12px;
     color: var(--sp-muted);
-    margin-bottom: 6px;
     white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
+    display: flex;
+    align-items: center;
+    gap: 4px;
+    flex: 1;
+    min-width: 0;
+    margin-bottom: 0;
 }
 
 .card-rating {
     display: flex;
     align-items: center;
-    gap: 4px;
-    margin-bottom: 10px;
-    font-size: 12px;
+    gap: 2px;
+    font-size: 11px;
     color: #eab308;
+    white-space: nowrap;
+    flex-shrink: 0;
+    margin-bottom: 0;
 }
 
 .card-rating span {
     color: var(--sp-muted);
     font-weight: 600;
     margin-left: 2px;
+    font-size: 10.5px;
 }
 
-/* Dual Price Group */
+/* Dual Price Group: Clean side-by-side equal format pills */
 .card-price-group {
-    display: flex;
-    align-items: center;
-    gap: 8px;
-    flex-wrap: wrap;
-    margin-bottom: 14px;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 6px;
+    margin-bottom: 12px;
     margin-top: auto;
+}
+
+.price-format-pill {
+    background: #f8fafc;
+    border: 1px solid var(--sp-border);
+    border-radius: var(--sp-radius-sm);
+    padding: 5px 6px;
+    text-align: center;
+    line-height: 1.25;
+    transition: all 0.2s ease;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.price-format-pill:hover {
+    border-color: var(--sp-teal);
+    background: #ffffff;
+}
+
+.price-format-pill .pill-kind {
+    display: block;
+    font-size: 10px;
+    color: var(--sp-muted);
+    font-weight: 600;
+}
+
+.price-format-pill .pill-val {
+    display: block;
+    color: var(--sp-heading);
+    font-weight: 800;
+    font-size: 12.5px;
+    margin-top: 2px;
 }
 
 .price-pill-ebook {
@@ -685,10 +733,11 @@ a {
 }
 
 .price-original-struck {
-    font-size: 12px;
+    font-size: 10.5px;
     color: #94a3b8;
     text-decoration: line-through;
-    font-weight: 600;
+    font-weight: 500;
+    margin-left: 2px;
 }
 
 /* SahojPath .btn-cart Action Button */

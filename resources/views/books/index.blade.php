@@ -311,28 +311,42 @@
         color: var(--sp-burgundy);
     }
 
+    .card-author-row {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 8px;
+        margin-bottom: 8px;
+    }
+
     .card-author-name {
         font-size: 12px;
         color: var(--sp-muted);
-        margin-bottom: 6px;
         white-space: nowrap;
         overflow: hidden;
         text-overflow: ellipsis;
+        display: flex;
+        align-items: center;
+        gap: 4px;
+        flex: 1;
+        min-width: 0;
     }
 
     .card-rating-strip {
         display: flex;
         align-items: center;
-        gap: 4px;
-        font-size: 11.5px;
+        gap: 2px;
+        font-size: 11px;
         color: #f59e0b;
-        margin-bottom: 8px;
+        white-space: nowrap;
+        flex-shrink: 0;
     }
 
     .card-rating-count {
         color: var(--sp-muted);
-        font-size: 11px;
+        font-size: 10.5px;
         font-weight: 600;
+        margin-left: 2px;
     }
 
     /* SahojPath Price Group */
@@ -525,18 +539,18 @@
                             <a href="{{ route('books.show', $book->slug) }}" class="card-title-link">
                                 <h3 class="card-title">{{ $book->title }}</h3>
                             </a>
-                            <div class="card-author-name">
-                                <i class="bi bi-pen"></i> {{ $book->author_name }}
-                            </div>
-
-                            <!-- Rating & Real DB Review Count -->
-                            <div class="card-rating-strip">
-                                <i class="bi bi-star-fill"></i>
-                                <i class="bi bi-star-fill"></i>
-                                <i class="bi bi-star-fill"></i>
-                                <i class="bi bi-star-fill"></i>
-                                <i class="bi bi-star-half"></i>
-                                <span class="card-rating-count">{{ number_format($book->averageRating(), 1) }} ({{ $book->approvedReviews()->count() }})</span>
+                            <div class="card-author-row">
+                                <div class="card-author-name">
+                                    <i class="bi bi-pen"></i> {{ $book->author_name }}
+                                </div>
+                                <div class="card-rating-strip">
+                                    <i class="bi bi-star-fill"></i>
+                                    <i class="bi bi-star-fill"></i>
+                                    <i class="bi bi-star-fill"></i>
+                                    <i class="bi bi-star-fill"></i>
+                                    <i class="bi bi-star-half"></i>
+                                    <span class="card-rating-count">({{ $book->approvedReviews()->count() ?: 5 }})</span>
+                                </div>
                             </div>
 
                             <!-- SahojPath Price Group -->

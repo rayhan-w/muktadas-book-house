@@ -798,24 +798,32 @@
                             <a href="{{ route('books.show', $book->slug) }}">
                                 <h3 class="card-title">{{ $book->title }}</h3>
                             </a>
-                            <div class="card-author"><i class="bi bi-pen"></i> {{ $book->author_name ?? 'মুক্তাদা' }}</div>
-                            <div class="card-rating">
-                                <i class="bi bi-star-fill"></i>
-                                <i class="bi bi-star-fill"></i>
-                                <i class="bi bi-star-fill"></i>
-                                <i class="bi bi-star-fill"></i>
-                                <i class="bi bi-star-half"></i>
-                                <span>({{ $book->reviews_count ?? 5 }})</span>
+                            <div class="card-author-row">
+                                <div class="card-author"><i class="bi bi-pen"></i> {{ $book->author_name ?? 'মুক্তাদা' }}</div>
+                                <div class="card-rating">
+                                    <i class="bi bi-star-fill"></i>
+                                    <i class="bi bi-star-fill"></i>
+                                    <i class="bi bi-star-fill"></i>
+                                    <i class="bi bi-star-fill"></i>
+                                    <i class="bi bi-star-half"></i>
+                                    <span>({{ $book->reviews_count ?? 5 }})</span>
+                                </div>
                             </div>
                             <div class="card-price-group">
                                 @if($book->price_ebook > 0)
-                                    <span class="price-pill-ebook">ই-বুক ৳{{ $book->price_ebook }}</span>
+                                    <div class="price-format-pill" title="ডিজিটাল ই-বুক মূল্য">
+                                        <span class="pill-kind">ই-বুক</span>
+                                        <span class="pill-val">৳{{ $book->price_ebook }}</span>
+                                    </div>
                                 @endif
-                                <div class="price-pill-hardcopy">
-                                    হার্ডকপি ৳{{ $book->discounted_price ?? $book->price_hardcopy }}
-                                    @if($book->discount_percent > 0)
-                                        <span class="price-original-struck">৳{{ $book->price_hardcopy }}</span>
-                                    @endif
+                                <div class="price-format-pill" title="মুদ্রিত হার্ডকপি মূল্য">
+                                    <span class="pill-kind">হার্ডকপি</span>
+                                    <span class="pill-val">
+                                        ৳{{ $book->discounted_price ?? $book->price_hardcopy }}
+                                        @if($book->discount_percent > 0)
+                                            <span class="price-original-struck">৳{{ $book->price_hardcopy }}</span>
+                                        @endif
+                                    </span>
                                 </div>
                             </div>
                             <a href="{{ route('books.show', $book->slug) }}" class="btn-cart">
@@ -852,24 +860,32 @@
                             <a href="{{ route('books.show', $book->slug) }}">
                                 <h3 class="card-title">{{ $book->title }}</h3>
                             </a>
-                            <div class="card-author"><i class="bi bi-pen"></i> {{ $book->author_name ?? 'মুক্তাদা' }}</div>
-                            <div class="card-rating">
-                                <i class="bi bi-star-fill"></i>
-                                <i class="bi bi-star-fill"></i>
-                                <i class="bi bi-star-fill"></i>
-                                <i class="bi bi-star-fill"></i>
-                                <i class="bi bi-star-fill"></i>
-                                <span>({{ $book->reviews_count ?? 4 }})</span>
+                            <div class="card-author-row">
+                                <div class="card-author"><i class="bi bi-pen"></i> {{ $book->author_name ?? 'মুক্তাদা' }}</div>
+                                <div class="card-rating">
+                                    <i class="bi bi-star-fill"></i>
+                                    <i class="bi bi-star-fill"></i>
+                                    <i class="bi bi-star-fill"></i>
+                                    <i class="bi bi-star-fill"></i>
+                                    <i class="bi bi-star-fill"></i>
+                                    <span>({{ $book->reviews_count ?? 4 }})</span>
+                                </div>
                             </div>
                             <div class="card-price-group">
                                 @if($book->price_ebook > 0)
-                                    <span class="price-pill-ebook">ই-বুক ৳{{ $book->price_ebook }}</span>
+                                    <div class="price-format-pill" title="ডিজিটাল ই-বুক মূল্য">
+                                        <span class="pill-kind">ই-বুক</span>
+                                        <span class="pill-val">৳{{ $book->price_ebook }}</span>
+                                    </div>
                                 @endif
-                                <div class="price-pill-hardcopy">
-                                    হার্ডকপি ৳{{ $book->discounted_price ?? $book->price_hardcopy }}
-                                    @if($book->discount_percent > 0)
-                                        <span class="price-original-struck">৳{{ $book->price_hardcopy }}</span>
-                                    @endif
+                                <div class="price-format-pill" title="মুদ্রিত হার্ডকপি মূল্য">
+                                    <span class="pill-kind">হার্ডকপি</span>
+                                    <span class="pill-val">
+                                        ৳{{ $book->discounted_price ?? $book->price_hardcopy }}
+                                        @if($book->discount_percent > 0)
+                                            <span class="price-original-struck">৳{{ $book->price_hardcopy }}</span>
+                                        @endif
+                                    </span>
                                 </div>
                             </div>
                             <a href="{{ route('books.show', $book->slug) }}" class="btn-cart">
@@ -908,24 +924,32 @@
                             <a href="{{ route('books.show', $book->slug) }}">
                                 <h3 class="card-title">{{ $book->title }}</h3>
                             </a>
-                            <div class="card-author"><i class="bi bi-pen"></i> {{ $book->author_name ?? 'মুক্তাদা' }}</div>
-                            <div class="card-rating">
-                                <i class="bi bi-star-fill"></i>
-                                <i class="bi bi-star-fill"></i>
-                                <i class="bi bi-star-fill"></i>
-                                <i class="bi bi-star-fill"></i>
-                                <i class="bi bi-star-half"></i>
-                                <span>(৫.০)</span>
+                            <div class="card-author-row">
+                                <div class="card-author"><i class="bi bi-pen"></i> {{ $book->author_name ?? 'মুক্তাদা' }}</div>
+                                <div class="card-rating">
+                                    <i class="bi bi-star-fill"></i>
+                                    <i class="bi bi-star-fill"></i>
+                                    <i class="bi bi-star-fill"></i>
+                                    <i class="bi bi-star-fill"></i>
+                                    <i class="bi bi-star-half"></i>
+                                    <span>(৫.০)</span>
+                                </div>
                             </div>
                             <div class="card-price-group">
                                 @if($book->price_ebook > 0)
-                                    <span class="price-pill-ebook">ই-বুক ৳{{ $book->price_ebook }}</span>
+                                    <div class="price-format-pill" title="ডিজিটাল ই-বুক মূল্য">
+                                        <span class="pill-kind">ই-বুক</span>
+                                        <span class="pill-val">৳{{ $book->price_ebook }}</span>
+                                    </div>
                                 @endif
-                                <div class="price-pill-hardcopy">
-                                    হার্ডকপি ৳{{ $book->discounted_price ?? $book->price_hardcopy }}
-                                    @if($book->discount_percent > 0)
-                                        <span class="price-original-struck">৳{{ $book->price_hardcopy }}</span>
-                                    @endif
+                                <div class="price-format-pill" title="মুদ্রিত হার্ডকপি মূল্য">
+                                    <span class="pill-kind">হার্ডকপি</span>
+                                    <span class="pill-val">
+                                        ৳{{ $book->discounted_price ?? $book->price_hardcopy }}
+                                        @if($book->discount_percent > 0)
+                                            <span class="price-original-struck">৳{{ $book->price_hardcopy }}</span>
+                                        @endif
+                                    </span>
                                 </div>
                             </div>
                             @if($book->is_upcoming)

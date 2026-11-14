@@ -229,7 +229,7 @@
                 <label style="display:flex; align-items:center; gap:6px; cursor:pointer; color:var(--sp-body);">
                     <input type="checkbox" name="remember" style="accent-color:var(--sp-burgundy);"> আমাকে মনে রাখুন
                 </label>
-                <a href="{{ route('contact') }}?subject=Password+Reset+Request" style="color:var(--sp-burgundy); font-weight:600; text-decoration:none;">
+                <a href="{{ route('password.request') }}" style="color:var(--sp-burgundy); font-weight:600; text-decoration:none;">
                     পাসওয়ার্ড ভুলে গেছেন?
                 </a>
             </div>

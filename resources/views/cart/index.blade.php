@@ -243,24 +243,82 @@
         box-shadow: 0 6px 20px rgba(15, 118, 110, 0.4);
     }
 
+    /* Cart Header & Action Buttons */
+    .btn-cart-back {
+        display: inline-flex;
+        align-items: center;
+        gap: 6px;
+        padding: 8px 16px;
+        background: #f8fafc;
+        color: var(--sp-burgundy) !important;
+        border: 1.5px solid var(--sp-border);
+        border-radius: var(--sp-radius-pill);
+        font-size: 13.5px;
+        font-weight: 700;
+        text-decoration: none;
+        transition: all 0.2s ease;
+        box-shadow: 0 2px 6px rgba(15, 23, 42, 0.04);
+        white-space: nowrap;
+    }
+
+    .btn-cart-back:hover {
+        background: #ffffff;
+        border-color: var(--sp-burgundy);
+        transform: translateY(-1px);
+        box-shadow: 0 4px 12px rgba(15, 118, 110, 0.15);
+    }
+
+    .btn-catalog-explore {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        gap: 8px;
+        padding: 12px 28px;
+        background: var(--sp-crimson);
+        color: #ffffff !important;
+        border: 1.5px solid var(--sp-crimson);
+        border-radius: var(--sp-radius-pill);
+        font-size: 15px;
+        font-weight: 800;
+        text-decoration: none;
+        transition: all 0.25s ease;
+        box-shadow: 0 4px 14px rgba(13, 148, 136, 0.25);
+    }
+
+    .btn-catalog-explore:hover {
+        background: var(--sp-burgundy);
+        border-color: var(--sp-burgundy);
+        transform: translateY(-2px);
+        box-shadow: 0 6px 20px rgba(15, 118, 110, 0.35);
+    }
+
     @media (max-width: 860px) {
         .cart-grid { grid-template-columns: 1fr; }
         .cart-table-desktop { display: none; }
         .cart-mobile-list { display: block; }
+        .cart-header-row {
+            flex-direction: column;
+            align-items: flex-start !important;
+            gap: 14px !important;
+        }
+        .btn-cart-back {
+            align-self: flex-start;
+            margin-left: 4px;
+        }
     }
 </style>
 @endsection
 
 @section('content')
 <div class="cart-page-header">
-    <div class="container" style="display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:12px;">
+    <div class="container cart-header-row" style="display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:14px;">
         <div>
             <h1 style="font-size: 24px; color: var(--sp-burgundy); margin-bottom: 4px; font-weight:800;">
                 <i class="bi bi-bag-check-fill text-success"></i> আপনার শপিং কার্ট
             </h1>
             <p style="color: var(--sp-muted); font-size: 14px; margin:0;">কার্টের বইয়ের সংখ্যা পরিবর্তন করতে পারেন অথবা সরাসরি চেকআউটে যেতে পারেন।</p>
         </div>
-        <a href="{{ route('books.index') }}" class="btn-checkout-back">
+        <a href="{{ route('books.index') }}" class="btn-cart-back">
             <i class="bi bi-book"></i> আরও বই দেখুন
         </a>
     </div>
@@ -274,7 +332,7 @@
             <p style="color: var(--sp-muted); font-size: 14.5px; margin-bottom: 24px; max-width: 460px; margin-left:auto; margin-right:auto;">
                 আপনি এখনো কোনো বই কার্টে যোগ করেননি। আমাদের নতুন ও বেস্টসেলার বইগুলোর সম্ভার থেকে আপনার পছন্দের বইটি বেছে নিন।
             </p>
-            <a href="{{ route('books.index') }}" class="hero-btn-primary" style="display:inline-flex; align-items:center; gap:8px;">
+            <a href="{{ route('books.index') }}" class="btn-catalog-explore">
                 <i class="bi bi-grid-fill"></i> বইয়ের ক্যাটালগ ঘুরে দেখুন
             </a>
         </div>

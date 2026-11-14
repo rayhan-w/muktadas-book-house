@@ -5,7 +5,7 @@
 @section('content')
 <div style="background: #fff; border-bottom: 1px solid var(--border-color); padding: 50px 0 40px; margin-bottom: 40px;">
     <div class="container" style="display: flex; align-items: center; gap: 40px; flex-wrap: wrap;">
-        <img src="{{ asset($settings['author_photo'] ?: 'author-portrait.jpg') }}" alt="{{ $settings['author_name'] }}" style="width: 170px; height: 170px; border-radius: 50%; object-fit: cover; border: 5px solid var(--gold-light); box-shadow: var(--shadow-md);">
+        <img src="{{ asset($settings['author_photo'] ?: 'author-portrait.jpg') }}" alt="{{ $settings['author_name'] }}" style="width: 170px; height: 170px; border-radius: 50%; object-fit: cover; object-position: top center; border: 5px solid var(--gold-light); box-shadow: var(--shadow-md);">
         <div>
             <h1 style="font-size: 34px; color: var(--primary); font-weight: 800; margin-bottom: 8px;">{{ $settings['author_name'] }}</h1>
             <p style="font-size: 18px; color: var(--gold-hover); font-weight: 600; margin-bottom: 12px;">লেখক, গবেষক ও সাহিত্যিক</p>

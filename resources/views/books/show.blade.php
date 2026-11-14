@@ -686,15 +686,23 @@
         <!-- Tab 3: Author Bio (লেখক নিয়ে কিছু কথা) -->
         <div id="tab-author" class="tab-panel" style="display:none;">
             <div class="book-detail-card">
-                <h2><i class="bi bi-person-badge text-danger"></i> লেখক নিয়ে কিছু কথা</h2>
-                <div style="display:flex; gap:20px; align-items:center; margin-bottom:16px;">
-                    <img src="{{ asset('author-portrait.jpg') }}" alt="লেখক মুক্তাদা" style="width:80px; height:80px; border-radius:50%; object-fit:cover; border:2px solid var(--sp-burgundy);">
+                <h2><i class="bi bi-person-lines-fill" style="color:var(--sp-burgundy);"></i> লেখক নিয়ে কিছু কথা</h2>
+                <div style="display:flex; gap:18px; align-items:center; margin-bottom:18px;">
+                    @php
+                        $authorPhoto = \App\Models\SiteSetting::get('author_photo', 'author-portrait.jpg');
+                    @endphp
+                    <div style="width:84px; height:84px; min-width:84px; border-radius:50%; overflow:hidden; border:2.5px solid var(--sp-burgundy); box-shadow:0 4px 14px rgba(15, 118, 110, 0.15); background:#f1f5f9; display:flex; align-items:center; justify-content:center;">
+                        <img src="{{ asset($authorPhoto) }}" 
+                             alt="{{ $book->author_name }}" 
+                             style="width:100%; height:100%; object-fit:cover; object-position:top center; display:block;"
+                             onerror="this.onerror=null; this.src='{{ asset('author-portrait.jpg') }}';">
+                    </div>
                     <div>
-                        <h3 style="font-size:18px; margin:0 0 4px; color:var(--sp-heading);">{{ $book->author_name }}</h3>
+                        <h3 style="font-size:18.5px; margin:0 0 4px; color:var(--sp-heading); font-weight:800;">{{ $book->author_name }}</h3>
                         <p style="margin:0; color:var(--sp-muted); font-size:13.5px;">চিন্তাশীল লেখক, চিন্তাবিদ ও গবেষক</p>
                     </div>
                 </div>
-                <div style="font-size:15px; color:#334155;">
+                <div style="font-size:15px; color:#334155; line-height:1.7;">
                     {!! nl2br(e($book->pen_picture ?: 'লেখক মুক্তাদা সমকালীন বাংলা সাহিত্যের এক অনন্য চিন্তাশীল কণ্ঠস্বর। তাঁর রচনা মানুষের অন্তর ও মানবজীবনকে ইতিবাচক আলোয় পরিবর্তনের প্রেরণা দেয়।')) !!}
                 </div>
             </div>

@@ -58,9 +58,16 @@
                         </a>
                     @else
                         <div class="nav-pill-auth nav-pill-logged">
-                            <a href="{{ route('reader.dashboard') }}" class="auth-link" title="আমার প্রোফাইল">
-                                <i class="bi bi-person-circle"></i> {{ Str::limit(auth()->user()->name, 8) }}
-                            </a>
+                            @if(auth()->user()->isPublisher())
+                                <a href="{{ route('publisher.dashboard') }}" class="auth-link" title="পাবলিশার ড্যাশবোর্ড">
+                                    <i class="bi bi-buildings"></i> {{ Str::limit(auth()->user()->publisher_company ?: auth()->user()->name, 8) }}
+                                </a>
+                            @else
+                                <a href="{{ route('reader.dashboard') }}" class="auth-link" title="আমার প্রোফাইল">
+                                    <i class="bi bi-person-circle"></i> {{ Str::limit(auth()->user()->name, 8) }}
+                                </a>
+                            @endif
+
                             @if(auth()->user()->isAdmin())
                                 <span class="auth-sep">|</span>
                                 <a href="{{ route('admin.dashboard') }}" class="auth-link" style="color:var(--sp-burgundy);" title="অ্যাডমিন">

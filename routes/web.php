@@ -191,6 +191,7 @@ Route::middleware(['auth', 'admin'])->prefix('admin')->name('admin.')->group(fun
 Route::get('/fix-database', function () {
     try {
         \Illuminate\Support\Facades\DB::statement('SET foreign_key_checks = 0;');
+        \Illuminate\Support\Facades\DB::statement('SET NAMES utf8mb4 COLLATE utf8mb4_unicode_ci;');
         
         try {
             $cols = \Illuminate\Support\Facades\DB::select("SHOW COLUMNS FROM `users` LIKE 'publisher_company'");
@@ -223,24 +224,47 @@ Route::get('/fix-database', function () {
             }
         } catch (\Exception $e) {}
 
-        $sqlPath = base_path('clean_database_utf8.sql');
-        if (!file_exists($sqlPath)) {
-            $sqlPath = public_path('clean_database_utf8.sql');
+        // Convert key tables to utf8mb4 to eliminate question-mark encoding issues
+        $tables = ['users', 'categories', 'books', 'site_settings', 'memberships', 'coupons', 'reviews', 'orders', 'order_items', 'book_requests'];
+        foreach ($tables as $t) {
+            try {
+                \Illuminate\Support\Facades\DB::statement("ALTER TABLE `{$t}` CONVERT TO CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;");
+            } catch (\Exception $e) {}
         }
 
-        if (file_exists($sqlPath)) {
-            $sql = file_get_contents($sqlPath);
-            \Illuminate\Support\Facades\DB::unprepared($sql);
-        } else {
-            \Illuminate\Support\Facades\Artisan::call('db:seed', ['--force' => true]);
-        }
+        // Run full database seeder
+        \Illuminate\Support\Facades\Artisan::call('db:seed', ['--force' => true]);
+
+        // Explicitly update admin & customer with pristine Bengali UTF-8
+        \Illuminate\Support\Facades\DB::table('users')
+            ->where('email', 'admin@muktadasbookhouse.com')
+            ->update([
+                'name' => 'অ্যাডমিন মুক্তাদা',
+                'address' => 'ঢাকা, বাংলাদেশ',
+                'phone' => '01700112233'
+            ]);
+
+        \Illuminate\Support\Facades\DB::table('users')
+            ->where('email', 'reader@example.com')
+            ->update([
+                'name' => 'রহিম আহমেদ',
+                'address' => 'মিরপুর, ঢাকা',
+                'phone' => '01811223344'
+            ]);
+
+        \App\Models\SiteSetting::set('site_name', 'মুক্তাদার বইঘর | Muktada\'s Boighor');
+        \App\Models\SiteSetting::set('site_tagline', 'জ্ঞানের আলোয় নতুন পথচলা — ভালো বই, সুন্দর ভাবনা');
+        \App\Models\SiteSetting::set('author_name', 'লেখক মুক্তাদা');
+        \App\Models\SiteSetting::set('author_quote', 'বই হলো মনের জানালা, যা মানুষকে সত্য ও সুন্দরের পথ দেখায়।');
+        \App\Models\SiteSetting::set('contact_address', 'বাংলাবাজার, ঢাকা-১১০০, বাংলাদেশ');
 
         \Illuminate\Support\Facades\DB::statement('SET foreign_key_checks = 1;');
 
+        $adminUser = \App\Models\User::where('email', 'admin@muktadasbookhouse.com')->first();
         $siteName = \App\Models\SiteSetting::get('site_name');
         $siteTagline = \App\Models\SiteSetting::get('site_tagline');
 
-        return response('<!DOCTYPE html><html lang="bn"><head><meta charset="utf-8"><title>ডাটাবেজ ফিক্স সফল</title></head><body style="font-family:sans-serif;background:#fbf8f0;padding:40px;color:#092d45;"><div style="max-width:620px;margin:auto;background:#fff;padding:30px;border-radius:12px;border:2px solid #10b981;box-shadow:0 8px 25px rgba(0,0,0,0.08);"><h2 style="color:#065f46;margin-top:0;">✅ আলহামদুলিল্লাহ! ডাটাবেজ সফলভাবে বিশুদ্ধ বাংলায় ফিক্স হয়েছে!</h2><p><strong>সাইটের নাম:</strong> ' . htmlspecialchars($siteName) . '</p><p><strong>ট্যাগলাইন:</strong> ' . htmlspecialchars($siteTagline) . '</p><p style="margin-top:25px;"><a href="/" style="background:#092d45;color:#fff;padding:12px 24px;text-decoration:none;border-radius:6px;font-weight:bold;display:inline-block;">🏠 হোমপেজে যান</a></p></div></body></html>', 200);
+        return response('<!DOCTYPE html><html lang="bn"><head><meta charset="utf-8"><title>ডাটাবেজ ফিক্স সফল</title></head><body style="font-family:sans-serif;background:#fbf8f0;padding:40px;color:#092d45;"><div style="max-width:620px;margin:auto;background:#fff;padding:30px;border-radius:12px;border:2px solid #10b981;box-shadow:0 8px 25px rgba(0,0,0,0.08);"><h2 style="color:#065f46;margin-top:0;">✅ আলহামদুলিল্লাহ! ডাটাবেজ সফলভাবে বিশুদ্ধ বাংলায় ফিক্স হয়েছে!</h2><p><strong>অ্যাডমিন নাম:</strong> ' . htmlspecialchars($adminUser ? $adminUser->name : '') . '</p><p><strong>সাইটের নাম:</strong> ' . htmlspecialchars($siteName) . '</p><p><strong>ট্যাগলাইন:</strong> ' . htmlspecialchars($siteTagline) . '</p><p style="margin-top:25px;"><a href="/admin" style="background:#be123c;color:#fff;padding:12px 24px;text-decoration:none;border-radius:6px;font-weight:bold;display:inline-block;margin-right:10px;">👑 অ্যাডমিন প্যানেলে যান</a><a href="/" style="background:#092d45;color:#fff;padding:12px 24px;text-decoration:none;border-radius:6px;font-weight:bold;display:inline-block;">🏠 হোমপেজ</a></p></div></body></html>', 200);
 
     } catch (\Exception $e) {
         return response('Database Fix Error: ' . $e->getMessage(), 500);

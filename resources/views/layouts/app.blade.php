@@ -58,20 +58,21 @@
                         </a>
                     @else
                         <div class="nav-pill-auth nav-pill-logged">
-                            @if(auth()->user()->isPublisher())
+                            @if(auth()->user()->isAdmin())
+                                <a href="{{ route('admin.dashboard') }}" class="auth-link" style="color:var(--sp-burgundy); font-weight:700;" title="অ্যাডমিন প্যানেল">
+                                    <i class="bi bi-shield-lock-fill"></i> {{ Str::limit(auth()->user()->name, 10) }}
+                                </a>
+                                <span class="auth-sep">|</span>
+                                <a href="{{ route('admin.dashboard') }}" class="auth-link" style="color:var(--sp-burgundy);" title="অ্যাডমিন ড্যাশবোর্ড">
+                                    <i class="bi bi-gear-fill"></i>
+                                </a>
+                            @elseif(auth()->user()->isPublisher())
                                 <a href="{{ route('publisher.dashboard') }}" class="auth-link" title="পাবলিশার ড্যাশবোর্ড">
                                     <i class="bi bi-buildings"></i> {{ Str::limit(auth()->user()->publisher_company ?: auth()->user()->name, 8) }}
                                 </a>
                             @else
                                 <a href="{{ route('reader.dashboard') }}" class="auth-link" title="আমার প্রোফাইল">
                                     <i class="bi bi-person-circle"></i> {{ Str::limit(auth()->user()->name, 8) }}
-                                </a>
-                            @endif
-
-                            @if(auth()->user()->isAdmin())
-                                <span class="auth-sep">|</span>
-                                <a href="{{ route('admin.dashboard') }}" class="auth-link" style="color:var(--sp-burgundy);" title="অ্যাডমিন">
-                                    <i class="bi bi-gear-fill"></i>
                                 </a>
                             @endif
                             <span class="auth-sep">|</span>

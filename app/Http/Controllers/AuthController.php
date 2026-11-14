@@ -36,10 +36,10 @@ class AuthController extends Controller
             $request->session()->regenerate();
 
             if (Auth::user()->isAdmin()) {
-                return redirect()->intended(route('admin.dashboard'));
+                return redirect()->route('admin.dashboard');
             }
             if (Auth::user()->isPublisher()) {
-                return redirect()->intended(route('publisher.dashboard'));
+                return redirect()->route('publisher.dashboard');
             }
             return redirect()->intended(route('reader.dashboard'));
         }

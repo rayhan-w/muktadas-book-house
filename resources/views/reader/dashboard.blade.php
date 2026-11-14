@@ -155,6 +155,22 @@
 @section('content')
 <div class="dash-header">
     <div class="container">
+        @if(auth()->user()->isAdmin())
+            <div style="background: linear-gradient(135deg, #fdf2f8, #fce7f3); border: 1.5px solid #f43f5e; border-radius: 12px; padding: 14px 20px; margin-bottom: 20px; display: flex; align-items: center; justify-content: space-between; flex-wrap: gap; gap: 14px; box-shadow: 0 4px 15px rgba(244,63,94,0.12);">
+                <div style="display: flex; align-items: center; gap: 12px;">
+                    <div style="width: 42px; height: 42px; background: #e11d48; color: #fff; border-radius: 50%; display: grid; place-items: center; font-size: 20px;">
+                        <i class="bi bi-shield-lock-fill"></i>
+                    </div>
+                    <div>
+                        <strong style="color: #881337; font-size: 16px; display: block;">👑 আপনি প্রধান অ্যাডমিন হিসেবে লগইন আছেন</strong>
+                        <span style="color: #9f1239; font-size: 13.5px;">সাইটের বই, পাবলিশার, অর্ডার ও সেটিংস নিয়ন্ত্রণ করতে মূল অ্যাডমিন প্যানেলে যান।</span>
+                    </div>
+                </div>
+                <a href="{{ route('admin.dashboard') }}" style="background: #be123c; color: #fff; padding: 10px 22px; border-radius: 8px; font-weight: 700; text-decoration: none; display: inline-flex; align-items: center; gap: 8px; white-space: nowrap; box-shadow: 0 4px 12px rgba(190,18,60,0.3);">
+                    <i class="bi bi-speedometer2"></i> অ্যাডমিন ড্যাশবোর্ড
+                </a>
+            </div>
+        @endif
         <h1 style="font-size: 26px; color: var(--primary); margin-bottom: 4px;">স্বাগতম, {{ $user->name }}!</h1>
         <p style="color: var(--text-muted); font-size: 14.5px; margin: 0;">আপনার কেনা বই, রিডিং প্রগ্রেস এবং অর্ডার পরিচালনা করুন।</p>
     </div>
@@ -167,7 +183,13 @@
             <div class="user-avatar-circle">{{ mb_substr($user->name, 0, 1) }}</div>
             <strong style="color: var(--primary); font-size: 17px; display: block;">{{ $user->name }}</strong>
             <small style="color: var(--text-muted);">{{ $user->phone ?? $user->email }}</small>
-            @if($user->membership_plan)
+            @if(auth()->user()->isAdmin())
+                <div style="margin-top: 6px;">
+                    <span style="background: #fdf2f8; color: #be123c; border: 1px solid #fecdd3; font-size: 11px; padding: 3px 10px; border-radius: 999px; font-weight: 700; display: inline-flex; align-items: center; gap: 4px;">
+                        <i class="bi bi-shield-lock-fill"></i> প্রধান অ্যাডমিন
+                    </span>
+                </div>
+            @elseif($user->membership_plan)
                 <div style="margin-top: 6px;">
                     <span style="background: #fef3c7; color: #92400e; font-size: 11px; padding: 3px 10px; border-radius: 999px; font-weight: 700; display: inline-flex; align-items: center; gap: 4px;">
                         <i class="bi bi-award-fill"></i> {{ $user->membership_plan }} মেম্বার
@@ -177,6 +199,11 @@
         </div>
 
         <nav>
+            @if(auth()->user()->isAdmin())
+                <a href="{{ route('admin.dashboard') }}" class="dash-menu-link" style="background: #fff1f2; color: #be123c; font-weight: 700; border: 1px solid #fecdd3; margin-bottom: 12px;">
+                    <i class="bi bi-speedometer2" style="color: #be123c;"></i> <span>অ্যাডমিন ড্যাশবোর্ড 👑</span>
+                </a>
+            @endif
             <a href="{{ route('reader.dashboard') }}" class="dash-menu-link active">
                 <i class="bi bi-speedometer2"></i> <span>ওভারভিউ</span>
             </a>

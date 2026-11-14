@@ -12,17 +12,33 @@ return new class extends Migration
     public function up(): void
     {
         Schema::table('users', function (Blueprint $table) {
-            $table->string('publisher_company')->nullable()->after('membership_expires_at');
-            $table->string('publisher_status')->default('pending')->after('publisher_company'); // pending, approved, rejected
-            $table->text('publisher_bio')->nullable()->after('publisher_status');
-            $table->text('publisher_rejection_reason')->nullable()->after('publisher_bio');
+            if (!Schema::hasColumn('users', 'publisher_company')) {
+                $table->string('publisher_company')->nullable()->after('membership_expires_at');
+            }
+            if (!Schema::hasColumn('users', 'publisher_status')) {
+                $table->string('publisher_status')->default('pending')->after('publisher_company');
+            }
+            if (!Schema::hasColumn('users', 'publisher_bio')) {
+                $table->text('publisher_bio')->nullable()->after('publisher_status');
+            }
+            if (!Schema::hasColumn('users', 'publisher_rejection_reason')) {
+                $table->text('publisher_rejection_reason')->nullable()->after('publisher_bio');
+            }
         });
 
         Schema::table('books', function (Blueprint $table) {
-            $table->foreignId('user_id')->nullable()->after('id')->constrained('users')->nullOnDelete();
-            $table->string('publisher_name')->nullable()->after('author_name');
-            $table->string('approval_status')->default('approved')->after('is_published'); // approved, pending, rejected
-            $table->text('rejection_reason')->nullable()->after('approval_status');
+            if (!Schema::hasColumn('books', 'user_id')) {
+                $table->foreignId('user_id')->nullable()->after('id')->constrained('users')->nullOnDelete();
+            }
+            if (!Schema::hasColumn('books', 'publisher_name')) {
+                $table->string('publisher_name')->nullable()->after('author_name');
+            }
+            if (!Schema::hasColumn('books', 'approval_status')) {
+                $table->string('approval_status')->default('approved')->after('is_published');
+            }
+            if (!Schema::hasColumn('books', 'rejection_reason')) {
+                $table->text('rejection_reason')->nullable()->after('approval_status');
+            }
         });
     }
 

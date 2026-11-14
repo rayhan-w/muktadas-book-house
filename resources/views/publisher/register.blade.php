@@ -118,14 +118,34 @@
                     </div>
 
                     <!-- Notice Banner -->
-                    <div style="background: #eff6ff; border: 1px solid #bfdbfe; border-radius: 10px; padding: 14px 16px; margin-bottom: 24px; font-size: 13.5px; color: #1e40af; line-height: 1.5;">
-                        ℹ️ <strong>অনুমোদন নির্দেশিকা:</strong> নিবন্ধন সম্পন্ন হওয়ার পর আপনার আবেদনটি সুপার অ্যাডমিন দ্বারা যাচাই করা হবে। অনুমোদন প্রাপ্তির পর আপনি সরাসরি আপনার ড্যাশবোর্ড থেকে বই আপলোড ও বিক্রি করতে পারবেন।
+                    <div style="background: #eff6ff; border: 1px solid #bfdbfe; border-radius: 12px; padding: 16px 18px; margin-bottom: 24px; font-size: 13.5px; color: #1e40af; line-height: 1.6;">
+                        <div style="font-weight: 700; font-size: 14.5px; margin-bottom: 4px; display: flex; align-items: center; gap: 6px;">
+                            <span>ℹ️</span> কোনো অগ্রিম অনলাইন ফি প্রয়োজন নেই:
+                        </div>
+                        প্রকাশক হিসেবে নিবন্ধনের জন্য কোনো অনলাইন অগ্রিম ফি দিতে হবে না। নিবন্ধন সম্পন্ন হওয়ার পর আপনার প্রকাশনীর প্রোফাইল তৈরি হবে। এরপর সরাসরি অ্যাডমিনের সাথে হোয়াটসঅ্যাপে আলোচনা সাপেক্ষে মেয়াদের চুক্তি (১ মাস, ৩ মাস, ৬ মাস, ১ বছর বা আজীবন) চূড়ান্ত ও অ্যাকাউন্ট অনুমোদন করিয়ে নিতে পারবেন।
                     </div>
 
                     <button type="submit" style="width: 100%; background: #0284c7; color: #ffffff; padding: 14px; border-radius: 10px; font-size: 16px; font-weight: 700; border: none; cursor: pointer; transition: 0.2s;">
-                        প্রকাশক হিসেবে নিবন্ধন করুন →
+                        বিনামূল্যে প্রকাশক হিসেবে আবেদন করুন →
                     </button>
                 </form>
+
+                @php
+                    $rawPhone = \App\Models\SiteSetting::get('contact_whatsapp') ?: \App\Models\SiteSetting::get('contact_phone', '01700112233');
+                    $cleanPhone = preg_replace('/[^0-9]/', '', $rawPhone);
+                    if (str_starts_with($cleanPhone, '01')) {
+                        $cleanPhone = '88' . $cleanPhone;
+                    }
+                @endphp
+                <div style="margin-top: 24px; padding: 16px; background: #f8fafc; border: 1px solid #e2e8f0; border-radius: 10px; display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 12px;">
+                    <div>
+                        <div style="font-size: 13.5px; font-weight: 700; color: #0f172a;">নিবন্ধন বা চুক্তি সংক্রান্ত প্রশ্ন আছে?</div>
+                        <div style="font-size: 12.5px; color: #64748b;">সরাসরি অ্যাডমিনের সাথে হোয়াটসঅ্যাপে কথা বলতে পারেন</div>
+                    </div>
+                    <a href="https://wa.me/{{ $cleanPhone }}?text={{ urlencode('আসসালামু আলাইকুম। আমি মুক্তাদার বইঘরে প্রকাশক হিসেবে যুক্ত হতে আগ্রহী। নিয়ম ও শর্তাবলি জানতে চাই।') }}" target="_blank" style="background: #25d366; color: #fff; font-size: 13px; font-weight: 700; padding: 8px 14px; border-radius: 8px; text-decoration: none; display: inline-flex; align-items: center; gap: 6px;">
+                        <span>💬</span> হোয়াটসঅ্যাপ চ্যাট
+                    </a>
+                </div>
 
                 <div style="text-align: center; margin-top: 24px; font-size: 14px; color: #64748b;">
                     ইতিমধ্যে প্রকাশক অ্যাকাউন্ট আছে? 

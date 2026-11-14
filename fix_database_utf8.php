@@ -105,6 +105,17 @@ if (file_exists($envFile)) {
         // Set demo video on alor-poth
         $pdo->exec("UPDATE `books` SET `video_url` = 'https://www.youtube.com/watch?v=dQw4w9WgXcQ' WHERE `slug` = 'alor-poth' AND (`video_url` IS NULL OR `video_url` = '')");
         
+        // Ensure publisher columns in users table
+        $userCols = $pdo->query("SHOW COLUMNS FROM `users`")->fetchAll(PDO::FETCH_COLUMN);
+        if (!in_array('publisher_plan', $userCols)) {
+            $pdo->exec("ALTER TABLE `users` ADD COLUMN `publisher_plan` VARCHAR(255) NULL AFTER `publisher_rejection_reason`");
+            echo '<div class="item-ok">✓ `users` টেবিলে `publisher_plan` কলাম যুক্ত হয়েছে।</div>';
+        }
+        if (!in_array('publisher_expires_at', $userCols)) {
+            $pdo->exec("ALTER TABLE `users` ADD COLUMN `publisher_expires_at` TIMESTAMP NULL AFTER `publisher_plan`");
+            echo '<div class="item-ok">✓ `users` টেবিলে `publisher_expires_at` কলাম যুক্ত হয়েছে।</div>';
+        }
+
         // Ensure Admin password is password123
         $adminPass = password_hash('password123', PASSWORD_BCRYPT);
         $pdo->exec("UPDATE `users` SET `password` = '$adminPass' WHERE `email` = 'admin@muktadasbookhouse.com'");

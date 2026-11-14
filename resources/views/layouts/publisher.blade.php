@@ -8,6 +8,7 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Hind+Siliguri:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
 
     <style>
         :root {
@@ -339,7 +340,8 @@
     <!-- Sidebar -->
     <aside class="sidebar">
         <div class="sidebar-brand">
-            🏢 <div>
+            <i class="bi bi-buildings" style="font-size: 20px; color: #38bdf8;"></i>
+            <div>
                 <span>মুক্তাদার বইঘর</span>
                 <small>পাবলিশার কর্নার</small>
             </div>
@@ -348,23 +350,23 @@
         <nav class="sidebar-nav">
             <div class="nav-label">মূল মেনু</div>
             <a href="{{ route('publisher.dashboard') }}" class="sidebar-link {{ request()->routeIs('publisher.dashboard') ? 'active' : '' }}">
-                📊 <span>ড্যাশবোর্ড</span>
+                <i class="bi bi-speedometer2" style="font-size: 16px;"></i> <span>ড্যাশবোর্ড</span>
             </a>
 
             <div class="nav-label">বই ব্যবস্থাপনা</div>
             <a href="{{ route('publisher.books.index') }}" class="sidebar-link {{ request()->routeIs('publisher.books.index') ? 'active' : '' }}">
-                📚 <span>আমার বইসমূহ</span>
+                <i class="bi bi-book-half" style="font-size: 16px;"></i> <span>আমার বইসমূহ</span>
             </a>
             <a href="{{ route('publisher.books.create') }}" class="sidebar-link {{ request()->routeIs('publisher.books.create') ? 'active' : '' }}">
-                ➕ <span>নতুন বই জমা দিন</span>
+                <i class="bi bi-plus-circle" style="font-size: 16px;"></i> <span>নতুন বই জমা দিন</span>
             </a>
 
             <div class="nav-label">সহায়তা ও ওয়েবসাইট</div>
             <a href="{{ route('home') }}" target="_blank" class="sidebar-link">
-                🌐 <span>মূল ওয়েবসাইট</span>
+                <i class="bi bi-globe2" style="font-size: 16px;"></i> <span>মূল ওয়েবসাইট</span>
             </a>
             <a href="{{ route('contact') }}" target="_blank" class="sidebar-link">
-                ✉️ <span>অ্যাডমিন সহায়তা</span>
+                <i class="bi bi-headset" style="font-size: 16px;"></i> <span>অ্যাডমিন সহায়তা</span>
             </a>
         </nav>
 
@@ -374,7 +376,9 @@
             </div>
             <form action="{{ route('logout') }}" method="POST">
                 @csrf
-                <button type="submit" class="btn btn-sm btn-gray" style="width: 100%; justify-content: center;">লগআউট করুন</button>
+                <button type="submit" class="btn btn-sm btn-gray" style="width: 100%; justify-content: center; display: inline-flex; align-items: center; gap: 6px;">
+                    <i class="bi bi-box-arrow-right"></i> লগআউট করুন
+                </button>
             </form>
         </div>
     </aside>
@@ -388,12 +392,22 @@
                 <div>
                     <div style="font-weight: 700;">{{ Auth::user()->publisher_company ?: Auth::user()->name }}</div>
                     <div style="display: flex; align-items: center; gap: 8px; margin-top: 2px;">
-                        @if(Auth::user()->isApprovedPublisher())
-                            <span class="status-badge status-approved">✓ অনুমোদিত প্রকাশনী</span>
+                        @if(Auth::user()->isExpiredPublisher())
+                            <span class="status-badge" style="background:#fee2e2; color:#991b1b; padding: 3px 10px; border-radius: 999px; font-size: 12px; font-weight: 700; display: inline-flex; align-items: center; gap: 4px;">
+                                <i class="bi bi-clock-history"></i> মেয়াদ উত্তীর্ণ
+                            </span>
+                        @elseif(Auth::user()->isApprovedPublisher())
+                            <span class="status-badge status-approved" style="display: inline-flex; align-items: center; gap: 4px;">
+                                <i class="bi bi-patch-check-fill"></i> অনুমোদিত ({{ Auth::user()->publisher_plan ?? 'সক্রিয়' }})
+                            </span>
                         @elseif(Auth::user()->isPendingPublisher())
-                            <span class="status-badge status-pending">⏳ অ্যাকাউন্ট পর্যালোচনাধীন</span>
+                            <span class="status-badge status-pending" style="display: inline-flex; align-items: center; gap: 4px;">
+                                <i class="bi bi-hourglass-split"></i> পর্যালোচনাধীন
+                            </span>
                         @else
-                            <span class="status-badge status-rejected">✕ বাতিলকৃত</span>
+                            <span class="status-badge status-rejected" style="display: inline-flex; align-items: center; gap: 4px;">
+                                <i class="bi bi-x-circle-fill"></i> বাতিলকৃত
+                            </span>
                         @endif
                     </div>
                 </div>

@@ -65,12 +65,33 @@ class Book extends Model
 
     public function scopeApproved($query)
     {
-        return $query->where('is_published', true);
+        return $query->where('is_published', true)
+            ->where(function ($q) {
+                // Admin's own books (user_id is null)
+                $q->whereNull('user_id')
+                  // OR Publisher books where publisher is approved and NOT expired
+                  ->orWhere(function ($pubQ) {
+                      $pubQ->where('approval_status', 'approved')
+                           ->whereHas('user', function ($u) {
+                               $u->where('publisher_status', 'approved')
+                                 ->where(function ($exp) {
+                                     $exp->whereNull('publisher_expires_at')
+                                         ->orWhere('publisher_expires_at', '>=', now());
+                                 });
+                           });
+                  });
+            });
     }
 
     public function isApproved(): bool
     {
-        return $this->approval_status === 'approved' || ($this->approval_status === null && (bool)$this->is_published);
+        if ($this->approval_status !== 'approved' && !($this->approval_status === null && (bool)$this->is_published)) {
+            return false;
+        }
+        if ($this->user_id && $this->user) {
+            return $this->user->isApprovedPublisher();
+        }
+        return true;
     }
 
     public function isPending(): bool

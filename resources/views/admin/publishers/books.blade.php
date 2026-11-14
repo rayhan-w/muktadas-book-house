@@ -113,6 +113,11 @@
                                         <span style="background: #dcfce7; color: #166534; padding: 4px 10px; border-radius: 999px; font-size: 12px; font-weight: 700; display: inline-flex; align-items: center; gap: 4px;">
                                             <i class="bi bi-check-circle-fill"></i> অনুমোদিত (লাইভ)
                                         </span>
+                                        @if($book->user && $book->user->isExpiredPublisher())
+                                            <div style="font-size: 11px; color: #dc2626; margin-top: 4px; font-weight: 700;">
+                                                <i class="bi bi-clock-history"></i> প্রকাশকের মেয়াদ শেষ (অফলাইন)
+                                            </div>
+                                        @endif
                                     @elseif($book->approval_status === 'pending')
                                         <span style="background: #fef3c7; color: #92400e; padding: 4px 10px; border-radius: 999px; font-size: 12px; font-weight: 700; display: inline-flex; align-items: center; gap: 4px;">
                                             <i class="bi bi-hourglass-split"></i> পর্যালোচনার জন্য অপেক্ষমাণ

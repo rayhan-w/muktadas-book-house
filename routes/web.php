@@ -204,6 +204,15 @@ Route::get('/fix-database', function () {
         } catch (\Exception $e) {}
 
         try {
+            $colsPlan = \Illuminate\Support\Facades\DB::select("SHOW COLUMNS FROM `users` LIKE 'publisher_plan'");
+            if (empty($colsPlan)) {
+                \Illuminate\Support\Facades\DB::statement("ALTER TABLE `users` 
+                    ADD COLUMN `publisher_plan` VARCHAR(255) NULL AFTER `publisher_rejection_reason`,
+                    ADD COLUMN `publisher_expires_at` TIMESTAMP NULL AFTER `publisher_plan`;");
+            }
+        } catch (\Exception $e) {}
+
+        try {
             $cols = \Illuminate\Support\Facades\DB::select("SHOW COLUMNS FROM `books` LIKE 'user_id'");
             if (empty($cols)) {
                 \Illuminate\Support\Facades\DB::statement("ALTER TABLE `books`

@@ -12,7 +12,9 @@
                 <p style="font-size: 13px; color: #64748b; margin-top: 2px;">আপনার জমা দেওয়া সকল বইয়ের স্ট্যাটাস এবং বিবরণ এখানে দেখতে পারবেন।</p>
             </div>
             @if($user->isApprovedPublisher())
-                <a href="{{ route('publisher.books.create') }}" class="btn btn-primary">+ নতুন বই জমা দিন</a>
+                <a href="{{ route('publisher.books.create') }}" class="btn btn-primary" style="display: inline-flex; align-items: center; gap: 6px;">
+                    <i class="bi bi-plus-circle"></i> নতুন বই জমা দিন
+                </a>
             @endif
         </div>
 
@@ -23,13 +25,13 @@
                     সকল বই ({{ $counts['all'] }})
                 </a>
                 <a href="{{ route('publisher.books.index', ['status' => 'approved']) }}" class="btn btn-sm {{ request('status') === 'approved' ? 'btn-success' : 'btn-gray' }}">
-                    ✓ অনুমোদিত ({{ $counts['approved'] }})
+                    <i class="bi bi-check-circle-fill"></i> অনুমোদিত ({{ $counts['approved'] }})
                 </a>
                 <a href="{{ route('publisher.books.index', ['status' => 'pending']) }}" class="btn btn-sm {{ request('status') === 'pending' ? 'btn-warning' : 'btn-gray' }}">
-                    ⏳ পর্যালোচনায় ({{ $counts['pending'] }})
+                    <i class="bi bi-hourglass-split"></i> পর্যালোচনায় ({{ $counts['pending'] }})
                 </a>
                 <a href="{{ route('publisher.books.index', ['status' => 'rejected']) }}" class="btn btn-sm {{ request('status') === 'rejected' ? 'btn-danger' : 'btn-gray' }}">
-                    ✕ বাতিল ({{ $counts['rejected'] }})
+                    <i class="bi bi-x-circle-fill"></i> বাতিল ({{ $counts['rejected'] }})
                 </a>
             </div>
 
@@ -82,12 +84,22 @@
                                     </div>
                                 </td>
                                 <td>
-                                    @if($book->approval_status === 'approved')
-                                        <span class="status-badge status-approved">✓ অনুমোদিত ও লাইভ</span>
+                                    @if($user->isExpiredPublisher())
+                                        <span class="status-badge" style="background:#fee2e2; color:#991b1b; padding: 3px 8px; border-radius: 999px; font-size: 11px; font-weight: 700;">
+                                            <i class="bi bi-eye-slash-fill"></i> মেয়াদের কারণে অফলাইন
+                                        </span>
+                                    @elseif($book->approval_status === 'approved')
+                                        <span class="status-badge status-approved" style="display: inline-flex; align-items: center; gap: 4px;">
+                                            <i class="bi bi-check-circle-fill"></i> অনুমোদিত ও লাইভ
+                                        </span>
                                     @elseif($book->approval_status === 'pending')
-                                        <span class="status-badge status-pending">⏳ অপেক্ষমাণ (পর্যালোচনাধীন)</span>
+                                        <span class="status-badge status-pending" style="display: inline-flex; align-items: center; gap: 4px;">
+                                            <i class="bi bi-hourglass-split"></i> অপেক্ষমাণ (পর্যালোচনাধীন)
+                                        </span>
                                     @else
-                                        <span class="status-badge status-rejected">✕ বাতিল</span>
+                                        <span class="status-badge status-rejected" style="display: inline-flex; align-items: center; gap: 4px;">
+                                            <i class="bi bi-x-circle-fill"></i> বাতিল
+                                        </span>
                                         @if($book->rejection_reason)
                                             <div style="font-size: 12px; color: #dc2626; margin-top: 4px; background: #fee2e2; padding: 4px 8px; border-radius: 6px; max-width: 250px;">
                                                 <strong>কারণ:</strong> {{ $book->rejection_reason }}
@@ -101,17 +113,23 @@
                                 </td>
                                 <td style="text-align: right;">
                                     <div style="display: flex; align-items: center; justify-content: flex-end; gap: 6px;">
-                                        @if($book->approval_status === 'approved')
-                                            <a href="{{ route('books.show', $book->slug) }}" target="_blank" class="btn btn-sm btn-gray" title="ওয়েবসাইটে দেখুন">👁️ দেখুন</a>
+                                        @if($book->approval_status === 'approved' && $user->isApprovedPublisher())
+                                            <a href="{{ route('books.show', $book->slug) }}" target="_blank" class="btn btn-sm btn-gray" title="ওয়েবসাইটে দেখুন" style="display: inline-flex; align-items: center; gap: 4px;">
+                                                <i class="bi bi-eye"></i> দেখুন
+                                            </a>
                                         @endif
 
-                                        <a href="{{ route('publisher.books.edit', $book->id) }}" class="btn btn-sm btn-gray" title="সম্পাদনা করুন">✏️ এডিট</a>
+                                        <a href="{{ route('publisher.books.edit', $book->id) }}" class="btn btn-sm btn-gray" title="সম্পাদনা করুন" style="display: inline-flex; align-items: center; gap: 4px;">
+                                            <i class="bi bi-pencil-square"></i> এডিট
+                                        </a>
 
                                         @if($book->approval_status !== 'approved')
                                             <form action="{{ route('publisher.books.destroy', $book->id) }}" method="POST" onsubmit="return confirm('আপনি কি নিশ্চিতভাবে এই বইটি মুছে ফেলতে চান?');" style="display: inline;">
                                                 @csrf
                                                 @method('DELETE')
-                                                <button type="submit" class="btn btn-sm btn-gray" style="color: #dc2626;" title="মুছে ফেলুন">🗑️</button>
+                                                <button type="submit" class="btn btn-sm btn-gray" style="color: #dc2626;" title="মুছে ফেলুন">
+                                                    <i class="bi bi-trash3"></i>
+                                                </button>
                                             </form>
                                         @endif
                                     </div>
@@ -127,11 +145,13 @@
             </div>
         @else
             <div style="text-align: center; padding: 60px 20px; color: #64748b;">
-                <div style="font-size: 44px; margin-bottom: 12px;">📚</div>
+                <div style="font-size: 44px; margin-bottom: 12px; color: #94a3b8;"><i class="bi bi-book"></i></div>
                 <h3 style="font-size: 16px; font-weight: 700; color: #334155;">কোনো বই পাওয়া যায়নি</h3>
                 <p style="font-size: 13.5px; margin: 6px 0 16px;">আপনি এখনও এই বিভাগে কোনো বই জমা দেননি অথবা সার্চে কোনো ফলাফল মেলেনি।</p>
                 @if($user->isApprovedPublisher())
-                    <a href="{{ route('publisher.books.create') }}" class="btn btn-primary">+ নতুন বই জমা দিন</a>
+                    <a href="{{ route('publisher.books.create') }}" class="btn btn-primary" style="display: inline-flex; align-items: center; gap: 6px;">
+                        <i class="bi bi-plus-circle"></i> নতুন বই জমা দিন
+                    </a>
                 @endif
             </div>
         @endif

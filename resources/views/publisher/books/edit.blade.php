@@ -8,14 +8,14 @@
     <div style="max-width: 900px; margin: 0 auto;">
 
         <!-- STRICT VOICE RULE WARNING BANNER -->
-        <div class="alert alert-warning" style="display: flex; align-items: flex-start; gap: 14px; margin-bottom: 24px; border: 2px solid #f59e0b; background: #fffbeb;">
-            <div style="font-size: 26px;">⚠️</div>
+        <div class="alert alert-warning" style="display: flex; align-items: flex-start; gap: 14px; margin-bottom: 24px; border: 1px solid #fde68a; border-left: 5px solid #d97706; background: #fffbeb; border-radius: 12px; padding: 18px 20px;">
+            <div style="font-size: 26px; color: #d97706;"><i class="bi bi-shield-exclamation"></i></div>
             <div>
                 <strong style="font-size: 15px; color: #92400e; display: block; margin-bottom: 4px;">
                     বিশেষ নিরাপত্তা সতর্কতা (পুনঃঅনুমোদন নীতি / Re-approval Policy):
                 </strong>
                 <p style="margin: 0; font-size: 13.5px; color: #78350f; line-height: 1.6;">
-                    বইয়ের যেকোনো তথ্য সম্পাদনা করে সংরক্ষণ করলে কন্টেন্টের সত্যতা ও নিরাপত্তা রক্ষার্থে বইটি <strong>তাৎক্ষণিকভাবে সাময়িকভাবে অপ্রকাশিত হয়ে যাবে</strong>। এরপর সুপার অ্যাডমিন আপনার সংশোধিত তথ্য পর্যালোচনা করে পুনঃঅনুমোদন (Re-approve) দিলে বইটি আবার ওয়েবসাইটে সক্রিয় ও লাইভ হবে।
+                    বইয়ের যেকোনো তথ্য সম্পাদনা করে সংরক্ষণ করলে কন্টেন্টের সত্যতা ও নিরাপত্তা রক্ষার্থে বইটি <strong>তাৎক্ষণিকভাবে সাময়িকভাবে অপ্রকাশিত (Unpublished) হয়ে যাবে</strong>। এরপর সুপার অ্যাডমিন আপনার সংশোধিত তথ্য পর্যালোচনা করে পুনঃঅনুমোদন (Re-approve) দিলে বইটি আবার ওয়েবসাইটে সক্রিয় ও লাইভ হবে।
                 </p>
             </div>
         </div>
@@ -37,8 +37,8 @@
 
                 <!-- Basic Info -->
                 <div style="margin-bottom: 28px;">
-                    <h3 style="font-size: 16px; font-weight: 700; color: #0f172a; margin-bottom: 16px; border-bottom: 2px solid #f1f5f9; padding-bottom: 8px;">
-                        📖 বইয়ের প্রাথমিক তথ্য
+                    <h3 style="font-size: 16px; font-weight: 700; color: #0f172a; margin-bottom: 16px; border-bottom: 2px solid #f1f5f9; padding-bottom: 8px; display: flex; align-items: center; gap: 8px;">
+                        <i class="bi bi-book-half" style="color: #0284c7;"></i> বইয়ের প্রাথমিক তথ্য
                     </h3>
 
                     <div class="grid-2">
@@ -71,8 +71,8 @@
 
                 <!-- Pricing & Stock -->
                 <div style="margin-bottom: 28px;">
-                    <h3 style="font-size: 16px; font-weight: 700; color: #0f172a; margin-bottom: 16px; border-bottom: 2px solid #f1f5f9; padding-bottom: 8px;">
-                        💰 মূল্য ও স্টক তথ্য
+                    <h3 style="font-size: 16px; font-weight: 700; color: #0f172a; margin-bottom: 16px; border-bottom: 2px solid #f1f5f9; padding-bottom: 8px; display: flex; align-items: center; gap: 8px;">
+                        <i class="bi bi-tag-fill" style="color: #0284c7;"></i> মূল্য ও স্টক তথ্য
                     </h3>
 
                     <div class="grid-3">
@@ -116,8 +116,8 @@
 
                 <!-- Publication Details -->
                 <div style="margin-bottom: 28px;">
-                    <h3 style="font-size: 16px; font-weight: 700; color: #0f172a; margin-bottom: 16px; border-bottom: 2px solid #f1f5f9; padding-bottom: 8px;">
-                        📑 বইয়ের বিস্তারিত ও বিবরণ
+                    <h3 style="font-size: 16px; font-weight: 700; color: #0f172a; margin-bottom: 16px; border-bottom: 2px solid #f1f5f9; padding-bottom: 8px; display: flex; align-items: center; gap: 8px;">
+                        <i class="bi bi-file-text-fill" style="color: #0284c7;"></i> বইয়ের বিস্তারিত ও বিবরণ
                     </h3>
 
                     <div class="grid-2">
@@ -150,8 +150,8 @@
 
                 <!-- Files Upload -->
                 <div style="margin-bottom: 32px;">
-                    <h3 style="font-size: 16px; font-weight: 700; color: #0f172a; margin-bottom: 16px; border-bottom: 2px solid #f1f5f9; padding-bottom: 8px;">
-                        🖼️ ফাইল ও কভার ছবি
+                    <h3 style="font-size: 16px; font-weight: 700; color: #0f172a; margin-bottom: 16px; border-bottom: 2px solid #f1f5f9; padding-bottom: 8px; display: flex; align-items: center; gap: 8px;">
+                        <i class="bi bi-cloud-arrow-up-fill" style="color: #0284c7;"></i> ফাইল ও কভার ছবি
                     </h3>
 
                     <div class="grid-2">
@@ -188,8 +188,8 @@
 
                 <div style="display: flex; align-items: center; justify-content: flex-end; gap: 12px; border-top: 1px solid #e2e8f0; padding-top: 20px;">
                     <a href="{{ route('publisher.books.index') }}" class="btn btn-gray">ফিরে যান</a>
-                    <button type="submit" class="btn btn-warning" style="padding: 12px 24px; font-size: 15px;" onclick="return confirm('⚠️ বইটি আপডেট করলে তা পুনঃঅনুমোদনের জন্য পেন্ডিং হয়ে যাবে এবং সাময়িকভাবে সাইটে বন্ধ থাকবে। আপনি কি এগিয়ে যেতে চান?');">
-                        💾 তথ্য আপডেট ও পুনঃঅনুমোদনের জন্য পাঠান
+                    <button type="submit" class="btn btn-warning" style="padding: 12px 24px; font-size: 15px; display: inline-flex; align-items: center; gap: 8px;" onclick="return confirm('⚠️ বইটি আপডেট করলে তা পুনঃঅনুমোদনের জন্য পেন্ডিং হয়ে যাবে এবং সাময়িকভাবে সাইটে বন্ধ থাকবে। আপনি কি এগিয়ে যেতে চান?');">
+                        <i class="bi bi-floppy2-fill"></i> তথ্য আপডেট ও পুনঃঅনুমোদনের জন্য পাঠান
                     </button>
                 </div>
 

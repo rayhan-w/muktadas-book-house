@@ -43,17 +43,46 @@ class AdminPublisherController extends Controller
     }
 
     /**
-     * Approve publisher account.
+     * Approve publisher account with custom validity duration.
      */
-    public function approvePublisher($id)
+    public function approvePublisher(Request $request, $id)
     {
         $publisher = User::where('role', 'publisher')->findOrFail($id);
+
+        $plan = $request->input('publisher_plan', '১ বছর');
+        $expiresAt = null;
+
+        if ($plan === '১ মাস' || $plan === '1_month') {
+            $plan = '১ মাস';
+            $expiresAt = now()->addMonth();
+        } elseif ($plan === '৩ মাস' || $plan === '3_months') {
+            $plan = '৩ মাস';
+            $expiresAt = now()->addMonths(3);
+        } elseif ($plan === '৬ মাস' || $plan === '6_months') {
+            $plan = '৬ মাস';
+            $expiresAt = now()->addMonths(6);
+        } elseif ($plan === '১ বছর' || $plan === '1_year') {
+            $plan = '১ বছর';
+            $expiresAt = now()->addYear();
+        } elseif ($plan === 'আজীবন' || $plan === 'lifetime') {
+            $plan = 'আজীবন';
+            $expiresAt = null;
+        } elseif ($plan === 'custom' && $request->filled('publisher_expires_at')) {
+            $plan = 'কাস্টম মেয়াদ';
+            $expiresAt = \Carbon\Carbon::parse($request->publisher_expires_at);
+        } else {
+            $plan = '১ বছর';
+            $expiresAt = now()->addYear();
+        }
+
         $publisher->update([
             'publisher_status' => 'approved',
+            'publisher_plan' => $plan,
+            'publisher_expires_at' => $expiresAt,
             'publisher_rejection_reason' => null,
         ]);
 
-        return redirect()->back()->with('success', "প্রকাশনী '{$publisher->publisher_company}' সফলভাবে অনুমোদন করা হয়েছে। তারা এখন বই জমা দিতে পারবে।");
+        return redirect()->back()->with('success', "প্রকাশনী '{$publisher->publisher_company}' সফলভাবে অনুমোদন করা হয়েছে (মেয়াদ: " . ($expiresAt ? $expiresAt->format('d M, Y') : 'আজীবন') . ")।");
     }
 
     /**

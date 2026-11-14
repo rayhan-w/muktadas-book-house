@@ -7,11 +7,11 @@
 
     <div style="max-width: 900px; margin: 0 auto;">
         <!-- Information Box -->
-        <div class="alert alert-info" style="display: flex; align-items: flex-start; gap: 12px; margin-bottom: 24px;">
-            <div style="font-size: 20px;">ℹ️</div>
+        <div class="alert alert-info" style="display: flex; align-items: flex-start; gap: 12px; margin-bottom: 24px; background: #eff6ff; border: 1px solid #bfdbfe; border-left: 4px solid #0284c7; border-radius: 10px; padding: 16px;">
+            <div style="font-size: 20px; color: #0284c7;"><i class="bi bi-info-circle-fill"></i></div>
             <div>
                 <strong>বই তালিকাভুক্তি নির্দেশিকা:</strong>
-                <p style="margin: 4px 0 0; font-size: 13.5px;">
+                <p style="margin: 4px 0 0; font-size: 13.5px; color: #1e3a5f;">
                     বইয়ের সকল তথ্য সতর্কতার সাথে পূরণ করুন। আপনার জমার পর বইটি সরাসরি সাইটে লাইভ হবে না—আমাদের অ্যাডমিন টিম বইটি যাচাই করে অনুমোদন (Approve) করলেই তা সর্বসাধারণের কাছে দৃশ্যমান হবে।
                 </p>
             </div>
@@ -33,8 +33,8 @@
 
                 <!-- Basic Info -->
                 <div style="margin-bottom: 28px;">
-                    <h3 style="font-size: 16px; font-weight: 700; color: #0f172a; margin-bottom: 16px; border-bottom: 2px solid #f1f5f9; padding-bottom: 8px;">
-                        📖 বইয়ের প্রাথমিক তথ্য
+                    <h3 style="font-size: 16px; font-weight: 700; color: #0f172a; margin-bottom: 16px; border-bottom: 2px solid #f1f5f9; padding-bottom: 8px; display: flex; align-items: center; gap: 8px;">
+                        <i class="bi bi-book-half" style="color: #0284c7;"></i> বইয়ের প্রাথমিক তথ্য
                     </h3>
 
                     <div class="grid-2">
@@ -64,8 +64,8 @@
 
                 <!-- Pricing & Stock -->
                 <div style="margin-bottom: 28px;">
-                    <h3 style="font-size: 16px; font-weight: 700; color: #0f172a; margin-bottom: 16px; border-bottom: 2px solid #f1f5f9; padding-bottom: 8px;">
-                        💰 মূল্য ও স্টক তথ্য
+                    <h3 style="font-size: 16px; font-weight: 700; color: #0f172a; margin-bottom: 16px; border-bottom: 2px solid #f1f5f9; padding-bottom: 8px; display: flex; align-items: center; gap: 8px;">
+                        <i class="bi bi-tag-fill" style="color: #0284c7;"></i> মূল্য ও স্টক তথ্য
                     </h3>
 
                     <div class="grid-3">
@@ -109,8 +109,8 @@
 
                 <!-- Publication Details -->
                 <div style="margin-bottom: 28px;">
-                    <h3 style="font-size: 16px; font-weight: 700; color: #0f172a; margin-bottom: 16px; border-bottom: 2px solid #f1f5f9; padding-bottom: 8px;">
-                        📑 বইয়ের বিস্তারিত ও বিবরণ
+                    <h3 style="font-size: 16px; font-weight: 700; color: #0f172a; margin-bottom: 16px; border-bottom: 2px solid #f1f5f9; padding-bottom: 8px; display: flex; align-items: center; gap: 8px;">
+                        <i class="bi bi-file-text-fill" style="color: #0284c7;"></i> বইয়ের বিস্তারিত ও বিবরণ
                     </h3>
 
                     <div class="grid-2">
@@ -143,8 +143,8 @@
 
                 <!-- Files Upload -->
                 <div style="margin-bottom: 32px;">
-                    <h3 style="font-size: 16px; font-weight: 700; color: #0f172a; margin-bottom: 16px; border-bottom: 2px solid #f1f5f9; padding-bottom: 8px;">
-                        🖼️ ফাইল ও কভার ছবি
+                    <h3 style="font-size: 16px; font-weight: 700; color: #0f172a; margin-bottom: 16px; border-bottom: 2px solid #f1f5f9; padding-bottom: 8px; display: flex; align-items: center; gap: 8px;">
+                        <i class="bi bi-cloud-arrow-up-fill" style="color: #0284c7;"></i> ফাইল ও কভার ছবি
                     </h3>
 
                     <div class="grid-2">
@@ -161,7 +161,7 @@
                         </div>
 
                         <div class="form-group" style="grid-column: 1 / -1;">
-                            <label class="form-label">🎥 ইউটিউব ভিডিও / রিভিউ লিঙ্ক (ঐচ্ছিক)</label>
+                            <label class="form-label">ইউটিউব ভিডিও / রিভিউ লিঙ্ক (ঐচ্ছিক)</label>
                             <input type="url" name="video_url" value="{{ old('video_url') }}" class="form-control" placeholder="https://www.youtube.com/watch?v=... বা https://youtu.be/...">
                             <small style="color: #64748b; font-size: 12px; display: block; margin-top: 4px;">বইটির ইউটিউব ভিডিও রিভিউ থাকলে লিঙ্ক দিন। বিস্তারিত পেজে ১৬:৯ ফরম্যাটে ভিডিও প্রদর্শিত হবে।</small>
                         </div>
@@ -170,8 +170,8 @@
 
                 <div style="display: flex; align-items: center; justify-content: flex-end; gap: 12px; border-top: 1px solid #e2e8f0; padding-top: 20px;">
                     <a href="{{ route('publisher.books.index') }}" class="btn btn-gray">বাতিল করুন</a>
-                    <button type="submit" class="btn btn-primary" style="padding: 12px 24px; font-size: 15px;">
-                        📤 বইটি অ্যাডমিন পর্যালোচনার জন্য জমা দিন
+                    <button type="submit" class="btn btn-primary" style="padding: 12px 24px; font-size: 15px; display: inline-flex; align-items: center; gap: 8px;">
+                        <i class="bi bi-send-check"></i> বইটি অ্যাডমিন পর্যালোচনার জন্য জমা দিন
                     </button>
                 </div>
 

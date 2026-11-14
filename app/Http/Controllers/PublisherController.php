@@ -124,6 +124,10 @@ class PublisherController extends Controller
     {
         $user = Auth::user();
 
+        if ($user->isExpiredPublisher()) {
+            return redirect()->route('publisher.dashboard')->with('error', 'আপনার প্রকাশনীর সাবস্ক্রিপশন মেয়াদের সমাপ্তি ঘটেছে। দয়া করে অ্যাডমিনের সাথে যোগাযোগ করে মেয়াদ নবায়ন করুন।');
+        }
+
         if (!$user->isApprovedPublisher()) {
             return redirect()->route('publisher.dashboard')->with('error', 'আপনার প্রকাশনী অ্যাকাউন্টটি এখনও অনুমোদিত নয়। অ্যাডমিনের অনুমোদনের পর আপনি বই যোগ করতে পারবেন।');
         }
@@ -138,6 +142,10 @@ class PublisherController extends Controller
     public function storeBook(Request $request)
     {
         $user = Auth::user();
+
+        if ($user->isExpiredPublisher()) {
+            return redirect()->route('publisher.dashboard')->with('error', 'আপনার প্রকাশনীর সাবস্ক্রিপশন মেয়াদের সমাপ্তি ঘটেছে। দয়া করে অ্যাডমিনের সাথে যোগাযোগ করে মেয়াদ নবায়ন করুন।');
+        }
 
         if (!$user->isApprovedPublisher()) {
             return redirect()->route('publisher.dashboard')->with('error', 'আপনার প্রকাশনী অ্যাকাউন্টটি এখনও অনুমোদিত নয়।');

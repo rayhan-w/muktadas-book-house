@@ -23,6 +23,8 @@ class User extends Authenticatable
         'publisher_status',
         'publisher_bio',
         'publisher_rejection_reason',
+        'publisher_plan',
+        'publisher_expires_at',
     ];
 
     protected $hidden = [
@@ -36,6 +38,7 @@ class User extends Authenticatable
             'email_verified_at' => 'datetime',
             'password' => 'hashed',
             'membership_expires_at' => 'datetime',
+            'publisher_expires_at' => 'datetime',
         ];
     }
 
@@ -56,7 +59,21 @@ class User extends Authenticatable
 
     public function isApprovedPublisher(): bool
     {
-        return $this->isPublisher() && $this->publisher_status === 'approved';
+        if (!$this->isPublisher() || $this->publisher_status !== 'approved') {
+            return false;
+        }
+        if ($this->publisher_expires_at && $this->publisher_expires_at->isPast()) {
+            return false;
+        }
+        return true;
+    }
+
+    public function isExpiredPublisher(): bool
+    {
+        return $this->isPublisher() && 
+               $this->publisher_status === 'approved' && 
+               $this->publisher_expires_at && 
+               $this->publisher_expires_at->isPast();
     }
 
     public function isPendingPublisher(): bool

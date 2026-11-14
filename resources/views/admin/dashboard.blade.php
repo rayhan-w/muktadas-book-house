@@ -6,9 +6,11 @@
 @section('content')
 
 @if($pendingPublishers > 0 || $pendingPublisherBooks > 0)
-    <div style="background: #fffbeb; border: 2px solid #f59e0b; border-radius: 10px; padding: 16px 20px; margin-bottom: 25px; display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 14px;">
-        <div style="display: flex; align-items: center; gap: 12px;">
-            <span style="font-size: 26px;">🔔</span>
+    <div style="background: #fffbeb; border: 2px solid #f59e0b; border-radius: 12px; padding: 16px 20px; margin-bottom: 25px; display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 14px; box-shadow: 0 2px 6px rgba(245, 158, 11, 0.1);">
+        <div style="display: flex; align-items: center; gap: 14px;">
+            <div style="width: 44px; height: 44px; border-radius: 12px; background: #fef3c7; border: 1px solid #fde68a; display: flex; align-items: center; justify-content: center; font-size: 20px; color: #d97706; flex-shrink: 0;">
+                <i class="bi bi-bell-fill"></i>
+            </div>
             <div>
                 <strong style="color: #92400e; font-size: 15px;">পাবলিশার পোর্টালে নতুন অ্যাকশন পেন্ডিং আছে:</strong>
                 <div style="font-size: 13.5px; color: #78350f; margin-top: 2px;">
@@ -26,10 +28,14 @@
         </div>
         <div style="display: flex; gap: 8px;">
             @if($pendingPublishers > 0)
-                <a href="{{ route('admin.publishers.index', ['status' => 'pending']) }}" class="btn-sm btn-yellow" style="text-decoration: none;">প্রকাশনী দেখুন</a>
+                <a href="{{ route('admin.publishers.index', ['status' => 'pending']) }}" class="btn-sm btn-yellow" style="text-decoration: none; background: #f59e0b; color: #fff;">
+                    <i class="bi bi-buildings"></i> প্রকাশনী দেখুন
+                </a>
             @endif
             @if($pendingPublisherBooks > 0)
-                <a href="{{ route('admin.publishers.books', ['status' => 'pending']) }}" class="btn-sm btn-blue" style="text-decoration: none;">বই অনুমোদন করুন</a>
+                <a href="{{ route('admin.publishers.books', ['status' => 'pending']) }}" class="btn-sm btn-blue" style="text-decoration: none;">
+                    <i class="bi bi-check-circle"></i> বই অনুমোদন করুন
+                </a>
             @endif
         </div>
     </div>
@@ -37,28 +43,54 @@
 
 <!-- KPI Cards -->
 <div class="grid-4" style="margin-bottom: 25px;">
-    <div class="admin-card" style="margin-bottom: 0;">
-        <div style="font-size: 13px; color: var(--admin-muted);">মোট বিক্রয় (আয়)</div>
-        <div style="font-size: 26px; font-weight: 800; color: #16a34a; margin: 6px 0;">৳ {{ number_format($totalRevenue) }}</div>
-        <small style="color: var(--admin-muted);">অনুমোদিত অর্ডারসমূহ থেকে</small>
+    <div class="kpi-card">
+        <div>
+            <div style="font-size: 13px; color: var(--admin-muted); font-weight: 600;">মোট বিক্রয় (আয়)</div>
+            <div style="font-size: 26px; font-weight: 800; color: #16a34a; margin: 4px 0 6px;">৳ {{ number_format($totalRevenue) }}</div>
+            <small style="color: var(--admin-muted); font-size: 12px;">অনুমোদিত অর্ডারসমূহ থেকে</small>
+        </div>
+        <div class="kpi-icon-box kpi-icon-emerald">
+            <i class="bi bi-wallet2"></i>
+        </div>
     </div>
 
-    <div class="admin-card" style="margin-bottom: 0;">
-        <div style="font-size: 13px; color: var(--admin-muted);">পেন্ডিং অর্ডার</div>
-        <div style="font-size: 26px; font-weight: 800; color: #d97706; margin: 6px 0;">{{ $pendingOrders }}</div>
-        <a href="{{ route('admin.orders.index', ['status' => 'pending']) }}" style="font-size: 12px; color: var(--admin-primary); font-weight: 700;">নজর দেওয়া প্রয়োজন →</a>
+    <div class="kpi-card">
+        <div>
+            <div style="font-size: 13px; color: var(--admin-muted); font-weight: 600;">পেন্ডিং অর্ডার</div>
+            <div style="font-size: 26px; font-weight: 800; color: #d97706; margin: 4px 0 6px;">{{ $pendingOrders }}</div>
+            <a href="{{ route('admin.orders.index', ['status' => 'pending']) }}" style="font-size: 12px; color: var(--admin-primary); font-weight: 700; text-decoration: none; display: inline-flex; align-items: center; gap: 4px;">
+                নজর দেওয়া প্রয়োজন <i class="bi bi-arrow-right"></i>
+            </a>
+        </div>
+        <div class="kpi-icon-box kpi-icon-amber">
+            <i class="bi bi-clock-history"></i>
+        </div>
     </div>
 
-    <div class="admin-card" style="margin-bottom: 0;">
-        <div style="font-size: 13px; color: var(--admin-muted);">মোট বই ক্যাটালগে</div>
-        <div style="font-size: 26px; font-weight: 800; color: var(--admin-dark); margin: 6px 0;">{{ $totalBooks }}</div>
-        <a href="{{ route('admin.books.index') }}" style="font-size: 12px; color: var(--admin-primary); font-weight: 700;">বই পরিচালনা →</a>
+    <div class="kpi-card">
+        <div>
+            <div style="font-size: 13px; color: var(--admin-muted); font-weight: 600;">মোট বই ক্যাটালগে</div>
+            <div style="font-size: 26px; font-weight: 800; color: var(--admin-dark); margin: 4px 0 6px;">{{ $totalBooks }}</div>
+            <a href="{{ route('admin.books.index') }}" style="font-size: 12px; color: var(--admin-primary); font-weight: 700; text-decoration: none; display: inline-flex; align-items: center; gap: 4px;">
+                বই পরিচালনা <i class="bi bi-arrow-right"></i>
+            </a>
+        </div>
+        <div class="kpi-icon-box kpi-icon-blue">
+            <i class="bi bi-journal-album"></i>
+        </div>
     </div>
 
-    <div class="admin-card" style="margin-bottom: 0;">
-        <div style="font-size: 13px; color: var(--admin-muted);">নিবন্ধিত পাঠক</div>
-        <div style="font-size: 26px; font-weight: 800; color: #2563eb; margin: 6px 0;">{{ $totalCustomers }}</div>
-        <a href="{{ route('admin.customers.index') }}" style="font-size: 12px; color: var(--admin-primary); font-weight: 700;">গ্রাহক তালিকা →</a>
+    <div class="kpi-card">
+        <div>
+            <div style="font-size: 13px; color: var(--admin-muted); font-weight: 600;">নিবন্ধিত পাঠক</div>
+            <div style="font-size: 26px; font-weight: 800; color: #7c3aed; margin: 4px 0 6px;">{{ $totalCustomers }}</div>
+            <a href="{{ route('admin.customers.index') }}" style="font-size: 12px; color: #7c3aed; font-weight: 700; text-decoration: none; display: inline-flex; align-items: center; gap: 4px;">
+                গ্রাহক তালিকা <i class="bi bi-arrow-right"></i>
+            </a>
+        </div>
+        <div class="kpi-icon-box kpi-icon-purple">
+            <i class="bi bi-people-fill"></i>
+        </div>
     </div>
 </div>
 
@@ -66,18 +98,25 @@
     <!-- Sales breakdown by format -->
     <div class="admin-card" style="margin-bottom: 0;">
         <div class="card-header">
-            <h2>ফরম্যাট অনুযায়ী বিক্রয়</h2>
+            <h2 style="display: flex; align-items: center; gap: 8px;">
+                <i class="bi bi-pie-chart-fill" style="color: var(--admin-primary);"></i>
+                ফরম্যাট অনুযায়ী বিক্রয়
+            </h2>
         </div>
-        <div style="display: flex; gap: 30px; align-items: center; padding: 15px 0;">
-            <div style="flex: 1; background: #f8fafc; border: 1px solid var(--admin-border); border-radius: 8px; padding: 18px; text-align: center;">
-                <span style="font-size: 24px;">📦</span>
-                <div style="font-size: 13px; color: var(--admin-muted); margin-top: 5px;">হার্ডকপি বিক্রি</div>
-                <strong style="font-size: 20px; color: var(--admin-dark); display: block; margin-top: 4px;">৳ {{ number_format($hardcopySales) }}</strong>
+        <div style="display: flex; gap: 20px; align-items: center; padding: 10px 0;">
+            <div style="flex: 1; background: #f8fafc; border: 1px solid var(--admin-border); border-radius: 12px; padding: 18px; text-align: center;">
+                <div style="width: 44px; height: 44px; border-radius: 10px; background: #eff6ff; color: #2563eb; display: inline-flex; align-items: center; justify-content: center; font-size: 20px; margin-bottom: 8px;">
+                    <i class="bi bi-box-seam-fill"></i>
+                </div>
+                <div style="font-size: 13px; color: var(--admin-muted); font-weight: 600;">হার্ডকপি বিক্রি</div>
+                <strong style="font-size: 22px; color: var(--admin-dark); display: block; margin-top: 4px;">৳ {{ number_format($hardcopySales) }}</strong>
             </div>
-            <div style="flex: 1; background: #f8fafc; border: 1px solid var(--admin-border); border-radius: 8px; padding: 18px; text-align: center;">
-                <span style="font-size: 24px;">📱</span>
-                <div style="font-size: 13px; color: var(--admin-muted); margin-top: 5px;">ই-বুক বিক্রি</div>
-                <strong style="font-size: 20px; color: #2563eb; display: block; margin-top: 4px;">৳ {{ number_format($ebookSales) }}</strong>
+            <div style="flex: 1; background: #f8fafc; border: 1px solid var(--admin-border); border-radius: 12px; padding: 18px; text-align: center;">
+                <div style="width: 44px; height: 44px; border-radius: 10px; background: #f0fdfa; color: #0d9488; display: inline-flex; align-items: center; justify-content: center; font-size: 20px; margin-bottom: 8px;">
+                    <i class="bi bi-tablet-landscape-fill"></i>
+                </div>
+                <div style="font-size: 13px; color: var(--admin-muted); font-weight: 600;">ই-বুক বিক্রি</div>
+                <strong style="font-size: 22px; color: #0d9488; display: block; margin-top: 4px;">৳ {{ number_format($ebookSales) }}</strong>
             </div>
         </div>
     </div>
@@ -85,13 +124,24 @@
     <!-- Quick action links -->
     <div class="admin-card" style="margin-bottom: 0;">
         <div class="card-header">
-            <h2>জরুরি অ্যাকশন</h2>
+            <h2 style="display: flex; align-items: center; gap: 8px;">
+                <i class="bi bi-lightning-charge-fill" style="color: #f59e0b;"></i>
+                জরুরি অ্যাকশন
+            </h2>
         </div>
         <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 12px;">
-            <a href="{{ route('admin.books.create') }}" class="btn-sm btn-blue" style="padding: 12px; justify-content: center;">+ নতুন বই যোগ করুন</a>
-            <a href="{{ route('admin.payments.index') }}" class="btn-sm btn-green" style="padding: 12px; justify-content: center;">💳 পেমেন্ট নম্বর পরিবর্তন</a>
-            <a href="{{ route('admin.orders.index') }}" class="btn-sm btn-gray" style="padding: 12px; justify-content: center;">🛍️ সকল অর্ডার দেখুন</a>
-            <a href="{{ route('admin.settings.index') }}" class="btn-sm btn-gray" style="padding: 12px; justify-content: center;">⚙️ সাইট সেটিংস</a>
+            <a href="{{ route('admin.books.create') }}" class="btn-sm btn-blue" style="padding: 12px; justify-content: center;">
+                <i class="bi bi-plus-circle-fill"></i> নতুন বই যোগ করুন
+            </a>
+            <a href="{{ route('admin.payments.index') }}" class="btn-sm btn-green" style="padding: 12px; justify-content: center;">
+                <i class="bi bi-credit-card-2-front-fill"></i> পেমেন্ট নম্বর পরিবর্তন
+            </a>
+            <a href="{{ route('admin.orders.index') }}" class="btn-sm btn-gray" style="padding: 12px; justify-content: center;">
+                <i class="bi bi-bag-check-fill"></i> সকল অর্ডার দেখুন
+            </a>
+            <a href="{{ route('admin.settings.index') }}" class="btn-sm btn-gray" style="padding: 12px; justify-content: center;">
+                <i class="bi bi-gear-fill"></i> সাইট সেটিংস
+            </a>
         </div>
     </div>
 </div>
@@ -99,8 +149,13 @@
 <!-- Recent Orders Table -->
 <div class="admin-card">
     <div class="card-header">
-        <h2>সাম্প্রতিক অর্ডারসমূহ</h2>
-        <a href="{{ route('admin.orders.index') }}" class="btn-sm btn-blue">সব অর্ডার দেখুন →</a>
+        <h2 style="display: flex; align-items: center; gap: 8px;">
+            <i class="bi bi-clock-history" style="color: var(--admin-primary);"></i>
+            সাম্প্রতিক অর্ডারসমূহ
+        </h2>
+        <a href="{{ route('admin.orders.index') }}" class="btn-sm btn-blue">
+            সব অর্ডার দেখুন <i class="bi bi-arrow-right"></i>
+        </a>
     </div>
 
     @if($recentOrders->isEmpty())
@@ -135,7 +190,9 @@
                             </td>
                             <td>{{ $order->created_at->format('d M, Y') }}</td>
                             <td>
-                                <a href="{{ route('admin.orders.show', $order->id) }}" class="btn-sm btn-blue">বিবরণ</a>
+                                <a href="{{ route('admin.orders.show', $order->id) }}" class="btn-sm btn-blue">
+                                    <i class="bi bi-eye-fill"></i> বিবরণ
+                                </a>
                             </td>
                         </tr>
                     @endforeach

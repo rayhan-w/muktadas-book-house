@@ -10,7 +10,9 @@
         <div class="admin-card">
             <div class="card-header">
                 <h2>অর্ডারের বিবরণ ও আইটেমসমূহ</h2>
-                <a href="{{ route('orders.invoice', $order->order_number) }}" target="_blank" class="btn-sm btn-gray">🖨️ ইনভয়েস প্রিন্ট</a>
+                <a href="{{ route('orders.invoice', $order->order_number) }}" target="_blank" class="btn-sm btn-gray">
+                    <i class="bi bi-printer"></i> ইনভয়েস প্রিন্ট
+                </a>
             </div>
 
             <table class="data-table" style="margin-bottom: 20px;">

@@ -10,7 +10,9 @@
             <h2>ক্যাটালগের সকল বই ({{ $books->total() }})</h2>
             <small style="color: var(--admin-muted);">বইয়ের দাম, প্রচ্ছদ, ই-বুক ফাইল, স্টক ও প্রিভিউ পাতা পরিবর্তন করুন।</small>
         </div>
-        <a href="{{ route('admin.books.create') }}" class="btn-sm btn-blue">+ নতুন বই যুক্ত করুন</a>
+        <a href="{{ route('admin.books.create') }}" class="btn-sm btn-blue">
+            <i class="bi bi-plus-circle"></i> নতুন বই যুক্ত করুন
+        </a>
     </div>
 
     <!-- Filter form -->
@@ -22,9 +24,13 @@
                 <option value="{{ $cat->id }}" {{ request('category') == $cat->id ? 'selected' : '' }}>{{ $cat->name }}</option>
             @endforeach
         </select>
-        <button type="submit" class="btn-sm btn-gray">ফিল্টার</button>
+        <button type="submit" class="btn-sm btn-gray">
+            <i class="bi bi-funnel"></i> ফিল্টার
+        </button>
         @if(request('q') || request('category'))
-            <a href="{{ route('admin.books.index') }}" class="btn-sm btn-red">রিসেট</a>
+            <a href="{{ route('admin.books.index') }}" class="btn-sm btn-red">
+                <i class="bi bi-arrow-counterclockwise"></i> রিসেট
+            </a>
         @endif
     </form>
 
@@ -53,7 +59,7 @@
                             <small style="display: block; color: var(--admin-muted);">লেখক: {{ $book->author_name }}</small>
                             @if($book->publisher_name)
                                 <div style="font-size: 11.5px; color: #2563eb; margin-top: 2px;">
-                                    🏢 প্রকাশনী: {{ $book->publisher_name }}
+                                    <i class="bi bi-buildings"></i> প্রকাশনী: {{ $book->publisher_name }}
                                     @if($book->approval_status === 'pending')
                                         <span style="background: #fef3c7; color: #92400e; padding: 1px 5px; border-radius: 4px; font-weight: 700;">পেন্ডিং</span>
                                     @elseif($book->approval_status === 'approved')
@@ -63,8 +69,8 @@
                                     @endif
                                 </div>
                             @endif
-                            @if($book->is_featured) <span style="font-size: 10px; background: #fef3c7; color: #92400e; padding: 1px 5px; border-radius: 4px;">Featured</span> @endif
-                            @if($book->is_upcoming) <span style="font-size: 10px; background: #e0e7ff; color: #3730a3; padding: 1px 5px; border-radius: 4px;">Upcoming</span> @endif
+                            @if($book->is_featured) <span style="font-size: 10px; background: #fef3c7; color: #92400e; padding: 1px 5px; border-radius: 4px;"><i class="bi bi-star-fill"></i> Featured</span> @endif
+                            @if($book->is_upcoming) <span style="font-size: 10px; background: #e0e7ff; color: #3730a3; padding: 1px 5px; border-radius: 4px;"><i class="bi bi-clock"></i> Upcoming</span> @endif
                         </td>
                         <td>
                             {{ $book->categories->pluck('name')->join(', ') ?: '—' }}
@@ -83,12 +89,18 @@
                         <td>{{ $book->preview_pages }} পৃষ্ঠা</td>
                         <td>
                             <div style="display: flex; gap: 6px;">
-                                <a href="{{ route('books.show', $book->slug) }}" target="_blank" class="btn-sm btn-gray" title="ওয়েবসাইটে দেখুন">👁️</a>
-                                <a href="{{ route('admin.books.edit', $book->id) }}" class="btn-sm btn-blue">এডিট</a>
+                                <a href="{{ route('books.show', $book->slug) }}" target="_blank" class="btn-sm btn-gray" title="ওয়েবসাইটে দেখুন">
+                                    <i class="bi bi-eye"></i>
+                                </a>
+                                <a href="{{ route('admin.books.edit', $book->id) }}" class="btn-sm btn-blue">
+                                    <i class="bi bi-pencil-square"></i> এডিট
+                                </a>
                                 <form action="{{ route('admin.books.destroy', $book->id) }}" method="POST" onsubmit="return confirm('আপনি কি নিশ্চিতভাবে এই বইটি মুছে ফেলতে চান?')">
                                     @csrf
                                     @method('DELETE')
-                                    <button type="submit" class="btn-sm btn-red">মুছুন</button>
+                                    <button type="submit" class="btn-sm btn-red">
+                                        <i class="bi bi-trash"></i> মুছুন
+                                    </button>
                                 </form>
                             </div>
                         </td>

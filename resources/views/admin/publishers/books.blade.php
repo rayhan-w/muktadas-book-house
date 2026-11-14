@@ -6,8 +6,11 @@
 @section('content')
 
     <!-- Policy Banner -->
-    <div style="background: #eff6ff; border: 1px solid #bfdbfe; border-radius: 10px; padding: 14px 18px; margin-bottom: 24px; font-size: 13.5px; color: #1e40af; line-height: 1.6;">
-        🛡️ <strong>কন্টেন্ট নিরাপত্তা ও অনুমোদন ব্যবস্থা:</strong> কোনো প্রকাশক নতুন বই জমা দিলে অথবা <em>ইতিমধ্যে লাইভ থাকা কোনো বই সম্পাদনা (Edit) করলে</em> তা স্বয়ংক্রিয়ভাবে সাময়িকভাবে অপ্রকাশিত হয়ে এই তালিকায় <strong>"অপেক্ষমাণ (Pending)"</strong> হিসেবে জমা হয়। আপনি যাচাই করে "অনুমোদন করুন" বাটনে ক্লিক করলে তা সরাসরি ওয়েবসাইটে পাঠকদের জন্য প্রকাশিত হবে।
+    <div style="background: #eff6ff; border: 1px solid #bfdbfe; border-radius: 12px; padding: 14px 18px; margin-bottom: 24px; font-size: 13.5px; color: #1e40af; line-height: 1.6; display: flex; align-items: flex-start; gap: 10px;">
+        <i class="bi bi-shield-check" style="font-size: 18px; color: #2563eb; flex-shrink: 0; margin-top: 1px;"></i>
+        <div>
+            <strong>কন্টেন্ট নিরাপত্তা ও অনুমোদন ব্যবস্থা:</strong> কোনো প্রকাশক নতুন বই জমা দিলে অথবা <em>ইতিমধ্যে লাইভ থাকা কোনো বই সম্পাদনা (Edit) করলে</em> তা স্বয়ংক্রিয়ভাবে সাময়িকভাবে অপ্রকাশিত হয়ে এই তালিকায় <strong>"অপেক্ষমাণ (Pending)"</strong> হিসেবে জমা হয়। আপনি যাচাই করে "অনুমোদন করুন" বাটনে ক্লিক করলে তা সরাসরি ওয়েবসাইটে পাঠকদের জন্য প্রকাশিত হবে।
+        </div>
     </div>
 
     <div class="admin-card">
@@ -23,17 +26,17 @@
         <!-- Filter Tabs & Search -->
         <div style="display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 14px; margin-bottom: 20px; border-bottom: 1px solid var(--admin-border); padding-bottom: 14px;">
             <div style="display: flex; gap: 8px; flex-wrap: wrap;">
-                <a href="{{ route('admin.publishers.books') }}" class="btn-sm {{ !request('status') ? 'btn-primary' : 'btn-gray' }}" style="text-decoration: none;">
+                <a href="{{ route('admin.publishers.books') }}" class="btn-sm {{ !request('status') ? 'btn-blue' : 'btn-gray' }}" style="text-decoration: none;">
                     সকল বই ({{ $counts['all'] }})
                 </a>
-                <a href="{{ route('admin.publishers.books', ['status' => 'pending']) }}" class="btn-sm {{ request('status') === 'pending' ? 'btn-warning' : 'btn-gray' }}" style="text-decoration: none;">
-                    ⏳ অপেক্ষমাণ ({{ $counts['pending'] }})
+                <a href="{{ route('admin.publishers.books', ['status' => 'pending']) }}" class="btn-sm {{ request('status') === 'pending' ? 'btn-blue' : 'btn-gray' }}" style="text-decoration: none;">
+                    <i class="bi bi-hourglass-split"></i> অপেক্ষমাণ ({{ $counts['pending'] }})
                 </a>
-                <a href="{{ route('admin.publishers.books', ['status' => 'approved']) }}" class="btn-sm {{ request('status') === 'approved' ? 'btn-primary' : 'btn-gray' }}" style="text-decoration: none;">
-                    ✓ অনুমোদিত ({{ $counts['approved'] }})
+                <a href="{{ route('admin.publishers.books', ['status' => 'approved']) }}" class="btn-sm {{ request('status') === 'approved' ? 'btn-green' : 'btn-gray' }}" style="text-decoration: none;">
+                    <i class="bi bi-check-circle-fill"></i> অনুমোদিত ({{ $counts['approved'] }})
                 </a>
-                <a href="{{ route('admin.publishers.books', ['status' => 'rejected']) }}" class="btn-sm {{ request('status') === 'rejected' ? 'btn-danger' : 'btn-gray' }}" style="text-decoration: none;">
-                    ✕ বাতিলকৃত ({{ $counts['rejected'] }})
+                <a href="{{ route('admin.publishers.books', ['status' => 'rejected']) }}" class="btn-sm {{ request('status') === 'rejected' ? 'btn-red' : 'btn-gray' }}" style="text-decoration: none;">
+                    <i class="bi bi-x-circle-fill"></i> বাতিলকৃত ({{ $counts['rejected'] }})
                 </a>
             </div>
 
@@ -84,7 +87,7 @@
                                 </td>
                                 <td>
                                     <strong style="color: #0f172a; display: block; font-size: 14px;">
-                                        🏢 {{ $book->publisher_name ?: ($book->user?->publisher_company ?: $book->user?->name) }}
+                                        <i class="bi bi-buildings"></i> {{ $book->publisher_name ?: ($book->user?->publisher_company ?: $book->user?->name) }}
                                     </strong>
                                     <small style="color: var(--admin-muted); display: block;">
                                         {{ $book->user?->email }}
@@ -99,22 +102,24 @@
                                     <div style="font-size: 11.5px; color: #16a34a;">স্টক: {{ $book->stock_quantity }} কপি</div>
                                     @if($book->ebook_file)
                                         <div style="font-size: 11px; color: #2563eb; margin-top: 3px;">
-                                            <a href="{{ asset($book->ebook_file) }}" target="_blank" style="color: inherit; text-decoration: underline;">📄 PDF প্রিভিউ</a>
+                                            <a href="{{ asset($book->ebook_file) }}" target="_blank" style="color: inherit; text-decoration: underline;">
+                                                <i class="bi bi-file-earmark-pdf"></i> PDF প্রিভিউ
+                                            </a>
                                         </div>
                                     @endif
                                 </td>
                                 <td>
                                     @if($book->approval_status === 'approved')
-                                        <span style="background: #dcfce7; color: #166534; padding: 4px 10px; border-radius: 999px; font-size: 12px; font-weight: 700; display: inline-block;">
-                                            ✓ অনুমোদিত (লাইভ)
+                                        <span style="background: #dcfce7; color: #166534; padding: 4px 10px; border-radius: 999px; font-size: 12px; font-weight: 700; display: inline-flex; align-items: center; gap: 4px;">
+                                            <i class="bi bi-check-circle-fill"></i> অনুমোদিত (লাইভ)
                                         </span>
                                     @elseif($book->approval_status === 'pending')
-                                        <span style="background: #fef3c7; color: #92400e; padding: 4px 10px; border-radius: 999px; font-size: 12px; font-weight: 700; display: inline-block;">
-                                            ⏳ পর্যালোচনার জন্য অপেক্ষমাণ
+                                        <span style="background: #fef3c7; color: #92400e; padding: 4px 10px; border-radius: 999px; font-size: 12px; font-weight: 700; display: inline-flex; align-items: center; gap: 4px;">
+                                            <i class="bi bi-hourglass-split"></i> পর্যালোচনার জন্য অপেক্ষমাণ
                                         </span>
                                     @else
-                                        <span style="background: #fee2e2; color: #991b1b; padding: 4px 10px; border-radius: 999px; font-size: 12px; font-weight: 700; display: inline-block;">
-                                            ✕ বাতিলকৃত
+                                        <span style="background: #fee2e2; color: #991b1b; padding: 4px 10px; border-radius: 999px; font-size: 12px; font-weight: 700; display: inline-flex; align-items: center; gap: 4px;">
+                                            <i class="bi bi-x-circle-fill"></i> বাতিলকৃত
                                         </span>
                                         @if($book->rejection_reason)
                                             <div style="font-size: 11.5px; color: #dc2626; margin-top: 4px; background: #fee2e2; padding: 4px 8px; border-radius: 6px; max-width: 220px;">
@@ -130,15 +135,15 @@
                                 <td style="text-align: right;">
                                     <div style="display: flex; align-items: center; justify-content: flex-end; gap: 6px;">
                                         <a href="{{ route('books.show', $book->slug) }}" target="_blank" class="btn-sm btn-gray" title="প্রিভিউ দেখুন">
-                                            👁️
+                                            <i class="bi bi-eye"></i>
                                         </a>
 
                                         @if($book->approval_status !== 'approved')
                                             <form action="{{ route('admin.publishers.books.approve', $book->id) }}" method="POST" style="display: inline;">
                                                 @csrf
                                                 @method('PUT')
-                                                <button type="submit" class="btn-sm btn-primary" onclick="return confirm('আপনি কি এই বইটি অনুমোদন করে ওয়েবসাইটে প্রকাশ করতে চান?');">
-                                                    ✓ অনুমোদন করুন
+                                                <button type="submit" class="btn-sm btn-blue" onclick="return confirm('আপনি কি এই বইটি অনুমোদন করে ওয়েবসাইটে প্রকাশ করতে চান?');">
+                                                    <i class="bi bi-check-circle-fill"></i> অনুমোদন করুন
                                                 </button>
                                             </form>
                                         @endif

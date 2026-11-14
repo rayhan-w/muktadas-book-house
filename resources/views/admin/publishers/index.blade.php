@@ -18,17 +18,17 @@
         <!-- Filter Tabs & Search -->
         <div style="display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 14px; margin-bottom: 20px; border-bottom: 1px solid var(--admin-border); padding-bottom: 14px;">
             <div style="display: flex; gap: 8px; flex-wrap: wrap;">
-                <a href="{{ route('admin.publishers.index') }}" class="btn-sm {{ !request('status') ? 'btn-primary' : 'btn-gray' }}" style="text-decoration: none;">
+                <a href="{{ route('admin.publishers.index') }}" class="btn-sm {{ !request('status') ? 'btn-blue' : 'btn-gray' }}" style="text-decoration: none;">
                     সকল প্রকাশনী ({{ $counts['all'] }})
                 </a>
-                <a href="{{ route('admin.publishers.index', ['status' => 'pending']) }}" class="btn-sm {{ request('status') === 'pending' ? 'btn-warning' : 'btn-gray' }}" style="text-decoration: none;">
-                    ⏳ অপেক্ষমাণ ({{ $counts['pending'] }})
+                <a href="{{ route('admin.publishers.index', ['status' => 'pending']) }}" class="btn-sm {{ request('status') === 'pending' ? 'btn-blue' : 'btn-gray' }}" style="text-decoration: none;">
+                    <i class="bi bi-hourglass-split"></i> অপেক্ষমাণ ({{ $counts['pending'] }})
                 </a>
-                <a href="{{ route('admin.publishers.index', ['status' => 'approved']) }}" class="btn-sm {{ request('status') === 'approved' ? 'btn-primary' : 'btn-gray' }}" style="text-decoration: none;">
-                    ✓ অনুমোদিত ({{ $counts['approved'] }})
+                <a href="{{ route('admin.publishers.index', ['status' => 'approved']) }}" class="btn-sm {{ request('status') === 'approved' ? 'btn-green' : 'btn-gray' }}" style="text-decoration: none;">
+                    <i class="bi bi-check-circle-fill"></i> অনুমোদিত ({{ $counts['approved'] }})
                 </a>
-                <a href="{{ route('admin.publishers.index', ['status' => 'rejected']) }}" class="btn-sm {{ request('status') === 'rejected' ? 'btn-danger' : 'btn-gray' }}" style="text-decoration: none;">
-                    ✕ বাতিলকৃত ({{ $counts['rejected'] }})
+                <a href="{{ route('admin.publishers.index', ['status' => 'rejected']) }}" class="btn-sm {{ request('status') === 'rejected' ? 'btn-red' : 'btn-gray' }}" style="text-decoration: none;">
+                    <i class="bi bi-x-circle-fill"></i> বাতিলকৃত ({{ $counts['rejected'] }})
                 </a>
             </div>
 
@@ -60,17 +60,17 @@
                             <tr>
                                 <td>
                                     <strong style="color: var(--admin-dark); font-size: 15px; display: block;">
-                                        🏢 {{ $pub->publisher_company ?: 'নামহীন প্রকাশনী' }}
+                                        <i class="bi bi-buildings"></i> {{ $pub->publisher_company ?: 'নামহীন প্রকাশনী' }}
                                     </strong>
                                     <small style="color: var(--admin-muted);">দায়িত্বপ্রাপ্ত: {{ $pub->name }}</small>
                                 </td>
                                 <td>
-                                    <div>📧 {{ $pub->email }}</div>
-                                    <div style="font-size: 12.5px; color: var(--admin-muted);">📱 {{ $pub->phone }}</div>
+                                    <div><i class="bi bi-envelope"></i> {{ $pub->email }}</div>
+                                    <div style="font-size: 12.5px; color: var(--admin-muted);"><i class="bi bi-telephone"></i> {{ $pub->phone }}</div>
                                 </td>
                                 <td>
                                     @if($pub->address)
-                                        <div style="font-size: 13px; color: #334155;">📍 {{ $pub->address }}</div>
+                                        <div style="font-size: 13px; color: #334155;"><i class="bi bi-geo-alt"></i> {{ $pub->address }}</div>
                                     @endif
                                     @if($pub->publisher_bio)
                                         <small style="color: var(--admin-muted); display: block; max-width: 220px;" title="{{ $pub->publisher_bio }}">
@@ -85,16 +85,16 @@
                                 </td>
                                 <td>
                                     @if($pub->publisher_status === 'approved')
-                                        <span class="badge badge-success" style="background: #dcfce7; color: #166534; padding: 4px 10px; border-radius: 999px; font-size: 12px; font-weight: 700;">
-                                            ✓ অনুমোদিত
+                                        <span class="badge badge-success" style="background: #dcfce7; color: #166534; padding: 4px 10px; border-radius: 999px; font-size: 12px; font-weight: 700; display: inline-flex; align-items: center; gap: 4px;">
+                                            <i class="bi bi-check-circle-fill"></i> অনুমোদিত
                                         </span>
                                     @elseif($pub->publisher_status === 'pending')
-                                        <span class="badge badge-warning" style="background: #fef3c7; color: #92400e; padding: 4px 10px; border-radius: 999px; font-size: 12px; font-weight: 700;">
-                                            ⏳ অপেক্ষমাণ (Pending)
+                                        <span class="badge badge-warning" style="background: #fef3c7; color: #92400e; padding: 4px 10px; border-radius: 999px; font-size: 12px; font-weight: 700; display: inline-flex; align-items: center; gap: 4px;">
+                                            <i class="bi bi-hourglass-split"></i> অপেক্ষমাণ
                                         </span>
                                     @else
-                                        <span class="badge badge-danger" style="background: #fee2e2; color: #991b1b; padding: 4px 10px; border-radius: 999px; font-size: 12px; font-weight: 700;">
-                                            ✕ বাতিলকৃত
+                                        <span class="badge badge-danger" style="background: #fee2e2; color: #991b1b; padding: 4px 10px; border-radius: 999px; font-size: 12px; font-weight: 700; display: inline-flex; align-items: center; gap: 4px;">
+                                            <i class="bi bi-x-circle-fill"></i> বাতিলকৃত
                                         </span>
                                         @if($pub->publisher_rejection_reason)
                                             <div style="font-size: 11px; color: #dc2626; margin-top: 3px; max-width: 200px;">
@@ -112,15 +112,15 @@
                                             <form action="{{ route('admin.publishers.approve', $pub->id) }}" method="POST" style="display: inline;">
                                                 @csrf
                                                 @method('PUT')
-                                                <button type="submit" class="btn-sm btn-primary" onclick="return confirm('আপনি কি এই প্রকাশনীকে অনুমোদন দিতে চান?');">
-                                                    ✓ অনুমোদন করুন
+                                                <button type="submit" class="btn-sm btn-blue" onclick="return confirm('আপনি কি এই প্রকাশনীকে অনুমোদন দিতে চান?');">
+                                                    <i class="bi bi-check-circle-fill"></i> অনুমোদন করুন
                                                 </button>
                                             </form>
                                         @endif
 
                                         @if($pub->publisher_status !== 'rejected')
                                             <button type="button" class="btn-sm btn-gray" style="color: #dc2626;" onclick="openRejectModal({{ $pub->id }}, '{{ addslashes($pub->publisher_company ?: $pub->name) }}');">
-                                                ✕ বাতিল
+                                                <i class="bi bi-x-circle"></i> বাতিল
                                             </button>
                                         @endif
                                     </div>
@@ -136,7 +136,7 @@
             </div>
         @else
             <div style="text-align: center; padding: 50px 20px; color: var(--admin-muted);">
-                <div style="font-size: 40px; margin-bottom: 10px;">🏢</div>
+                <div style="font-size: 44px; margin-bottom: 10px; color: #94a3b8;"><i class="bi bi-buildings"></i></div>
                 <h3>কোনো প্রকাশনীর রেকর্ড পাওয়া যায়নি</h3>
             </div>
         @endif

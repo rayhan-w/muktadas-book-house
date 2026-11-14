@@ -3,29 +3,29 @@
 @section('title', 'লেখক পরিচিতি — ' . $settings['author_name'] . ' | মুক্তাদার বইঘর')
 
 @section('content')
-<div style="background: #fff; border-bottom: 1px solid var(--border-color); padding: 50px 0 40px; margin-bottom: 40px;">
-    <div class="container" style="display: flex; align-items: center; gap: 40px; flex-wrap: wrap;">
-        <img src="{{ asset($settings['author_photo'] ?: 'author-portrait.jpg') }}" alt="{{ $settings['author_name'] }}" style="width: 170px; height: 170px; border-radius: 50%; object-fit: cover; object-position: top center; border: 5px solid var(--gold-light); box-shadow: var(--shadow-md);">
-        <div>
-            <h1 style="font-size: 34px; color: var(--primary); font-weight: 800; margin-bottom: 8px;">{{ $settings['author_name'] }}</h1>
-            <p style="font-size: 18px; color: var(--gold-hover); font-weight: 600; margin-bottom: 12px;">লেখক, গবেষক ও সাহিত্যিক</p>
-            <p style="color: var(--text-muted); max-width: 700px; font-size: 15px; line-height: 1.7;">
+<div class="legal-page-header">
+    <div style="max-width: 1200px; margin: 0 auto; padding: 0 24px; display: flex; align-items: center; gap: 30px; flex-wrap: wrap;">
+        <img src="{{ asset($settings['author_photo'] ?: 'author-portrait.jpg') }}" alt="{{ $settings['author_name'] }}" style="width: 150px; height: 150px; border-radius: 50%; object-fit: cover; object-position: top center; border: 4px solid var(--sp-burgundy); box-shadow: var(--sp-shadow-md);">
+        <div style="flex: 1; min-width: 250px;">
+            <h1 style="font-size: 30px; color: var(--sp-burgundy); font-weight: 800; margin-bottom: 6px;">{{ $settings['author_name'] }}</h1>
+            <p style="font-size: 16px; color: var(--sp-gold-dark, #b45309); font-weight: 700; margin-bottom: 10px;">লেখক, গবেষক ও সাহিত্যিক</p>
+            <p style="color: var(--sp-body, #334155); max-width: 750px; font-size: 14.5px; line-height: 1.7; margin:0;">
                 {{ $settings['author_bio'] }}
             </p>
         </div>
     </div>
 </div>
 
-<div class="container" style="margin-bottom: 60px;">
-    <div style="background: #fff; border: 1px solid var(--border-color); border-radius: var(--radius); padding: 35px; margin-bottom: 40px; box-shadow: var(--shadow-sm);">
-        <h2 style="font-size: 22px; color: var(--primary); margin-bottom: 14px;">লেখকের বাণী ও দর্শন</h2>
-        <blockquote style="font-size: 17px; font-style: italic; color: var(--primary); border-left: 4px solid var(--gold); padding-left: 20px; line-height: 1.8;">
+<div style="max-width: 1200px; margin: 0 auto 60px; padding: 0 20px;">
+    <div style="background: #fff; border: 1px solid #e2e8f0; border-radius: var(--sp-radius); padding: 30px; margin-bottom: 35px; box-shadow: var(--sp-shadow-sm);">
+        <h2 style="font-size: 20px; color: var(--sp-burgundy); margin-bottom: 12px; font-weight:700;">লেখকের বাণী ও দর্শন</h2>
+        <blockquote style="font-size: 16px; font-style: italic; color: #1e293b; border-left: 4px solid var(--sp-burgundy); padding-left: 18px; line-height: 1.8; margin:0;">
             “{{ $settings['author_quote'] }}”
         </blockquote>
     </div>
 
-    <div class="section-head">
-        <h2>📚 লেখকের প্রকাশিত বইসমূহ</h2>
+    <div class="section-head" style="margin-bottom:20px;">
+        <h2 style="font-size:22px; color:var(--sp-burgundy); font-weight:800;">📚 লেখকের প্রকাশিত বইসমূহ</h2>
     </div>
 
     <div class="books-grid">

@@ -7,8 +7,29 @@
     .cart-page-header {
         background: #ffffff;
         border-bottom: 1px solid var(--sp-border);
-        padding: 24px 0;
-        margin-bottom: 30px;
+        padding: 22px 0;
+        margin-bottom: 28px;
+    }
+
+    .cart-header-row {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        flex-wrap: wrap;
+        gap: 16px;
+        max-width: 1440px;
+        margin: 0 auto;
+        padding: 0 24px;
+    }
+
+    .cart-header-title-wrap {
+        padding-left: 6px;
+    }
+
+    .cart-content-wrap {
+        max-width: 1440px;
+        margin: 0 auto;
+        padding: 0 24px 60px;
     }
 
     .cart-grid {
@@ -296,14 +317,25 @@
         .cart-grid { grid-template-columns: 1fr; }
         .cart-table-desktop { display: none; }
         .cart-mobile-list { display: block; }
+        .cart-page-header {
+            padding: 18px 0;
+            margin-bottom: 22px;
+        }
         .cart-header-row {
             flex-direction: column;
             align-items: flex-start !important;
             gap: 14px !important;
+            padding: 0 16px;
+        }
+        .cart-header-title-wrap {
+            padding-left: 10px;
         }
         .btn-cart-back {
             align-self: flex-start;
-            margin-left: 4px;
+            margin-left: 10px;
+        }
+        .cart-content-wrap {
+            padding: 0 16px 40px;
         }
     }
 </style>
@@ -311,12 +343,14 @@
 
 @section('content')
 <div class="cart-page-header">
-    <div class="container cart-header-row" style="display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:14px;">
-        <div>
-            <h1 style="font-size: 24px; color: var(--sp-burgundy); margin-bottom: 4px; font-weight:800;">
+    <div class="cart-header-row">
+        <div class="cart-header-title-wrap">
+            <h1 style="font-size: 24px; color: var(--sp-burgundy); margin-bottom: 6px; font-weight:800; display:flex; align-items:center; gap:8px;">
                 <i class="bi bi-bag-check-fill text-success"></i> আপনার শপিং কার্ট
             </h1>
-            <p style="color: var(--sp-muted); font-size: 14px; margin:0;">কার্টের বইয়ের সংখ্যা পরিবর্তন করতে পারেন অথবা সরাসরি চেকআউটে যেতে পারেন।</p>
+            <p style="color: var(--sp-muted); font-size: 14px; margin:0; line-height:1.5;">
+                কার্টের বইয়ের সংখ্যা পরিবর্তন করতে পারেন অথবা সরাসরি চেকআউটে যেতে পারেন।
+            </p>
         </div>
         <a href="{{ route('books.index') }}" class="btn-cart-back">
             <i class="bi bi-book"></i> আরও বই দেখুন
@@ -324,7 +358,7 @@
     </div>
 </div>
 
-<div class="container">
+<div class="cart-content-wrap">
     @if(empty($cart))
         <div style="background: #ffffff; border: 2px dashed var(--sp-border); border-radius: var(--sp-radius); padding: 70px 20px; text-align: center; margin-bottom: 60px;">
             <div style="font-size: 56px; margin-bottom: 12px;">🛍️</div>

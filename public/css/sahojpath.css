@@ -102,7 +102,8 @@ a {
 /* Common Container for Content */
 .real-container,
 .catalog-shell,
-.book-page-wrap {
+.book-page-wrap,
+.container {
     max-width: 1440px !important;
     width: 100% !important;
     margin: 0 auto !important;
@@ -1121,8 +1122,9 @@ a {
 @media (max-width: 768px) {
     .real-container,
     .catalog-shell,
-    .book-page-wrap {
-        padding: 14px 12px 35px !important;
+    .book-page-wrap,
+    .container {
+        padding: 14px 16px 35px !important;
     }
 
     /* Mobile Header: Grid with Cart Anchored Top-Right */

@@ -125,37 +125,68 @@
 
     .reference-prices {
         display: flex;
-        align-items: center;
-        gap: 20px;
+        align-items: stretch;
+        gap: 0;
         background: #f8fafc;
-        border: 1px solid var(--sp-border);
-        border-radius: 10px;
-        padding: 16px 20px;
-        margin-bottom: 24px;
+        border: 1px solid var(--sp-border-hover);
+        border-radius: 12px;
+        padding: 14px 20px;
+        margin-bottom: 22px;
         max-width: 480px;
-        flex-wrap: wrap;
     }
 
-    .price-hardcopy-val {
-        font-size: 26px;
+    .price-box-col {
+        flex: 1;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+    }
+
+    .price-box-col + .price-box-col {
+        border-left: 1.5px solid #e2e8f0;
+        padding-left: 20px;
+    }
+
+    @media (max-width: 380px) {
+        .reference-prices {
+            flex-direction: column;
+            gap: 12px;
+            padding: 14px 16px;
+        }
+        .price-box-col + .price-box-col {
+            border-left: none;
+            padding-left: 0;
+            border-top: 1.5px solid #e2e8f0;
+            padding-top: 12px;
+        }
+    }
+
+    .price-box-label {
+        font-size: 13px;
+        font-weight: 600;
+        color: var(--sp-muted);
+        margin-bottom: 4px;
+        display: flex;
+        align-items: center;
+        gap: 6px;
+    }
+
+    .price-box-value {
+        font-size: 24px;
         font-weight: 800;
         color: var(--sp-crimson);
-        display: inline-block;
+        line-height: 1.25;
+        display: flex;
+        align-items: baseline;
+        gap: 8px;
+        flex-wrap: wrap;
     }
 
     .price-orig-del {
         color: var(--sp-light);
         font-size: 14px;
-        margin-left: 8px;
+        font-weight: 500;
         text-decoration: line-through;
-    }
-
-    .price-ebook-val {
-        border-left: 2px solid var(--sp-border);
-        padding-left: 20px;
-        font-size: 18px;
-        font-weight: 700;
-        color: var(--sp-heading);
     }
 
     .reference-actions {
@@ -168,86 +199,95 @@
 
     .book-action-row {
         display: grid;
-        grid-template-columns: 1fr 1fr 1fr;
-        gap: 8px;
+        grid-template-columns: repeat(auto-fit, minmax(130px, 1fr));
+        gap: 10px;
         width: 100%;
     }
 
-    @media (max-width: 480px) {
+    @media (max-width: 540px) {
         .book-action-row {
             grid-template-columns: 1fr;
-            gap: 8px;
+            gap: 10px;
         }
     }
 
     .btn-action-primary {
-        background: var(--sp-crimson);
+        background: #0f766e;
         color: #ffffff !important;
-        border: 0;
-        padding: 10px 12px;
+        border: 1px solid #0f766e;
+        padding: 11px 16px;
         border-radius: var(--sp-radius-pill);
-        font-size: 13.5px;
+        font-size: 14.5px;
         font-weight: 700;
         cursor: pointer;
         font-family: inherit;
         display: inline-flex;
         align-items: center;
         justify-content: center;
-        gap: 6px;
+        gap: 7px;
         transition: all 0.2s ease;
-        box-shadow: 0 3px 10px rgba(13, 148, 136, 0.25);
+        box-shadow: 0 3px 10px rgba(15, 118, 110, 0.25);
         white-space: nowrap;
+        text-decoration: none;
     }
 
     .btn-action-primary:hover {
-        background: var(--sp-burgundy);
+        background: #115e59;
+        border-color: #115e59;
+        color: #ffffff !important;
         transform: translateY(-1px);
         box-shadow: 0 4px 14px rgba(15, 118, 110, 0.35);
     }
 
-    .btn-action-outline {
-        background: #ffffff;
-        color: var(--sp-crimson) !important;
-        border: 1.5px solid var(--sp-crimson);
-        padding: 9px 12px;
-        border-radius: var(--sp-radius-pill);
-        font-size: 13.5px;
-        font-weight: 700;
-        cursor: pointer;
-        font-family: inherit;
-        display: inline-flex;
-        align-items: center;
-        justify-content: center;
-        gap: 6px;
-        transition: all 0.2s ease;
-        white-space: nowrap;
-    }
-
-    .btn-action-outline:hover {
-        background: #f0fdfa;
-        transform: translateY(-1px);
-    }
-
     .btn-action-ebook {
-        background: var(--sp-teal);
+        background: #0d9488;
         color: #ffffff !important;
-        border: 0;
-        padding: 10px 12px;
+        border: 1px solid #0d9488;
+        padding: 11px 16px;
         border-radius: var(--sp-radius-pill);
-        font-size: 13.5px;
+        font-size: 14.5px;
         font-weight: 700;
         text-decoration: none;
         display: inline-flex;
         align-items: center;
         justify-content: center;
-        gap: 6px;
+        gap: 7px;
         transition: all 0.2s ease;
-        box-shadow: 0 3px 10px rgba(13, 148, 136, 0.2);
+        box-shadow: 0 3px 10px rgba(13, 148, 136, 0.25);
         white-space: nowrap;
     }
 
     .btn-action-ebook:hover {
-        background: var(--sp-teal-dark);
+        background: #0f766e;
+        border-color: #0f766e;
+        color: #ffffff !important;
+        transform: translateY(-1px);
+        box-shadow: 0 4px 14px rgba(13, 148, 136, 0.35);
+    }
+
+    .btn-action-outline {
+        background: #ffffff;
+        color: #0f766e !important;
+        border: 1.5px solid #0f766e;
+        padding: 10.5px 16px;
+        border-radius: var(--sp-radius-pill);
+        font-size: 14.5px;
+        font-weight: 700;
+        cursor: pointer;
+        font-family: inherit;
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        gap: 7px;
+        transition: all 0.2s ease;
+        white-space: nowrap;
+        text-decoration: none;
+    }
+
+    .btn-action-outline:hover {
+        background: #f0fdfa;
+        color: #115e59 !important;
+        border-color: #115e59;
         transform: translateY(-1px);
     }
 
@@ -502,18 +542,22 @@
             </div>
 
             <div class="reference-prices">
-                <div>
-                    <span style="font-size:12px;color:var(--sp-muted);display:block;">হার্ডকপি মূল্য</span>
-                    <span class="price-hardcopy-val">৳ {{ number_format($book->hardcopyEffectivePrice()) }}</span>
-                    @if($book->discount_percent > 0)
-                        <del class="price-orig-del">৳ {{ number_format($book->price_hardcopy) }}</del>
-                    @endif
+                <div class="price-box-col">
+                    <span class="price-box-label"><i class="bi bi-book"></i> হার্ডকপি মূল্য</span>
+                    <div class="price-box-value">
+                        <span>৳ {{ number_format($book->hardcopyEffectivePrice()) }}</span>
+                        @if($book->discount_percent > 0)
+                            <del class="price-orig-del">৳ {{ number_format($book->price_hardcopy) }}</del>
+                        @endif
+                    </div>
                 </div>
 
                 @if($book->price_ebook > 0)
-                    <div class="price-ebook-val">
-                        <span style="font-size:12px;color:var(--sp-muted);display:block;">ডিজিটাল ই-বুক</span>
-                        ৳ {{ number_format($book->ebookEffectivePrice()) }}
+                    <div class="price-box-col">
+                        <span class="price-box-label"><i class="bi bi-tablet"></i> ডিজিটাল ই-বুক</span>
+                        <div class="price-box-value">
+                            <span>৳ {{ number_format($book->ebookEffectivePrice()) }}</span>
+                        </div>
                     </div>
                 @endif
             </div>
@@ -529,29 +573,29 @@
                         </a>
                     @endif
                 @else
-                    <!-- 1 Line Action Controls: হার্ডকপি অর্ডার | কার্টে যোগ | ই-বুক কিনুন -->
+                    <!-- 1 Line Action Controls: হার্ডকপি অর্ডার | ই-বুক কিনুন | কার্টে যোগ -->
                     <form action="{{ route('cart.add') }}" method="POST" style="width:100%; margin:0;">
                         @csrf
                         <input type="hidden" name="book_id" value="{{ $book->id }}">
                         <input type="hidden" name="format" value="hardcopy">
                         
                         <div class="book-action-row">
-                            <!-- হার্ডকপি অর্ডার -->
-                            <button type="submit" name="buy_now" value="1" class="btn-action-primary" title="হার্ডকপি অর্ডার করুন">
+                            <!-- ১. হার্ডকপি অর্ডার -->
+                            <button type="submit" name="buy_now" value="1" class="btn-action-primary" title="হার্ডকপি সরাসরি অর্ডার করুন">
                                 <i class="bi bi-truck"></i> হার্ডকপি অর্ডার
                             </button>
 
-                            <!-- কার্টে যোগ -->
-                            <button type="submit" class="btn-action-outline" title="কার্টে যোগ করুন">
-                                <i class="bi bi-cart-plus"></i> কার্টে যোগ
-                            </button>
-
                             @if($book->price_ebook > 0)
-                                <!-- ই-বুক কিনুন -->
-                                <a href="{{ route('checkout', ['type' => 'ebook', 'bookSlug' => $book->slug]) }}" class="btn-action-ebook" title="ডিজিটাল ই-বুক পড়ুন">
+                                <!-- ২. ই-বুক কিনুন -->
+                                <a href="{{ route('checkout', ['book' => $book->slug, 'format' => 'ebook']) }}" class="btn-action-ebook" title="ডিজিটাল ই-বুক সরাসরি কিনুন">
                                     <i class="bi bi-tablet"></i> ই-বুক কিনুন
                                 </a>
                             @endif
+
+                            <!-- ৩. কার্টে যোগ -->
+                            <button type="submit" class="btn-action-outline" title="কার্টে যোগ করুন">
+                                <i class="bi bi-cart-plus"></i> কার্টে যোগ
+                            </button>
                         </div>
                     </form>
 

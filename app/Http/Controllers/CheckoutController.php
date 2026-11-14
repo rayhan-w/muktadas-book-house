@@ -19,10 +19,13 @@ class CheckoutController extends Controller
         $cart = session()->get('cart', []);
 
         // If direct checkout from book page (e.g. ?direct_book=alor-poth&format=ebook)
-        if ($request->has('book') && $request->has('format')) {
-            $directBook = Book::approved()->where('slug', $request->book)->first();
+        $bookParam = $request->get('book', $request->get('bookSlug'));
+        $formatParam = $request->get('format', $request->get('type'));
+
+        if ($bookParam && $formatParam) {
+            $directBook = Book::approved()->where('slug', $bookParam)->first();
             if ($directBook) {
-                $format = $request->format === 'ebook' ? 'ebook' : 'hardcopy';
+                $format = $formatParam === 'ebook' ? 'ebook' : 'hardcopy';
                 $price = $format === 'ebook' ? $directBook->ebookEffectivePrice() : $directBook->hardcopyEffectivePrice();
                 $cartKey = "{$directBook->id}_{$format}";
                 $cart = [

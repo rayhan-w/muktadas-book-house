@@ -17,6 +17,9 @@
     --sp-burgundy-dark: #115e59;  /* Dark Paste (#115e59) */
     --sp-crimson: #0d9488;        /* Vibrant Paste Accent (#0d9488) */
     --sp-crimson-hover: #0f766e;  /* Darker Paste on hover */
+    --sp-teal: #0f766e;           /* Defined teal */
+    --sp-teal-dark: #115e59;      /* Dark teal */
+    --sp-teal-light: #f0fdfa;     /* Soft teal */
     --sp-paste: #0d9488;          /* Base Paste */
     --sp-paste-light: #f0fdfa;    /* Soft pastel teal surface */
     --sp-paste-badge: #ccfbf1;    /* Light pastel badge bg */

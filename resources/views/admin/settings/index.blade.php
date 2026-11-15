@@ -25,8 +25,10 @@
     <form action="{{ route('admin.settings.update') }}" method="POST" enctype="multipart/form-data">
         @csrf
 
-        <!-- 1. General Info -->
-        <h3 style="font-size: 16px; margin-bottom: 12px; color: var(--admin-primary);">১. সাধারণ সাইট ব্র্যান্ডিং</h3>
+        <!-- 1. General Info & Logo -->
+        <h3 style="font-size: 16px; margin-bottom: 12px; color: var(--admin-primary); display: flex; align-items: center; gap: 8px;">
+            <i class="bi bi-palette-fill"></i> ১. সাধারণ সাইট ব্র্যান্ডিং ও লোগো
+        </h3>
         <div class="grid-2">
             <div class="form-group">
                 <label class="form-label">ওয়েবসাইটের নাম (Site Title) *</label>
@@ -35,6 +37,27 @@
             <div class="form-group">
                 <label class="form-label">সাইটের ট্যাগলাইন (Tagline)</label>
                 <input type="text" name="site_tagline" value="{{ old('site_tagline', $settings['site_tagline']) }}" class="form-control">
+            </div>
+        </div>
+
+        <!-- Logo Upload & Live Preview Card -->
+        <div style="background: #f8fafc; border: 1.5px dashed #cbd5e1; border-radius: 12px; padding: 18px; margin-top: 15px;">
+            <label class="form-label" style="font-weight: 700; color: #0f172a; margin-bottom: 8px; display: block;">
+                <i class="bi bi-image-fill" style="color: var(--admin-primary);"></i> ওয়েবসাইটের লোগো পরিবর্তন করুন (Site Logo)
+            </label>
+            <div style="display: flex; align-items: center; gap: 20px; flex-wrap: wrap;">
+                <div style="text-align: center;">
+                    <div style="width: 84px; height: 84px; background: #fff; border: 1.5px solid var(--admin-border); border-radius: 12px; padding: 6px; display: flex; align-items: center; justify-content: center; box-shadow: 0 2px 8px rgba(0,0,0,0.06); margin-bottom: 6px;">
+                        <img id="logoPreviewImg" src="{{ $settings['site_logo'] }}" alt="Current Logo" style="max-width: 100%; max-height: 100%; object-fit: contain; border-radius: 8px;">
+                    </div>
+                    <small style="color: var(--admin-muted); font-size: 11px; font-weight: 600;">বর্তমান লোগো</small>
+                </div>
+                <div style="flex: 1; min-width: 250px;">
+                    <input type="file" name="site_logo" id="siteLogoInput" accept="image/png, image/jpeg, image/jpg, image/webp, image/svg+xml" class="form-control" onchange="previewSiteLogo(this)">
+                    <small style="color: var(--admin-muted); display: block; margin-top: 6px; font-size: 12.5px; line-height: 1.5;">
+                        <i class="bi bi-info-circle-fill text-primary me-1"></i> পিএনজি (PNG), জেপিজি (JPG), ওয়েবপি (WEBP) বা এসভিজি (SVG) ফরম্যাট গ্রহণযোগ্য (সর্বোচ্চ ৪ এমবি)। লোগো পরিবর্তন করলে সাইটের হেডার, ফুটার এবং অ্যাডমিন প্যানেলে স্বয়ংক্রিয়ভাবে আপডেট হবে।
+                    </small>
+                </div>
             </div>
         </div>
 
@@ -148,4 +171,19 @@
         </button>
     </form>
 </div>
+
+<script>
+function previewSiteLogo(input) {
+    if (input.files && input.files[0]) {
+        const reader = new FileReader();
+        reader.onload = function(e) {
+            const preview = document.getElementById('logoPreviewImg');
+            if (preview) {
+                preview.src = e.target.result;
+            }
+        };
+        reader.readAsDataURL(input.files[0]);
+    }
+}
+</script>
 @endsection

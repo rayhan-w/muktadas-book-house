@@ -24,4 +24,21 @@ class SiteSetting extends Model
     {
         static::updateOrCreate(['key' => $key], ['value' => $value]);
     }
+
+    public static function getLogo(): string
+    {
+        $logo = static::get('site_logo');
+        if ($logo) {
+            if (file_exists(public_path($logo))) {
+                return asset($logo);
+            }
+            if (file_exists(public_path('uploads/' . $logo))) {
+                return asset('uploads/' . $logo);
+            }
+        }
+        if (file_exists(public_path('muktadar-logo.jpg'))) {
+            return asset('muktadar-logo.jpg');
+        }
+        return asset('muktadar-logo.jpg');
+    }
 }

@@ -249,8 +249,13 @@ Route::get('/fix-database', function () {
             ->update([
                 'name' => 'রহিম আহমেদ',
                 'address' => 'মিরপুর, ঢাকা',
-                'phone' => '01811223344'
+                'phone' => '01811223344',
+                'membership_plan' => '১ বছর'
             ]);
+
+        try {
+            \Illuminate\Support\Facades\DB::statement("UPDATE `users` SET `membership_plan` = '১ বছর' WHERE `membership_plan` LIKE '%?%' OR `membership_plan` = '???'");
+        } catch (\Exception $e) {}
 
         \App\Models\SiteSetting::set('site_name', 'মুক্তাদার বইঘর | Muktada\'s Boighor');
         \App\Models\SiteSetting::set('site_tagline', 'জ্ঞানের আলোয় নতুন পথচলা — ভালো বই, সুন্দর ভাবনা');

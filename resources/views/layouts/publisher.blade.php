@@ -7,7 +7,7 @@
 
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Hind+Siliguri:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&family=Noto+Sans+Bengali:wght@400;500;600;700;800;900&family=Hind+Siliguri:wght@400;500;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
 
     <style>
@@ -26,11 +26,19 @@
 
         * { margin: 0; padding: 0; box-sizing: border-box; }
         body {
-            font-family: 'Hind Siliguri', sans-serif;
+            font-family: 'Noto Sans Bengali', 'Hind Siliguri', 'Manrope', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
+            text-rendering: optimizeLegibility;
             background: var(--pub-bg);
             color: var(--pub-text);
             display: flex;
             min-height: 100vh;
+            line-height: 1.6;
+        }
+
+        button, input, select, textarea, table, th, td, h1, h2, h3, h4, h5, h6, .badge, .btn, .btn-sm, span, p, a, label, small {
+            font-family: 'Noto Sans Bengali', 'Hind Siliguri', 'Manrope', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
         }
 
         /* Sidebar */
@@ -486,11 +494,13 @@
     <!-- Sidebar -->
     <aside class="sidebar" id="pubSidebar">
         <div class="sidebar-brand">
-            <i class="bi bi-buildings" style="font-size: 20px; color: #38bdf8;"></i>
-            <div>
-                <span>মুক্তাদার বইঘর</span>
-                <small>পাবলিশার কর্নার</small>
-            </div>
+            <a href="{{ route('publisher.dashboard') }}" style="display: flex; align-items: center; gap: 12px; text-decoration: none; color: inherit; flex: 1; min-width: 0;">
+                <img src="{{ \App\Models\SiteSetting::getLogo() }}" alt="Site Logo" style="width: 38px; height: 38px; border-radius: 9px; object-fit: cover; border: 1.5px solid rgba(255, 255, 255, 0.2); background: #fff; padding: 2px; flex-shrink: 0;">
+                <div>
+                    <span>{{ \App\Models\SiteSetting::get('site_name', 'মুক্তাদার বইঘর') }}</span>
+                    <small>পাবলিশার কর্নার</small>
+                </div>
+            </a>
             <button type="button" class="sidebar-close-btn" id="pubSidebarCloseBtn" aria-label="মেনু বন্ধ করুন">
                 <i class="bi bi-x-lg"></i>
             </button>

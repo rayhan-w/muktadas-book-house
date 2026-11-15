@@ -79,19 +79,23 @@ if (file_exists($envFile)) {
         }
         echo '<div class="item-ok">✓ টেবিল সমূহের ক্যারেক্টার সেট utf8mb4 এ রূপান্তর সম্পন্ন।</div>';
 
-        // 1.5 Update Users with clean Bengali names
-        $userStmt = $pdo->prepare("UPDATE `users` SET `name` = :n, `address` = :a WHERE `email` = :e");
+        // 1.5 Update Users with clean Bengali names and membership plans
+        $userStmt = $pdo->prepare("UPDATE `users` SET `name` = :n, `address` = :a, `membership_plan` = :m WHERE `email` = :e");
         $userStmt->execute([
             ':n' => 'অ্যাডমিন মুক্তাদা',
             ':a' => 'ঢাকা, বাংলাদেশ',
+            ':m' => null,
             ':e' => 'admin@muktadasbookhouse.com'
         ]);
         $userStmt->execute([
             ':n' => 'রহিম আহমেদ',
             ':a' => 'মিরপুর, ঢাকা',
+            ':m' => '১ বছর',
             ':e' => 'reader@example.com'
         ]);
-        echo '<div class="item-ok">✓ অ্যাডমিন ও গ্রাহক ইউজারের বাংলা নাম ও ঠিকানা ঠিক করা হয়েছে।</div>';
+        // Also clean any leftover corrupt question marks in membership_plan
+        $pdo->exec("UPDATE `users` SET `membership_plan` = '১ বছর' WHERE `membership_plan` LIKE '%?%' OR `membership_plan` = '???'");
+        echo '<div class="item-ok">✓ অ্যাডমিন ও গ্রাহক ইউজারের বাংলা নাম, ঠিকানা ও মেম্বারশিপ প্ল্যান ঠিক করা হয়েছে।</div>';
 
         // 2. Ensure columns in books table
         $bookCols = $pdo->query("SHOW COLUMNS FROM `books`")->fetchAll(PDO::FETCH_COLUMN);

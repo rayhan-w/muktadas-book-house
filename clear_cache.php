@@ -47,6 +47,7 @@ $dirs = [
     $baseDir . '/storage/framework/cache/data',
     $baseDir . '/storage/logs',
     $baseDir . '/bootstrap/cache',
+    $baseDir . '/public/uploads',
 ];
 
 foreach ($dirs as $dir) {

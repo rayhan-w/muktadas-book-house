@@ -148,7 +148,7 @@
     <div class="auth-card">
         <!-- Logo & Header -->
         <div class="auth-header">
-            <img src="{{ asset('muktadar-logo.jpg') }}" alt="মুক্তাদার বইঘর" class="auth-logo">
+            <img src="{{ \App\Models\SiteSetting::getLogo() }}" alt="মুক্তাদার বইঘর" class="auth-logo">
             <h1 class="auth-title">পাসওয়ার্ড রিসেট</h1>
             <p class="auth-sub">আপনার অ্যাকাউন্টের জিমেইল / ইমেইল অ্যাড্রেসটি দিন। আমরা একটি পাসওয়ার্ড রিসেট লিংক পাঠাব।</p>
         </div>

@@ -16,6 +16,8 @@ class SettingController extends Controller
         $settings = [
             'site_name' => SiteSetting::get('site_name', 'মুক্তাদার বইঘর | Muktada\'s Boighor'),
             'site_tagline' => SiteSetting::get('site_tagline', 'জ্ঞানের আলোয় নতুন পথচলা — ভালো বই, সুন্দর ভাবনা'),
+            'site_logo' => SiteSetting::getLogo(),
+            'site_logo_raw' => SiteSetting::get('site_logo'),
             'author_name' => SiteSetting::get('author_name', 'মুক্তাদা'),
             'author_bio' => SiteSetting::get('author_bio', ''),
             'author_quote' => SiteSetting::get('author_quote', ''),
@@ -40,6 +42,7 @@ class SettingController extends Controller
         $validated = $request->validate([
             'site_name' => 'required|string|max:200',
             'site_tagline' => 'nullable|string|max:300',
+            'site_logo' => 'nullable|image|mimes:jpeg,png,jpg,webp,svg,gif|max:4096',
             'author_name' => 'required|string|max:100',
             'author_bio' => 'nullable|string',
             'author_quote' => 'nullable|string',
@@ -70,6 +73,23 @@ class SettingController extends Controller
             if (isset($validated[$key])) {
                 SiteSetting::set($key, (string) $validated[$key]);
             }
+        }
+
+        if ($request->hasFile('site_logo')) {
+            $logoFile = $request->file('site_logo');
+            $logoExt = $logoFile->getClientOriginalExtension();
+            $logoName = 'logo_' . time() . '.' . $logoExt;
+            $destDir = public_path('uploads');
+            if (!file_exists($destDir)) {
+                @mkdir($destDir, 0775, true);
+            }
+            $logoFile->move($destDir, $logoName);
+            SiteSetting::set('site_logo', 'uploads/' . $logoName);
+
+            // Also copy to public/muktadar-logo.jpg so static references automatically match
+            try {
+                @copy($destDir . '/' . $logoName, public_path('muktadar-logo.jpg'));
+            } catch (\Throwable $e) {}
         }
 
         if ($request->hasFile('author_photo')) {

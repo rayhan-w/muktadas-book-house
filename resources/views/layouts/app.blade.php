@@ -10,7 +10,7 @@
     <!-- Open Graph / Social Meta -->
     <meta property="og:title" content="@yield('title', 'মুক্তাদার বইঘর | Muktada\'s Boighor')">
     <meta property="og:description" content="@yield('meta_description', 'লেখক মুক্তাদার চিন্তাশীল বই ও সাহিত্যের অনন্য ডিজিটাল প্ল্যাটফর্ম।')">
-    <meta property="og:image" content="@yield('og_image', asset('muktadar-logo.jpg'))">
+    <meta property="og:image" content="@yield('og_image', \App\Models\SiteSetting::getLogo())">
     <meta property="og:type" content="website">
 
     <!-- Google Fonts: Noto Sans Bengali & Manrope & Libre Baskerville -->
@@ -34,7 +34,7 @@
         <div class="real-head-top {{ request()->routeIs('checkout*') ? 'checkout-header-mode' : '' }}">
             <!-- Brand (লোগোর পাশে শুধু বাংলা নাম, ইংরেজি Muktada..house বাদ) -->
             <a href="{{ route('home') }}" class="real-brand">
-                <img src="{{ asset('muktadar-logo.jpg') }}" alt="মুক্তাদার বইঘর">
+                <img src="{{ \App\Models\SiteSetting::getLogo() }}" alt="মুক্তাদার বইঘর">
                 <span>
                     <b>মুক্তাদার বইঘর</b>
                 </span>
@@ -170,7 +170,7 @@
         <div class="footer-inner">
             <div class="footer-brand">
                 <div style="display:flex; align-items:center; gap:12px; margin-bottom:12px;">
-                    <img src="{{ asset('muktadar-logo.jpg') }}" alt="মুক্তাদার বইঘর" style="width:48px; height:48px; border-radius:10px; object-fit:cover; border:1.5px solid rgba(255,255,255,0.2);">
+                    <img src="{{ \App\Models\SiteSetting::getLogo() }}" alt="মুক্তাদার বইঘর" style="width:48px; height:48px; border-radius:10px; object-fit:cover; border:1.5px solid rgba(255,255,255,0.2);">
                     <div>
                         <b style="font-size:20px; color:#ffffff; font-weight:800; display:block; line-height:1.2;">মুক্তাদার বইঘর</b>
                         <small style="color:#94a3b8; font-size:11.5px; font-weight:600; display:block; margin-top:2px;">শব্দের মায়ায়, গল্পের ছায়ায়</small>

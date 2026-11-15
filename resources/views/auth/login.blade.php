@@ -179,7 +179,7 @@
     <div class="auth-card">
         <!-- Logo & Header -->
         <div class="auth-header">
-            <img src="{{ asset('muktadar-logo.jpg') }}" alt="মুক্তাদার বইঘর" class="auth-logo">
+            <img src="{{ \App\Models\SiteSetting::getLogo() }}" alt="মুক্তাদার বইঘর" class="auth-logo">
             <h1 class="auth-title">অ্যাকাউন্টে লগইন</h1>
             <p class="auth-sub">আপনার কেনা ই-বুক ও অর্ডার পরিচালনা করতে লগইন করুন।</p>
         </div>

@@ -95,16 +95,22 @@
                             </td>
                             <td>
                                 @if($c->membership_plan)
-                                    <span class="badge" style="background: #fef3c7; color: #92400e; border: 1px solid #fde68a;">
-                                        <i class="bi bi-award-fill"></i> {{ $c->membership_plan }}
+                                    @php
+                                        $planText = $c->membership_plan;
+                                        if (str_contains($planText, '?')) {
+                                            $planText = '১ বছর প্রিমিয়াম';
+                                        }
+                                    @endphp
+                                    <span class="badge" style="background: #fef3c7; color: #92400e; border: 1px solid #fde68a; font-weight: 700; white-space: nowrap;">
+                                        <i class="bi bi-award-fill"></i> {{ $planText }}
                                     </span>
                                     @if($c->membership_expires_at)
-                                        <small style="display: block; font-size: 11px; color: var(--admin-muted); margin-top: 2px;">
+                                        <small style="display: block; font-size: 11px; color: var(--admin-muted); margin-top: 3px; white-space: nowrap;">
                                             মেয়াদ: {{ $c->membership_expires_at->format('d M, Y') }}
                                         </small>
                                     @endif
                                 @else
-                                    <span class="badge" style="background: #f1f5f9; color: #64748b;">
+                                    <span class="badge" style="background: #f1f5f9; color: #64748b; font-weight: 600;">
                                         ফ্রি পাঠক
                                     </span>
                                 @endif

@@ -150,7 +150,7 @@
     <div class="auth-card">
         <!-- Logo & Header -->
         <div class="auth-header">
-            <img src="{{ asset('muktadar-logo.jpg') }}" alt="মুক্তাদার বইঘর" class="auth-logo">
+            <img src="{{ \App\Models\SiteSetting::getLogo() }}" alt="মুক্তাদার বইঘর" class="auth-logo">
             <h1 class="auth-title">নতুন পাঠক রেজিস্ট্রেশন</h1>
             <p class="auth-sub">মুক্তাদার বইঘরের একজন পাঠক হিসেবে যুক্ত হোন।</p>
         </div>

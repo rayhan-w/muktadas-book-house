@@ -123,7 +123,7 @@
         <!-- Top header -->
         <div class="invoice-top">
             <div>
-                <img src="{{ asset('muktadar-logo.jpg') }}" alt="মুক্তাদার বইঘর" style="width: 50px; height: 50px; border-radius: 8px; margin-bottom: 8px;">
+                <img src="{{ \App\Models\SiteSetting::getLogo() }}" alt="মুক্তাদার বইঘর" style="width: 50px; height: 50px; border-radius: 8px; margin-bottom: 8px;">
                 <h2 style="color: var(--primary); font-size: 24px; font-weight: 800;">মুক্তাদার বইঘর</h2>
                 <small style="color: var(--text-muted);">MUKTADA'S BOIGHOR | Digital Receipt</small>
             </div>

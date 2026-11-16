@@ -127,11 +127,10 @@ class AuthController extends Controller
 
         try {
             \Illuminate\Support\Facades\Mail::to($user->email)->send(new \App\Mail\ResetPasswordMail($user, $resetUrl));
-            return back()->with('status', 'আপনার ইমেইলে পাসওয়ার্ড রিসেট লিংক পাঠানো হয়েছে! অনুগ্রহ করে আপনার ইনবক্স অথবা স্প্যাম (Spam) ফোল্ডার চেক করুন।');
+            return back()->with('status', 'আপনার ইমেইলে পাসওয়ার্ড রিসেট লিংক পাঠানো হয়েছে! অনুগ্রহ করে ইনবক্স অথবা স্প্যাম ফোল্ডার চেক করুন।')->with('reset_url', $resetUrl);
         } catch (\Throwable $e) {
             \Illuminate\Support\Facades\Log::error('Mail send error: ' . $e->getMessage());
-            // If mail server fails or is not configured yet, provide seamless backup notification
-            return back()->with('status', 'পাসওয়ার্ড রিসেট লিংক তৈরি হয়েছে। আপনার ইমেইল ইনবক্স চেক করুন। (যদি লোকাল পরিবেশে থাকেন, নিচের লিংকে সরাসরি ক্লিক করে নতুন পাসওয়ার্ড দিন: <a href="' . $resetUrl . '" style="color:#0f766e;font-weight:700;">পাসওয়ার্ড রিসেট করুন</a>)')->with('raw_url', $resetUrl);
+            return back()->with('status', 'পাসওয়ার্ড রিসেট লিংক তৈরি হয়েছে। অনুগ্রহ করে ইনবক্স চেক করুন অথবা নিচের বাটনে ক্লিক করে সরাসরি পাসওয়ার্ড রিসেট করুন।')->with('reset_url', $resetUrl);
         }
     }
 

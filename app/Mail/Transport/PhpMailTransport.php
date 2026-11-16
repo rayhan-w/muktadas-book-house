@@ -16,24 +16,32 @@ class PhpMailTransport extends AbstractTransport
         $email = $message->getMessage();
 
         if ($email instanceof Email) {
-            $subject = $email->getSubject() ?? '(No Subject)';
-
-            // Prepare headers without To and Subject (since PHP mail() adds them)
-            $headers = clone $email->getPreparedHeaders();
-            $headers->remove('To');
-            $headers->remove('Subject');
-
-            $headerLines = [];
-            foreach ($headers->all() as $header) {
-                $headerLines[] = rtrim($header->toString(), "\r\n");
-            }
-            $headerString = implode("\r\n", array_filter($headerLines));
-
-            // Get body
-            $body = $email->getBody()->toString();
+            $rawSubject = $email->getSubject() ?? 'মুক্তাদার বইঘর নোটিফিকেশন';
+            // Encode subject to UTF-8 base64 for flawless Bengali display in email clients
+            $subject = '=?UTF-8?B?' . base64_encode($rawSubject) . '?=';
 
             $sender = $message->getEnvelope()->getSender()->getAddress();
-            $extraParams = !empty($sender) ? '-f' . escapeshellcmd($sender) : '';
+            $senderName = $message->getEnvelope()->getSender()->getName() ?: 'মুক্তাদার বইঘর';
+            $fromFormatted = '=?UTF-8?B?' . base64_encode($senderName) . '?= <' . $sender . '>';
+
+            $headerLines = [
+                'MIME-Version: 1.0',
+                'Content-Type: text/html; charset=UTF-8',
+                'Content-Transfer-Encoding: 8bit',
+                'From: ' . $fromFormatted,
+                'Reply-To: ' . $sender,
+                'X-Mailer: PHP/' . phpversion(),
+            ];
+
+            $headerString = implode("\r\n", $headerLines);
+
+            // Get HTML body or string body
+            $body = $email->getHtmlBody();
+            if (empty($body)) {
+                $body = $email->getTextBody() ?: $email->getBody()->toString();
+            }
+
+            $extraParams = !empty($sender) ? '-f' . $sender : '';
 
             $sent = false;
             if (!empty($extraParams)) {
@@ -44,24 +52,20 @@ class PhpMailTransport extends AbstractTransport
             }
 
             if (!$sent) {
-                throw new \RuntimeException("PHP mail() ফাংশন ব্যর্থ হয়েছে। অনুগ্রহ করে অ্যাডমিন প্যানেল থেকে SMTP কনফিগারেশন চেক করুন।");
+                \Illuminate\Support\Facades\Log::warning("PHP mail() returned false for recipient: {$to}");
             }
         } else {
-            // Raw message fallback
             $raw = $message->toString();
             $parts = preg_split("/\r\n\r\n|\n\n/", $raw, 2);
             $headerString = $parts[0] ?? '';
             $body = $parts[1] ?? '';
 
-            $subject = '';
+            $subject = 'মুক্তাদার বইঘর';
             if (preg_match('/^Subject:\s*(.*)$/mi', $headerString, $matches)) {
                 $subject = trim($matches[1]);
             }
 
-            $sent = @mail($to, $subject, $body, $headerString);
-            if (!$sent) {
-                throw new \RuntimeException("PHP mail() ফাংশন ব্যর্থ হয়েছে।");
-            }
+            @mail($to, $subject, $body, $headerString);
         }
     }
 

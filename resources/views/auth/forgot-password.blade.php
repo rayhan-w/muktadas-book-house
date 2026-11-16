@@ -159,6 +159,17 @@
             </div>
         @endif
 
+        @if(session('reset_url'))
+            <div style="background: #f0fdfa; border: 1.5px solid #99f6e4; border-radius: 12px; padding: 18px 16px; margin-bottom: 22px; text-align: center;">
+                <p style="margin: 0 0 12px 0; font-size: 13.5px; color: #0f766e; font-weight: 600; line-height: 1.5;">
+                    <i class="bi bi-shield-check"></i> ইমেইল ইনবক্সে পেতে দেরি হলে সরাসরি নিচের বাটনে ক্লিক করে এখনই নতুন পাসওয়ার্ড সেট করুন:
+                </p>
+                <a href="{{ session('reset_url') }}" style="display: inline-block; background: var(--sp-burgundy); color: #fff; padding: 11px 24px; border-radius: 8px; font-weight: 700; text-decoration: none; font-size: 14.5px; box-shadow: 0 4px 14px rgba(13,148,136,0.3); transition: 0.2s;">
+                    <i class="bi bi-key-fill"></i> সরাসরি নতুন পাসওয়ার্ড সেট করুন
+                </a>
+            </div>
+        @endif
+
         @if($errors->any())
             <div class="alert-error-box">
                 <i class="bi bi-exclamation-triangle-fill text-danger me-1"></i> {{ $errors->first() }}

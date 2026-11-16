@@ -14,7 +14,7 @@ return [
     |
     */
 
-    'default' => env('MAIL_MAILER', 'log'),
+    'default' => env('MAIL_MAILER', 'phpmail'),
 
     /*
     |--------------------------------------------------------------------------
@@ -36,6 +36,10 @@ return [
     */
 
     'mailers' => [
+
+        'phpmail' => [
+            'transport' => 'phpmail',
+        ],
 
         'smtp' => [
             'transport' => 'smtp',

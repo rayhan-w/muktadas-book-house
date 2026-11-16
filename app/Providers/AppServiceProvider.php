@@ -21,11 +21,24 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot(): void
     {
+        // Register custom phpmail transport (uses PHP native mail() - 100% proc_open safe)
         try {
+            \Illuminate\Support\Facades\Mail::extend('phpmail', function (array $config = []) {
+                return new \App\Mail\Transport\PhpMailTransport();
+            });
+        } catch (\Throwable $e) {}
+
+        try {
+            $mailer = env('MAIL_MAILER', 'phpmail');
             if (Schema::hasTable('site_settings')) {
-                $mailer = SiteSetting::get('mail_mailer', env('MAIL_MAILER', 'sendmail'));
+                $mailer = SiteSetting::get('mail_mailer', $mailer);
                 $fromAddress = SiteSetting::get('mail_from_address', env('MAIL_FROM_ADDRESS', 'noreply@muktadarboighor.com'));
                 $fromName = SiteSetting::get('mail_from_name', env('MAIL_FROM_NAME', 'মুক্তাদার বইঘর'));
+
+                // If sendmail is selected but proc_open is disabled on shared hosting, safely fallback to phpmail
+                if ($mailer === 'sendmail' && !function_exists('proc_open')) {
+                    $mailer = 'phpmail';
+                }
 
                 config([
                     'mail.default' => $mailer,
@@ -49,6 +62,10 @@ class AppServiceProvider extends ServiceProvider
                             'mail.mailers.smtp.scheme' => ($encryption === 'ssl' || $encryption === 'tls') ? $encryption : null,
                         ]);
                     }
+                }
+            } else {
+                if ($mailer === 'sendmail' && !function_exists('proc_open')) {
+                    config(['mail.default' => 'phpmail']);
                 }
             }
         } catch (\Throwable $e) {

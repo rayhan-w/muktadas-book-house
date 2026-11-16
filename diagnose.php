@@ -117,6 +117,34 @@ header('Content-Type: text/html; charset=utf-8');
         </span>
     </div>
 
+    <div class="item">
+        <span>PHP mail() Function</span>
+        <span>
+            <?php
+            if (function_exists('mail')) {
+                echo "<span class='ok'>Enabled (Available)</span>";
+            } else {
+                echo "<span class='err'>Disabled in php.ini</span>";
+            }
+            ?>
+        </span>
+    </div>
+
+    <div class="item">
+        <span>Local SMTP Port 25 (Exim)</span>
+        <span>
+            <?php
+            $fp = @fsockopen('127.0.0.1', 25, $errno, $errstr, 2);
+            if ($fp) {
+                echo "<span class='ok'>Open & Responding (127.0.0.1:25)</span>";
+                fclose($fp);
+            } else {
+                echo "<span class='warn'>Closed or Blocked ($errstr)</span>";
+            }
+            ?>
+        </span>
+    </div>
+
     <?php if (!file_exists($rootEnv)): ?>
     <div style="background: #fef2f2; border: 1px solid #fecaca; border-radius: 8px; padding: 16px; margin: 20px 0;">
         <h3 style="color: #991b1b; margin-top: 0;">⚠️ .env ফাইল পাওয়া যায়নি! (HTTP 500 এর মূল কারণ)</h3>

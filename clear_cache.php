@@ -95,7 +95,7 @@ if (!file_exists($envFile)) {
 'REDIS_HOST=127.0.0.1' . "\n" .
 'REDIS_PASSWORD=null' . "\n" .
 'REDIS_PORT=6379' . "\n\n" .
-'MAIL_MAILER=sendmail' . "\n" .
+'MAIL_MAILER=phpmail' . "\n" .
 'MAIL_SCHEME=null' . "\n" .
 'MAIL_HOST=mail.muktadarboighor.com' . "\n" .
 'MAIL_PORT=465' . "\n" .
@@ -155,6 +155,13 @@ try {
             ->where('membership_plan', 'like', '%?%')
             ->orWhere('membership_plan', 'like', '%Ó%')
             ->update(['membership_plan' => '১ বছর']);
+
+        // Ensure mail driver is set to phpmail (safe for cPanel)
+        $currMail = \App\Models\SiteSetting::get('mail_mailer');
+        if (empty($currMail) || $currMail === 'sendmail' || $currMail === 'log') {
+            \App\Models\SiteSetting::set('mail_mailer', 'phpmail');
+            $results[] = "✅ মেইল ড্রাইভার 'phpmail' (PHP Native - proc_open নিরাপদ) সক্রিয় করা হয়েছে।";
+        }
     }
 } catch (\Throwable $e) {
     $results[] = "⚠️ মাইগ্রেশন নোটিশ: " . $e->getMessage();

@@ -148,7 +148,8 @@
             <div class="form-group">
                 <label class="form-label">মেইল ড্রাইভার (Mail Driver) *</label>
                 <select name="mail_mailer" class="form-control" style="cursor: pointer;">
-                    <option value="sendmail" {{ old('mail_mailer', $settings['mail_mailer']) === 'sendmail' ? 'selected' : '' }}>cPanel / Server Sendmail (ডিফল্ট ও ঝামেলামুক্ত)</option>
+                    <option value="phpmail" {{ old('mail_mailer', $settings['mail_mailer']) === 'phpmail' ? 'selected' : '' }}>PHP Native mail() (cPanel এর জন্য ডিফল্ট ও শতভাগ নিরাপদ)</option>
+                    <option value="sendmail" {{ old('mail_mailer', $settings['mail_mailer']) === 'sendmail' ? 'selected' : '' }}>cPanel Sendmail (proc_open সক্রিয় থাকলে)</option>
                     <option value="smtp" {{ old('mail_mailer', $settings['mail_mailer']) === 'smtp' ? 'selected' : '' }}>কাস্টম SMTP (Webmail / Gmail / Brevo)</option>
                     <option value="log" {{ old('mail_mailer', $settings['mail_mailer']) === 'log' ? 'selected' : '' }}>লগ ড্রাইভার (মেইল পাঠাবে না, শুধু টেস্ট লগ রাখবে)</option>
                 </select>

@@ -62,7 +62,7 @@ class SettingController extends Controller
             'facebook_url' => 'nullable|string|max:200',
             'whatsapp_number' => 'nullable|string|max:50',
             'youtube_url' => 'nullable|string|max:200',
-            'mail_mailer' => 'nullable|string|in:sendmail,smtp,log',
+            'mail_mailer' => 'nullable|string|in:phpmail,sendmail,smtp,log',
             'mail_host' => 'nullable|string|max:120',
             'mail_port' => 'nullable|string|max:10',
             'mail_username' => 'nullable|string|max:120',

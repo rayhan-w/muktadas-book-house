@@ -127,10 +127,12 @@ class AuthController extends Controller
 
         try {
             \Illuminate\Support\Facades\Mail::to($user->email)->send(new \App\Mail\ResetPasswordMail($user, $resetUrl));
-            return back()->with('status', 'আপনার ইমেইলে পাসওয়ার্ড রিসেট লিংক পাঠানো হয়েছে! অনুগ্রহ করে ইনবক্স অথবা স্প্যাম ফোল্ডার চেক করুন।')->with('reset_url', $resetUrl);
+            return back()->with('status', 'আপনার ইমেইলে পাসওয়ার্ড রিসেট লিংক পাঠানো হয়েছে! অনুগ্রহ করে আপনার ইনবক্স অথবা স্প্যাম (Spam) ফোল্ডার চেক করুন।');
         } catch (\Throwable $e) {
             \Illuminate\Support\Facades\Log::error('Mail send error: ' . $e->getMessage());
-            return back()->with('status', 'পাসওয়ার্ড রিসেট লিংক তৈরি হয়েছে। অনুগ্রহ করে ইনবক্স চেক করুন অথবা নিচের বাটনে ক্লিক করে সরাসরি পাসওয়ার্ড রিসেট করুন।')->with('reset_url', $resetUrl);
+            return back()->withErrors([
+                'email' => 'ইমেইল পাঠানো যায়নি: ' . $e->getMessage() . '। অনুগ্রহ করে অ্যাডমিনকে জানান বা কাস্টমার সাপোর্টে যোগাযোগ করুন।'
+            ]);
         }
     }
 

@@ -145,6 +145,41 @@ header('Content-Type: text/html; charset=utf-8');
         </span>
     </div>
 
+    <!-- Test Email Form directly on Diagnose -->
+    <div style="background: #f0fdf4; border: 1.5px solid #86efac; border-radius: 8px; padding: 18px; margin: 20px 0;">
+        <h3 style="color: #166534; margin-top: 0; font-size: 16px;">✉️ টেস্ট ইমেইল ডেলিভারি পরীক্ষা</h3>
+        <p style="color: #14532d; font-size: 13.5px; margin-bottom: 12px;">আপনার জিমেইল/ইমেইল অ্যাড্রেস দিয়ে পরীক্ষা করুন সার্ভার থেকে সরাসরি মেইল যাচ্ছে কিনা:</p>
+        <form method="POST" action="" style="display: flex; gap: 10px; flex-wrap: wrap;">
+            <input type="hidden" name="action" value="send_test">
+            <input type="email" name="test_to" placeholder="আপনার ইমেইল অ্যাড্রেস লিখুন" required style="padding: 9px 12px; flex: 1; min-width: 240px; border-radius: 6px; border: 1px solid #cbd5e1; font-size: 14px;">
+            <button type="submit" class="btn" style="background: #15803d; padding: 9px 18px;">টেস্ট মেইল পাঠান</button>
+        </form>
+        <?php
+        if ($_SERVER['REQUEST_METHOD'] === 'POST' && ($_POST['action'] ?? '') === 'send_test') {
+            $testTo = filter_var($_POST['test_to'] ?? '', FILTER_VALIDATE_EMAIL);
+            if ($testTo) {
+                $sub = "=?UTF-8?B?" . base64_encode("টেস্ট মেইল — মুক্তাদার বইঘর") . "?=";
+                $msg = "আসসালামু আলাইকুম,\n\nএটি muktadarboighor.com সার্ভার থেকে পাঠানো একটি সফল টেস্ট মেইল।\nসময়: " . date('Y-m-d H:i:s');
+                $hdrs = "From: =?UTF-8?B?" . base64_encode("মুক্তাদার বইঘর") . "?= <noreply@muktadarboighor.com>\r\n" .
+                        "Reply-To: contact@muktadasbookhouse.com\r\n" .
+                        "MIME-Version: 1.0\r\n" .
+                        "Content-Type: text/plain; charset=UTF-8\r\n" .
+                        "X-Mailer: PHP/" . phpversion();
+                $res = @mail($testTo, $sub, $msg, $hdrs, "-fnoreply@muktadarboighor.com");
+                if (!$res) {
+                    $res = @mail($testTo, $sub, $msg, $hdrs);
+                }
+                if ($res) {
+                    echo "<div style='color: #15803d; font-weight: bold; margin-top: 12px; font-size: 14px;'>✅ mail() ফাংশন সফলভাবে কাজ করেছে! '{$testTo}' ঠিকানায় মেইল পাঠানো হয়েছে। ইনবক্স অথবা স্প্যাম ফোল্ডার চেক করুন।</div>";
+                } else {
+                    $err = error_get_last();
+                    echo "<div style='color: #dc2626; font-weight: bold; margin-top: 12px; font-size: 14px;'>❌ mail() ব্যর্থ হয়েছে। এরর: " . htmlspecialchars($err['message'] ?? 'Server rejected mail') . "</div>";
+                }
+            }
+        }
+        ?>
+    </div>
+
     <?php if (!file_exists($rootEnv)): ?>
     <div style="background: #fef2f2; border: 1px solid #fecaca; border-radius: 8px; padding: 16px; margin: 20px 0;">
         <h3 style="color: #991b1b; margin-top: 0;">⚠️ .env ফাইল পাওয়া যায়নি! (HTTP 500 এর মূল কারণ)</h3>

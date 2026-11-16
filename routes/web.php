@@ -169,6 +169,7 @@ Route::middleware(['auth', 'admin'])->prefix('admin')->name('admin.')->group(fun
     // Settings (Site, Author, Delivery)
     Route::get('settings', [AdminSettingController::class, 'index'])->name('settings.index');
     Route::post('settings', [AdminSettingController::class, 'update'])->name('settings.update');
+    Route::post('settings/test-email', [AdminSettingController::class, 'sendTestEmail'])->name('settings.test-email');
 
     // Customers & Users Management
     Route::get('customers', [AdminCustomerController::class, 'index'])->name('customers.index');

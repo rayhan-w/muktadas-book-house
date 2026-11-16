@@ -42,6 +42,28 @@ class User extends Authenticatable
         ];
     }
 
+    public function getNameAttribute($value)
+    {
+        if (empty($value) || preg_match('/^[?\s]+$/', (string)$value)) {
+            if ($this->role === 'admin') {
+                return 'মুক্তাদার অ্যাডমিন';
+            }
+            if ($this->role === 'publisher') {
+                return $this->publisher_company ?: 'প্রকাশক';
+            }
+            return 'সম্মানিত পাঠক';
+        }
+        return $value;
+    }
+
+    public function getMembershipPlanAttribute($value)
+    {
+        if (!empty($value) && (str_contains((string)$value, '?') || preg_match('/^[?\s]+$/', (string)$value))) {
+            return '১ বছর';
+        }
+        return $value;
+    }
+
     public function isAdmin(): bool
     {
         return $this->role === 'admin';

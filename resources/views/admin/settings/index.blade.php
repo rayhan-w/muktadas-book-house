@@ -136,9 +136,67 @@
 
         <hr style="border: none; border-top: 1px solid var(--admin-border); margin: 25px 0;">
 
-        <!-- 5. Admin Security & Password Change -->
+        <!-- 5. Mail & SMTP Settings -->
         <h3 style="font-size: 16px; margin-bottom: 6px; color: var(--admin-primary); display: flex; align-items: center; gap: 8px;">
-            <i class="bi bi-shield-lock-fill"></i> ৫. অ্যাডমিন প্রোফাইল ও পাসওয়ার্ড পরিবর্তন
+            <i class="bi bi-envelope-at-fill"></i> ৫. ইমেইল (SMTP / Sendmail) কনফিগারেশন
+        </h3>
+        <p style="font-size: 13px; color: var(--admin-muted); margin-bottom: 14px;">
+            পাসওয়ার্ড রিসেট, অর্ডার কনফার্মেশন ও পেমেন্ট অ্যাপ্রুভাল ইমেইল পাঠানোর জন্য কনফিগারেশন। cPanel সার্ভারে <code>Sendmail</code> স্বয়ংক্রিয়ভাবে কাজ করে, অথবা আপনার নিজস্ব ওয়েবমেইল / জিমেইল SMTP ব্যবহার করতে পারেন।
+        </p>
+
+        <div class="grid-2">
+            <div class="form-group">
+                <label class="form-label">মেইল ড্রাইভার (Mail Driver) *</label>
+                <select name="mail_mailer" class="form-control" style="cursor: pointer;">
+                    <option value="sendmail" {{ old('mail_mailer', $settings['mail_mailer']) === 'sendmail' ? 'selected' : '' }}>cPanel / Server Sendmail (ডিফল্ট ও ঝামেলামুক্ত)</option>
+                    <option value="smtp" {{ old('mail_mailer', $settings['mail_mailer']) === 'smtp' ? 'selected' : '' }}>কাস্টম SMTP (Webmail / Gmail / Brevo)</option>
+                    <option value="log" {{ old('mail_mailer', $settings['mail_mailer']) === 'log' ? 'selected' : '' }}>লগ ড্রাইভার (মেইল পাঠাবে না, শুধু টেস্ট লগ রাখবে)</option>
+                </select>
+            </div>
+            <div class="form-group">
+                <label class="form-label">প্রেরকের ইমেইল (From Address) *</label>
+                <input type="email" name="mail_from_address" value="{{ old('mail_from_address', $settings['mail_from_address']) }}" class="form-control" placeholder="noreply@muktadarboighor.com">
+            </div>
+        </div>
+
+        <div class="grid-2">
+            <div class="form-group">
+                <label class="form-label">প্রেরকের নাম (From Name)</label>
+                <input type="text" name="mail_from_name" value="{{ old('mail_from_name', $settings['mail_from_name']) }}" class="form-control" placeholder="মুক্তাদার বইঘর">
+            </div>
+            <div class="form-group">
+                <label class="form-label">SMTP হোস্ট (SMTP Host - কাস্টম SMTP সিলেক্ট করলে)</label>
+                <input type="text" name="mail_host" value="{{ old('mail_host', $settings['mail_host']) }}" class="form-control" placeholder="mail.muktadarboighor.com">
+            </div>
+        </div>
+
+        <div class="grid-2" style="margin-bottom: 15px;">
+            <div class="form-group">
+                <label class="form-label">SMTP পোর্ট (Port)</label>
+                <input type="text" name="mail_port" value="{{ old('mail_port', $settings['mail_port']) }}" class="form-control" placeholder="465 বা 587">
+            </div>
+            <div class="form-group">
+                <label class="form-label">SMTP এনক্রিপশন (Encryption)</label>
+                <input type="text" name="mail_encryption" value="{{ old('mail_encryption', $settings['mail_encryption']) }}" class="form-control" placeholder="ssl বা tls">
+            </div>
+        </div>
+
+        <div class="grid-2">
+            <div class="form-group">
+                <label class="form-label">SMTP ইউজারনেম (Username)</label>
+                <input type="text" name="mail_username" value="{{ old('mail_username', $settings['mail_username']) }}" class="form-control" placeholder="info@muktadarboighor.com">
+            </div>
+            <div class="form-group">
+                <label class="form-label">SMTP পাসওয়ার্ড (Password)</label>
+                <input type="password" name="mail_password" value="{{ old('mail_password', $settings['mail_password']) }}" class="form-control" placeholder="••••••••">
+            </div>
+        </div>
+
+        <hr style="border: none; border-top: 1px solid var(--admin-border); margin: 25px 0;">
+
+        <!-- 6. Admin Security & Password Change -->
+        <h3 style="font-size: 16px; margin-bottom: 6px; color: var(--admin-primary); display: flex; align-items: center; gap: 8px;">
+            <i class="bi bi-shield-lock-fill"></i> ৬. অ্যাডমিন প্রোফাইল ও পাসওয়ার্ড পরিবর্তন
         </h3>
         <p style="font-size: 13px; color: var(--admin-muted); margin-bottom: 14px;">
             আপনার অ্যাডমিন প্যানেলের নাম, লগইন ইমেইল অথবা পাসওয়ার্ড পরিবর্তন করতে পারেন। পাসওয়ার্ড পরিবর্তন না করতে চাইলে পাসওয়ার্ডের ঘর দুটি ফাঁকা রাখুন।
@@ -168,6 +226,28 @@
 
         <button type="submit" class="btn-sm btn-blue" style="padding: 14px 28px; font-size: 16px; margin-top: 10px;">
             <i class="bi bi-check-circle-fill"></i> সেটিংস ও প্রোফাইল আপডেট করুন
+        </button>
+    </form>
+</div>
+
+<!-- Test Email Card -->
+<div class="admin-card" style="margin-top: 24px; border: 1.5px solid #bfdbfe; background: #f0f9ff;">
+    <div class="card-header" style="border-bottom: 1px solid #bae6fd; padding-bottom: 12px; margin-bottom: 16px;">
+        <div>
+            <h3 style="font-size: 16px; color: #0369a1; margin: 0; display: flex; align-items: center; gap: 8px;">
+                <i class="bi bi-send-check-fill"></i> লাইভ টেস্ট ইমেইল পাঠান (Email Delivery Test)
+            </h3>
+            <small style="color: #0c4a6e;">আপনার মেইল সার্ভার বা SMTP ঠিকমতো কাজ করছে কিনা তা এই বাটন দিয়ে সরাসরি এখনই পরীক্ষা করুন।</small>
+        </div>
+    </div>
+    <form action="{{ route('admin.settings.test-email') }}" method="POST" style="display: flex; gap: 12px; flex-wrap: wrap; align-items: flex-end;">
+        @csrf
+        <div style="flex: 1; min-width: 260px;">
+            <label class="form-label" style="color: #0369a1; font-weight: 700;">যে ইমেইলে টেস্ট মেইল পাঠাবেন:</label>
+            <input type="email" name="test_email" value="{{ Auth::user()->email ?? 'admin@muktadasbookhouse.com' }}" required class="form-control" placeholder="আপনার ব্যক্তিগত ইমেইল লিখুন" style="background: #fff;">
+        </div>
+        <button type="submit" class="btn-sm" style="background: #0284c7; color: #fff; padding: 11px 22px; font-weight: 700; border: none; border-radius: 8px; cursor: pointer; display: flex; align-items: center; gap: 6px;">
+            <i class="bi bi-send-fill"></i> টেস্ট ইমেইল পাঠান
         </button>
     </form>
 </div>

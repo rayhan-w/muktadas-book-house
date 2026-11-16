@@ -99,6 +99,13 @@ if (file_exists($envFile)) {
             $pdo->exec("ALTER TABLE `books` ADD COLUMN `rejection_reason` TEXT NULL AFTER `approval_status`");
         }
 
+        // Fix users table mojibake and question marks
+        $pdo->exec("UPDATE `users` SET `name` = 'মুক্তাদার অ্যাডমিন', `address` = 'ঢাকা, বাংলাদেশ' WHERE `role` = 'admin' OR `email` = 'admin@muktadasbookhouse.com'");
+        $pdo->exec("UPDATE `users` SET `name` = 'রহিম আহমেদ', `address` = 'মিরপুর, ঢাকা', `membership_plan` = '১ বছর' WHERE `email` = 'reader@example.com'");
+        $pdo->exec("UPDATE `users` SET `membership_plan` = '১ বছর' WHERE `membership_plan` LIKE '%?%' OR `membership_plan` LIKE '%Ó%'");
+        $pdo->exec("UPDATE `users` SET `name` = 'সম্মানিত পাঠক' WHERE `name` REGEXP '^[? ]+$' OR `name` LIKE '%Óª%'");
+        echo '<div class="item-ok">✓ ব্যবহারকারী ও অ্যাডমিনদের বিকৃত নাম ও মেম্বারশিপ প্ল্যান শুদ্ধ বাংলায় মেরামত করা হয়েছে।</div>';
+
         // 3. Settings Update (Safe INSERT ... ON DUPLICATE KEY UPDATE)
         $settings = [
             'site_name' => "মুক্তাদার বইঘর | Muktada's Boighor",

@@ -5,73 +5,88 @@
 @section('styles')
 <style>
     .dash-header {
-        background: #fff;
-        border-bottom: 1px solid var(--border-color);
-        padding: 26px 0;
+        background: #ffffff;
+        border-bottom: 1.5px solid #e2e8f0;
+        padding: 24px 0;
         margin-bottom: 28px;
     }
 
     .dash-layout {
         display: grid;
-        grid-template-columns: 260px 1fr;
+        grid-template-columns: 280px 1fr;
         gap: 26px;
         margin-bottom: 60px;
         align-items: flex-start;
     }
 
     .dash-sidebar {
-        background: #fff;
-        border: 1px solid var(--border-color);
-        border-radius: var(--radius);
-        padding: 20px;
-        box-shadow: var(--shadow-sm);
+        background: #ffffff;
+        border: 1.5px solid #e2e8f0;
+        border-radius: 16px;
+        padding: 24px 20px;
+        box-shadow: 0 4px 16px rgba(15, 23, 42, 0.04);
     }
 
     .dash-user-head {
         text-align: center;
         border-bottom: 1px solid #f1f5f9;
-        padding-bottom: 18px;
-        margin-bottom: 15px;
+        padding-bottom: 20px;
+        margin-bottom: 16px;
     }
 
     .user-avatar-circle {
-        width: 65px;
-        height: 65px;
+        width: 72px;
+        height: 72px;
         border-radius: 50%;
-        background: var(--cream-bg);
-        color: var(--primary);
+        background: linear-gradient(135deg, #ccfbf1 0%, #99f6e4 100%);
+        color: #0f766e;
         display: grid;
         place-items: center;
-        font-size: 24px;
-        font-weight: 700;
-        margin: 0 auto 10px;
-        border: 2px solid var(--border-color);
+        font-size: 28px;
+        font-weight: 800;
+        margin: 0 auto 12px;
+        border: 2.5px solid #0d9488;
+        box-shadow: 0 4px 12px rgba(13, 148, 136, 0.15);
     }
 
     .dash-menu-link {
         display: flex;
         align-items: center;
-        gap: 10px;
-        padding: 10px 14px;
-        border-radius: 8px;
+        gap: 12px;
+        padding: 11px 16px;
+        border-radius: 10px;
         font-size: 14.5px;
         font-weight: 600;
-        color: var(--text-dark);
-        margin-bottom: 4px;
-        transition: 0.15s;
+        color: #334155;
+        margin-bottom: 6px;
+        transition: all 0.2s ease;
         text-decoration: none;
+        border: 1px solid transparent;
     }
 
     .dash-menu-link i {
-        font-size: 16px;
-        width: 20px;
+        font-size: 17px;
+        width: 22px;
         text-align: center;
-        color: var(--gold-hover);
+        color: #0d9488;
+        transition: transform 0.2s ease;
     }
 
-    .dash-menu-link:hover, .dash-menu-link.active {
-        background: var(--cream-bg);
-        color: var(--gold-hover);
+    .dash-menu-link:hover {
+        background: #f0fdfa;
+        color: #0f766e;
+        border-color: #ccfbf1;
+        transform: translateX(3px);
+    }
+
+    .dash-menu-link.active {
+        background: linear-gradient(135deg, #0f766e 0%, #0d9488 100%);
+        color: #ffffff;
+        box-shadow: 0 4px 12px rgba(13, 148, 136, 0.25);
+    }
+
+    .dash-menu-link.active i {
+        color: #ffffff;
     }
 
     .dash-stat-grid {
@@ -82,28 +97,87 @@
     }
 
     .dash-stat-card {
-        background: #fff;
-        border: 1px solid var(--border-color);
-        border-radius: var(--radius);
-        padding: 18px 14px;
-        box-shadow: var(--shadow-sm);
+        background: #ffffff;
+        border: 1.5px solid #e2e8f0;
+        border-radius: 14px;
+        padding: 20px 16px;
+        box-shadow: 0 2px 8px rgba(15, 23, 42, 0.03);
         text-align: center;
+        transition: all 0.2s ease;
+        position: relative;
+        overflow: hidden;
+    }
+
+    .dash-stat-card:hover {
+        transform: translateY(-2px);
+        border-color: #0d9488;
+        box-shadow: 0 6px 18px rgba(13, 148, 136, 0.12);
     }
 
     .stat-val {
-        font-size: 26px;
+        font-size: 28px;
         font-weight: 800;
-        color: var(--primary);
-        margin: 4px 0 6px;
+        color: #0f766e;
+        margin: 6px 0 8px;
+        line-height: 1;
     }
 
     .dash-panel {
-        background: #fff;
-        border: 1px solid var(--border-color);
-        border-radius: var(--radius);
-        padding: 24px;
+        background: #ffffff;
+        border: 1.5px solid #e2e8f0;
+        border-radius: 16px;
+        padding: 26px;
         margin-bottom: 25px;
-        box-shadow: var(--shadow-sm);
+        box-shadow: 0 4px 16px rgba(15, 23, 42, 0.04);
+    }
+
+    .dash-form-control {
+        width: 100%;
+        padding: 11px 14px;
+        border: 1.5px solid #cbd5e1;
+        border-radius: 10px;
+        font-family: inherit;
+        font-size: 14.5px;
+        background: #ffffff;
+        color: #1e293b;
+        transition: all 0.2s ease;
+        outline: none;
+        box-sizing: border-box;
+    }
+
+    .dash-form-control:focus {
+        border-color: #0d9488;
+        box-shadow: 0 0 0 3.5px rgba(13, 148, 136, 0.15);
+        background: #ffffff;
+    }
+
+    .dash-form-label {
+        display: block;
+        font-size: 13.5px;
+        font-weight: 600;
+        margin-bottom: 6px;
+        color: #1e293b;
+    }
+
+    .dash-btn-submit {
+        background: linear-gradient(135deg, #0f766e 0%, #0d9488 100%);
+        color: #ffffff;
+        border: none;
+        padding: 12px 28px;
+        font-size: 15px;
+        font-weight: 700;
+        border-radius: 10px;
+        cursor: pointer;
+        display: inline-flex;
+        align-items: center;
+        gap: 8px;
+        box-shadow: 0 4px 14px rgba(13, 148, 136, 0.25);
+        transition: all 0.2s ease;
+    }
+
+    .dash-btn-submit:hover {
+        transform: translateY(-1px);
+        box-shadow: 0 6px 20px rgba(13, 148, 136, 0.35);
     }
 
     .grid-form-2 {
@@ -143,10 +217,10 @@
             gap: 10px;
         }
         .dash-stat-card {
-            padding: 14px 10px;
+            padding: 16px 12px;
         }
         .stat-val {
-            font-size: 22px;
+            font-size: 24px;
         }
     }
 </style>
@@ -303,42 +377,46 @@
 
         <!-- Profile Update -->
         <div class="dash-panel">
-            <h2 style="font-size: 18px; color: var(--primary); margin-bottom: 18px; display: flex; align-items: center; gap: 8px;">
-                <i class="bi bi-person-gear" style="color: var(--gold-hover);"></i> ব্যক্তিগত তথ্য আপডেট
+            <h2 style="font-size: 18px; color: var(--sp-burgundy); margin-bottom: 18px; display: flex; align-items: center; gap: 8px; font-weight: 800;">
+                <i class="bi bi-person-gear" style="color: var(--sp-crimson);"></i> ব্যক্তিগত তথ্য আপডেট
             </h2>
             <form action="{{ route('reader.profile.update') }}" method="POST">
                 @csrf
-                <div class="grid-form-2" style="margin-bottom: 14px;">
+                <div class="grid-form-2" style="margin-bottom: 16px;">
                     <div>
-                        <label style="display: block; font-size: 13.5px; font-weight: 600; margin-bottom: 4px; color: var(--text-dark);">নাম *</label>
-                        <input type="text" name="name" value="{{ old('name', $user->name) }}" required style="width: 100%; padding: 9px 12px; border: 1px solid var(--border-color); border-radius: 8px; font-family: inherit; font-size: 14px; box-sizing: border-box;">
+                        <label class="dash-form-label">নাম *</label>
+                        <input type="text" name="name" value="{{ old('name', $user->name) }}" required class="dash-form-control">
                     </div>
                     <div>
-                        <label style="display: block; font-size: 13.5px; font-weight: 600; margin-bottom: 4px; color: var(--text-dark);">মোবাইল নম্বর</label>
-                        <input type="text" name="phone" value="{{ old('phone', $user->phone) }}" style="width: 100%; padding: 9px 12px; border: 1px solid var(--border-color); border-radius: 8px; font-family: inherit; font-size: 14px; box-sizing: border-box;">
-                    </div>
-                </div>
-
-                <div style="margin-bottom: 18px;">
-                    <label style="display: block; font-size: 13.5px; font-weight: 600; margin-bottom: 4px; color: var(--text-dark);">ডেলিভারি ঠিকানা</label>
-                    <textarea name="address" rows="2" style="width: 100%; padding: 9px 12px; border: 1px solid var(--border-color); border-radius: 8px; font-family: inherit; font-size: 14px; box-sizing: border-box;">{{ old('address', $user->address) }}</textarea>
-                </div>
-
-                <hr style="border: none; border-top: 1px solid var(--border-color); margin: 20px 0;">
-
-                <h3 style="font-size: 15px; color: var(--primary); margin-bottom: 12px; font-weight: 700;">পাসওয়ার্ড পরিবর্তন (প্রয়োজন না হলে খালি রাখুন)</h3>
-                <div class="grid-form-2" style="margin-bottom: 18px;">
-                    <div>
-                        <label style="display: block; font-size: 13.5px; font-weight: 600; margin-bottom: 4px; color: var(--text-dark);">নতুন পাসওয়ার্ড</label>
-                        <input type="password" name="new_password" placeholder="••••••••" style="width: 100%; padding: 9px 12px; border: 1px solid var(--border-color); border-radius: 8px; font-family: inherit; font-size: 14px; box-sizing: border-box;">
-                    </div>
-                    <div>
-                        <label style="display: block; font-size: 13.5px; font-weight: 600; margin-bottom: 4px; color: var(--text-dark);">নতুন পাসওয়ার্ড নিশ্চিত করুন</label>
-                        <input type="password" name="new_password_confirmation" placeholder="••••••••" style="width: 100%; padding: 9px 12px; border: 1px solid var(--border-color); border-radius: 8px; font-family: inherit; font-size: 14px; box-sizing: border-box;">
+                        <label class="dash-form-label">মোবাইল নম্বর</label>
+                        <input type="text" name="phone" value="{{ old('phone', $user->phone) }}" placeholder="01XXXXXXXXX" class="dash-form-control">
                     </div>
                 </div>
 
-                <button type="submit" class="btn btn-gold" style="font-weight: 700; padding: 10px 22px;">তথ্য সংরক্ষণ করুন</button>
+                <div style="margin-bottom: 20px;">
+                    <label class="dash-form-label">ডেলিভারি ঠিকানা</label>
+                    <textarea name="address" rows="3" placeholder="বাসা/হোল্ডিং নম্বর, রোড, এলাকা, জেলা..." class="dash-form-control">{{ old('address', $user->address) }}</textarea>
+                </div>
+
+                <hr style="border: none; border-top: 1.5px dashed #e2e8f0; margin: 24px 0;">
+
+                <h3 style="font-size: 15.5px; color: var(--sp-burgundy); margin-bottom: 14px; font-weight: 700; display: flex; align-items: center; gap: 6px;">
+                    <i class="bi bi-shield-lock" style="color: var(--sp-crimson);"></i> পাসওয়ার্ড পরিবর্তন (প্রয়োজন না হলে খালি রাখুন)
+                </h3>
+                <div class="grid-form-2" style="margin-bottom: 22px;">
+                    <div>
+                        <label class="dash-form-label">নতুন পাসওয়ার্ড</label>
+                        <input type="password" name="new_password" placeholder="কমপক্ষে ৬ অক্ষরের নতুন পাসওয়ার্ড" class="dash-form-control">
+                    </div>
+                    <div>
+                        <label class="dash-form-label">নতুন পাসওয়ার্ড নিশ্চিত করুন</label>
+                        <input type="password" name="new_password_confirmation" placeholder="পুনরায় নতুন পাসওয়ার্ড লিখুন" class="dash-form-control">
+                    </div>
+                </div>
+
+                <button type="submit" class="dash-btn-submit">
+                    <i class="bi bi-check-circle-fill"></i> তথ্য সংরক্ষণ করুন
+                </button>
             </form>
         </div>
     </div>

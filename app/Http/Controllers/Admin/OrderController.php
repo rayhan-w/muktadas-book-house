@@ -6,6 +6,9 @@ use App\Http\Controllers\Controller;
 use App\Models\Order;
 use App\Models\EbookLibrary;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Mail;
+use Illuminate\Support\Facades\Log;
+use App\Mail\PaymentApprovedMail;
 
 class OrderController extends Controller
 {
@@ -55,6 +58,8 @@ class OrderController extends Controller
             'admin_notes' => 'nullable|string',
         ]);
 
+        $previousPaymentStatus = $order->payment_status;
+
         $order->order_status = $validated['order_status'];
 
         if (!empty($validated['payment_status'])) {
@@ -86,6 +91,18 @@ class OrderController extends Controller
         }
 
         $order->save();
+
+        // Send Payment Approved Email if payment became verified
+        $isNowApproved = ($order->payment_status === 'verified' || $order->order_status === 'payment_verified');
+        if ($isNowApproved && $previousPaymentStatus !== 'verified') {
+            try {
+                if (!empty($order->customer_email)) {
+                    Mail::to($order->customer_email)->send(new PaymentApprovedMail($order));
+                }
+            } catch (\Throwable $e) {
+                Log::error('Payment approved mail sending failed: ' . $e->getMessage());
+            }
+        }
 
         return back()->with('success', 'অর্ডারের স্ট্যাটাস সফলভাবে আপডেট করা হয়েছে।');
     }

@@ -10,7 +10,10 @@ use App\Models\EbookLibrary;
 use App\Models\Coupon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Mail;
+use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Str;
+use App\Mail\OrderPlacedMail;
 
 class CheckoutController extends Controller
 {
@@ -161,6 +164,19 @@ class CheckoutController extends Controller
         // Increment coupon usage if used
         if ($couponCode = session()->get('coupon_code')) {
             Coupon::where('code', $couponCode)->increment('times_used');
+        }
+
+        // Send Order Confirmation Emails (Customer + Admin notification)
+        try {
+            if (!empty($order->customer_email)) {
+                Mail::to($order->customer_email)->send(new OrderPlacedMail($order, false));
+            }
+            $adminEmail = SiteSetting::get('contact_email');
+            if ($adminEmail && $adminEmail !== $order->customer_email) {
+                Mail::to($adminEmail)->send(new OrderPlacedMail($order, true));
+            }
+        } catch (\Throwable $e) {
+            Log::error('Order email sending failed: ' . $e->getMessage());
         }
 
         // Clear cart

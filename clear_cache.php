@@ -95,14 +95,14 @@ if (!file_exists($envFile)) {
 'REDIS_HOST=127.0.0.1' . "\n" .
 'REDIS_PASSWORD=null' . "\n" .
 'REDIS_PORT=6379' . "\n\n" .
-'MAIL_MAILER=log' . "\n" .
+'MAIL_MAILER=sendmail' . "\n" .
 'MAIL_SCHEME=null' . "\n" .
-'MAIL_HOST=127.0.0.1' . "\n" .
-'MAIL_PORT=2525' . "\n" .
+'MAIL_HOST=mail.muktadarboighor.com' . "\n" .
+'MAIL_PORT=465' . "\n" .
 'MAIL_USERNAME=null' . "\n" .
 'MAIL_PASSWORD=null' . "\n" .
-'MAIL_FROM_ADDRESS="hello@muktadarboighor.com"' . "\n" .
-'MAIL_FROM_NAME="${APP_NAME}"' . "\n\n" .
+'MAIL_FROM_ADDRESS="noreply@muktadarboighor.com"' . "\n" .
+'MAIL_FROM_NAME="মুক্তাদার বইঘর"' . "\n\n" .
 'AWS_ACCESS_KEY_ID=' . "\n" .
 'AWS_SECRET_ACCESS_KEY=' . "\n" .
 'AWS_DEFAULT_REGION=us-east-1' . "\n" .
@@ -133,17 +133,28 @@ try {
         $artisanOut = trim(\Illuminate\Support\Facades\Artisan::output());
         $results[] = "✅ ডাটাবেজ মাইগ্রেশন সম্পন্ন হয়েছে: " . ($artisanOut ?: "সব মাইগ্রেশন অলরেডি আপ-টু-ডেট");
 
-        // Ensure Admin user password is password123
+        // Ensure Admin user password is password123 & name is clean
         $admin = \App\Models\User::where('email', 'admin@muktadasbookhouse.com')->first();
         if ($admin) {
+            if (empty($admin->name) || preg_match('/^[?\s]+$/', $admin->name) || str_contains($admin->name, 'Ó')) {
+                $admin->name = 'মুক্তাদার অ্যাডমিন';
+                $admin->address = 'ঢাকা, বাংলাদেশ';
+            }
             if (!\Illuminate\Support\Facades\Hash::check('password123', $admin->password)) {
                 $admin->password = \Illuminate\Support\Facades\Hash::make('password123');
                 $admin->save();
                 $results[] = "✅ অ্যাডমিন পাসওয়ার্ড সিঙ্ক করা হয়েছে (admin@muktadasbookhouse.com / password123)";
             } else {
+                $admin->save();
                 $results[] = "✅ অ্যাডমিন অ্যাকাউন্ট সম্পূর্ণ সচল ও ভেরিফায়েড।";
             }
         }
+
+        // Clean any corrupted membership plans in users table
+        \Illuminate\Support\Facades\DB::table('users')
+            ->where('membership_plan', 'like', '%?%')
+            ->orWhere('membership_plan', 'like', '%Ó%')
+            ->update(['membership_plan' => '১ বছর']);
     }
 } catch (\Throwable $e) {
     $results[] = "⚠️ মাইগ্রেশন নোটিশ: " . $e->getMessage();

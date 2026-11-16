@@ -47,11 +47,18 @@ class AppServiceProvider extends ServiceProvider
                 ]);
 
                 if ($mailer === 'smtp') {
-                    $host = SiteSetting::get('mail_host');
-                    $port = SiteSetting::get('mail_port', '465');
-                    $username = SiteSetting::get('mail_username');
-                    $password = SiteSetting::get('mail_password');
-                    $encryption = SiteSetting::get('mail_encryption', 'ssl');
+                    $host = SiteSetting::get('mail_host', env('MAIL_HOST', 'mail.muktadarboighor.com'));
+                    $port = SiteSetting::get('mail_port', env('MAIL_PORT', '465'));
+                    $username = SiteSetting::get('mail_username', env('MAIL_USERNAME', 'info@muktadarboighor.com'));
+                    $password = SiteSetting::get('mail_password', env('MAIL_PASSWORD', 'x-Qc-CJ1D5Xxgt0G'));
+                    $encryption = SiteSetting::get('mail_encryption', env('MAIL_ENCRYPTION', 'ssl'));
+
+                    $scheme = null;
+                    if ($encryption === 'ssl' || (int) $port === 465) {
+                        $scheme = 'smtps';
+                    } elseif ($encryption === 'tls' || (int) $port === 587) {
+                        $scheme = 'smtp';
+                    }
 
                     if (!empty($host)) {
                         config([
@@ -59,7 +66,7 @@ class AppServiceProvider extends ServiceProvider
                             'mail.mailers.smtp.port' => (int) $port,
                             'mail.mailers.smtp.username' => $username,
                             'mail.mailers.smtp.password' => $password,
-                            'mail.mailers.smtp.scheme' => ($encryption === 'ssl' || $encryption === 'tls') ? $encryption : null,
+                            'mail.mailers.smtp.scheme' => $scheme,
                         ]);
                     }
                 }

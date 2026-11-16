@@ -160,12 +160,12 @@ header('Content-Type: text/html; charset=utf-8');
             if ($testTo) {
                 $sub = "=?UTF-8?B?" . base64_encode("টেস্ট মেইল — মুক্তাদার বইঘর") . "?=";
                 $msg = "আসসালামু আলাইকুম,\n\nএটি muktadarboighor.com সার্ভার থেকে পাঠানো একটি সফল টেস্ট মেইল।\nসময়: " . date('Y-m-d H:i:s');
-                $hdrs = "From: =?UTF-8?B?" . base64_encode("মুক্তাদার বইঘর") . "?= <noreply@muktadarboighor.com>\r\n" .
-                        "Reply-To: contact@muktadasbookhouse.com\r\n" .
+                $hdrs = "From: =?UTF-8?B?" . base64_encode("মুক্তাদার বইঘর") . "?= <info@muktadarboighor.com>\r\n" .
+                        "Reply-To: info@muktadarboighor.com\r\n" .
                         "MIME-Version: 1.0\r\n" .
                         "Content-Type: text/plain; charset=UTF-8\r\n" .
                         "X-Mailer: PHP/" . phpversion();
-                $res = @mail($testTo, $sub, $msg, $hdrs, "-fnoreply@muktadarboighor.com");
+                $res = @mail($testTo, $sub, $msg, $hdrs, "-finfo@muktadarboighor.com");
                 if (!$res) {
                     $res = @mail($testTo, $sub, $msg, $hdrs);
                 }
@@ -227,14 +227,15 @@ header('Content-Type: text/html; charset=utf-8');
 'REDIS_HOST=127.0.0.1' . "\n" .
 'REDIS_PASSWORD=null' . "\n" .
 'REDIS_PORT=6379' . "\n\n" .
-'MAIL_MAILER=log' . "\n" .
+'MAIL_MAILER=smtp' . "\n" .
 'MAIL_SCHEME=null' . "\n" .
-'MAIL_HOST=127.0.0.1' . "\n" .
-'MAIL_PORT=2525' . "\n" .
-'MAIL_USERNAME=null' . "\n" .
-'MAIL_PASSWORD=null' . "\n" .
-'MAIL_FROM_ADDRESS="hello@muktadarboighor.com"' . "\n" .
-'MAIL_FROM_NAME="${APP_NAME}"' . "\n\n" .
+'MAIL_HOST=mail.muktadarboighor.com' . "\n" .
+'MAIL_PORT=465' . "\n" .
+'MAIL_USERNAME=info@muktadarboighor.com' . "\n" .
+'MAIL_PASSWORD=x-Qc-CJ1D5Xxgt0G' . "\n" .
+'MAIL_ENCRYPTION=ssl' . "\n" .
+'MAIL_FROM_ADDRESS="info@muktadarboighor.com"' . "\n" .
+'MAIL_FROM_NAME="মুক্তাদার বইঘর"' . "\n\n" .
 'AWS_ACCESS_KEY_ID=' . "\n" .
 'AWS_SECRET_ACCESS_KEY=' . "\n" .
 'AWS_DEFAULT_REGION=us-east-1' . "\n" .

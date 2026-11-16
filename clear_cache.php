@@ -95,13 +95,14 @@ if (!file_exists($envFile)) {
 'REDIS_HOST=127.0.0.1' . "\n" .
 'REDIS_PASSWORD=null' . "\n" .
 'REDIS_PORT=6379' . "\n\n" .
-'MAIL_MAILER=phpmail' . "\n" .
+'MAIL_MAILER=smtp' . "\n" .
 'MAIL_SCHEME=null' . "\n" .
 'MAIL_HOST=mail.muktadarboighor.com' . "\n" .
 'MAIL_PORT=465' . "\n" .
-'MAIL_USERNAME=null' . "\n" .
-'MAIL_PASSWORD=null' . "\n" .
-'MAIL_FROM_ADDRESS="noreply@muktadarboighor.com"' . "\n" .
+'MAIL_USERNAME=info@muktadarboighor.com' . "\n" .
+'MAIL_PASSWORD=x-Qc-CJ1D5Xxgt0G' . "\n" .
+'MAIL_ENCRYPTION=ssl' . "\n" .
+'MAIL_FROM_ADDRESS="info@muktadarboighor.com"' . "\n" .
 'MAIL_FROM_NAME="মুক্তাদার বইঘর"' . "\n\n" .
 'AWS_ACCESS_KEY_ID=' . "\n" .
 'AWS_SECRET_ACCESS_KEY=' . "\n" .
@@ -156,12 +157,16 @@ try {
             ->orWhere('membership_plan', 'like', '%Ó%')
             ->update(['membership_plan' => '১ বছর']);
 
-        // Ensure mail driver is set to phpmail (safe for cPanel)
-        $currMail = \App\Models\SiteSetting::get('mail_mailer');
-        if (empty($currMail) || $currMail === 'sendmail' || $currMail === 'log') {
-            \App\Models\SiteSetting::set('mail_mailer', 'phpmail');
-            $results[] = "✅ মেইল ড্রাইভার 'phpmail' (PHP Native - proc_open নিরাপদ) সক্রিয় করা হয়েছে।";
-        }
+        // Auto-configure working cPanel SMTP in SiteSetting
+        \App\Models\SiteSetting::set('mail_mailer', 'smtp');
+        \App\Models\SiteSetting::set('mail_host', 'mail.muktadarboighor.com');
+        \App\Models\SiteSetting::set('mail_port', '465');
+        \App\Models\SiteSetting::set('mail_username', 'info@muktadarboighor.com');
+        \App\Models\SiteSetting::set('mail_password', 'x-Qc-CJ1D5Xxgt0G');
+        \App\Models\SiteSetting::set('mail_encryption', 'ssl');
+        \App\Models\SiteSetting::set('mail_from_address', 'info@muktadarboighor.com');
+        \App\Models\SiteSetting::set('mail_from_name', 'মুক্তাদার বইঘর');
+        $results[] = "✅ লাইভ cPanel SMTP সফলভাবে সংযুক্ত ও সক্রিয় করা হয়েছে (info@muktadarboighor.com)।";
     }
 } catch (\Throwable $e) {
     $results[] = "⚠️ মাইগ্রেশন নোটিশ: " . $e->getMessage();

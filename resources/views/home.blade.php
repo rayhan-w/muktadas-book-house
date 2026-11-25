@@ -425,21 +425,26 @@
     }
 
     @media (max-width: 768px) {
-        /* Mobile Hero Banner: Ultra Compact & Slim */
+        /* Mobile Hero Banner: Natural Proportion & 100% Responsive */
         .hero-banner-section {
-            margin: 0 auto 12px auto !important;
+            margin: 0 auto 16px auto !important;
             padding: 0 !important;
         }
 
         .hero-banner-link {
             border-radius: 12px !important;
-            box-shadow: 0 4px 12px rgba(15, 23, 42, 0.08) !important;
+            box-shadow: 0 4px 14px rgba(15, 23, 42, 0.10) !important;
+            overflow: hidden !important;
+            display: block !important;
         }
 
         .hero-banner-image {
+            width: 100% !important;
+            height: auto !important;
+            max-height: none !important;
             border-radius: 12px !important;
-            max-height: 145px !important;
-            object-fit: cover !important;
+            object-fit: contain !important;
+            display: block !important;
         }
 
         /* Mobile Hero Card: Clean, Slim & Proportionate (Item 6 & Image 2) */
@@ -756,7 +761,7 @@
     <!-- Official Author Hero Banner (Page 1 Design - Centered & Responsive) -->
     <section class="hero-banner-section">
         <a href="{{ route('books.index') }}" class="hero-banner-link" title="মুক্তাদার বইঘর — এখনই কিনুন">
-            <img src="{{ \App\Models\SiteSetting::getBanner() }}" 
+            <img src="{{ \App\Models\SiteSetting::getBanner() }}?v={{ file_exists(public_path('muktadar-hero-banner.jpg')) ? filemtime(public_path('muktadar-hero-banner.jpg')) : time() }}" 
                  alt="মুক্তাদার বইঘর — ভালো বই, সুন্দর ভাবনা। শব্দের মায়ায়, গল্পের ছায়ায়— বইয়ের পাতায় খুঁজে নিন জীবন, স্বপ্ন ও নতুন এক পৃথিবী। এখনই কিনুন" 
                  class="hero-banner-image"
                  loading="eager"

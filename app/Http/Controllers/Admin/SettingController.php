@@ -54,22 +54,22 @@ class SettingController extends Controller
     {
         $admin = Auth::user();
 
-        $validated = $request->validate([
-            'site_name' => 'required|string|max:200',
+        $rules = [
+            'site_name' => 'nullable|string|max:200',
             'site_tagline' => 'nullable|string|max:300',
-            'site_logo' => 'nullable|image|mimes:jpeg,png,jpg,webp,svg,gif|max:4096',
-            'hero_banner' => 'nullable|image|mimes:jpeg,png,jpg,webp|max:8192',
-            'bg_music' => 'nullable|mimes:mp3,wav,ogg,m4a,aac|max:15360',
+            'site_logo' => 'nullable|image|mimes:jpeg,png,jpg,webp,svg,gif|max:12288',
+            'hero_banner' => 'nullable|image|mimes:jpeg,png,jpg,webp|max:15360',
+            'bg_music' => 'nullable|mimes:mp3,wav,ogg,m4a,aac|max:25600',
             'bg_music_enabled' => 'nullable|in:0,1',
             'privacy_policy' => 'nullable|string',
             'terms_conditions' => 'nullable|string',
             'refund_policy' => 'nullable|string',
-            'author_name' => 'required|string|max:100',
+            'author_name' => 'nullable|string|max:100',
             'author_bio' => 'nullable|string',
             'author_quote' => 'nullable|string',
-            'delivery_charge_dhaka' => 'required|numeric|min:0',
-            'delivery_charge_outside' => 'required|numeric|min:0',
-            'contact_email' => 'required|email|max:120',
+            'delivery_charge_dhaka' => 'nullable|numeric|min:0',
+            'delivery_charge_outside' => 'nullable|numeric|min:0',
+            'contact_email' => 'nullable|email|max:120',
             'contact_phone' => 'nullable|string|max:50',
             'contact_address' => 'nullable|string|max:300',
             'facebook_url' => 'nullable|string|max:200',
@@ -83,11 +83,17 @@ class SettingController extends Controller
             'mail_encryption' => 'nullable|string|max:10',
             'mail_from_address' => 'nullable|email|max:120',
             'mail_from_name' => 'nullable|string|max:120',
-            'author_photo' => 'nullable|image|max:2048',
+            'author_photo' => 'nullable|image|max:12288',
             'admin_name' => 'nullable|string|max:100',
-            'admin_email' => 'nullable|email|max:120|unique:users,email,' . ($admin ? $admin->id : 0),
-            'admin_password' => 'nullable|string|min:6|confirmed',
-        ], [
+            'admin_email' => 'nullable|email|max:120',
+        ];
+
+        // Only enforce password change if user actually entered both fields
+        if ($request->filled('admin_password') && $request->filled('admin_password_confirmation')) {
+            $rules['admin_password'] = 'required|string|min:6|confirmed';
+        }
+
+        $validated = $request->validate($rules, [
             'admin_password.min' => 'অ্যাডমিন নতুন পাসওয়ার্ড কমপক্ষে ৬ অক্ষরের হতে হবে।',
             'admin_password.confirmed' => 'নতুন পাসওয়ার্ড নিশ্চিতকরণ মেলেনি।',
         ]);
@@ -154,9 +160,20 @@ class SettingController extends Controller
         }
 
         if ($request->hasFile('author_photo')) {
-            $photoName = 'author_' . time() . '.' . $request->file('author_photo')->getClientOriginalExtension();
-            $request->file('author_photo')->move(public_path(), $photoName);
-            SiteSetting::set('author_photo', $photoName);
+            $photoFile = $request->file('author_photo');
+            $photoExt = $photoFile->getClientOriginalExtension();
+            $photoName = 'author_' . time() . '.' . $photoExt;
+            $destDir = public_path('uploads');
+            if (!file_exists($destDir)) {
+                @mkdir($destDir, 0775, true);
+            }
+            $photoFile->move($destDir, $photoName);
+            SiteSetting::set('author_photo', 'uploads/' . $photoName);
+
+            try {
+                @copy($destDir . '/' . $photoName, public_path($photoName));
+                @copy($destDir . '/' . $photoName, public_path('author-portrait.jpg'));
+            } catch (\Throwable $e) {}
         }
 
         // Update Admin Credentials if provided

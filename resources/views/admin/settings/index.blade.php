@@ -240,7 +240,7 @@
             </div>
             <div class="form-group">
                 <label class="form-label">SMTP পাসওয়ার্ড (Password)</label>
-                <input type="password" name="mail_password" value="{{ old('mail_password', $settings['mail_password']) }}" class="form-control" placeholder="••••••••">
+                <input type="password" name="mail_password" value="{{ old('mail_password', $settings['mail_password']) }}" class="form-control" autocomplete="new-password" placeholder="••••••••">
             </div>
         </div>
 
@@ -293,11 +293,11 @@
         <div class="grid-2">
             <div class="form-group">
                 <label class="form-label">নতুন পাসওয়ার্ড (ঐচ্ছিক — পরিবর্তন করতে চাইলে লিখুন)</label>
-                <input type="password" name="admin_password" class="form-control" placeholder="কমপক্ষে ৬ অক্ষরের নতুন পাসওয়ার্ড">
+                <input type="password" name="admin_password" class="form-control" autocomplete="new-password" placeholder="কমপক্ষে ৬ অক্ষরের নতুন পাসওয়ার্ড">
             </div>
             <div class="form-group">
                 <label class="form-label">নতুন পাসওয়ার্ড নিশ্চিতকরণ (Confirm Password)</label>
-                <input type="password" name="admin_password_confirmation" class="form-control" placeholder="পুনরায় নতুন পাসওয়ার্ড লিখুন">
+                <input type="password" name="admin_password_confirmation" class="form-control" autocomplete="new-password" placeholder="পুনরায় নতুন পাসওয়ার্ড লিখুন">
             </div>
         </div>
 

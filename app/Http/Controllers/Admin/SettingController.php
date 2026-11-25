@@ -18,6 +18,13 @@ class SettingController extends Controller
             'site_tagline' => SiteSetting::get('site_tagline', 'জ্ঞানের আলোয় নতুন পথচলা — ভালো বই, সুন্দর ভাবনা'),
             'site_logo' => SiteSetting::getLogo(),
             'site_logo_raw' => SiteSetting::get('site_logo'),
+            'hero_banner' => SiteSetting::getBanner(),
+            'hero_banner_raw' => SiteSetting::get('hero_banner'),
+            'bg_music' => SiteSetting::get('bg_music'),
+            'bg_music_enabled' => SiteSetting::get('bg_music_enabled', '0'),
+            'privacy_policy' => SiteSetting::get('privacy_policy', ''),
+            'terms_conditions' => SiteSetting::get('terms_conditions', ''),
+            'refund_policy' => SiteSetting::get('refund_policy', ''),
             'author_name' => SiteSetting::get('author_name', 'মুক্তাদা'),
             'author_bio' => SiteSetting::get('author_bio', ''),
             'author_quote' => SiteSetting::get('author_quote', ''),
@@ -51,6 +58,12 @@ class SettingController extends Controller
             'site_name' => 'required|string|max:200',
             'site_tagline' => 'nullable|string|max:300',
             'site_logo' => 'nullable|image|mimes:jpeg,png,jpg,webp,svg,gif|max:4096',
+            'hero_banner' => 'nullable|image|mimes:jpeg,png,jpg,webp|max:8192',
+            'bg_music' => 'nullable|mimes:mp3,wav,ogg,m4a,aac|max:15360',
+            'bg_music_enabled' => 'nullable|in:0,1',
+            'privacy_policy' => 'nullable|string',
+            'terms_conditions' => 'nullable|string',
+            'refund_policy' => 'nullable|string',
             'author_name' => 'required|string|max:100',
             'author_bio' => 'nullable|string',
             'author_quote' => 'nullable|string',
@@ -84,12 +97,13 @@ class SettingController extends Controller
             'delivery_charge_dhaka', 'delivery_charge_outside', 'contact_email',
             'contact_phone', 'contact_address', 'facebook_url', 'whatsapp_number', 'youtube_url',
             'mail_mailer', 'mail_host', 'mail_port', 'mail_username', 'mail_password',
-            'mail_encryption', 'mail_from_address', 'mail_from_name'
+            'mail_encryption', 'mail_from_address', 'mail_from_name',
+            'privacy_policy', 'terms_conditions', 'refund_policy', 'bg_music_enabled'
         ];
 
         foreach ($settingKeys as $key) {
-            if (isset($validated[$key])) {
-                SiteSetting::set($key, (string) $validated[$key]);
+            if (array_key_exists($key, $validated)) {
+                SiteSetting::set($key, (string) ($validated[$key] ?? ''));
             }
         }
 
@@ -108,6 +122,35 @@ class SettingController extends Controller
             try {
                 @copy($destDir . '/' . $logoName, public_path('muktadar-logo.jpg'));
             } catch (\Throwable $e) {}
+        }
+
+        if ($request->hasFile('hero_banner')) {
+            $bannerFile = $request->file('hero_banner');
+            $bannerExt = $bannerFile->getClientOriginalExtension();
+            $bannerName = 'banner_' . time() . '.' . $bannerExt;
+            $destDir = public_path('uploads');
+            if (!file_exists($destDir)) {
+                @mkdir($destDir, 0775, true);
+            }
+            $bannerFile->move($destDir, $bannerName);
+            SiteSetting::set('hero_banner', 'uploads/' . $bannerName);
+
+            try {
+                @copy($destDir . '/' . $bannerName, public_path('muktadar-hero-banner.jpg'));
+            } catch (\Throwable $e) {}
+        }
+
+        if ($request->hasFile('bg_music')) {
+            $musicFile = $request->file('bg_music');
+            $musicExt = $musicFile->getClientOriginalExtension();
+            $musicName = 'ambient_' . time() . '.' . $musicExt;
+            $destDir = public_path('uploads');
+            if (!file_exists($destDir)) {
+                @mkdir($destDir, 0775, true);
+            }
+            $musicFile->move($destDir, $musicName);
+            SiteSetting::set('bg_music', 'uploads/' . $musicName);
+            SiteSetting::set('bg_music_enabled', '1');
         }
 
         if ($request->hasFile('author_photo')) {

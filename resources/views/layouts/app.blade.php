@@ -216,7 +216,7 @@
 
             <div class="footer-col">
                 <b>যোগাযোগ</b>
-                <span><i class="bi bi-envelope-fill text-danger me-2"></i> {{ \App\Models\SiteSetting::get('contact_email', 'contact@muktadasbookhouse.com') }}</span>
+                <span><i class="bi bi-envelope-fill text-danger me-2"></i> {{ \App\Models\SiteSetting::get('contact_email', 'info@muktadarboighor.com') }}</span>
                 <span><i class="bi bi-telephone-fill text-danger me-2"></i> {{ \App\Models\SiteSetting::get('contact_phone', '+880 1700-112233') }}</span>
                 <span><i class="bi bi-geo-alt-fill text-danger me-2"></i> {{ \App\Models\SiteSetting::get('contact_address', 'কনকর্ড টাওয়ার, শান্তিনগর, ঢাকা-১২১৭') }}</span>
                 <span style="color:#94a3b8; font-size:12px; margin-top:8px;"><i class="bi bi-truck text-success me-1"></i> সারাদেশে ক্যাশ অন ডেলিভারি সুবিধা প্রযোজ্য।</span>
@@ -226,7 +226,7 @@
         <div class="footer-bottom">
             <div class="footer-bottom-inner">
                 <div>স্বত্ব © ২০২৪-{{ date('Y') }} মুক্তাদার বইঘর (Muktada's Boighor)। সর্বস্বত্ব সংরক্ষিত।</div>
-                <div>ডিজিটাল পাঠ ও প্রকাশনা সহযোগী: <strong>Muktada Book House</strong></div>
+                <div>ডিজিটাল পাঠ ও প্রকাশনা সহযোগী: <strong>মুক্তাদার বইঘর</strong></div>
             </div>
         </div>
     </footer>
@@ -235,6 +235,47 @@
     <footer class="checkout-minimal-footer">
         <div><i class="bi bi-shield-lock-fill text-success me-1"></i> স্বত্ব © ২০২৪-{{ date('Y') }} মুক্তাদার বইঘর। নিরাপদ পেমেন্ট ও এনক্রিপ্টেড চেকআউট।</div>
     </footer>
+    @endif
+
+    @php $bgMusic = \App\Models\SiteSetting::getBgMusic(); @endphp
+    @if($bgMusic)
+    <!-- Ambient Background Music Floating Controller -->
+    <div id="ambientMusicWidget" style="position: fixed; bottom: 20px; left: 20px; z-index: 9999; background: rgba(15, 23, 42, 0.9); backdrop-filter: blur(8px); border: 1px solid rgba(255, 255, 255, 0.15); border-radius: 30px; padding: 6px 14px; display: flex; align-items: center; gap: 8px; box-shadow: 0 4px 20px rgba(0, 0, 0, 0.25); color: #fff; font-size: 13px; font-weight: 600; cursor: pointer; transition: all 0.3s ease;">
+        <audio id="ambientAudio" loop preload="none">
+            <source src="{{ $bgMusic }}">
+        </audio>
+        <span id="ambientIcon" style="display: flex; align-items: center; justify-content: center; width: 26px; height: 26px; border-radius: 50%; background: linear-gradient(135deg, #10b981, #059669); color: #fff; font-size: 13px;">
+            <i class="bi bi-music-note-beamed"></i>
+        </span>
+        <span id="ambientText">মৃদু সুর শুনুন</span>
+    </div>
+    <script>
+        (function() {
+            var audio = document.getElementById('ambientAudio');
+            var widget = document.getElementById('ambientMusicWidget');
+            var icon = document.getElementById('ambientIcon');
+            var text = document.getElementById('ambientText');
+            if (!audio || !widget) return;
+            var isPlaying = false;
+            widget.addEventListener('click', function() {
+                if (isPlaying) {
+                    audio.pause();
+                    isPlaying = false;
+                    icon.innerHTML = '<i class="bi bi-play-fill"></i>';
+                    text.innerText = 'সুর শুনুন';
+                    widget.style.background = 'rgba(15, 23, 42, 0.9)';
+                } else {
+                    audio.volume = 0.35;
+                    audio.play().then(function() {
+                        isPlaying = true;
+                        icon.innerHTML = '<i class="bi bi-pause-fill"></i>';
+                        text.innerText = 'সুর চলছে';
+                        widget.style.background = 'rgba(16, 185, 129, 0.95)';
+                    }).catch(function() {});
+                }
+            });
+        })();
+    </script>
     @endif
 
     @yield('scripts')

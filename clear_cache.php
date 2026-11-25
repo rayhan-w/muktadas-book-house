@@ -134,21 +134,32 @@ try {
         $artisanOut = trim(\Illuminate\Support\Facades\Artisan::output());
         $results[] = "✅ ডাটাবেজ মাইগ্রেশন সম্পন্ন হয়েছে: " . ($artisanOut ?: "সব মাইগ্রেশন অলরেডি আপ-টু-ডেট");
 
-        // Ensure Admin user password is password123 & name is clean
-        $admin = \App\Models\User::where('email', 'admin@muktadasbookhouse.com')->first();
+        // Ensure Admin user exists with correct domain email & password123
+        $admin = \App\Models\User::where('role', 'admin')
+            ->orWhere('email', 'info@muktadarboighor.com')
+            ->orWhere('email', 'admin@muktadarboighor.com')
+            ->orWhere('email', 'admin@muktadasbookhouse.com')
+            ->first();
+
         if ($admin) {
-            if (empty($admin->name) || preg_match('/^[?\s]+$/', $admin->name) || str_contains($admin->name, 'Ó')) {
-                $admin->name = 'মুক্তাদার অ্যাডমিন';
-                $admin->address = 'ঢাকা, বাংলাদেশ';
-            }
-            if (!\Illuminate\Support\Facades\Hash::check('password123', $admin->password)) {
-                $admin->password = \Illuminate\Support\Facades\Hash::make('password123');
-                $admin->save();
-                $results[] = "✅ অ্যাডমিন পাসওয়ার্ড সিঙ্ক করা হয়েছে (admin@muktadasbookhouse.com / password123)";
-            } else {
-                $admin->save();
-                $results[] = "✅ অ্যাডমিন অ্যাকাউন্ট সম্পূর্ণ সচল ও ভেরিফায়েড।";
-            }
+            $admin->role = 'admin';
+            $admin->email = 'info@muktadarboighor.com'; // Official domain email
+            $admin->name = 'মুক্তাদার অ্যাডমিন';
+            $admin->phone = '01700112233';
+            $admin->address = 'ঢাকা, বাংলাদেশ';
+            $admin->password = \Illuminate\Support\Facades\Hash::make('password123');
+            $admin->save();
+            $results[] = "✅ অ্যাডমিন অ্যাকাউন্ট সিঙ্ক করা হয়েছে (ইমেইল: info@muktadarboighor.com বা admin / পাসওয়ার্ড: password123)";
+        } else {
+            \App\Models\User::create([
+                'name' => 'মুক্তাদার অ্যাডমিন',
+                'email' => 'info@muktadarboighor.com',
+                'phone' => '01700112233',
+                'role' => 'admin',
+                'address' => 'ঢাকা, বাংলাদেশ',
+                'password' => \Illuminate\Support\Facades\Hash::make('password123'),
+            ]);
+            $results[] = "✅ নতুন অ্যাডমিন অ্যাকাউন্ট তৈরি করা হয়েছে (info@muktadarboighor.com / password123)";
         }
 
         // Clean any corrupted membership plans in users table

@@ -25,27 +25,40 @@ class AuthController extends Controller
 
     public function login(Request $request)
     {
-        $credentials = $request->validate([
-            'email' => 'required|email',
+        $request->validate([
+            'email' => 'required|string',
             'password' => 'required',
         ]);
 
+        $loginInput = trim($request->input('email'));
+        $password = (string) $request->input('password');
         $remember = $request->filled('remember');
 
-        if (Auth::attempt($credentials, $remember)) {
+        // Find user by email or phone
+        $user = User::where('email', $loginInput)
+            ->orWhere('phone', $loginInput)
+            ->first();
+
+        // Admin login shortcuts / domain variations
+        if (!$user && in_array(strtolower($loginInput), ['admin', 'admin@muktadarboighor.com', 'info@muktadarboighor.com', 'admin@muktadasbookhouse.com'])) {
+            $user = User::where('role', 'admin')->first();
+        }
+
+        if ($user && Hash::check($password, $user->password)) {
+            Auth::login($user, $remember);
             $request->session()->regenerate();
 
-            if (Auth::user()->isAdmin()) {
+            if ($user->isAdmin()) {
                 return redirect()->route('admin.dashboard');
             }
-            if (Auth::user()->isPublisher()) {
+            if ($user->isPublisher()) {
                 return redirect()->route('publisher.dashboard');
             }
             return redirect()->intended(route('reader.dashboard'));
         }
 
         return back()->withErrors([
-            'email' => 'ইমেইল বা পাসওয়ার্ড সঠিক নয়। আবার চেষ্টা করুন।',
+            'email' => 'ইমেইল/ফোন অথবা পাসওয়ার্ড সঠিক নয়। আবার চেষ্টা করুন।',
         ])->onlyInput('email');
     }
 

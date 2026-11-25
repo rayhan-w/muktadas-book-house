@@ -756,7 +756,7 @@
     <!-- Official Author Hero Banner (Page 1 Design - Centered & Responsive) -->
     <section class="hero-banner-section">
         <a href="{{ route('books.index') }}" class="hero-banner-link" title="মুক্তাদার বইঘর — এখনই কিনুন">
-            <img src="{{ asset('muktadar-hero-banner.jpg') }}" 
+            <img src="{{ \App\Models\SiteSetting::getBanner() }}" 
                  alt="মুক্তাদার বইঘর — ভালো বই, সুন্দর ভাবনা। শব্দের মায়ায়, গল্পের ছায়ায়— বইয়ের পাতায় খুঁজে নিন জীবন, স্বপ্ন ও নতুন এক পৃথিবী। এখনই কিনুন" 
                  class="hero-banner-image"
                  loading="eager"

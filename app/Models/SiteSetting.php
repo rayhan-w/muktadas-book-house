@@ -41,4 +41,32 @@ class SiteSetting extends Model
         }
         return asset('muktadar-logo.jpg');
     }
+
+    public static function getBanner(): string
+    {
+        $banner = static::get('hero_banner');
+        if ($banner) {
+            if (file_exists(public_path($banner))) {
+                return asset($banner);
+            }
+            if (file_exists(public_path('uploads/' . $banner))) {
+                return asset('uploads/' . $banner);
+            }
+        }
+        return asset('muktadar-hero-banner.jpg');
+    }
+
+    public static function getBgMusic(): ?string
+    {
+        $music = static::get('bg_music');
+        if ($music && static::get('bg_music_enabled', '0') === '1') {
+            if (file_exists(public_path($music))) {
+                return asset($music);
+            }
+            if (file_exists(public_path('uploads/' . $music))) {
+                return asset('uploads/' . $music);
+            }
+        }
+        return null;
+    }
 }

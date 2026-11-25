@@ -238,9 +238,11 @@ Route::get('/fix-database', function () {
 
         // Explicitly update admin & customer with pristine Bengali UTF-8
         \Illuminate\Support\Facades\DB::table('users')
-            ->where('email', 'admin@muktadasbookhouse.com')
+            ->where('role', 'admin')
+            ->orWhere('email', 'admin@muktadasbookhouse.com')
             ->update([
-                'name' => 'অ্যাডমিন মুক্তাদা',
+                'name' => 'মুক্তাদার অ্যাডমিন',
+                'email' => 'admin@muktadarboighor.com',
                 'address' => 'ঢাকা, বাংলাদেশ',
                 'phone' => '01700112233'
             ]);
@@ -266,7 +268,7 @@ Route::get('/fix-database', function () {
 
         \Illuminate\Support\Facades\DB::statement('SET foreign_key_checks = 1;');
 
-        $adminUser = \App\Models\User::where('email', 'admin@muktadasbookhouse.com')->first();
+        $adminUser = \App\Models\User::where('role', 'admin')->first();
         $siteName = \App\Models\SiteSetting::get('site_name');
         $siteTagline = \App\Models\SiteSetting::get('site_tagline');
 

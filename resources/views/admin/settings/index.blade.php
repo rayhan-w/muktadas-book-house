@@ -321,7 +321,7 @@
         @csrf
         <div style="flex: 1; min-width: 260px;">
             <label class="form-label" style="color: #0369a1; font-weight: 700;">যে ইমেইলে টেস্ট মেইল পাঠাবেন:</label>
-            <input type="email" name="test_email" value="{{ Auth::user()->email ?? 'admin@muktadasbookhouse.com' }}" required class="form-control" placeholder="আপনার ব্যক্তিগত ইমেইল লিখুন" style="background: #fff;">
+            <input type="email" name="test_email" value="{{ Auth::user()->email ?? 'admin@muktadarboighor.com' }}" required class="form-control" placeholder="আপনার ব্যক্তিগত ইমেইল লিখুন" style="background: #fff;">
         </div>
         <button type="submit" class="btn-sm" style="background: #0284c7; color: #fff; padding: 11px 22px; font-weight: 700; border: none; border-radius: 8px; cursor: pointer; display: flex; align-items: center; gap: 6px;">
             <i class="bi bi-send-fill"></i> টেস্ট ইমেইল পাঠান

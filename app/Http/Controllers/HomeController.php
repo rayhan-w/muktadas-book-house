@@ -71,7 +71,7 @@ class HomeController extends Controller
     public function contact()
     {
         $settings = [
-            'contact_email' => SiteSetting::get('contact_email', 'contact@muktadasbookhouse.com'),
+            'contact_email' => SiteSetting::get('contact_email', 'info@muktadarboighor.com'),
             'contact_phone' => SiteSetting::get('contact_phone', '+880 1700-112233'),
             'contact_address' => SiteSetting::get('contact_address', 'ঢাকা, বাংলাদেশ'),
             'facebook_url' => SiteSetting::get('facebook_url', '#'),

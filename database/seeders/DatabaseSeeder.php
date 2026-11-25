@@ -19,9 +19,9 @@ class DatabaseSeeder extends Seeder
     {
         // 1. Create Admin & Customer Users
         $admin = User::updateOrCreate(
-            ['email' => 'admin@muktadasbookhouse.com'],
+            ['email' => 'admin@muktadarboighor.com'],
             [
-                'name' => 'অ্যাডমিন মুক্তাদা',
+                'name' => 'মুক্তাদার অ্যাডমিন',
                 'password' => Hash::make('password123'),
                 'role' => 'admin',
                 'phone' => '01700112233',
@@ -282,10 +282,10 @@ class DatabaseSeeder extends Seeder
             'payment_instruction' => 'বিকাশ, নগদ বা উপায়-এ নির্ধারিত টাকা পাঠিয়ে Transaction ID এবং আপনার নম্বরটি দিন। তথ্য সঠিক হলে দ্রুত অর্ডার সম্পন্ন হবে।',
             'delivery_charge_dhaka' => '60',
             'delivery_charge_outside' => '120',
-            'contact_email' => 'contact@muktadasbookhouse.com',
+            'contact_email' => 'info@muktadarboighor.com',
             'contact_phone' => '+880 1700-112233',
             'contact_address' => 'কনকর্ড টাওয়ার, শান্তিনগর, ঢাকা-১২১৭',
-            'facebook_url' => 'https://facebook.com/muktadasbookhouse',
+            'facebook_url' => 'https://facebook.com/muktadarboighor',
             'whatsapp_number' => '+8801700112233',
             'youtube_url' => 'https://youtube.com',
         ];

@@ -136,30 +136,30 @@ try {
 
         // Ensure Admin user exists with correct domain email & password123
         $admin = \App\Models\User::where('role', 'admin')
-            ->orWhere('email', 'info@muktadarboighor.com')
             ->orWhere('email', 'admin@muktadarboighor.com')
+            ->orWhere('email', 'info@muktadarboighor.com')
             ->orWhere('email', 'admin@muktadasbookhouse.com')
             ->first();
 
         if ($admin) {
             $admin->role = 'admin';
-            $admin->email = 'info@muktadarboighor.com'; // Official domain email
+            $admin->email = 'admin@muktadarboighor.com'; // Official domain boighor email
             $admin->name = 'মুক্তাদার অ্যাডমিন';
             $admin->phone = '01700112233';
             $admin->address = 'ঢাকা, বাংলাদেশ';
             $admin->password = \Illuminate\Support\Facades\Hash::make('password123');
             $admin->save();
-            $results[] = "✅ অ্যাডমিন অ্যাকাউন্ট সিঙ্ক করা হয়েছে (ইমেইল: info@muktadarboighor.com বা admin / পাসওয়ার্ড: password123)";
+            $results[] = "✅ অ্যাডমিন অ্যাকাউন্ট সিঙ্ক করা হয়েছে (ইমেইল: admin@muktadarboighor.com বা info@muktadarboighor.com / পাসওয়ার্ড: password123)";
         } else {
             \App\Models\User::create([
                 'name' => 'মুক্তাদার অ্যাডমিন',
-                'email' => 'info@muktadarboighor.com',
+                'email' => 'admin@muktadarboighor.com',
                 'phone' => '01700112233',
                 'role' => 'admin',
                 'address' => 'ঢাকা, বাংলাদেশ',
                 'password' => \Illuminate\Support\Facades\Hash::make('password123'),
             ]);
-            $results[] = "✅ নতুন অ্যাডমিন অ্যাকাউন্ট তৈরি করা হয়েছে (info@muktadarboighor.com / password123)";
+            $results[] = "✅ নতুন অ্যাডমিন অ্যাকাউন্ট তৈরি করা হয়েছে (admin@muktadarboighor.com / password123)";
         }
 
         // Clean any corrupted membership plans in users table
